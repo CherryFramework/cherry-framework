@@ -1,0 +1,43 @@
+label.cherry-label {
+  margin: 0 0 5px 0;
+  display: block;
+}
+
+.wp-picker-container {
+  display: block;
+  background-color: #ffffff;
+  border: 1px solid #dddcdc;
+  border-radius: 6px;
+  display: inline-block;
+  padding: 4px;
+}
+.wp-picker-container a.wp-color-result {
+  border: medium none;
+  box-shadow: none;
+  height: 32px;
+  margin: 0;
+}
+.wp-picker-container a.wp-color-result:after {
+  background-color: #ffffff;
+  border: medium none;
+  border-radius: 0;
+  line-height: 32px;
+}
+@media screen and (max-width: 782px) {
+  .wp-picker-container a.wp-color-result {
+    height: 36px;
+  }
+  .wp-picker-container a.wp-color-result:after {
+    line-height: 36px;
+  }
+}
+.wp-picker-container .wp-picker-holder {
+  position: absolute;
+  z-index: 1000;
+}
+.wp-picker-container .wp-picker-input-wrap input[type="text"] {
+  padding: 7px 4px;
+}
+.wp-picker-container .wp-picker-input-wrap input.wp-picker-clear {
+  height: 32px;
+}

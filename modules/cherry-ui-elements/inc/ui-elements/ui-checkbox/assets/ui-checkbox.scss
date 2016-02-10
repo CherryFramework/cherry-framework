@@ -1,0 +1,31 @@
+label.cherry-label{
+	margin: 0 0 5px 0;
+	display: block;
+}
+.cherry-checkbox-item{
+	width: 21px;
+	height: 21px;
+	display: inline-block;
+	border-radius: 3px;
+	margin-right: 5px;
+	cursor: pointer;
+	position: relative;
+	background-color: #fff;
+	border: 1px solid #dddcdc;
+		&.checked{
+			.marker{
+				display: block;
+			}
+		}
+		.marker{
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: none;
+		}
+}
+.cherry-checkbox-label{
+	display: inline-block;
+	vertical-align: top;
+	margin: 1px 0 5px 0;
+}

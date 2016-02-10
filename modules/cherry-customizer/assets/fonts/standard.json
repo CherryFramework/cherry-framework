@@ -1,0 +1,209 @@
+{
+ "kind": "standartfonts#standartfonts",
+ "items": [
+  {
+   "kind": "standartfonts#standartfonts",
+   "family": "Arial, Helvetica",
+   "category": "sans-serif",
+   "variants": [
+    "regular",
+    "italic",
+    "700",
+    "700italic"
+   ],
+   "subsets": ["latin"]
+  },
+  {
+   "kind": "standartfonts#standartfonts",
+   "family": "Arial Black, Gadget",
+   "category": "sans-serif",
+   "variants": [
+    "regular",
+    "italic",
+    "700",
+    "700italic"
+   ],
+   "subsets": ["latin"]
+  },
+  {
+   "kind": "standartfonts#standartfont",
+   "family": "Bookman Old Style",
+   "category": "serif",
+   "variants": [
+    "regular",
+    "italic",
+    "700",
+    "700italic"
+   ],
+   "subsets": ["latin"]
+  },
+  {
+   "kind": "standartfonts#standartfont",
+   "family": "Comic Sans MS",
+   "category": "cursive",
+   "variants": [
+    "regular",
+    "italic",
+    "700",
+    "700italic"
+   ],
+   "subsets": ["latin"]
+  },
+  {
+   "kind": "standartfonts#standartfont",
+   "family": "Courier",
+   "category": "monospace",
+   "variants": [
+    "regular",
+    "italic",
+    "700",
+    "700italic"
+   ],
+   "subsets": ["latin"]
+  },
+  {
+   "kind": "standartfonts#standartfont",
+   "family": "Garamond",
+   "category": "serif",
+   "variants": [
+    "regular",
+    "italic",
+    "700",
+    "700italic"
+   ],
+   "subsets": ["latin"]
+  },
+  {
+   "kind": "standartfonts#standartfont",
+   "family": "Georgia",
+   "category": "serif",
+   "variants": [
+    "regular",
+    "italic",
+    "700",
+    "700italic"
+   ],
+   "subsets": ["latin"]
+  },
+  {
+   "kind": "standartfonts#standartfont",
+   "family": "Impact, Charcoal",
+   "category": "sans-serif",
+   "variants": [
+    "regular",
+    "italic",
+    "700",
+    "700italic"
+   ],
+   "subsets": ["latin"]
+  },
+  {
+   "kind": "standartfonts#standartfont",
+   "family": "Lucida Console, Monaco",
+   "category": "monospace",
+   "variants": [
+    "regular",
+    "italic",
+    "700",
+    "700italic"
+   ],
+   "subsets": ["latin"]
+  },
+  {
+   "kind": "standartfonts#standartfont",
+   "family": "Lucida Sans Unicode, Lucida Grande",
+   "category": "sans-serif",
+   "variants": [
+    "regular",
+    "italic",
+    "700",
+    "700italic"
+   ],
+   "subsets": ["latin"]
+  },
+  {
+   "kind": "standartfonts#standartfont",
+   "family": "MS Sans Serif, Geneva",
+   "category": "sans-serif",
+   "variants": [
+    "regular",
+    "italic",
+    "700",
+    "700italic"
+   ],
+   "subsets": ["latin"]
+  },
+  {
+   "kind": "standartfonts#standartfont",
+   "family": "MS Serif, New York",
+   "category": "sans-serif",
+   "variants": [
+    "regular",
+    "italic",
+    "700",
+    "700italic"
+   ],
+   "subsets": ["latin"]
+  },
+  {
+   "kind": "standartfonts#standartfont",
+   "family": "Palatino Linotype, Book Antiqua, Palatino",
+   "category": "serif",
+   "variants": [
+    "regular",
+    "italic",
+    "700",
+    "700italic"
+   ],
+   "subsets": ["latin"]
+  },
+  {
+   "kind": "standartfonts#standartfont",
+   "family": "Tahoma, Geneva",
+   "category": "sans-serif",
+   "variants": [
+    "regular",
+    "italic",
+    "700",
+    "700italic"
+   ],
+   "subsets": ["latin"]
+  },
+  {
+   "kind": "standartfonts#standartfont",
+   "family": "Times New Roman, Times",
+   "category": "serif",
+   "variants": [
+    "regular",
+    "italic",
+    "700",
+    "700italic"
+   ],
+   "subsets": ["latin"]
+  },
+  {
+   "kind": "standartfonts#standartfont",
+   "family": "Trebuchet MS, Helvetica",
+   "category": "sans-serif",
+   "variants": [
+    "regular",
+    "italic",
+    "700",
+    "700italic"
+   ],
+   "subsets": ["latin"]
+  },
+  {
+   "kind": "standartfonts#standartfont",
+   "family": "Verdana, Geneva",
+   "category": "sans-serif",
+   "variants": [
+    "regular",
+    "italic",
+    "700",
+    "700italic"
+   ],
+   "subsets": ["latin"]
+  }
+ ]
+}
