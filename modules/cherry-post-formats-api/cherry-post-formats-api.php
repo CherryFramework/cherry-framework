@@ -214,8 +214,7 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 
 			wp_enqueue_script(
 				'cherry-post-formats',
-				//$base_url . '/assets/js/min/cherry-post-formats.min.js', array( 'jquery', 'cherry-api' ),
-				$base_url . '/assets/js/cherry-post-formats.js', array( 'jquery', 'cherry-api' ),
+				$base_url . '/assets/js/min/cherry-post-formats.min.js', array( 'jquery', 'cherry-api' ),
 				$this->module_version,
 				true
 			);

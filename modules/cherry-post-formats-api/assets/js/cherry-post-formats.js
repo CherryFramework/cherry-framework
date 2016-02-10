@@ -42,9 +42,6 @@
 					object: object
 				});
 
-				console.log( $( this ).data( 'initalized' ) );
-				console.log( plugin );
-
 				if ( true === $( this ).data( 'initalized' ) ) {
 					return 1;
 				}

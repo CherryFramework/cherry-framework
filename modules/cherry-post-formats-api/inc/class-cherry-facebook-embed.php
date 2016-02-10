@@ -40,6 +40,7 @@ if ( ! class_exists( 'Cherry_Facebook_Embed' ) ) {
 		/**
 		 * Register Facebook provider
 		 *
+		 * @since  1.0.0
 		 * @param  array $providers Existing providers.
 		 * @return array
 		 */
