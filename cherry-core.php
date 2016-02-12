@@ -31,7 +31,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 *
 		 * @var string
 		 */
-		public $core_version = '0.9.3';
+		public $core_version = '0.9.4';
 
 		/**
 		 * Core settings.
@@ -39,6 +39,13 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @var array
 		 */
 		public $settings = array();
+
+		/**
+		 * Holder for all registered modules for current core instance.
+		 *
+		 * @var array
+		 */
+		public $modules = array();
 
 		/**
 		* Cherry_Core constructor
@@ -91,7 +98,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 					 * @param array       $args            Module rguments.
 					 * @param Cherry_Core $this            Current core object.
 					 */
-					apply_filters( $hook, false, $arg, $this );
+					$this->modules[ $module ] = apply_filters( $hook, false, $arg, $this );
 				}
 			}
 
@@ -192,7 +199,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 				return false;
 			}
 
-			return call_user_func( array( $class_name, 'get_instance' ), $this, $args );
+			return $this->modules[ $module ] = call_user_func( array( $class_name, 'get_instance' ), $this, $args );
 		}
 
 		/**

@@ -303,7 +303,21 @@ if ( ! class_exists( 'Cherry_Google_Fonts_Loader' ) ) {
 			$google_fonts = $this->get_google_fonts();
 
 			if ( empty( $google_fonts ) ) {
-				return false;
+
+				$customizer = isset( $this->core->modules['cherry-customizer'] ) ? $this->core->modules['cherry-customizer'] : false;
+
+				if ( ! $customizer ) {
+					return false;
+				}
+
+				$customizer->init_fonts();
+
+				$google_fonts = $this->get_google_fonts();
+
+				if ( empty( $google_fonts ) ) {
+					return false;
+				}
+
 			}
 
 			foreach ( $google_fonts as $font ) {
@@ -325,7 +339,7 @@ if ( ! class_exists( 'Cherry_Google_Fonts_Loader' ) ) {
 		public function get_google_fonts() {
 
 			if ( null === $this->google_fonts ) {
-				$this->google_fonts = get_option( 'cherry_customiser_fonts_google' );
+				$this->google_fonts = get_option( 'cherry_customiser_fonts_google', null );
 			}
 
 			return $this->google_fonts;
