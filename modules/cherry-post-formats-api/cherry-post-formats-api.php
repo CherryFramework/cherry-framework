@@ -596,6 +596,12 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		 */
 		public function get_post_format_gallery( $args ) {
 
+			if ( ! $args ) {
+				$args = array();
+			}
+
+			$args = wp_parse_args( $args, $this->args['gallery_args'] );
+
 			/**
 			 * Filter post format gallery output to rewrite gallery from child theme or plugins.
 			 *
@@ -613,7 +619,16 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 
 			// First - try to get images from galleries in post.
 			$is_html      = ( true === $this->args['rewrite_default_gallery'] ) ? true : false;
+
+			// Temporary replace default global args with currently parsed
+			$temp_args                  = $this->args;
+			$this->args['gallery_args'] = $args;
+
 			$post_gallery = get_post_gallery( $post_id, $is_html );
+
+			// Restore default arguments list
+			$this->args = null;
+			$this->args = $temp_args;
 
 			// If stanadrd gallery shortcode replaced with cherry - return HTML.
 			if ( is_string( $post_gallery ) && ! empty( $post_gallery ) ) {
