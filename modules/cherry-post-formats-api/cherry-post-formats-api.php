@@ -615,8 +615,6 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 				return $result;
 			}
 
-			$post_id = get_the_ID();
-
 			// First - try to get images from galleries in post.
 			$is_html      = ( true === $this->args['rewrite_default_gallery'] ) ? true : false;
 
@@ -624,11 +622,42 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 			$temp_args                  = $this->args;
 			$this->args['gallery_args'] = $args;
 
-			$post_gallery = get_post_gallery( $post_id, $is_html );
+			$post_gallery = $this->get_gallery_images( $is_html, $args );
 
 			// Restore default arguments list
 			$this->args = null;
 			$this->args = $temp_args;
+
+			// If stanadrd gallery shortcode replaced with cherry - return HTML.
+			if ( is_string( $post_gallery ) && ! empty( $post_gallery ) ) {
+				return $post_gallery;
+			} else if ( empty( $post_gallery ) ) {
+				return false;
+			}
+
+			$output = $this->get_gallery_html( $post_gallery, $args );
+
+			/**
+			 * Filter a post gallery.
+			 *
+			 * @since 1.0.0
+			 * @param string $output Post gallery.
+			 */
+			return apply_filters( 'cherry_get_the_post_gallery', $output );
+		}
+
+		/**
+		 * Get galeery images list or try to get gallery HTML
+		 *
+		 * @param  bool  $is_html is HTML returns or not
+		 * @param  array $args    argumnets array
+		 * @return mixed
+		 */
+		public function get_gallery_images( $is_html, $args = array() ) {
+
+			$post_id = get_the_ID();
+
+			$post_gallery = get_post_gallery( $post_id, $is_html );
 
 			// If stanadrd gallery shortcode replaced with cherry - return HTML.
 			if ( is_string( $post_gallery ) && ! empty( $post_gallery ) ) {
@@ -664,19 +693,7 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 				}
 			}
 
-			if ( ! $post_gallery || empty( $post_gallery ) ) {
-				return false;
-			}
-
-			$output = $this->get_gallery_html( $post_gallery, $args );
-
-			/**
-			 * Filter a post gallery.
-			 *
-			 * @since 1.0.0
-			 * @param string $output Post gallery.
-			 */
-			return apply_filters( 'cherry_get_the_post_gallery', $output );
+			return $post_gallery;
 		}
 
 		/**
