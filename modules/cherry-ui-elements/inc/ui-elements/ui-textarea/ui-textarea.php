@@ -28,6 +28,7 @@ if ( ! class_exists( 'UI_Textarea' ) ) {
 			'cols'			=> '20',
 			'label'			=> '',
 			'class'			=> '',
+			'master'		=> '',
 		);
 
 		/**
@@ -50,10 +51,15 @@ if ( ! class_exists( 'UI_Textarea' ) ) {
 		public function render() {
 			$html = '';
 
-			if( '' !== $this->settings['label'] ){
-				$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . $this->settings['label'] . '</label> ';
-			}
-			$html .= '<textarea id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-textarea ' . esc_attr( $this->settings['class'] ) . '" name="' . esc_attr( $this->settings['name'] ) . '" rows="' . esc_attr( $this->settings['rows'] ) . '" cols="' . esc_attr( $this->settings['cols'] ) . '" placeholder="' . esc_attr( $this->settings['placeholder'] ) . '">' . esc_html( $this->settings['value'] ) . '</textarea>';
+			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
+
+			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
+				if( '' !== $this->settings['label'] ){
+					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . $this->settings['label'] . '</label> ';
+				}
+				$html .= '<textarea id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-textarea ' . esc_attr( $this->settings['class'] ) . '" name="' . esc_attr( $this->settings['name'] ) . '" rows="' . esc_attr( $this->settings['rows'] ) . '" cols="' . esc_attr( $this->settings['cols'] ) . '" placeholder="' . esc_attr( $this->settings['placeholder'] ) . '">' . esc_html( $this->settings['value'] ) . '</textarea>';
+			$html .= '</div>';
+
 			return $html;
 		}
 

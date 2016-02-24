@@ -486,6 +486,7 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 						'true_slave'   => '',
 						'false_slave'  => '',
 					) ),
+					'master'             => '',
 				);
 
 				$this->render_control( $args );
