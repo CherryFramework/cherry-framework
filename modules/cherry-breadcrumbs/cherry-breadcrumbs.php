@@ -95,6 +95,14 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			'target'    => 'cherry-breadcrumbs_item_target'
 		);
 
+		/**
+		 * Check if Breadcrumbs class was extended
+		 *
+		 * @since 1.0.0
+		 * @var   boolean
+		 */
+		public $is_extend = false;
+
 		function __construct( $core, $args = array() ) {
 
 			$this->core = $core;
@@ -151,7 +159,9 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 
 			$this->build_trail();
 
-			add_action( $this->args['action'], array( $this, 'get_trail' ) );
+			if ( ! $this->is_extend ) {
+				add_action( $this->args['action'], array( $this, 'get_trail' ) );
+			}
 
 		}
 
@@ -1266,7 +1276,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			if ( 'minified' == $this->args['path_type'] ) {
 				return;
 			}
-			
+
 			// Get the post type.
 			$post_type        = get_post_type( $post_id );
 			$post_type_object = get_post_type_object( $post_type );
