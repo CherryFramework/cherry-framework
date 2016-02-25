@@ -36,13 +36,13 @@
 					input.val( 'false' );
 					state = false;
 
-					$( '.' + slave, target ).stop().slideUp( 300 );
+					$( '.' + slave, target ).hide();
 				} else {
 					$( this ).addClass( 'checked' );
 					input.val( 'true' );
 					state = true;
 
-					$( '.' + slave, target ).stop().slideDown( 300 );
+					$( '.' + slave, target ).show();
 				}
 				//input.trigger( 'checkbox_change_event', [slave, state] );
 				input.trigger( 'change' );
@@ -59,13 +59,13 @@
 					input.val( 'false' );
 					state = false;
 
-					$( '.' + slave, target ).stop().slideUp( 300 );
+					$( '.' + slave, target ).hide();
 				} else {
 					item.addClass( 'checked' );
 					input.val( 'true' );
 					state = true;
 
-					$( '.' + slave, target ).stop().slideDown( 300 );
+					$( '.' + slave, target ).show();
 				}
 				//input.trigger( 'checkbox_change_event', [slave, state] );
 				input.trigger( 'change' );

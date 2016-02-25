@@ -56,10 +56,10 @@
 					input.trigger('change');
 
 					if ( $( '.' + true_slave, target )[0] ) {
-						$( '.' + true_slave , target ).stop().slideDown( 300 );
+						$( '.' + true_slave , target ).show();
 					}
 					if ( $( '.' + false_slave, target )[0] ){
-						$( '.' + false_slave, target ).stop().slideUp( 300 );
+						$( '.' + false_slave, target ).hide();
 					}
 
 					input.trigger('switcher_enabled_event', [true_slave, false_slave]);
@@ -69,10 +69,10 @@
 					input.attr('value', false ).trigger('change');
 
 					if ( $( '.' + true_slave, target)[0] ) {
-						$( '.' + true_slave, target).stop().slideUp( 300 );
+						$( '.' + true_slave, target).hide();
 					}
 					if ( $( '.' + false_slave, target )[0] ) {
-						$( '.' + false_slave, target ).stop().slideDown( 300 );
+						$( '.' + false_slave, target ).show();
 					}
 
 					input.trigger('switcher_disabled_event', [true_slave, false_slave]);

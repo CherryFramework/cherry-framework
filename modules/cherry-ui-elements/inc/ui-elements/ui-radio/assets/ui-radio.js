@@ -36,7 +36,7 @@
 				$this.parents('.cherry-radio-group').find('.checked').removeClass('checked');
 				$this.parent().addClass('checked');
 
-				$('.' + slave, target).stop().slideDown(300);
+				$('.' + slave, target).show();
 				radio_group_list.each(function(){
 					var
 						$this = $(this)
@@ -44,7 +44,7 @@
 					;
 
 					if( this_slave !== slave ){
-						$('.' + this_slave, target).stop().slideUp(300);
+						$('.' + this_slave, target).hide();
 					}
 				})
 
