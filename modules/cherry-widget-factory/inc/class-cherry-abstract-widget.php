@@ -334,6 +334,11 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 				} elseif ( isset( $old_instance[ $key ] ) ) {
 					$instance[ $key ] = '';
 				}
+
+				// WPML - register strings for translation.
+				if ( in_array( $setting['type'], array( 'text', 'textarea' ) ) && 'title' !== $key ) {
+					do_action( 'wpml_register_single_string', 'Widgets', "{$this->widget_name} - {$key}", $instance[ $key ] );
+				}
 			}
 
 			$this->flush_widget_cache();
@@ -548,6 +553,17 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 			 * Fires on widgget data reseting
 			 */
 			do_action( 'cherry_widget_reset_data' );
+		}
+
+		/**
+		 * Retrieve a string translation via WPML.
+		 *
+		 * @since  1.0.1
+		 * @param  string $id Widget setting ID.
+		 * @return string
+		 */
+		public function use_wpml_translate( $id ) {
+			return ! empty( $this->instance[ $id ] ) ? apply_filters( 'wpml_translate_single_string', $this->instance[ $id ], 'Widgets', "{$this->widget_name} - {$id}" ) : '';
 		}
 	}
 
