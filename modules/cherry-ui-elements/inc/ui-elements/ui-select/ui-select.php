@@ -52,6 +52,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 			'placeholder'	=> 'Select',
 			'label'			=> '',
 			'class'			=> '',
+			'master'		=> '',
 		);
 
 		/**
@@ -77,49 +78,54 @@ if ( ! class_exists( 'UI_Select' ) ) {
 
 			$html = '';
 
-			( $this->settings['filter'] ) ? $filter_state = 'data-filter="true"' : $filter_state = 'data-filter="false"' ;
+			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
 
-			( $this->settings['multiple'] ) ? $multi_state = 'multiple="multiple"' : $multi_state = '' ;
-			( $this->settings['multiple'] ) ? $name = $this->settings['name'] . '[]' : $name = $this->settings['name'] ;
+			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
 
-			if( '' !== $this->settings['label'] ){
-				$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . $this->settings['label'] . '</label> ';
-			}
+				( $this->settings['filter'] ) ? $filter_state = 'data-filter="true"' : $filter_state = 'data-filter="false"' ;
 
-			$html .= '<select id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-select ' . esc_attr( $this->settings['class'] ) . '" name="' . esc_attr( $name ) . '" size="' . esc_attr( $this->settings['size'] ) . '" ' . $multi_state . ' ' . $filter_state . ' placeholder="' . $this->settings['placeholder'] . '" style="width: 100%">';
-			if( $this->settings['options'] && !empty( $this->settings['options'] ) && is_array( $this->settings['options'] ) ){
-				foreach ( $this->settings['options'] as $option => $option_value) {
-					if ( !is_array( $this->settings['value'] ) ) {
-						$this->settings['value'] = array( $this->settings['value'] );
-					}
-					if( false === strpos( $option, 'optgroup' ) ){
-						$selected_state = '';
-						if( $this->settings['value'] && !empty( $this->settings['value'] ) ){
-							foreach ( $this->settings['value'] as $key => $value) {
-								$selected_state = selected( $value, $option, false );
-								if( $selected_state == " selected='selected'" ){
-									break;
-								}
-							}
+				( $this->settings['multiple'] ) ? $multi_state = 'multiple="multiple"' : $multi_state = '' ;
+				( $this->settings['multiple'] ) ? $name = $this->settings['name'] . '[]' : $name = $this->settings['name'] ;
+
+				if( '' !== $this->settings['label'] ){
+					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . $this->settings['label'] . '</label> ';
+				}
+
+				$html .= '<select id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-select ' . esc_attr( $this->settings['class'] ) . '" name="' . esc_attr( $name ) . '" size="' . esc_attr( $this->settings['size'] ) . '" ' . $multi_state . ' ' . $filter_state . ' placeholder="' . $this->settings['placeholder'] . '" style="width: 100%">';
+				if( $this->settings['options'] && !empty( $this->settings['options'] ) && is_array( $this->settings['options'] ) ){
+					foreach ( $this->settings['options'] as $option => $option_value) {
+						if ( !is_array( $this->settings['value'] ) ) {
+							$this->settings['value'] = array( $this->settings['value'] );
 						}
-						$html .= '<option value="' . esc_attr( $option ) . '" ' . $selected_state . '>'. esc_html( $option_value ) .'</option>';
-					}else{
-						$html .= '<optgroup label="' . esc_attr( $option_value['label'] ) . '">';
+						if( false === strpos( $option, 'optgroup' ) ){
 							$selected_state = '';
-							foreach ( $option_value['group_options'] as $group_item => $group_value) {
+							if( $this->settings['value'] && !empty( $this->settings['value'] ) ){
 								foreach ( $this->settings['value'] as $key => $value) {
-									$selected_state = selected( $value, $group_item, false );
+									$selected_state = selected( $value, $option, false );
 									if( $selected_state == " selected='selected'" ){
 										break;
 									}
 								}
-								$html .= '<option value="' . esc_attr( $group_item ) . '" ' . $selected_state . '>'. esc_html( $group_value ) .'</option>';
 							}
-						$html .= '</optgroup>';
+							$html .= '<option value="' . esc_attr( $option ) . '" ' . $selected_state . '>'. esc_html( $option_value ) .'</option>';
+						}else{
+							$html .= '<optgroup label="' . esc_attr( $option_value['label'] ) . '">';
+								$selected_state = '';
+								foreach ( $option_value['group_options'] as $group_item => $group_value) {
+									foreach ( $this->settings['value'] as $key => $value) {
+										$selected_state = selected( $value, $group_item, false );
+										if( $selected_state == " selected='selected'" ){
+											break;
+										}
+									}
+									$html .= '<option value="' . esc_attr( $group_item ) . '" ' . $selected_state . '>'. esc_html( $group_value ) .'</option>';
+								}
+							$html .= '</optgroup>';
+						}
 					}
 				}
-			}
-			$html .= '</select>';
+				$html .= '</select>';
+			$html .=  '</div>';
 
 			return $html;
 		}

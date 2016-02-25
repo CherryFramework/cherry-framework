@@ -15,6 +15,17 @@
 			}
 		},
 		render: function ( target ) {
+			$( '.cherry-radio-group', target ).each( function() {
+				$( '.cherry-radio-input[type="radio"]', this ).each( function() {
+					var $this = $(this),
+						this_slave = $this.data('slave');
+
+					if ( ! $this.is( ':checked' ) ) {
+						$( '.' + this_slave, target ).stop().hide();
+					}
+				} );
+			} );
+
 			$('.cherry-radio-input[type="radio"]', target).on('change', function(event){
 				var
 					$this = $(this)
@@ -24,6 +35,18 @@
 				;
 				$this.parents('.cherry-radio-group').find('.checked').removeClass('checked');
 				$this.parent().addClass('checked');
+
+				$('.' + slave, target).stop().slideDown(300);
+				radio_group_list.each(function(){
+					var
+						$this = $(this)
+					,	this_slave = $this.data('slave')
+					;
+
+					if( this_slave !== slave ){
+						$('.' + this_slave, target).stop().slideUp(300);
+					}
+				})
 
 				$this.trigger( 'radio_change_event', [slave, radio_group_list] );
 			})

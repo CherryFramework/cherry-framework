@@ -91,7 +91,7 @@ if ( ! class_exists( 'UI_Text' ) ) {
 
 			wp_enqueue_style(
 				'ui-text',
-				self::get_current_file_url() . '/assets/ui-text.css',
+				self::get_current_file_url() . '/assets/min/ui-text.min.css',
 				array(),
 				'1.0.0',
 				'all'

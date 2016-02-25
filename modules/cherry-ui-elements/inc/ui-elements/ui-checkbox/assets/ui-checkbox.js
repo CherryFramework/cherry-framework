@@ -16,6 +16,16 @@
 			}
 		},
 		render: function ( target ) {
+			$( '.cherry-checkbox-input[type="hidden"]', target ).each( function() {
+				var $this = $( this ),
+					this_slave = $this.data( 'slave' ),
+					state = ( $this.val() === 'true' );
+
+				if ( ! state ) {
+					$( '.'+ this_slave, target ).stop().hide();
+				}
+			})
+
 			$( '.cherry-checkbox-item', target ).on( 'click', function( event ) {
 				var input = $( this ).siblings( '.cherry-checkbox-input[type="hidden"]' ),
 					slave = input.data( 'slave' ),
@@ -25,10 +35,14 @@
 					$( this ).removeClass( 'checked' );
 					input.val( 'false' );
 					state = false;
+
+					$( '.' + slave, target ).stop().slideUp( 300 );
 				} else {
 					$( this ).addClass( 'checked' );
 					input.val( 'true' );
 					state = true;
+
+					$( '.' + slave, target ).stop().slideDown( 300 );
 				}
 				//input.trigger( 'checkbox_change_event', [slave, state] );
 				input.trigger( 'change' );
@@ -44,10 +58,14 @@
 					item.removeClass( 'checked' );
 					input.val( 'false' );
 					state = false;
+
+					$( '.' + slave, target ).stop().slideUp( 300 );
 				} else {
 					item.addClass( 'checked' );
 					input.val( 'true' );
 					state = true;
+
+					$( '.' + slave, target ).stop().slideDown( 300 );
 				}
 				//input.trigger( 'checkbox_change_event', [slave, state] );
 				input.trigger( 'change' );

@@ -1,0 +1,8 @@
+/* line 1, ../ui-text.scss */
+.cherry-ui-container { margin: 0 0 20px 0; }
+
+/* line 4, ../ui-text.scss */
+label.cherry-label { margin: 0 0 5px 0; display: block; }
+
+/* line 8, ../ui-text.scss */
+input.cherry-ui-text { border: 1px solid #dddcdc; border-radius: 3px; margin: 0; padding: 6px; background-color: #fff; -webkit-transition: border-color 0.05s ease-in-out 0s; transition: border-color 0.05s ease-in-out 0s; outline: 0 none; color: #333; }

@@ -28,6 +28,7 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 			'step_value'	=> 1,
 			'label'			=> '',
 			'class'			=> '',
+			'master'		=> '',
 		);
 
 		/**
@@ -50,6 +51,10 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 		public function render() {
 			$html = '';
 
+			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
+
+			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
+
 			$ui_stepper = new UI_Stepper(
 				array(
 					'id' => $this->settings['id'] . '-stepper',
@@ -62,17 +67,18 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 			);
 			$ui_stepper_html = $ui_stepper->render();
 
-			if( '' !== $this->settings['label'] ){
-				$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
-			}
-			$html .= '<div class="cherry-slider-wrap">';
-				$html .= '<div class="cherry-slider-input">';
-					$html .= $ui_stepper_html;
-				$html .= '</div>';
-				$html .= '<div class="cherry-slider-holder">';
-					$html .= '<div class="cherry-slider-unit" data-left-limit="' . esc_attr( $this->settings['min_value'] ) . '" data-right-limit="' . esc_attr( $this->settings['max_value'] ) . '" data-value="' . esc_attr( $this->settings['value'] ) . '"></div>';
-				$html .= '</div>';
-				$html .= '<div class="clear"></div>';
+				if( '' !== $this->settings['label'] ){
+					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
+				}
+				$html .= '<div class="cherry-slider-wrap">';
+					$html .= '<div class="cherry-slider-input">';
+						$html .= $ui_stepper_html;
+					$html .= '</div>';
+					$html .= '<div class="cherry-slider-holder">';
+						$html .= '<div class="cherry-slider-unit" data-left-limit="' . esc_attr( $this->settings['min_value'] ) . '" data-right-limit="' . esc_attr( $this->settings['max_value'] ) . '" data-value="' . esc_attr( $this->settings['value'] ) . '"></div>';
+					$html .= '</div>';
+					$html .= '<div class="clear"></div>';
+				$html .=  '</div>';
 			$html .=  '</div>';
 
 			return $html;

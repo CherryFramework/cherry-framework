@@ -408,7 +408,7 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 			$current_element = $this->ui_builder->get_ui_element_instance( $args['type'], $args );
 
 			?>
-			<div style="padding:10px 0;">
+			<div>
 				<?php echo $current_element->render(); ?>
 			</div>
 			<?php
@@ -486,7 +486,7 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 						'true_slave'   => '',
 						'false_slave'  => '',
 					) ),
-					'master'             => '',
+					'master'             => $this->get_arg( $setting, 'master', '' ),
 				);
 
 				$this->render_control( $args );

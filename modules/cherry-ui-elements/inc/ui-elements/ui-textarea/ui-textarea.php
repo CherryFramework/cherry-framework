@@ -85,7 +85,7 @@ if ( ! class_exists( 'UI_Textarea' ) ) {
 		public static function enqueue_assets(){
 			wp_enqueue_style(
 				'ui-textarea',
-				self::get_current_file_url() . '/assets/ui-textarea.css',
+				self::get_current_file_url() . '/assets/min/ui-textarea.min.css',
 				array(),
 				'1.0.0',
 				'all'

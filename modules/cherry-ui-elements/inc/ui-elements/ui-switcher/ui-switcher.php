@@ -32,6 +32,7 @@ if ( ! class_exists( 'UI_Switcher' ) ) {
 			'style'				=> 'normal', //large, normal, small
 			'label'				=> '',
 			'class'				=> '',
+			'master'			=> '',
 		);
 		/**
 		 * Constructor method for the UI_Switcher class.
@@ -56,13 +57,17 @@ if ( ! class_exists( 'UI_Switcher' ) ) {
 
 			$html = '';
 
-			if( '' !== $this->settings['label'] ){
-				$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
-			}
-			$html .= '<div class="cherry-switcher-wrap size-' . esc_attr( $this->settings['style'] ) . ' ' . esc_attr( $this->settings['class'] ) . '">';
-				$html .= '<label class="sw-enable"><span>' . esc_html( $this->settings['toggle']['true_toggle'] ) . '</span></label>';
-				$html .= '<label class="sw-disable"><span>' . esc_html( $this->settings['toggle']['false_toggle'] ) . '</span></label>';
-				$html .= '<input id="' . esc_attr( $this->settings['id'] ) . '" type="hidden" class="cherry-input-switcher" name="' . esc_attr( $this->settings['name'] ) . '" ' . checked( 'true', $this->settings['value'], false ) . ' value="' . esc_html( $this->settings['value'] ) . '" ' . $data_attr_line . '>';
+			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
+
+			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
+				if( '' !== $this->settings['label'] ){
+					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
+				}
+				$html .= '<div class="cherry-switcher-wrap size-' . esc_attr( $this->settings['style'] ) . ' ' . esc_attr( $this->settings['class'] ) . '">';
+					$html .= '<label class="sw-enable"><span>' . esc_html( $this->settings['toggle']['true_toggle'] ) . '</span></label>';
+					$html .= '<label class="sw-disable"><span>' . esc_html( $this->settings['toggle']['false_toggle'] ) . '</span></label>';
+					$html .= '<input id="' . esc_attr( $this->settings['id'] ) . '" type="hidden" class="cherry-input-switcher" name="' . esc_attr( $this->settings['name'] ) . '" ' . checked( 'true', $this->settings['value'], false ) . ' value="' . esc_html( $this->settings['value'] ) . '" ' . $data_attr_line . '>';
+				$html .= '</div>';
 			$html .= '</div>';
 
 			return $html;

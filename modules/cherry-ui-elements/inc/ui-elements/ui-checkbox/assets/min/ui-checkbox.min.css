@@ -1,31 +1,15 @@
-label.cherry-label {
-  margin: 0 0 5px 0;
-  display: block;
-}
+/* line 1, ../ui-checkbox.scss */
+.cherry-ui-container { margin: 0 0 20px 0; }
 
-.cherry-checkbox-item {
-  width: 21px;
-  height: 21px;
-  display: inline-block;
-  border-radius: 3px;
-  margin-right: 5px;
-  cursor: pointer;
-  position: relative;
-  background-color: #fff;
-  border: 1px solid #dddcdc;
-}
-.cherry-checkbox-item.checked .marker {
-  display: block;
-}
-.cherry-checkbox-item .marker {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: none;
-}
+/* line 4, ../ui-checkbox.scss */
+label.cherry-label { margin: 0 0 5px 0; display: block; }
 
-.cherry-checkbox-label {
-  display: inline-block;
-  vertical-align: top;
-  margin: 1px 0 5px 0;
-}
+/* line 8, ../ui-checkbox.scss */
+.cherry-checkbox-item { width: 21px; height: 21px; display: inline-block; border-radius: 3px; margin-right: 5px; cursor: pointer; position: relative; background-color: #fff; border: 1px solid #dddcdc; }
+/* line 19, ../ui-checkbox.scss */
+.cherry-checkbox-item.checked .marker { display: block; }
+/* line 23, ../ui-checkbox.scss */
+.cherry-checkbox-item .marker { position: absolute; top: 0; left: 0; display: none; }
+
+/* line 30, ../ui-checkbox.scss */
+.cherry-checkbox-label { display: inline-block; vertical-align: top; margin: 1px 0 5px 0; }

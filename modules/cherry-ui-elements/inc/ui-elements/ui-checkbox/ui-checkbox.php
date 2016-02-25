@@ -34,6 +34,7 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 			),
 			'label'			=> '',
 			'class'			=> '',
+			'master'		=> '',
 		);
 
 		/**
@@ -79,45 +80,48 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 		 */
 		public function render() {
 			$html = '';
+			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
+
+			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
+
 			$counter = 0;
-			if( $this->settings['options'] && !empty( $this->settings['options'] ) && is_array( $this->settings['options'] ) ){
-				if ( !is_array( $this->settings['value'] ) ) {
-					$this->settings['value'] = array( $this->settings['value'] );
-				}
-				if( '' !== $this->settings['label'] ){
-					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
-				}
-
-				foreach ( $this->settings['options'] as $option => $option_value ) {
-
-					if ( ! empty( $this->settings['value'] ) ) {
-						$option_checked = array_key_exists( $option, $this->settings['value'] ) ? $option : '';
-						$item_value     = ! empty( $option_checked ) ? $this->settings['value'][ $option ] : 'false';
-					} else {
-						$option_checked = '';
-						$item_value     = 'false';
+				if( $this->settings['options'] && !empty( $this->settings['options'] ) && is_array( $this->settings['options'] ) ) {
+					if ( !is_array( $this->settings['value'] ) ) {
+						$this->settings['value'] = array( $this->settings['value'] );
+					}
+					if( '' !== $this->settings['label'] ){
+						$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
 					}
 
-					$checked = ( ! empty( $option_checked ) && 'true' === $item_value ) ? 'checked' : '';
+					foreach ( $this->settings['options'] as $option => $option_value ) {
 
-					$option_label = isset( $option_value ) && is_array( $option_value ) ? $option_value['label'] : $option_value;
-					$data_slave = isset( $option_value['slave'] ) && !empty( $option_value['slave'] ) ? ' data-slave="' . $option_value['slave'] . '"' : '';
+						if ( ! empty( $this->settings['value'] ) ) {
+							$option_checked = array_key_exists( $option, $this->settings['value'] ) ? $option : '';
+							$item_value     = ! empty( $option_checked ) ? $this->settings['value'][ $option ] : 'false';
+						} else {
+							$option_checked = '';
+							$item_value     = 'false';
+						}
 
-					$html .= '<div class="cherry-checkbox-item-wrap ' . esc_attr( $this->settings['class'] ) . '">';
-						$html .= '<div class="cherry-checkbox-item ' . $checked . '"><span class="marker dashicons dashicons-yes"></span></div>';
-						$html .= '<input type="hidden" id="' . esc_attr( $this->settings['id'] ) . '-' . $counter . '" class="cherry-checkbox-input" name="' . esc_attr( $this->settings['name'] ) . '['. $option .']" value="' . esc_html( $item_value ) . '"' . $data_slave . '>';
-						$html .= '<label class="cherry-checkbox-label" for="' . esc_attr( $this->settings['id'] ) . '-' . $counter . '">' . esc_html( $option_label ) . '</label> ';
-					$html .= '</div>';
+						$checked = ( ! empty( $option_checked ) && 'true' === $item_value ) ? 'checked' : '';
 
-					$counter++;
+						$option_label = isset( $option_value ) && is_array( $option_value ) ? $option_value['label'] : $option_value;
+						$data_slave = isset( $option_value['slave'] ) && !empty( $option_value['slave'] ) ? ' data-slave="' . $option_value['slave'] . '"' : '';
+
+						$html .= '<div class="cherry-checkbox-item-wrap ' . esc_attr( $this->settings['class'] ) . '">';
+							$html .= '<div class="cherry-checkbox-item ' . $checked . '"><span class="marker dashicons dashicons-yes"></span></div>';
+							$html .= '<input type="hidden" id="' . esc_attr( $this->settings['id'] ) . '-' . $counter . '" class="cherry-checkbox-input" name="' . esc_attr( $this->settings['name'] ) . '['. $option .']" value="' . esc_html( $item_value ) . '"' . $data_slave . '>';
+							$html .= '<label class="cherry-checkbox-label" for="' . esc_attr( $this->settings['id'] ) . '-' . $counter . '">' . esc_html( $option_label ) . '</label> ';
+						$html .= '</div>';
+
+						$counter++;
+					}
 				}
-			}
+			$html .= '</div>';
+
 			return $html;
 		}
 
-		public function type_of_assets(){
-
-		}
 		/**
 		 * Get current file URL
 		 *
