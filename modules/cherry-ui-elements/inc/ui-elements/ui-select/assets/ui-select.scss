@@ -7,7 +7,7 @@ $min-desktop-width: 992px;
 	}
 }
 .cherry-ui-container{
-	margin: 0 0 20px 0;
+	margin: 10px 0 20px 0;
 }
 label.cherry-label{
 	margin: 0 0 5px 0;
@@ -45,6 +45,7 @@ select.select2-hidden-accessible{
 			&.select2-selection--single{
 				height: 34px;
 				.select2-selection__rendered{
+					display: block;
 					font-size: 14px;
 					padding: 2px 20px 2px 9px;
 				}
@@ -77,7 +78,7 @@ select.select2-hidden-accessible{
 							border: none;
 							box-shadow: none;
 							line-height: 22px;
-							min-width: 120px;
+							//min-width: 120px;
 						}
 					}
 				}

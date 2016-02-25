@@ -1,5 +1,5 @@
 /* line 9, ../ui-select.scss */
-.cherry-ui-container { margin: 0 0 20px 0; }
+.cherry-ui-container { margin: 10px 0 20px 0; }
 
 /* line 12, ../ui-select.scss */
 label.cherry-label { margin: 0 0 5px 0; display: block; }
@@ -19,23 +19,23 @@ select.select2-hidden-accessible { display: none; }
 /* line 45, ../ui-select.scss */
 .select2 .selection .select2-selection.select2-selection--single { height: 34px; }
 /* line 47, ../ui-select.scss */
-.select2 .selection .select2-selection.select2-selection--single .select2-selection__rendered { font-size: 14px; padding: 2px 20px 2px 9px; }
-/* line 51, ../ui-select.scss */
+.select2 .selection .select2-selection.select2-selection--single .select2-selection__rendered { display: block; font-size: 14px; padding: 2px 20px 2px 9px; }
+/* line 52, ../ui-select.scss */
 .select2 .selection .select2-selection.select2-selection--single .select2-selection__arrow { height: 32px; }
-/* line 56, ../ui-select.scss */
+/* line 57, ../ui-select.scss */
 .select2 .selection .select2-selection.select2-selection--multiple .select2-selection__rendered { font-size: 14px; padding: 0 3px; }
-/* line 59, ../ui-select.scss */
+/* line 60, ../ui-select.scss */
 .select2 .selection .select2-selection.select2-selection--multiple .select2-selection__rendered .select2-selection__choice { border: 1px solid #dddcdc; line-height: 22px; background: #fff; margin-bottom: 0px; margin-top: 3px; }
-/* line 68, ../ui-select.scss */
+/* line 69, ../ui-select.scss */
 .select2 .selection .select2-selection.select2-selection--multiple .select2-selection__rendered .select2-selection__clear { margin-top: 8px; margin-right: 5px; }
-/* line 72, ../ui-select.scss */
+/* line 73, ../ui-select.scss */
 .select2 .selection .select2-selection.select2-selection--multiple .select2-selection__rendered .select2-search { margin: 3px; }
-/* line 74, ../ui-select.scss */
-.select2 .selection .select2-selection.select2-selection--multiple .select2-selection__rendered .select2-search .select2-search__field { padding: 0; margin: 0; border: none; box-shadow: none; line-height: 22px; min-width: 120px; }
+/* line 75, ../ui-select.scss */
+.select2 .selection .select2-selection.select2-selection--multiple .select2-selection__rendered .select2-search .select2-search__field { padding: 0; margin: 0; border: none; box-shadow: none; line-height: 22px; }
 
-/* line 89, ../ui-select.scss */
+/* line 90, ../ui-select.scss */
 .select2-container .select2-dropdown { border: 1px solid #dddcdc; border-radius: 3px; z-index: 500001; }
-/* line 93, ../ui-select.scss */
+/* line 94, ../ui-select.scss */
 .select2-container .select2-dropdown.select2-container--open, .select2-container .select2-dropdown.select2-dropdown--below { border: 1px solid #dddcdc; }
-/* line 98, ../ui-select.scss */
+/* line 99, ../ui-select.scss */
 .select2-container .select2-dropdown .select2-results .select2-results__options .li[aria-disabled=true] { display: none; }

@@ -1897,6 +1897,7 @@ S2.define('select2/selection/search',[
 
     if (this.$search.attr('placeholder') !== '') {
       width = this.$selection.find('.select2-selection__rendered').innerWidth();
+      width = parseFloat( width * 2 );
     } else {
       var minimumWidth = this.$search.val().length + 1;
 
@@ -4869,7 +4870,7 @@ S2.define('select2/core',[
     // Hide the original select
     $element.addClass('select2-hidden-accessible');
 	$element.attr('aria-hidden', 'true');
-	
+
     // Synchronize any monitored attributes
     this._syncAttributes();
 
