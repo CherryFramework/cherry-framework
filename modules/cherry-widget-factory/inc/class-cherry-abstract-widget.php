@@ -104,9 +104,9 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 
 			parent::__construct( $this->widget_id, $this->widget_name, $widget_ops );
 
-			add_action( 'save_post', array( $this, 'flush_widget_cache' ) );
-			add_action( 'deleted_post', array( $this, 'flush_widget_cache' ) );
-			add_action( 'switch_theme', array( $this, 'flush_widget_cache' ) );
+			add_action( 'save_post', array( $this, 'flush_cache' ) );
+			add_action( 'deleted_post', array( $this, 'flush_cache' ) );
+			add_action( 'switch_theme', array( $this, 'flush_cache' ) );
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_init' ), 1 );
 			add_action( 'widgets.php', array( $this, 'ajax_init' ), 1 );
@@ -269,7 +269,7 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 		 * @since  1.0.0
 		 * @return void
 		 */
-		public function flush_widget_cache() {
+		public function flush_cache() {
 			wp_cache_delete( $this->get_cache_id(), 'widget' );
 		}
 
@@ -341,7 +341,7 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 				}
 			}
 
-			$this->flush_widget_cache();
+			$this->flush_cache();
 
 			/**
 			 * Fires after current widget update is proceed, before returning result.
