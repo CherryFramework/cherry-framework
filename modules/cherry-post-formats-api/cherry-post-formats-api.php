@@ -1055,7 +1055,7 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		public function get_content_quote( $content ) {
 
 			// Catch links that are not wrapped in an '<a>' tag.
-			preg_match( '/<blockquote[^>]*>([\s\S]*)<\/blockquote>/im', $content, $matches );
+			preg_match( '/<blockquote[^>]*>(.*?)<\/blockquote>/im', $content, $matches );
 
 			return ! empty( $matches[1] ) ? wp_kses_post( $matches[1] ) : '';
 		}
