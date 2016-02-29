@@ -4,14 +4,14 @@
 (function($){
 	"use strict";
 
-	CHERRY_API.utilites.namespace('ui_elements.switcher');
-	CHERRY_API.ui_elements.switcher = {
+	CherryJsCore.utilites.namespace('ui_elements.switcher');
+	CherryJsCore.ui_elements.switcher = {
 		init: function ( target ) {
 			var self = this;
-			if( CHERRY_API.status.document_ready ){
+			if( CherryJsCore.status.document_ready ){
 				self.render( target );
 			}else{
-				CHERRY_API.variable.$document.on('ready', self.render( target ) );
+				CherryJsCore.variable.$document.on('ready', self.render( target ) );
 			}
 		},
 		render: function ( target ) {
@@ -82,7 +82,7 @@
 	}
 	$( window ).on( 'cherry-ui-elements-init',
 		function( event, data ) {
-			CHERRY_API.ui_elements.switcher.init( data.target );
+			CherryJsCore.ui_elements.switcher.init( data.target );
 		}
 	);
 }(jQuery));

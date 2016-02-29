@@ -65,7 +65,7 @@ if ( ! class_exists( 'Cherry_Widget_Factory' ) ) {
 			$this->args = $args;
 			$this->include_abstract_widget();
 			add_filter( 'cherry_widget_factory_core', array( $this, 'pass_core_to_widgets' ), 10, 2 );
-			add_filter( 'cherry_api_js_ui_init_settings', array( $this, 'init_ui_js' ), 10 );
+			add_filter( 'cherry_core_js_ui_init_settings', array( $this, 'init_ui_js' ), 10 );
 
 		}
 

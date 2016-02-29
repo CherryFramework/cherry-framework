@@ -4,15 +4,15 @@
 (function($){
 	"use strict";
 
-	CHERRY_API.utilites.namespace('ui_elements.checkbox');
-	CHERRY_API.ui_elements.checkbox = {
+	CherryJsCore.utilites.namespace('ui_elements.checkbox');
+	CherryJsCore.ui_elements.checkbox = {
 		init: function ( target ) {
 			var self = this;
 
-			if ( CHERRY_API.status.document_ready ) {
+			if ( CherryJsCore.status.document_ready ) {
 				self.render( target );
 			} else {
-				CHERRY_API.variable.$document.on(' ready', self.render( target ) );
+				CherryJsCore.variable.$document.on(' ready', self.render( target ) );
 			}
 		},
 		render: function ( target ) {
@@ -74,7 +74,7 @@
 	}
 	$( window ).on( 'cherry-ui-elements-init',
 		function( event, data ) {
-			CHERRY_API.ui_elements.checkbox.init( data.target );
+			CherryJsCore.ui_elements.checkbox.init( data.target );
 		}
 	);
 }(jQuery));

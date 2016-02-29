@@ -1,10 +1,10 @@
-var CHERRY_API;
+var CherryJsCore;
 
 (function($){
 	'use strict';
 
-	CHERRY_API = {
-		name : 'Cherry Js API',
+	CherryJsCore = {
+		name : 'Cherry Js Core',
 		varsion : '1.0.0',
 		author : 'Cherry Team',
 
@@ -15,8 +15,8 @@ var CHERRY_API;
 			browser_supported : true,
 			security : cherry_ajax,
 			loaded_assets : {
-				script : wp_load_style,
-				style : wp_load_script
+				script : wp_load_script,
+				style : wp_load_style
 			},
 			ui_auto_init: ( 'true' == ui_init_object.auto_init ) ? true : false,
 			ui_auto_target: ui_init_object.targets
@@ -29,17 +29,17 @@ var CHERRY_API;
 
 		init : function(){
 
-			CHERRY_API.set_variable ();
+			CherryJsCore.set_variable ();
 
-			$( document ).ready( CHERRY_API.ready );
+			$( document ).ready( CherryJsCore.ready );
 
-			$( window ).load( CHERRY_API.load );
+			$( window ).load( CherryJsCore.load );
 		},
 
 		set_variable : function(){
 			//set variable browser_supported
-			CHERRY_API.variable.browser_supported = ( function (){
-				var uset_browser = CHERRY_API.variable.browser,
+			CherryJsCore.variable.browser_supported = ( function (){
+				var uset_browser = CherryJsCore.variable.browser,
 					not_supported = { 'msie' : [8] };
 
 				for ( var browser in not_supported ) {
@@ -57,28 +57,28 @@ var CHERRY_API;
 		},
 
 		ready : function(){
-			CHERRY_API.status.is_ready = true;
+			CherryJsCore.status.is_ready = true;
 
 			// Auto ui init if `ui_auto_init` is true
-			if ( CHERRY_API.variable.ui_auto_init ) {
-				CHERRY_API.expressions.ui_init();
+			if ( CherryJsCore.variable.ui_auto_init ) {
+				CherryJsCore.expressions.ui_init();
 			}
 
 			// UI init after widget adding to sidebar
-			CHERRY_API.expressions.widget_added_ui_init();
+			CherryJsCore.expressions.widget_added_ui_init();
 
 			// UI init after widget saving
-			CHERRY_API.expressions.widget_updated_ui_init();
+			CherryJsCore.expressions.widget_updated_ui_init();
 		},
 
 		load : function(){
-			CHERRY_API.status.on_load = true;
+			CherryJsCore.status.on_load = true;
 		},
 
 		expressions : {
 			ui_init : function() {
-				CHERRY_API.variable.ui_auto_target.forEach( function( target ) {
-					CHERRY_API.variable.$window.trigger( 'cherry-ui-elements-init', { 'target': $( target ) } );
+				CherryJsCore.variable.ui_auto_target.forEach( function( target ) {
+					CherryJsCore.variable.$window.trigger( 'cherry-ui-elements-init', { 'target': $( target ) } );
 				});
 			},
 			widget_added_ui_init : function() {
@@ -96,7 +96,7 @@ var CHERRY_API;
 		utilites : {
 			namespace : function( space_path ){
 				var parts = space_path.split( '.' ),
-					parent = CHERRY_API,
+					parent = CherryJsCore,
 					length = parts.length,
 					i = 0;
 
@@ -111,7 +111,7 @@ var CHERRY_API;
 			get_compress_assets: function ( url, callback ){
 				var data = {
 					action : 'get_compress_assets',
-					security : CHERRY_API.variable.security,
+					security : CherryJsCore.variable.security,
 					style : [],
 					script : []
 					},
@@ -128,14 +128,14 @@ var CHERRY_API;
 						file_name = file_url.replace( reg_name, '' ),
 						file_type = file_url.match( reg_type )[ 0 ];
 
-					if( file_type === '.js' && $.inArray( file_name, CHERRY_API.variable.loaded_assets.script ) == -1 ){
+					if( file_type === '.js' && $.inArray( file_name, CherryJsCore.variable.loaded_assets.script ) == -1 ){
 						data.script.push( file_url );
-						CHERRY_API.variable.loaded_assets.script.push( file_name );
+						CherryJsCore.variable.loaded_assets.script.push( file_name );
 					}
 
-					if( file_type === '.css' && $.inArray( file_name, CHERRY_API.variable.loaded_assets.style ) == -1 ){
+					if( file_type === '.css' && $.inArray( file_name, CherryJsCore.variable.loaded_assets.style ) == -1 ){
 						data.style.push( file_url );
-						CHERRY_API.variable.loaded_assets.style.push( file_name );
+						CherryJsCore.variable.loaded_assets.style.push( file_name );
 					}
 				}
 
@@ -166,5 +166,5 @@ var CHERRY_API;
 		}
 	};
 
-	CHERRY_API.init();
+	CherryJsCore.init();
 }(jQuery));

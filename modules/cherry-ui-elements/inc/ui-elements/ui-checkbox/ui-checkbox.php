@@ -53,17 +53,17 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 					<script>
 					(function(){
 
-						CHERRY_API.utilites.namespace('ui_elements.tmp_assets');
-						CHERRY_API.ui_elements.tmp_assets = (typeof CHERRY_API.ui_elements.tmp_assets === 'object') ? [] : CHERRY_API.ui_elements.tmp_assets ;
+						CherryJsCore.utilites.namespace('ui_elements.tmp_assets');
+						CherryJsCore.ui_elements.tmp_assets = (typeof CherryJsCore.ui_elements.tmp_assets === 'object') ? [] : CherryJsCore.ui_elements.tmp_assets ;
 
-						if( $.inArray( 'ui-checkbox.min.js', CHERRY_API.variable.loaded_assets.script ) == -1 ){
-							CHERRY_API.ui_elements.tmp_assets.push("<?php echo self::get_current_file_url() . '/assets/min/ui-checkbox.min.js'; ?>");
+						if( $.inArray( 'ui-checkbox.min.js', CherryJsCore.variable.loaded_assets.script ) == -1 ){
+							CherryJsCore.ui_elements.tmp_assets.push("<?php echo self::get_current_file_url() . '/assets/min/ui-checkbox.min.js'; ?>");
 						}else{
-							CHERRY_API.ui_elements.checkbox.init( $('body') );
+							CherryJsCore.ui_elements.checkbox.init( $('body') );
 						}
 
-						if( $.inArray( 'ui-checkbox.css', CHERRY_API.variable.loaded_assets.style ) == -1 ){
-							CHERRY_API.ui_elements.tmp_assets.push("<?php echo self::get_current_file_url() . '/assets/ui-checkbox.css' ?>");
+						if( $.inArray( 'ui-checkbox.css', CherryJsCore.variable.loaded_assets.style ) == -1 ){
+							CherryJsCore.ui_elements.tmp_assets.push("<?php echo self::get_current_file_url() . '/assets/ui-checkbox.css' ?>");
 						}
 					}())
 					</script>

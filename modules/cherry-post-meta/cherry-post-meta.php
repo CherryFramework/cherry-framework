@@ -106,7 +106,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 				return;
 			}
 
-			add_filter( 'cherry_api_js_ui_init_settings', array( $this, 'init_ui_js' ), 10 );
+			add_filter( 'cherry_core_js_ui_init_settings', array( $this, 'init_ui_js' ), 10 );
 
 			array_walk( $this->args['fields'], array( $this, 'set_field_types') );
 

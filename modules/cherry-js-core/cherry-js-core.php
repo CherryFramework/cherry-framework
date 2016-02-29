@@ -14,9 +14,9 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'Cherry_Api_Js' ) ) {
+if ( ! class_exists( 'Cherry_Js_Core' ) ) {
 
-	class Cherry_Api_Js {
+	class Cherry_Js_Core {
 
 		/**
 		 * A reference to an instance of this class.
@@ -70,13 +70,13 @@ if ( ! class_exists( 'Cherry_Api_Js' ) ) {
 		 */
 		function __construct( $core, $args = array() ) {
 
-			$this->module_directory = $core->settings['base_dir'] . '/modules/cherry-api-js/';
-			$this->module_directory_uri = $core->settings['base_url'] . '/modules/cherry-api-js/';
+			$this->module_directory = $core->settings['base_dir'] . '/modules/cherry-js-core/';
+			$this->module_directory_uri = $core->settings['base_url'] . '/modules/cherry-js-core/';
 
 			$this->options = array_merge( $this->options, $args );
 
-			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_cherry_api_scripts' ), 0 );
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_cherry_api_scripts' ), 0 );
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_cherry_scripts' ), 0 );
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_cherry_scripts' ), 0 );
 
 			add_action( 'wp_print_scripts', array( $this, 'localize_script' ));
 
@@ -84,21 +84,21 @@ if ( ! class_exists( 'Cherry_Api_Js' ) ) {
 		}
 
 		/**
-		 * Register and enqueue Cherry API.
+		 * Register and enqueue cherry js core.
 		 *
 		 * @since 4.0.0
 		 */
-		public function enqueue_cherry_api_scripts() {
+		public function enqueue_cherry_scripts() {
 
 			if ( 'framework' === $this->options[ 'product_type' ] ) {
-				$src = esc_url( $this->module_directory_uri . 'assets/js/min/cherry-api.min.js' );
+				$src = esc_url( $this->module_directory_uri . 'assets/js/min/cherry-js-core.min.js' );
 				$version = $this->module_version;
 			} else {
 				$src = ( ! empty( $this->options['src'] ) ? esc_url( $this->options['src'] ) : false );
 				$version = ( ! empty( $this->options['version'] ) ? absint( $this->options['src'] ) : false );
 			}
 
-			wp_enqueue_script( 'cherry-api', $src, array( 'jquery' ), $version, true );
+			wp_enqueue_script( 'cherry-js-core', $src, array( 'jquery' ), $version, true );
 		}
 
 		/**
@@ -140,7 +140,7 @@ if ( ! class_exists( 'Cherry_Api_Js' ) ) {
 			 *
 			 * @var array
 			 */
-			return apply_filters( 'cherry_api_js_ui_init_settings', $ui_init_settings );
+			return apply_filters( 'cherry_core_js_ui_init_settings', $ui_init_settings );
 		}
 
 		/**
@@ -164,13 +164,13 @@ if ( ! class_exists( 'Cherry_Api_Js' ) ) {
 		 * @return void
 		 */
 		public function localize_script() {
-			wp_localize_script( 'cherry-api', 'wp_load_style', $this->get_include_style() );
-			wp_localize_script( 'cherry-api', 'wp_load_script', $this->get_include_script() );
-			wp_localize_script( 'cherry-api', 'cherry_ajax', wp_create_nonce('cherry_ajax_nonce') );
+			wp_localize_script( 'cherry-js-core', 'wp_load_style', $this->get_include_style() );
+			wp_localize_script( 'cherry-js-core', 'wp_load_script', $this->get_include_script() );
+			wp_localize_script( 'cherry-js-core', 'cherry_ajax', wp_create_nonce('cherry_ajax_nonce') );
 
 			$ui_init_settings = $this->get_ui_init_settings();
 			$ui_init_settings['auto_init'] = ( true == $ui_init_settings['auto_init'] ) ? 'true' : 'false';
-			wp_localize_script( 'cherry-api', 'ui_init_object', $ui_init_settings );
+			wp_localize_script( 'cherry-js-core', 'ui_init_object', $ui_init_settings );
 		}
 
 		/**

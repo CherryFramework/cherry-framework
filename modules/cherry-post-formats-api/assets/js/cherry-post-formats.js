@@ -1,21 +1,21 @@
 /**
  * Post formats related scripts
- * @use Cherry_API
+ * @use CherryJsCore
  */
 (function($){
 	'use strict';
 
-	CHERRY_API.utilites.namespace( 'post_formats' );
-	CHERRY_API.post_formats = {
+	CherryJsCore.utilites.namespace( 'post_formats' );
+	CherryJsCore.post_formats = {
 
 		init: function () {
 
 			var self = this;
 
-			if ( CHERRY_API.status.document_ready ) {
+			if ( CherryJsCore.status.document_ready ) {
 				self.render( self );
 			} else {
-				CHERRY_API.variable.$document.on( 'ready', self.render( self ) );
+				CherryJsCore.variable.$document.on( 'ready', self.render( self ) );
 			}
 		},
 
@@ -61,7 +61,7 @@
 	}
 
 	$(function(){
-		CHERRY_API.post_formats.init();
+		CherryJsCore.post_formats.init();
 	})
 
 }(jQuery));
