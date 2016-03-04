@@ -227,6 +227,8 @@ if ( ! class_exists( 'Cherry_Google_Fonts_Loader' ) ) {
 			) );
 
 			$family = $this->get_setting( $font['family'] );
+			$family = explode( ',', $family );
+			$family = trim( $family[0], "'" );
 
 			if ( ! $this->is_google_font( $family ) ) {
 				return;
@@ -321,13 +323,12 @@ if ( ! class_exists( 'Cherry_Google_Fonts_Loader' ) ) {
 			}
 
 			foreach ( $google_fonts as $font ) {
-				if ( $font_family === $font['family'] ) {
+				if ( false !== strpos( $font_family, $font['family'] ) ) {
 					return true;
 				}
 			}
 
 			return false;
-
 		}
 
 		/**

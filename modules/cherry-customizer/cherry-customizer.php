@@ -943,21 +943,31 @@ class Cherry_Customizer {
 	 * @return array
 	 */
 	public function satizite_font_family( $data ) {
-		$fonts = array_map( array( $this, 'find_font_family' ), $data );
-		array_filter( $fonts );
+		$keys   = array_map( array( $this, '_build_keys' ), $data );
+		$values = array_map( array( $this, '_build_values' ), $data );
 
-		return array_combine( $fonts, $fonts );
+		array_filter( $keys );
+		array_filter( $values );
+
+		return array_combine( $keys, $values );
 	}
 
-	/**
-	 * Callback-function - find and retrieve `font-family`.
-	 *
-	 * @since  1.0.0
-	 * @param  string      $item
-	 * @return string|bool
-	 */
-	public function find_font_family( $item ) {
-		return ! empty( $item['family'] ) ? $item['family'] : false;
+	public function _build_keys( $item ) {
+
+		if ( empty( $item['family'] ) ) {
+			return false;
+		}
+
+		return sprintf( "'%s', %s", $item['family'], $item['category'] );
+	}
+
+	public function _build_values( $item ) {
+
+		if ( empty( $item['family'] ) ) {
+			return false;
+		}
+
+		return $item['family'];
 	}
 
 	public function add_options() {
