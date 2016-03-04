@@ -19,4 +19,5 @@ interface I_UI {
 	 * @return string.
 	 */
 	public function render();
+
 }
