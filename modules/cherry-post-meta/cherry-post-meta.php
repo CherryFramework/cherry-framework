@@ -74,16 +74,19 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		function __construct( $core, $args ) {
 
 			$this->core = $core;
-			$this->args = wp_parse_args( $args, array(
-				'id'            => 'cherry-post-metabox',
-				'title'         => '',
-				'page'          => array( 'post' ),
-				'context'       => 'normal',
-				'priority'      => 'high',
-				'callback_args' => false,
-				'fields'        => array(),
-			) );
-
+			$this->args = wp_parse_args(
+				$args,
+				array(
+					'id'            => 'cherry-post-metabox',
+					'title'         => '',
+					'page'          => array( 'post' ),
+					'context'       => 'normal',
+					'priority'      => 'high',
+					'callback_args' => false,
+					'fields'        => array(),
+				)
+			);
+			
 			if ( empty( $this->args['fields'] ) ) {
 				return;
 			}
@@ -169,7 +172,6 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 			if ( ! $this->is_allowed_page() ) {
 				return;
 			}
-
 			add_meta_box(
 				$this->args['id'],
 				$this->args['title'],
