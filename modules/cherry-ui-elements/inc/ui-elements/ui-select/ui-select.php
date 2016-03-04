@@ -16,7 +16,7 @@ if ( !defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'UI_Select' ) ) {
-	class UI_Select {
+	class UI_Select implements I_UI {
 
 		private $settings = array();
 		private $defaults_settings = array(

@@ -16,7 +16,7 @@ if ( !defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'UI_Radio' ) ) {
-	class UI_Radio {
+	class UI_Radio implements I_UI {
 
 		private $settings = array();
 		private $defaults_settings = array(

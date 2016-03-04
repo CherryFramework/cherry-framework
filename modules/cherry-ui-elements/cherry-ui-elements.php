@@ -106,6 +106,8 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		 * @return void
 		 */
 		public function ui_elements_require() {
+			// Add I_UI interface.
+			require_once( $this->module_directory . '/i-ui.php' );
 
 			if ( ! empty( $this->args['ui_elements'] ) ) {
 				foreach ( $this->args['ui_elements'] as $ui_element ) {
@@ -124,7 +126,9 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 			if ( ! empty( $this->args['ui_elements'] ) ) {
 				foreach ( $this->args['ui_elements'] as $ui_element ) {
 					$ui_class_name = 'UI_' . ucwords( $ui_element );
-					$ui_class_name::enqueue_assets();
+					if ( $ui_class_name instanceof I_UI ) {
+						$ui_class_name::enqueue_assets();
+					}
 				}
 			}
 		}

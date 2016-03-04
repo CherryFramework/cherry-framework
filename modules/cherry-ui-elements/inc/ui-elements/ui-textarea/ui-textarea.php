@@ -16,7 +16,7 @@ if ( !defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'UI_Textarea' ) ) {
-	class UI_Textarea {
+	class UI_Textarea implements I_UI {
 
 		private $settings = array();
 		private $defaults_settings = array(

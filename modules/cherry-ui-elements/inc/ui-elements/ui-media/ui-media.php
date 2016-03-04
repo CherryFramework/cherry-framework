@@ -16,7 +16,7 @@ if ( !defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'UI_Media' ) ) {
-	class UI_Media {
+	class UI_Media implements I_UI {
 
 		private $settings = array();
 		private $defaults_settings = array(

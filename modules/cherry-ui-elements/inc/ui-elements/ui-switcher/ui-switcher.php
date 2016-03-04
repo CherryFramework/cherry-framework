@@ -16,7 +16,7 @@ if ( !defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'UI_Switcher' ) ) {
-	class UI_Switcher {
+	class UI_Switcher implements I_UI {
 
 		private $settings = array();
 		private $defaults_settings = array(
