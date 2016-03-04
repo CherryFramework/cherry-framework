@@ -13,7 +13,16 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-class Cherry_Post_Types {
+/**
+ * Cherry post types class
+ * Example usage:
+ * $this->core->modules['cherry-post-types']->create(
+ *			'property',
+ *			'Property',
+ *			'Properties'
+ *		)->font_awesome_icon( 'f1ad' );
+ */
+class Cherry_Post_Types implements I_Module {
 	/**
 	 * Module version
 	 *
@@ -26,7 +35,7 @@ class Cherry_Post_Types {
 	 *
 	 * @var string
 	 */
-	public $module_slug = 'cherry-post-type';
+	public $module_slug = 'cherry-post-types';
 
 	/**
 	 * Default post type arguments
