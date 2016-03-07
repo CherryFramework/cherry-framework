@@ -44,7 +44,7 @@ class Cherry_Helpers implements I_Module {
 	 * Cherry_Post_Type class constructor
 	 */
 	public function __construct( $core, $args = array() ) {
-		$this->module_directory = $core->settings['base_dir'] . '/modules/' . $this->$module_slug;
+		$this->module_directory = $core->settings['base_dir'] . '/modules/' . $this->module_slug;
 
 		// Load helpers.
 		$this->load();
@@ -64,7 +64,7 @@ class Cherry_Helpers implements I_Module {
 	 * Load all helpers.
 	 */
 	private function load() {
-		$paths = (array) glob( $this->module_directory.'/*.php' );
+		$paths = (array) glob( $this->module_directory.'/helpers/*.php' );
 		foreach ( $paths as $helper ) {
 			require_once( $helper );
 		}
