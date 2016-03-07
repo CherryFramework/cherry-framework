@@ -49,7 +49,7 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		 * @var array
 		 */
 		private $args = array(
-			'ui_elements'	=> array( 'text', 'textarea', 'select', 'checkbox', 'radio', 'colorpicker', 'media', 'stepper', 'switcher', 'slider' ),
+			'ui_elements'	=> array( 'text', 'number', 'textarea', 'select', 'checkbox', 'radio', 'colorpicker', 'media', 'stepper', 'switcher', 'slider' ),
 		);
 
 		/**
