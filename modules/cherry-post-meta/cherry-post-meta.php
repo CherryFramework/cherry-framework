@@ -69,10 +69,18 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		public $nonce = 'cherry-meta-nonce';
 
 		/**
+		 * Module directory
+		 *
+		 * @since 1.0.0
+		 * @var string
+		 */
+		private $module_directory = '';
+
+		/**
 		 * Constructor for the module
 		 */
 		function __construct( $core, $args ) {
-
+			$this->module_directory = $core->settings['base_dir'] . '/modules/' . $this->module_slug;
 			$this->core = $core;
 			$this->args = wp_parse_args(
 				$args,
@@ -86,7 +94,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 					'fields'        => array(),
 				)
 			);
-			
+
 			if ( empty( $this->args['fields'] ) ) {
 				return;
 			}
@@ -209,7 +217,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 */
 		public function get_fields( $post, $format = '%s' ) {
 
-			$result = '';
+			$elements = array();
 
 			foreach ( $this->args['fields'] as $key => $field ) {
 
@@ -256,11 +264,18 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 				$current_element = $this->ui_builder->get_ui_element_instance( $args['type'], $args );
 
-				$result .= sprintf( $format, $current_element->render() );
+				$elements[] = array(
+					'html'  => $current_element->render(),
+					'field' => $field
+				);
 
 			}
-
-			return $result;
+			return Helper_View::render(
+				$this->module_directory . '/views/meta.php',
+				array(
+					'elements' => $elements
+				) 
+			);
 
 		}
 
