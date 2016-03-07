@@ -1,5 +1,6 @@
 <?php
 /**
+ * Helpers loader
  * @package    Cherry_Framework
  * @subpackage Class
  * @author     Cherry Team <cherryframework@gmail.com>
@@ -13,6 +14,9 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+/**
+ * Cherry Helpers class
+ */
 class Cherry_Helpers implements I_Module {
 	/**
 	 * Module version
@@ -58,12 +62,10 @@ class Cherry_Helpers implements I_Module {
 
 	/**
 	 * Load all helpers.
-	 * 
-	 * @return void.
 	 */
 	private function load() {
 		$paths = (array) glob( $this->module_directory.'/*.php' );
-		foreach ($paths as $helper) {
+		foreach ( $paths as $helper ) {
 			require_once( $helper );
 		}
 	}

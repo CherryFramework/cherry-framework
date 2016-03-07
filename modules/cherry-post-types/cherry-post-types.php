@@ -1,5 +1,6 @@
 <?php
 /**
+ * Create custom post types
  * @package    Cherry_Framework
  * @subpackage Class
  * @author     Cherry Team <cherryframework@gmail.com>
@@ -77,14 +78,18 @@ class Cherry_Post_Types implements I_Module {
 	 * @param string $slug The post type slug name.
 	 * @param string $plural The post type plural name for display.
 	 * @param string $singular The post type singular name for display.
-	 * @param array $args The custom post type arguments.
-	 * @throws Exception
+	 * @param array  $args The custom post type arguments.
+	 * @throws Exception Invalid custom post type parameter.
 	 * @return Cherry_Post_Type
 	 */
 	public function create( $slug, $plural, $singular, $args = array() ) {
-		$params = compact('slug', 'plural', 'singular');
+		$params = array(
+			'slug'     => $slug,
+			'plural'   => $plural,
+			'singular' => $singular,
+		);
 
-		foreach( $params as $name => $param ) {
+		foreach ( $params as $name => $param ) {
 			if ( ! is_string( $param ) ) {
 				throw new Exception( 'Invalid custom post type parameter "'.$name.'". Accepts string only.' );
 			}
@@ -123,7 +128,7 @@ class Cherry_Post_Types implements I_Module {
 			'not_found'          => __( 'No '. $singular .' found', 'cherry' ),
 			'not_found_in_trash' => __( 'No '. $singular .' found in Trash', 'cherry' ),
 			'parent_item_colon'  => '',
-			'menu_name'          => __( $plural, 'cherry' )
+			'menu_name'          => __( $plural, 'cherry' ),
 		);
 
 		$defaults = array(
@@ -132,7 +137,7 @@ class Cherry_Post_Types implements I_Module {
 			'description'	=> '',
 			'public'		=> true,
 			'menu_position'	=> 20,
-			'has_archive'	=> true
+			'has_archive'	=> true,
 		);
 
 		return $defaults;
