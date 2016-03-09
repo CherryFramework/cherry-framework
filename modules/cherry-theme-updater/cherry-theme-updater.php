@@ -43,8 +43,8 @@ if ( ! class_exists( 'Cherry_Theme_Updater' ) ) {
 		 * Init class parameters.
 		 *
 		 * @since  1.0.0
-		 * @param  array $args Input attributes array.
 		 * @param  object $core core.
+		 * @param  array  $args Input attributes array.
 		 * @return void
 		 */
 		public function __construct( $core, $args = array() ) {
@@ -95,7 +95,7 @@ if ( ! class_exists( 'Cherry_Theme_Updater' ) ) {
 		 * Change theme detail URL.
 		 *
 		 * @since  1.0.0
-		 * @param  array $prepared_themes array with update parametr
+		 * @param  array $prepared_themes array with update parametr.
 		 *
 		 * @return array
 		 */
