@@ -64,7 +64,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 		/**
 		 * Current nonce name to check
-		 * 
+		 *
 		 * @var null
 		 */
 		public $nonce = 'cherry-meta-nonce';
@@ -120,7 +120,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 * Init UI elements JS
 		 *
 		 * @since  1.0.0
-		 * 
+		 *
 		 * @return array
 		 */
 		public function init_ui_js() {
@@ -292,7 +292,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 */
 		public function set_field_types( $field, $id ) {
 
-			if ( is_array( $field ) || ! isset($field[ 'type'] ) ) {
+			if ( is_array( $field ) || ! isset( $field['type'] ) ) {
 				return false;
 			}
 

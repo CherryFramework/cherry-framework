@@ -118,7 +118,7 @@ class Cherry_Customizer {
 	 *
 	 * @since 1.0.0
 	 * @param object $core Cherry_Core instance.
-	 * @param array  $args Aguments.
+	 * @param array  $args Aguments for constructor.
 	 *
 	 * $args = array(
 	 *      'prefix'     => 'unique_prefix', // theme or plugin slug (*).
@@ -201,7 +201,6 @@ class Cherry_Customizer {
 	 * @param object $wp_customize WP_Customize_Manager instance.
 	 */
 	public function register( $wp_customize ) {
-
 		/*
 		 * Failsafe is safe.
 		 */
@@ -235,6 +234,7 @@ class Cherry_Customizer {
 	 * Add a customize panel.
 	 *
 	 * @since 1.0.0
+	 * @param mixed $id Panel id.
 	 * @param array $args Panel arguments.
 	 */
 	public function add_panel( $id, $args ) {
@@ -259,6 +259,7 @@ class Cherry_Customizer {
 	 * Add a customize section.
 	 *
 	 * @since 1.0.0
+	 * @param mixed $id Section id.
 	 * @param array $args Section arguments.
 	 *
 	 * The priorities of the core sections are below:
@@ -295,7 +296,8 @@ class Cherry_Customizer {
 	/**
 	 * Add a customize control.
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.0	
+	 * @param mixed $id Control id.
 	 * @param array $args Control arguments.
 	 */
 	public function add_control( $id, $args ) {
@@ -488,7 +490,7 @@ class Cherry_Customizer {
 	 * Retrieve a option value by ID.
 	 *
 	 * @since  1.0.0
-	 * @param  mixed      $id
+	 * @param  mixed $id  ID of field which value getting
 	 * @return bool|mixed
 	 */
 	public function get_value( $id, $default = null ) {
@@ -970,6 +972,7 @@ class Cherry_Customizer {
 		return $item['family'];
 	}
 
+	
 	public function add_options() {
 
 		if ( empty( $this->options ) ) {

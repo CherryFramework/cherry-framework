@@ -66,6 +66,7 @@ if ( ! class_exists( 'Cherry_Google_Fonts_Loader' ) ) {
 
 		/**
 		 * Array of stored google fonts data
+		 * 
 		 * @var array
 		 */
 		public $fonts_data = array();
@@ -133,7 +134,6 @@ if ( ! class_exists( 'Cherry_Google_Fonts_Loader' ) ) {
 				if ( ! isset( $wp_customize ) ) {
 					set_transient( 'cherry_google_fonts_url', $font_url, WEEK_IN_SECONDS );
 				}
-
 			}
 
 			return $font_url;
@@ -215,7 +215,7 @@ if ( ! class_exists( 'Cherry_Google_Fonts_Loader' ) ) {
 		 * Get single typography option value from database and store it in object property
 		 *
 		 * @since  1.0.0
-		 * @param  string $font option name to get from database
+		 * @param  string $font option name to get from database.
 		 */
 		public function add_font( $font ) {
 
@@ -319,7 +319,6 @@ if ( ! class_exists( 'Cherry_Google_Fonts_Loader' ) ) {
 				if ( empty( $google_fonts ) ) {
 					return false;
 				}
-
 			}
 
 			$font_family = explode( ',', $font_family );

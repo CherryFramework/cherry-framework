@@ -708,7 +708,7 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		 *
 		 * @since  1.0.0
 		 * @param  array $result S Value to return instead of the gallery shortcode.
-		 * @param  array $atts Shortcode atts.
+		 * @param  array $attr Shortcode attributes.
 		 * @return string       Gallery HTML.
 		 */
 		public function gallery_shortcode( $result, $attr ) {
