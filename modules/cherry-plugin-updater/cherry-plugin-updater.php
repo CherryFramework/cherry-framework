@@ -43,8 +43,8 @@ if ( ! class_exists( 'Cherry_Plugin_Updater' ) ) {
 		 * Init class parameters.
 		 *
 		 * @since  1.0.0
-		 * @param object $core Core of framework
-		 * @param  array $args Argument of base init.
+		 * @param object $core Core of framework.
+		 * @param array  $args Argument of base init.
 		 * @return void
 		 */
 		public function __construct( $core, $args = array() ) {

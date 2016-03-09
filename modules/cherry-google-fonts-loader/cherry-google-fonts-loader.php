@@ -66,7 +66,7 @@ if ( ! class_exists( 'Cherry_Google_Fonts_Loader' ) ) {
 
 		/**
 		 * Array of stored google fonts data
-		 * 
+		 *
 		 * @var array
 		 */
 		public $fonts_data = array();

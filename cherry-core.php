@@ -48,10 +48,10 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		public $modules = array();
 
 		/**
-		* Cherry_Core constructor
-		*
-		* @since 1.0.0
-		*/
+		 * Cherry_Core constructor
+		 *
+		 * @since 1.0.0
+		 */
 		public function __construct( $settings = array() ) {
 
 			$default_settings = array(
@@ -111,7 +111,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @param  array  $args   Module arguments array.
 		 *
 		 * @since  1.0.0
-		 * @return void
+		 * @return mixed
 		 */
 		public function init_module( $module, $args = array() ) {
 			$hook = $module . '-module';
@@ -125,7 +125,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @since  1.0.0
 		 * @param bool|object $module_instance Module instnce to return, false at start.
 		 * @param array       $args            Module rguments.
-		 * @param Cherry_Core $this            Current core object.
+		 * @param Cherry_Core $core_instance            Current core object.
 		 * @return object|bool
 		 */
 		public function pre_load( $module_instance, $args = array(), $core_instance ) {
@@ -145,7 +145,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		/**
 		 * Check module autoload.
 		 *
-		 * @param  string  $module module slug.
+		 * @param  string $module module slug.
 		 * @return boolean
 		 */
 		public function is_module_autoload( $module ) {
@@ -234,7 +234,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @since  1.0.0
 		 * @return string
 		 */
-		public function get_core_dir(){
+		public function get_core_dir() {
 			return trailingslashit( $this->settings['base_dir'] );
 		}
 
@@ -244,7 +244,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @since  1.0.0
 		 * @return string
 		 */
-		public function get_core_url(){
+		public function get_core_url() {
 			return trailingslashit( $this->settings['base_url'] );
 		}
 
@@ -263,7 +263,5 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 
 			return self::$instance;
 		}
-
 	}
-
 }

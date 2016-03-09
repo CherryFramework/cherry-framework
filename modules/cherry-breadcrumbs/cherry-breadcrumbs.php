@@ -134,7 +134,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 				'post_taxonomy'     => apply_filters(
 					'cherry_breadcrumbs_trail_taxonomies',
 					array(
-						'post'      => 'category'
+						'post'      => 'category',
 					)
 				),
 			);
@@ -430,8 +430,8 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 
 			/**
 			 * Filter final item array
-			 * @since  4.0.0
-			 * 
+			 * @since 4.0.0
+			 *
 			 * @var    array
 			 */
 			$this->items = apply_filters( 'cherry_breadcrumbs_items', $this->items, $this->args );
@@ -525,7 +525,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			$path = trim( $path, '/' );
 
 			/* If there's no path, return. */
-			if ( empty( $path ) ){
+			if ( empty( $path ) ) {
 				return;
 			}
 
@@ -1267,7 +1267,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		 *
 		 * @since 4.0.0
 		 *
-		 * @param  int    $post_id The ID of the post to get the hierarchy for.
+		 * @param  int $post_id The ID of the post to get the hierarchy for.
 		 * @return void
 		 */
 		public function add_post_hierarchy( $post_id ) {
@@ -1352,7 +1352,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 
 		/**
 		 * Service function to process single tag item
-		 * 
+		 *
 		 * @param  string $tag     single tag.
 		 * @param  int    $post_id processed post ID.
 		 */

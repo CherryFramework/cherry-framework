@@ -296,7 +296,8 @@ class Cherry_Customizer {
 	/**
 	 * Add a customize control.
 	 *
-	 * @since 1.0.0	
+	 * @since 1.0.0
+	 *
 	 * @param mixed $id Control id.
 	 * @param array $args Control arguments.
 	 */
@@ -490,7 +491,7 @@ class Cherry_Customizer {
 	 * Retrieve a option value by ID.
 	 *
 	 * @since  1.0.0
-	 * @param  mixed $id  ID of field which value getting
+	 * @param  mixed $id  ID of field which value getting.
 	 * @return bool|mixed
 	 */
 	public function get_value( $id, $default = null ) {
@@ -527,7 +528,7 @@ class Cherry_Customizer {
 	 * Whitelist for setting type.
 	 *
 	 * @since  1.0.0
-	 * @param  string $type
+	 * @param  string $type type of settings
 	 * @return bool
 	 */
 	public function sanitize_type( $type ) {
@@ -972,7 +973,6 @@ class Cherry_Customizer {
 		return $item['family'];
 	}
 
-	
 	public function add_options() {
 
 		if ( empty( $this->options ) ) {

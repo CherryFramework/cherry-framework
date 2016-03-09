@@ -164,7 +164,7 @@ if ( ! class_exists( 'Cherry_Js_Core' ) ) {
 		public function localize_script() {
 			wp_localize_script( 'cherry-js-core', 'wp_load_style', $this->get_include_style() );
 			wp_localize_script( 'cherry-js-core', 'wp_load_script', $this->get_include_script() );
-			wp_localize_script( 'cherry-js-core', 'cherry_ajax', wp_create_nonce('cherry_ajax_nonce' ) );
+			wp_localize_script( 'cherry-js-core', 'cherry_ajax', wp_create_nonce( 'cherry_ajax_nonce' ) );
 
 			$ui_init_settings = $this->get_ui_init_settings();
 			$ui_init_settings['auto_init'] = ( true == $ui_init_settings['auto_init'] ) ? 'true' : 'false';
