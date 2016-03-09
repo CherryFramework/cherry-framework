@@ -26,4 +26,18 @@ interface I_UI {
 	 */
 	public function render();
 
+	/**
+	 * Get control name
+	 *
+	 * @return string control name.
+	 */
+	public function get_name();
+
+	/**
+	 * Set control name
+	 *
+	 * @param [type] $name new control name.
+	 */
+	public function set_name( $name );
+
 }

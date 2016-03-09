@@ -36,5 +36,6 @@ if ( ! class_exists( 'UI_Number' ) ) {
 			$html .= '</div>';
 			return $html;
 		}
+
 	}
 }

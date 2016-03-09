@@ -254,6 +254,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 					'step_value'         => $this->get_arg( $field, 'step_value', '1' ),
 					'style'              => $this->get_arg( $field, 'style', 'normal' ),
 					'display_input'      => $this->get_arg( $field, 'display_input', true ),
+					'controls'           => $this->get_arg( $field, 'controls', array() ),
 					'toggle'             => $this->get_arg( $field, 'toggle', array(
 						'true_toggle'  => 'On',
 						'false_toggle' => 'Off',
@@ -270,13 +271,12 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 				);
 
 			}
-			return Helper_View::render(
+			return Cherry_Core::render_view(
 				$this->module_directory . '/views/meta.php',
 				array(
 					'elements' => $elements
-				) 
+				)
 			);
-
 		}
 
 		/**

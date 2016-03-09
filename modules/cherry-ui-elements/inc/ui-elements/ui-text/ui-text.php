@@ -16,9 +16,8 @@ if ( !defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'UI_Text' ) ) {
-	class UI_Text implements I_UI {
+	class UI_Text extends UI_Element implements I_UI {
 
-		private $settings = array();
 		private $defaults_settings = array(
 			'type'			=> 'text',// text, email, password, search
 			'id'			=> 'cherry-ui-input-id',
@@ -62,27 +61,6 @@ if ( ! class_exists( 'UI_Text' ) ) {
 		}
 
 		/**
-		 * Get current file URL
-		 *
-		 * @since  4.0.0
-		 */
-		public static function get_current_file_url() {
-			/*$abs_path = str_replace('/', '\\', ABSPATH);
-			$assets_url = dirname( __FILE__ );
-			$assets_url = str_replace( $abs_path, '', $assets_url );
-			$assets_url = site_url().'/'.$assets_url;
-			$assets_url = str_replace( '\\', '/', $assets_url );*/
-
-
-			$assets_url = dirname( __FILE__ );
-			$site_url = site_url();
-			$assets_url = str_replace( untrailingslashit( ABSPATH ), $site_url, $assets_url );
-			$assets_url = str_replace( '\\', '/', $assets_url );
-
-			return $assets_url;
-		}
-
-		/**
 		 * Enqueue javascript and stylesheet UI_Text
 		 *
 		 * @since  4.0.0
@@ -91,7 +69,7 @@ if ( ! class_exists( 'UI_Text' ) ) {
 
 			wp_enqueue_style(
 				'ui-text',
-				self::get_current_file_url() . '/assets/min/ui-text.min.css',
+				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-text.min.css',
 				array(),
 				'1.0.0',
 				'all'
