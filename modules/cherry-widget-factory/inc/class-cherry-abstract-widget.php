@@ -310,7 +310,7 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 		 *
 		 * @since  1.0.0
 		 * @see    WP_Widget->update
-		 * @param  array $new_instance new widget instance, passed from widget form
+		 * @param  array $new_instance new widget instance, passed from widget form.
 		 * @param  array $old_instance old instance, saved in database.
 		 * @return array
 		 */
@@ -378,7 +378,7 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 		 */
 		public function set_field_types( $field, $id ) {
 
-			if ( is_array( $field ) || ! isset( $field[ 'type'] ) ) {
+			if ( is_array( $field ) || ! isset( $field['type'] ) ) {
 				return false;
 			}
 

@@ -17,7 +17,18 @@ if ( ! defined( 'WPINC' ) ) {
 
 if ( ! class_exists( 'UI_Textarea' ) ) {
 	class UI_Textarea {
+
+		/**
+		 * Requsted settings
+		 *
+		 * @var array
+		 */
 		private $settings = array();
+		/**
+		 * Default settings
+		 *
+		 * @var array
+		 */
 		private $defaults_settings = array(
 			'id'			=> 'cherry-ui-textarea-id',
 			'name'			=> 'cherry-ui-textarea-name',
