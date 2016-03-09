@@ -18,7 +18,17 @@ if ( ! defined( 'WPINC' ) ) {
 if ( ! class_exists( 'UI_Slider' ) ) {
 	class UI_Slider {
 
+		/**
+		 * Requsted settings
+		 *
+		 * @var array
+		 */
 		private $settings = array();
+		/**
+		 * Default settings
+		 *
+		 * @var array
+		 */
 		private $defaults_settings = array(
 			'id'			=> 'cherry-ui-slider-id',
 			'name'			=> 'cherry-ui-slider-name',

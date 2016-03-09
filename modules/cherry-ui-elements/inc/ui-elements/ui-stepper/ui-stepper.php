@@ -18,7 +18,17 @@ if ( ! defined( 'WPINC' ) ) {
 if ( ! class_exists( 'UI_Stepper' ) ) {
 	class UI_Stepper {
 
+		/**
+		 * Requsted settings
+		 *
+		 * @var array
+		 */
 		private $settings = array();
+		/**
+		 * Default settings
+		 *
+		 * @var array
+		 */
 		private $defaults_settings = array(
 			'id'			=> 'cherry-ui-stepper-id',
 			'name'			=> 'cherry-ui-stepper-name',

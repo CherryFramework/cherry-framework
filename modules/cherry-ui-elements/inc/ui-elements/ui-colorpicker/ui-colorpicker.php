@@ -11,14 +11,24 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 if ( ! class_exists( 'UI_Colorpicker' ) ) {
 	class UI_Colorpicker {
 
+		/**
+		 * Requsted settings
+		 *
+		 * @var array
+		 */
 		private $settings = array();
+		/**
+		 * Default settings
+		 *
+		 * @var array
+		 */
 		private $defaults_settings = array(
 			'id'				=> 'cherry-ui-colorpicker-id',
 			'name'				=> 'cherry-ui-colorpicker-name',
@@ -52,7 +62,7 @@ if ( ! class_exists( 'UI_Colorpicker' ) ) {
 			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
 
 			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
-				if( '' !== $this->settings['label'] ){
+				if ( '' !== $this->settings['label'] ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
 				}
 				$html .= '<div class="cherry-ui-colorpicker-wrapper">';
@@ -82,7 +92,7 @@ if ( ! class_exists( 'UI_Colorpicker' ) ) {
 		 *
 		 * @since  4.0.0
 		 */
-		public static function enqueue_assets(){
+		public static function enqueue_assets() {
 
 			wp_enqueue_script(
 				'ui-colorpicker-min',
@@ -95,11 +105,10 @@ if ( ! class_exists( 'UI_Colorpicker' ) ) {
 			wp_enqueue_style(
 				'ui-colorpicker-min',
 				self::get_current_file_url() . '/assets/min/ui-colorpicker.min.css',
-				array('wp-color-picker'),
+				array( 'wp-color-picker' ),
 				'1.0.0',
 				'all'
 			);
 		}
-
 	}
 }

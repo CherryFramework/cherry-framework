@@ -18,7 +18,17 @@ if ( ! defined( 'WPINC' ) ) {
 if ( ! class_exists( 'UI_Switcher' ) ) {
 	class UI_Switcher {
 
+		/**
+		 * Requsted settings
+		 *
+		 * @var array
+		 */
 		private $settings = array();
+		/**
+		 * Default settings
+		 *
+		 * @var array
+		 */
 		private $defaults_settings = array(
 			'id'				=> 'cherry-ui-swither-id',
 			'name'				=> 'cherry-ui-swither-name',

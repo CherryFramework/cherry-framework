@@ -11,14 +11,24 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 if ( ! class_exists( 'UI_Media' ) ) {
 	class UI_Media {
 
+		/**
+		 * Requsted settings
+		 *
+		 * @var array
+		 */
 		private $settings = array();
+		/**
+		 * Default settings
+		 *
+		 * @var array
+		 */
 		private $defaults_settings = array(
 			'id'					=> 'cherry-ui-media-id',
 			'name'					=> 'cherry-ui-media-name',
@@ -55,31 +65,31 @@ if ( ! class_exists( 'UI_Media' ) ) {
 			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
 
 			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
-				if ( $this->settings['value'] != '') {
+				if ( '' != $this->settings['value'] ) {
 					$this->settings['value'] = str_replace( ' ', '', $this->settings['value'] );
 					$medias = explode(',', $this->settings['value']);
-				}else{
+				} else {
 					$this->settings['value'] = '';
 					$medias = array();
 				}
 
 				$img_style = ! $this->settings['value'] ? 'style="display:none;"' : '' ;
 
-					if( '' !== $this->settings['label'] ){
+					if ( '' !== $this->settings['label'] ) {
 						$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
 					}
 					$html .= '<div class="cherry-ui-media-wrap">';
 						$html .= '<div  class="cherry-upload-preview" >';
 						$html .= '<div class="cherry-all-images-wrap">';
-							if( is_array( $medias ) && !empty( $medias ) ){
-								foreach ($medias as $medias_key => $medias_value) {
+							if ( is_array( $medias ) && ! empty( $medias ) ) {
+								foreach ( $medias as $medias_key => $medias_value ) {
 									$media_title = get_the_title( $medias_value );
 									$mime_type = get_post_mime_type( $medias_value );
 									$tmp = wp_get_attachment_metadata( $medias_value );
 									$img_src = '';
 									$thumb = '';
 
-									switch ($mime_type) {
+									switch ( $mime_type ) {
 										case 'image/jpeg':
 										case 'image/png':
 										case 'image/gif':
@@ -148,7 +158,7 @@ if ( ! class_exists( 'UI_Media' ) ) {
 		 *
 		 * @since  4.0.0
 		 */
-		public static function enqueue_assets(){
+		public static function enqueue_assets() {
 			wp_enqueue_media();
 
 			wp_enqueue_script(

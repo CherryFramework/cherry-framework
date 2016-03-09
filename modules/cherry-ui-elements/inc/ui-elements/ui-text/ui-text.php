@@ -18,7 +18,17 @@ if ( ! defined( 'WPINC' ) ) {
 if ( ! class_exists( 'UI_Text' ) ) {
 	class UI_Text {
 
+		/**
+		 * Requsted settings
+		 *
+		 * @var array
+		 */
 		private $settings = array();
+		/**
+		 * Default settings
+		 *
+		 * @var array
+		 */
 		private $defaults_settings = array(
 			'type'			=> 'text',
 			'id'			=> 'cherry-ui-input-id',
