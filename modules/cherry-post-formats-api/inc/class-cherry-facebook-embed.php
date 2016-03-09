@@ -42,7 +42,6 @@ if ( ! class_exists( 'Cherry_Facebook_Embed' ) ) {
 		 *
 		 * @since  1.0.0
 		 * @param  array $providers Existing providers.
-		 * @return array
 		 */
 		public function add_facebook( $providers ) {
 
@@ -58,7 +57,7 @@ if ( ! class_exists( 'Cherry_Facebook_Embed' ) ) {
 				'#https?://www\.facebook\.com/notes/.*#i'         => 'https://www.facebook.com/plugins/post/oembed.json/',
 			);
 
-			foreach( $endpoints as $pattern => $endpoint ) {
+			foreach ( $endpoints as $pattern => $endpoint ) {
 				wp_oembed_add_provider( $pattern, $endpoint, true );
 			}
 		}

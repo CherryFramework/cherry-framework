@@ -227,8 +227,8 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		 * @author Justin Tadlock <justin@justintadlock.com>
 		 * @author Cherry Team <support@cherryframework.com>
 		 * @since  1.0.0
-		 * @param  object $post Post object.
 		 * @param  array  $args API arguments.
+		 * @param  object $post Post object.
 		 * @return string
 		 */
 		public function get_post_format_link( $args = array(), $post = null ) {
@@ -254,8 +254,7 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		 * Callback for apropriate hook to show link post format related link.
 		 *
 		 * @since  1.0.0
-		 * @param  array  $args Set of arguments.
-		 * @return string       related link.
+		 * @param  array $args Set of arguments.
 		 */
 		public function post_format_link( $args = array() ) {
 
@@ -285,8 +284,7 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		 * Callback for apropriate hook to show link post format related link.
 		 *
 		 * @since  1.0.0
-		 * @param  array  $args Set of arguments.
-		 * @return string       related link.
+		 * @param  array $args Set of arguments.
 		 */
 		public function post_format_quote( $args ) {
 
@@ -341,8 +339,7 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		 * Callback for apropriate hook to show audio post format related audio.
 		 *
 		 * @since  1.0.0
-		 * @param  array  $args Set of arguments.
-		 * @return string       related audio.
+		 * @param  array $args Set of arguments.
 		 */
 		public function post_format_audio( $args ) {
 
@@ -422,8 +419,7 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		 * Callback for apropriate hook to show video post format related video.
 		 *
 		 * @since  1.0.0
-		 * @param  array  $args Set of arguments.
-		 * @return string       related video.
+		 * @param  array $args Set of arguments.
 		 */
 		public function post_format_video( $args = array() ) {
 
@@ -437,7 +433,7 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		 * If has post thumbnail - will get post thumbnail, else - get first image from content.
 		 *
 		 * @since  1.0.0
-		 * @param  array  $args Set of arguments.
+		 * @param  array $args Set of arguments.
 		 * @return string       Featured image.
 		 */
 		public function get_post_format_image( $args ) {
@@ -577,8 +573,7 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		 * Callback for apropriate hook to show image post format related thumbnail.
 		 *
 		 * @since  1.0.0
-		 * @param  array  $args Set of arguments.
-		 * @return string       Featured image.
+		 * @param  array $args Set of arguments.
 		 */
 		public function post_format_image( $args ) {
 
@@ -649,8 +644,8 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		/**
 		 * Get galeery images list or try to get gallery HTML
 		 *
-		 * @param  bool  $is_html is HTML returns or not
-		 * @param  array $args    argumnets array
+		 * @param  bool  $is_html is HTML returns or not.
+		 * @param  array $args    argumnets array.
 		 * @return mixed
 		 */
 		public function get_gallery_images( $is_html, $args = array() ) {
@@ -700,8 +695,7 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		 * Callback for apropriate hook to show gallery post format related gallery.
 		 *
 		 * @since  1.0.0
-		 * @param  array  $args Set of arguments.
-		 * @return string       Featured gallery.
+		 * @param  array $args Set of arguments.
 		 */
 		public function post_format_gallery( $args ) {
 
@@ -713,7 +707,8 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		 * Custom output for gallery shortcode.
 		 *
 		 * @since  1.0.0
-		 * @param  array  $atts Shortcode atts.
+		 * @param  array $result S Value to return instead of the gallery shortcode.
+		 * @param  array $atts Shortcode atts.
 		 * @return string       Gallery HTML.
 		 */
 		public function gallery_shortcode( $result, $attr ) {
@@ -795,8 +790,8 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		 * Build default gallery HTML from images array.
 		 *
 		 * @since  1.0.0
-		 * @param  array  $images Images array can contain image IDs or URLs.
-		 * @param  array  $args   Shortcode/user attributes array.
+		 * @param  array $images Images array can contain image IDs or URLs.
+		 * @param  array $args   Shortcode/user attributes array.
 		 * @return string         Gallery HTML markup.
 		 */
 		public function get_gallery_html( $images, $args = array() ) {
@@ -908,7 +903,6 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 						$capt_txt = wptexturize( $attachment->post_excerpt );
 						$caption  = '<figcaption class="' . $css_model['caption'] . '">' . $capt_txt . '</figcaption>';
 					}
-
 				} else {
 
 					global $_wp_additional_image_sizes;
@@ -983,8 +977,8 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		 * returns image URL or boolean false in other case.
 		 *
 		 * @since  1.0.0
-		 * @param  int   $post_id Post ID to search image in.
-		 * @param  int   $limit   Max images count to search.
+		 * @param  int $post_id Post ID to search image in.
+		 * @param  int $limit   Max images count to search.
 		 * @return mixed          Images.
 		 */
 		public function get_post_images( $post_id = null, $limit = 1 ) {
@@ -1019,9 +1013,8 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 				if ( ! $id ) {
 					$result[] = $image_src;
 				} else {
-					$result[] = (int)$id;
+					$result[] = (int) $id;
 				}
-
 			}
 
 			return $result;
@@ -1069,7 +1062,5 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		public static function get_instance( $core, $args ) {
 			return new self( $core, $args );
 		}
-
 	}
-
 }
