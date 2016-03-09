@@ -53,9 +53,12 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		);
 
 		/**
-		* Cherry_Test_Builder constructor
-		*
-		* @since 1.0.0
+		 * Cherry_Test_Builder constructor
+		 * 
+		 * @param object $core core.
+		 * @param array $args arguments.
+		 * 
+		 * @since 1.0.0
 		*/
 		function __construct( $core, $args ) {
 
@@ -74,6 +77,7 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		 * Get ui element instance.
 		 *
 		 * @param  string ui_element slug.
+		 * @param array $args arguments.
 		 *
 		 * @since  1.0.0
 		 * @return object

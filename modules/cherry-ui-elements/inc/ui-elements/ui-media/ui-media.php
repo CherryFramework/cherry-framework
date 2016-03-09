@@ -67,7 +67,7 @@ if ( ! class_exists( 'UI_Media' ) ) {
 			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
 				if ( '' != $this->settings['value'] ) {
 					$this->settings['value'] = str_replace( ' ', '', $this->settings['value'] );
-					$medias = explode(',', $this->settings['value']);
+					$medias = explode( ',', $this->settings['value'] );
 				} else {
 					$this->settings['value'] = '';
 					$medias = array();
