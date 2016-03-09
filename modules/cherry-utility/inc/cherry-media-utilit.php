@@ -19,9 +19,9 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 	class Cherry_Media_Utilit extends Cherry_Satellite_Utilit{
 
 		/**
-		 * Get post image
+		 * Get post image.
 		 *
-		 * @since  1.0.0
+ 		 * @since  1.0.0
 		 * @return string
 		 */
 		public function get_image( $args = array(), $type = 'post', $ID = 0 ) {
@@ -50,11 +50,11 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 			if( 'post' === $type ){
 				$ID = $object->ID;
 				$thumbnail_id = get_post_thumbnail_id( $ID );
-				$alt = $object->post_title;
+				$alt = esc_attr( $object->post_title );
 			}else{
 				$ID = $object->term_id;
 				$thumbnail_id = get_term_meta( $ID, '_tm_thumb' , true );
-				$alt = $object->name;
+				$alt = esc_attr( $object->name );
 			}
 
 			if( $thumbnail_id ){
@@ -68,6 +68,8 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 					'foreground'	=> $args['placeholder_foreground'],
 					'title'			=> $size_array['width'] . 'x' . $size_array['height'],
 				);
+
+				$attr = array_map( 'esc_attr', $attr );
 
 				$src = 'http://fakeimg.pl/' . $attr['width'] . 'x' . $attr['height'] . '/'. $attr['background'] .'/'. $attr['foreground'] . '/?text=' . $attr['title'] . '';
 			}

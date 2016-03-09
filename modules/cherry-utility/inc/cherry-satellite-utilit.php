@@ -49,13 +49,13 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		}
 
 		/**
-		 * Get term permalink
+		 * Get post permalink.
 		 *
 		 * @since  1.0.0
 		 * @return string
 		 */
 		public function get_term_permalink( $ID = 0 ) {
-			return get_category_link( $ID );
+			return esc_url( get_category_link( $ID ) );
 		}
 
 		/**
@@ -81,7 +81,7 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		}
 
 		/**
-		 * Get terms array
+		 * Return post terms.
 		 *
 		 * @since  1.0.0
 		 * @param string $tax - category, post_tag, post_format

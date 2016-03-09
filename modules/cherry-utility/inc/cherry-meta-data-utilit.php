@@ -142,7 +142,7 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 
 
 		/**
-		 * Get post date
+		 * Get post date.
 		 *
 		 * @since  1.0.0
 		 * @return string
@@ -169,7 +169,7 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 				$html_class=  ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
 				$title=  ( $args['title'] ) ? 'title="' . $args['title'] . '"' : '' ;
 				$post_format = get_option( 'date_format' );
-				$time = get_the_time( 'Y-m-d\TH:i:sP' );
+				$time = esc_attr( get_the_time( 'Y-m-d\TH:i:sP' ) );
 				$date = get_the_time( $post_format );
 
 				preg_match_all('/(\d+)/mi', $time, $date_array );
