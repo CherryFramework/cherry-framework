@@ -133,7 +133,5 @@ if ( ! class_exists( 'Cherry_Widget_Factory' ) ) {
 
 			return self::$instance;
 		}
-
 	}
-
 }

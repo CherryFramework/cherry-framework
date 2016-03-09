@@ -11,7 +11,7 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
@@ -86,7 +86,7 @@ if ( ! class_exists( 'UI_Stepper' ) ) {
 		 *
 		 * @since  4.0.0
 		 */
-		public static function enqueue_assets(){
+		public static function enqueue_assets() {
 			wp_enqueue_script(
 				'ui-stepper-min',
 				self::get_current_file_url() . '/assets/min/ui-stepper.min.js',

@@ -11,7 +11,7 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
@@ -27,9 +27,9 @@ if ( ! class_exists( 'UI_Switcher' ) ) {
 				'true_toggle'	=> 'On',
 				'false_toggle'	=> 'Off',
 				'true_slave'	=> '',
-				'false_slave'	=> ''
+				'false_slave'	=> '',
 			),
-			'style'				=> 'normal', //large, normal, small
+			'style'				=> 'normal',
 			'label'				=> '',
 			'class'				=> '',
 			'master'			=> '',
@@ -52,15 +52,15 @@ if ( ! class_exists( 'UI_Switcher' ) ) {
 		 * @since  4.0.0
 		 */
 		public function render() {
-			$data_attr_line = ( !empty( $this->settings['toggle']['true_slave'] ) ) ? 'data-true-slave="' . $this->settings['toggle']['true_slave'] . '"' : '';
-			$data_attr_line .= ( !empty( $this->settings['toggle']['false_slave'] ) ) ? ' data-false-slave="' . $this->settings['toggle']['false_slave'] . '"' : '';
+			$data_attr_line = ( ! empty( $this->settings['toggle']['true_slave'] ) ) ? 'data-true-slave="' . $this->settings['toggle']['true_slave'] . '"' : '';
+			$data_attr_line .= ( ! empty( $this->settings['toggle']['false_slave'] ) ) ? ' data-false-slave="' . $this->settings['toggle']['false_slave'] . '"' : '';
 
 			$html = '';
 
 			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
 
 			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
-				if( '' !== $this->settings['label'] ){
+				if ( '' !== $this->settings['label'] ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
 				}
 				$html .= '<div class="cherry-switcher-wrap size-' . esc_attr( $this->settings['style'] ) . ' ' . esc_attr( $this->settings['class'] ) . '">';
@@ -92,7 +92,7 @@ if ( ! class_exists( 'UI_Switcher' ) ) {
 		 *
 		 * @since  4.0.0
 		 */
-		public static function enqueue_assets(){
+		public static function enqueue_assets() {
 			wp_enqueue_script(
 				'ui-switcher-min',
 				self::get_current_file_url() . '/assets/min/ui-switcher.min.js',
