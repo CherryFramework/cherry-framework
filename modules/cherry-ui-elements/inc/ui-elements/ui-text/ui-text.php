@@ -19,14 +19,8 @@ if ( ! class_exists( 'UI_Text' ) ) {
 	/**
 	 * Class for the building ui-text elements.
 	 */
-	class UI_Text {
+	class UI_Text extends UI_Element implements I_UI {
 
-		/**
-		 * Requsted settings
-		 *
-		 * @var array
-		 */
-		private $settings = array();
 		/**
 		 * Default settings
 		 *
@@ -41,6 +35,7 @@ if ( ! class_exists( 'UI_Text' ) ) {
 			'label'			=> '',
 			'class'			=> '',
 			'master'		=> '',
+			'required'      => false,
 		);
 
 		/**
@@ -53,6 +48,18 @@ if ( ! class_exists( 'UI_Text' ) ) {
 			$this->settings = wp_parse_args( $args, $this->defaults_settings );
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
+		}
+
+		/**
+		 * Get required attribute
+		 *
+		 * @return string required attribute
+		 */
+		public function get_required() {
+			if ( $this->settings['required'] ) {
+				return 'required="required"';
+			}
+			return '';
 		}
 
 		/**
@@ -69,23 +76,9 @@ if ( ! class_exists( 'UI_Text' ) ) {
 				if ( '' !== $this->settings['label'] ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
 				}
-				$html .= '<input type="' . esc_attr( $this->settings['type'] ) . '" id="' . esc_attr( $this->settings['id'] ) . '" class="widefat cherry-ui-text ' . esc_attr( $this->settings['class'] ) . '"  name="' . esc_attr( $this->settings['name'] ) . '"  value="' . esc_html( $this->settings['value'] ) . '" placeholder="' . esc_attr( $this->settings['placeholder'] ) . '">';
+				$html .= '<input type="' . esc_attr( $this->settings['type'] ) . '" id="' . esc_attr( $this->settings['id'] ) . '" class="widefat cherry-ui-text ' . esc_attr( $this->settings['class'] ) . '"  name="' . esc_attr( $this->settings['name'] ) . '"  value="' . esc_html( $this->settings['value'] ) . '" placeholder="' . esc_attr( $this->settings['placeholder'] ) . '" '.$this->get_required().'>';
 			$html .= '</div>';
 			return $html;
-		}
-
-		/**
-		 * Get current file URL
-		 *
-		 * @since  4.0.0
-		 */
-		public static function get_current_file_url() {
-			$assets_url = dirname( __FILE__ );
-			$site_url = site_url();
-			$assets_url = str_replace( untrailingslashit( ABSPATH ), $site_url, $assets_url );
-			$assets_url = str_replace( '\\', '/', $assets_url );
-
-			return $assets_url;
 		}
 
 		/**
@@ -97,7 +90,7 @@ if ( ! class_exists( 'UI_Text' ) ) {
 
 			wp_enqueue_style(
 				'ui-text',
-				self::get_current_file_url() . '/assets/min/ui-text.min.css',
+				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-text.min.css',
 				array(),
 				'1.0.0',
 				'all'

@@ -16,17 +16,11 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'UI_Slider' ) ) {
+
 	/**
 	 * Class for the building UI_Slider elements.
 	 */
-	class UI_Slider {
-
-		/**
-		 * Requsted settings
-		 *
-		 * @var array
-		 */
-		private $settings = array();
+	class UI_Slider extends UI_Element implements I_UI {
 		/**
 		 * Default settings
 		 *
@@ -98,20 +92,6 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 		}
 
 		/**
-		 * Get current file URL
-		 *
-		 * @since  4.0.0
-		 */
-		public static function get_current_file_url() {
-			$assets_url = dirname( __FILE__ );
-			$site_url = site_url();
-			$assets_url = str_replace( untrailingslashit( ABSPATH ), $site_url, $assets_url );
-			$assets_url = str_replace( '\\', '/', $assets_url );
-
-			return $assets_url;
-		}
-
-		/**
 		 * Enqueue javascript and stylesheet UI_Slider.
 		 *
 		 * @since  4.0.0
@@ -120,7 +100,7 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 
 			wp_enqueue_script(
 				'ui-slider-min',
-				self::get_current_file_url() . '/assets/min/ui-slider.min.js',
+				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-slider.min.js',
 				array( 'jquery', 'jquery-ui-slider' ),
 				'1.0.0',
 				true
@@ -128,7 +108,7 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 
 			wp_enqueue_style(
 				'jquery-ui',
-				self::get_current_file_url() . '/assets/jquery-ui.css',
+				self::get_current_file_url( __FILE__ ) . '/assets/jquery-ui.css',
 				array(),
 				'1.0.0',
 				'all'
@@ -136,11 +116,12 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 
 			wp_enqueue_style(
 				'ui-slider-min',
-				self::get_current_file_url() . '/assets/min/ui-slider.min.css',
+				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-slider.min.css',
 				array(),
 				'1.0.0',
 				'all'
 			);
 		}
+
 	}
 }

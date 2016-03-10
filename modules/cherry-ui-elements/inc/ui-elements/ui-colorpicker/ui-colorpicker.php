@@ -19,14 +19,7 @@ if ( ! class_exists( 'UI_Colorpicker' ) ) {
 	/**
 	 * Class for the building UI_Colorpicker elements.
 	 */
-	class UI_Colorpicker {
-
-		/**
-		 * Requsted settings
-		 *
-		 * @var array
-		 */
-		private $settings = array();
+	class UI_Colorpicker extends UI_Element implements I_UI {
 		/**
 		 * Default settings
 		 *
@@ -77,20 +70,6 @@ if ( ! class_exists( 'UI_Colorpicker' ) ) {
 		}
 
 		/**
-		 * Get current file URL
-		 *
-		 * @since  4.0.0
-		 */
-		public static function get_current_file_url() {
-			$assets_url = dirname( __FILE__ );
-			$site_url = site_url();
-			$assets_url = str_replace( untrailingslashit( ABSPATH ), $site_url, $assets_url );
-			$assets_url = str_replace( '\\', '/', $assets_url );
-
-			return $assets_url;
-		}
-
-		/**
 		 * Enqueue javascript and stylesheet UI_Colorpicker
 		 *
 		 * @since  4.0.0
@@ -99,7 +78,7 @@ if ( ! class_exists( 'UI_Colorpicker' ) ) {
 
 			wp_enqueue_script(
 				'ui-colorpicker-min',
-				self::get_current_file_url() . '/assets/min/ui-colorpicker.min.js',
+				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-colorpicker.min.js',
 				array( 'jquery', 'wp-color-picker' ),
 				'1.0.0',
 				true
@@ -107,8 +86,8 @@ if ( ! class_exists( 'UI_Colorpicker' ) ) {
 
 			wp_enqueue_style(
 				'ui-colorpicker-min',
-				self::get_current_file_url() . '/assets/min/ui-colorpicker.min.css',
-				array( 'wp-color-picker' ),
+				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-colorpicker.min.css',
+				array('wp-color-picker'),
 				'1.0.0',
 				'all'
 			);
