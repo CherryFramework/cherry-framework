@@ -1,6 +1,7 @@
 <?php
 /**
  * UI_Element
+ * 
  * @package    Cherry_Framework
  * @subpackage Abstract Class
  * @author     Cherry Team <cherryframework@gmail.com>
@@ -16,7 +17,7 @@ abstract class UI_Element {
 
 	/**
 	 * Settings list
-	 *
+	 * 
 	 * @var array
 	 */
 	protected $settings = array();

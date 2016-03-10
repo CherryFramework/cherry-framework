@@ -1,5 +1,7 @@
 <?php
 /**
+ * Post meta management module
+ * 
  * @package    Cherry_Framework
  * @subpackage Class
  * @author     Cherry Team <cherryframework@gmail.com>
@@ -64,6 +66,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 		/**
 		 * Current nonce name to check
+		 *
 		 * @var null
 		 */
 		public $nonce = 'cherry-meta-nonce';
@@ -119,7 +122,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 			add_filter( 'cherry_core_js_ui_init_settings', array( $this, 'init_ui_js' ), 10 );
 
-			array_walk( $this->args['fields'], array( $this, 'set_field_types') );
+			array_walk( $this->args['fields'], array( $this, 'set_field_types' ) );
 
 			$this->ui_builder = $this->core->init_module( 'cherry-ui-elements', $this->field_types );
 
@@ -130,7 +133,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 * Init UI elements JS
 		 *
 		 * @since  1.0.0
-		 * @param  array $settings UI elements init.
+		 *
 		 * @return array
 		 */
 		public function init_ui_js() {
@@ -211,8 +214,8 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 * Get registered control fields
 		 *
 		 * @since  1.0.0
-		 * @param  mixed  $term     current term object.
-		 * @param  string $taxonomy current taxonomy name.
+		 * @param  mixed  $post     current post object.
+		 * @param  string $format current format name.
 		 * @return string
 		 */
 		public function get_fields( $post, $format = '%s' ) {
@@ -309,12 +312,12 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 */
 		public function set_field_types( $field, $id ) {
 
-			if ( is_array( $field ) || ! isset( $field[ 'type' ] ) ) {
+			if ( is_array( $field ) || ! isset( $field['type'] ) ) {
 				return false;
 			}
 
-			if ( ! in_array( $field[ 'type' ], $this->field_types ) ) {
-				$this->field_types[] = $field[ 'type' ];
+			if ( ! in_array( $field['type'], $this->field_types ) ) {
+				$this->field_types[] = $field['type'];
 			}
 
 			return true;
@@ -367,7 +370,5 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		public static function get_instance( $core, $args ) {
 			return new self( $core, $args );
 		}
-
 	}
-
 }

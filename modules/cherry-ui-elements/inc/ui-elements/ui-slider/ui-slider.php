@@ -11,13 +11,21 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 if ( ! class_exists( 'UI_Slider' ) ) {
-	class UI_Slider extends UI_Element implements I_UI {
 
+	/**
+	 * Class for the building UI_Slider elements.
+	 */
+	class UI_Slider extends UI_Element implements I_UI {
+		/**
+		 * Default settings
+		 *
+		 * @var array
+		 */
 		private $defaults_settings = array(
 			'id'			=> 'cherry-ui-slider-id',
 			'name'			=> 'cherry-ui-slider-name',
@@ -66,7 +74,7 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 			);
 			$ui_stepper_html = $ui_stepper->render();
 
-				if( '' !== $this->settings['label'] ){
+				if ( '' !== $this->settings['label'] ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
 				}
 				$html .= '<div class="cherry-slider-wrap">';
@@ -77,8 +85,8 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 						$html .= '<div class="cherry-slider-unit" data-left-limit="' . esc_attr( $this->settings['min_value'] ) . '" data-right-limit="' . esc_attr( $this->settings['max_value'] ) . '" data-value="' . esc_attr( $this->settings['value'] ) . '"></div>';
 					$html .= '</div>';
 					$html .= '<div class="clear"></div>';
-				$html .=  '</div>';
-			$html .=  '</div>';
+				$html .= '</div>';
+			$html .= '</div>';
 
 			return $html;
 		}
@@ -88,7 +96,7 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 		 *
 		 * @since  4.0.0
 		 */
-		public static function enqueue_assets(){
+		public static function enqueue_assets() {
 
 			wp_enqueue_script(
 				'ui-slider-min',
@@ -113,7 +121,6 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 				'1.0.0',
 				'all'
 			);
-
 		}
 
 	}

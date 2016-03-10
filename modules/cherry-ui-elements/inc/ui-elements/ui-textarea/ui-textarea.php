@@ -11,13 +11,22 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 if ( ! class_exists( 'UI_Textarea' ) ) {
-	class UI_Textarea extends UI_Element implements I_UI {
 
+	/**
+	 * Class for the building UI_Textarea elements.
+	 */
+
+	class UI_Textarea extends UI_Element implements I_UI {
+		/**
+		 * Default settings
+		 *
+		 * @var array
+		 */
 		private $defaults_settings = array(
 			'id'			=> 'cherry-ui-textarea-id',
 			'name'			=> 'cherry-ui-textarea-name',
@@ -53,7 +62,7 @@ if ( ! class_exists( 'UI_Textarea' ) ) {
 			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
 
 			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
-				if( '' !== $this->settings['label'] ){
+				if ( '' !== $this->settings['label'] ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . $this->settings['label'] . '</label> ';
 				}
 				$html .= '<textarea id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-textarea ' . esc_attr( $this->settings['class'] ) . '" name="' . esc_attr( $this->settings['name'] ) . '" rows="' . esc_attr( $this->settings['rows'] ) . '" cols="' . esc_attr( $this->settings['cols'] ) . '" placeholder="' . esc_attr( $this->settings['placeholder'] ) . '">' . esc_html( $this->settings['value'] ) . '</textarea>';
@@ -67,7 +76,7 @@ if ( ! class_exists( 'UI_Textarea' ) ) {
 		 *
 		 * @since  4.0.0
 		 */
-		public static function enqueue_assets(){
+		public static function enqueue_assets() {
 			wp_enqueue_style(
 				'ui-textarea',
 				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-textarea.min.css',
@@ -76,6 +85,5 @@ if ( ! class_exists( 'UI_Textarea' ) ) {
 				'all'
 			);
 		}
-
 	}
 }

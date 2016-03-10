@@ -99,7 +99,7 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 
 			$widget_ops = array(
 				'classname'   => $this->widget_cssclass,
-				'description' => $this->widget_description
+				'description' => $this->widget_description,
 			);
 
 			parent::__construct( $this->widget_id, $this->widget_name, $widget_ops );
@@ -142,7 +142,6 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 				} else {
 					$instance[ $key ] = $data['value'];
 				}
-
 			}
 
 			return $instance;
@@ -187,7 +186,7 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 				return false;
 			}
 
-			array_walk( $this->settings, array( $this, 'set_field_types') );
+			array_walk( $this->settings, array( $this, 'set_field_types' ) );
 
 			$core = $this->get_core();
 
@@ -307,11 +306,11 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 		}
 
 		/**
-		 * update function.
+		 * Update function.
 		 *
 		 * @since  1.0.0
 		 * @see    WP_Widget->update
-		 * @param  array $new_instance new widget instance, passed from widget form
+		 * @param  array $new_instance new widget instance, passed from widget form.
 		 * @param  array $old_instance old instance, saved in database.
 		 * @return array
 		 */
@@ -379,12 +378,12 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 		 */
 		public function set_field_types( $field, $id ) {
 
-			if ( is_array( $field ) || ! isset( $field[ 'type' ] ) ) {
+			if ( is_array( $field ) || ! isset( $field['type'] ) ) {
 				return false;
 			}
 
-			if ( ! in_array( $field[ 'type' ], $this->field_types ) ) {
-				$this->field_types[] = $field[ 'type' ];
+			if ( ! in_array( $field['type'], $this->field_types ) ) {
+				$this->field_types[] = $field['type'];
 			}
 
 			return true;
@@ -531,7 +530,6 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 		 * @since  1.0.0
 		 * @param  array $args     widget arguments.
 		 * @param  array $instance current widget instance.
-		 * @return false
 		 */
 		public function setup_widget_data( $args, $instance ) {
 			$this->args     = $args;
@@ -542,7 +540,6 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 		 * Clear current widget data.
 		 *
 		 * @since  1.0.0
-		 * @return false
 		 */
 		public function reset_widget_data() {
 
@@ -560,7 +557,6 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 		 *
 		 * @since  1.0.1
 		 * @param  string $id Widget setting ID.
-		 * @return string
 		 */
 		public function use_wpml_translate( $id ) {
 			return ! empty( $this->instance[ $id ] ) ? apply_filters( 'wpml_translate_single_string', $this->instance[ $id ], 'Widgets', "{$this->widget_name} - {$id}" ) : '';

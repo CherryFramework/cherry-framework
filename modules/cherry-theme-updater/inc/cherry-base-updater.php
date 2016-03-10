@@ -51,7 +51,7 @@ if ( ! class_exists( 'Cherry_Base_Updater' ) ) {
 		 * Init class parameters.
 		 *
 		 * @since  4.0.0
-		 * @param  array $attr Input attributes array.
+		 * @param  array $settings Input attributes array.
 		 * @return void
 		 */
 		protected function base_init( $settings = array() ) {
@@ -100,7 +100,7 @@ if ( ! class_exists( 'Cherry_Base_Updater' ) ) {
 		 * Remote request to updater API.
 		 *
 		 * @since  4.0.0
-		 * @param  array      $args Request paprams.
+		 * @param  array $args Request paprams.
 		 * @return array|bool
 		 */
 		protected function remote_query( $args ) {
