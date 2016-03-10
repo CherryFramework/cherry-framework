@@ -1,6 +1,7 @@
 <?php
 /**
  * Module for js files upload
+ * 
  * @package    Cherry_Framework
  * @subpackage Class
  * @author     Cherry Team <support@cherryframework.com>

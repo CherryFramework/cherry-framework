@@ -1,6 +1,7 @@
 <?php
 /**
  * API functions for post formats specific content
+ * 
  * @package    Cherry_Framework
  * @subpackage Class
  * @author     Cherry Team <cherryframework@gmail.com>

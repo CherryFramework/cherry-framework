@@ -152,11 +152,10 @@ class Cherry_Customizer {
 	 *          ),
 	 *      )
 	 * );
-	 * 
+	 *
 	 * @since 1.0.0
 	 * @param object $core Cherry_Core instance.
 	 * @param array  $args Aguments for constructor.
-	 *
 	 */
 	public function __construct( $core, $args ) {
 
@@ -258,7 +257,7 @@ class Cherry_Customizer {
 
 	/**
 	 * Add a customize section.
-	 * 
+	 *
 	 * * The priorities of the core sections are below:
 	 *
 	 * Title                ID                Priority (Order)
@@ -273,7 +272,6 @@ class Cherry_Customizer {
 	 * @since 1.0.0
 	 * @param mixed $id Section id.
 	 * @param array $args Section arguments.
-	 *
 	 */
 	public function add_section( $id, $args ) {
 		$prefix          = $this->prefix . '_';

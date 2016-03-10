@@ -102,6 +102,9 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		 */
 		public $is_extend = false;
 
+		/**
+		 * Constructor of class
+		 */
 		function __construct( $core, $args = array() ) {
 
 			$this->core = $core;
@@ -429,6 +432,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 
 			/**
 			 * Filter final item array
+			 *
 			 * @since 4.0.0
 			 * @var    array
 			 */
