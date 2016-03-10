@@ -16,9 +16,8 @@ if ( !defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'UI_Media' ) ) {
-	class UI_Media {
+	class UI_Media extends UI_Element implements I_UI {
 
-		private $settings = array();
 		private $defaults_settings = array(
 			'id'					=> 'cherry-ui-media-id',
 			'name'					=> 'cherry-ui-media-name',
@@ -130,20 +129,6 @@ if ( ! class_exists( 'UI_Media' ) ) {
 		}
 
 		/**
-		 * Get current file URL
-		 *
-		 * @since  4.0.0
-		 */
-		public static function get_current_file_url() {
-			$assets_url = dirname( __FILE__ );
-			$site_url = site_url();
-			$assets_url = str_replace( untrailingslashit( ABSPATH ), $site_url, $assets_url );
-			$assets_url = str_replace( '\\', '/', $assets_url );
-
-			return $assets_url;
-		}
-
-		/**
 		 * Enqueue javascript and stylesheet UI_Media
 		 *
 		 * @since  4.0.0
@@ -153,7 +138,7 @@ if ( ! class_exists( 'UI_Media' ) ) {
 
 			wp_enqueue_script(
 				'ui-media-min',
-				self::get_current_file_url() . '/assets/min/ui-media.min.js',
+				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-media.min.js',
 				array( 'jquery', 'jquery-ui-sortable' ),
 				'1.0.0',
 				true
@@ -161,11 +146,12 @@ if ( ! class_exists( 'UI_Media' ) ) {
 
 			wp_enqueue_style(
 				'ui-media-min',
-				self::get_current_file_url() . '/assets/min/ui-media.min.css',
+				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-media.min.css',
 				array(),
 				'1.0.0',
 				'all'
 			);
 		}
+
 	}
 }

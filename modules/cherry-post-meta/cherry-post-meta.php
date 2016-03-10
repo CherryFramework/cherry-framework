@@ -69,20 +69,31 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		public $nonce = 'cherry-meta-nonce';
 
 		/**
+		 * Module directory
+		 *
+		 * @since 1.0.0
+		 * @var string
+		 */
+		private $module_directory = '';
+
+		/**
 		 * Constructor for the module
 		 */
 		function __construct( $core, $args ) {
-
+			$this->module_directory = $core->settings['base_dir'] . '/modules/' . $this->module_slug;
 			$this->core = $core;
-			$this->args = wp_parse_args( $args, array(
-				'id'            => 'cherry-post-metabox',
-				'title'         => '',
-				'page'          => array( 'post' ),
-				'context'       => 'normal',
-				'priority'      => 'high',
-				'callback_args' => false,
-				'fields'        => array(),
-			) );
+			$this->args = wp_parse_args(
+				$args,
+				array(
+					'id'            => 'cherry-post-metabox',
+					'title'         => '',
+					'page'          => array( 'post' ),
+					'context'       => 'normal',
+					'priority'      => 'high',
+					'callback_args' => false,
+					'fields'        => array(),
+				)
+			);
 
 			if ( empty( $this->args['fields'] ) ) {
 				return;
@@ -169,7 +180,6 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 			if ( ! $this->is_allowed_page() ) {
 				return;
 			}
-
 			add_meta_box(
 				$this->args['id'],
 				$this->args['title'],
@@ -207,7 +217,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 */
 		public function get_fields( $post, $format = '%s' ) {
 
-			$result = '';
+			$elements = array();
 
 			foreach ( $this->args['fields'] as $key => $field ) {
 
@@ -244,22 +254,30 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 					'step_value'         => $this->get_arg( $field, 'step_value', '1' ),
 					'style'              => $this->get_arg( $field, 'style', 'normal' ),
 					'display_input'      => $this->get_arg( $field, 'display_input', true ),
+					'controls'           => $this->get_arg( $field, 'controls', array() ),
 					'toggle'             => $this->get_arg( $field, 'toggle', array(
 						'true_toggle'  => 'On',
 						'false_toggle' => 'Off',
 						'true_slave'   => '',
 						'false_slave'  => '',
 					) ),
+					'required'           => $this->get_arg( $field, 'required', false),
 				);
 
 				$current_element = $this->ui_builder->get_ui_element_instance( $args['type'], $args );
 
-				$result .= sprintf( $format, $current_element->render() );
+				$elements[] = array(
+					'html'  => $current_element->render(),
+					'field' => $field
+				);
 
 			}
-
-			return $result;
-
+			return Cherry_Core::render_view(
+				$this->module_directory . '/views/meta.php',
+				array(
+					'elements' => $elements
+				)
+			);
 		}
 
 		/**

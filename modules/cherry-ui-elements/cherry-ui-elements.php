@@ -49,7 +49,12 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		 * @var array
 		 */
 		private $args = array(
-			'ui_elements'	=> array( 'text', 'textarea', 'select', 'checkbox', 'radio', 'colorpicker', 'media', 'stepper', 'switcher', 'slider' ),
+			'ui_elements'	=> array(
+				'text', 'number', 'textarea',
+				'select', 'checkbox', 'radio',
+				'colorpicker', 'media', 'stepper',
+				'switcher', 'slider', 'collection'
+			),
 		);
 
 		/**
@@ -96,7 +101,6 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 				echo '<p>Class <b>' . $ui_class_name . '</b> not exist!</p>';
 				return false;
 			}
-
 			return new $ui_class_name( $args );
 		}
 
@@ -106,6 +110,12 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		 * @return void
 		 */
 		public function ui_elements_require() {
+			// Add I_UI interface.
+			require_once( $this->module_directory . '/i-ui.php' );
+
+			if ( ! class_exists('UI_Element') ) {
+				require_once( $this->module_directory . '/ui-element.php' );
+			}
 
 			if ( ! empty( $this->args['ui_elements'] ) ) {
 				foreach ( $this->args['ui_elements'] as $ui_element ) {
@@ -120,11 +130,12 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		 * @since 1.0.0
 		 */
 		public function enqueue_admin_assets() {
-
 			if ( ! empty( $this->args['ui_elements'] ) ) {
 				foreach ( $this->args['ui_elements'] as $ui_element ) {
 					$ui_class_name = 'UI_' . ucwords( $ui_element );
-					$ui_class_name::enqueue_assets();
+					if ( in_array( 'I_UI', class_implements( $ui_class_name ) ) ) {
+						$ui_class_name::enqueue_assets();
+					}
 				}
 			}
 		}

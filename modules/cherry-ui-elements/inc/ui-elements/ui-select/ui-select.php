@@ -16,9 +16,8 @@ if ( !defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'UI_Select' ) ) {
-	class UI_Select {
+	class UI_Select extends UI_Element implements I_UI {
 
-		private $settings = array();
 		private $defaults_settings = array(
 			'id'			=> 'cherry-ui-select-id',
 			'name'			=> 'cherry-ui-select-name',
@@ -131,20 +130,6 @@ if ( ! class_exists( 'UI_Select' ) ) {
 		}
 
 		/**
-		 * Get current file URL
-		 *
-		 * @since  4.0.0
-		 */
-		public static function get_current_file_url() {
-			$assets_url = dirname( __FILE__ );
-			$site_url = site_url();
-			$assets_url = str_replace( untrailingslashit( ABSPATH ), $site_url, $assets_url );
-			$assets_url = str_replace( '\\', '/', $assets_url );
-
-			return $assets_url;
-		}
-
-		/**
 		 * Enqueue javascript and stylesheet UI_Select
 		 *
 		 * @since  4.0.0
@@ -152,32 +137,33 @@ if ( ! class_exists( 'UI_Select' ) ) {
 		public static function enqueue_assets(){
 			wp_enqueue_script(
 				'ui-select-select2',
-				self::get_current_file_url() . '/assets/select2.js',
+				self::get_current_file_url( __FILE__ ) . '/assets/select2.js',
 				array( 'jquery' ),
 				'0.2.9',
 				true
 			);
 			wp_enqueue_script(
 				'ui-select-min',
-				self::get_current_file_url() . '/assets/min/ui-select.min.js',
+				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-select.min.js',
 				array( 'jquery' ),
 				'1.0.0',
 				true
 			);
 			wp_enqueue_style(
 				'ui-select-select2',
-				self::get_current_file_url() . '/assets/select2.css',
+				self::get_current_file_url( __FILE__ ) . '/assets/select2.css',
 				array(),
 				'0.2.9',
 				'all'
 			);
 			wp_enqueue_style(
 				'ui-select-min',
-				self::get_current_file_url() . '/assets/min/ui-select.min.css',
+				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-select.min.css',
 				array(),
 				'1.0.0',
 				'all'
 			);
 		}
+
 	}
 }
