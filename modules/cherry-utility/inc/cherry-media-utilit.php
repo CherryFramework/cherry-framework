@@ -32,8 +32,8 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 			}
 
 			$default_args = array(
-				'size'						=> apply_filters( 'cherry_normal_image_size', '_tm-thumb-m' ),
-				'mobile_size'				=> apply_filters( 'cherry_mobile_image_size', 'tm-thumb-s' ),
+				'size'						=> apply_filters( 'cherry_normal_image_size', 'post-thumbnail' ),
+				'mobile_size'				=> apply_filters( 'cherry_mobile_image_size', 'post-thumbnail' ),
 				'class'						=> 'wp-image',
 				'html'						=> '<img src="%1$s" alt="%2$s" %3$s %4$s >',
 				'placeholder_background'	=> '000',
@@ -94,8 +94,8 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 			}
 
 			$default_args = array(
-				'size'						=> apply_filters( 'cherry_normal_video_size', '_tm-thumb-m' ),
-				'mobile_size'				=> apply_filters( 'cherry_mobile_video_size', 'tm-thumb-s' ),
+				'size'						=> apply_filters( 'cherry_normal_video_size', 'post-thumbnail' ),
+				'mobile_size'				=> apply_filters( 'cherry_mobile_video_size', 'post-thumbnail' ),
 				'class'						=> 'wp-video',
 			);
 			$args = array_merge( $default_args, $args );
