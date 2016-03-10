@@ -1,6 +1,6 @@
 <?php
 /**
- *
+ *Class for the building ui elements
  * @package    Cherry_Framework
  * @subpackage Class
  * @author     Cherry Team <cherryframework@gmail.com>
@@ -15,7 +15,9 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
-
+	/**
+	 *Class for the building ui elements
+	 */
 	class Cherry_UI_Elements {
 
 		/**

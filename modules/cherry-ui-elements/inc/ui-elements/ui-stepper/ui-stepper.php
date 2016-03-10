@@ -16,6 +16,9 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'UI_Stepper' ) ) {
+	/**
+	 * Class for the building UI_Stepper elements.
+	 */
 	class UI_Stepper {
 
 		/**

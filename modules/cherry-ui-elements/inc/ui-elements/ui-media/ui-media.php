@@ -16,6 +16,9 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'UI_Media' ) ) {
+	/**
+	 * Class for the building UI_Media elements.
+	 */
 	class UI_Media {
 
 		/**

@@ -9,8 +9,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Class
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @author     Cherry Team <support@cherryframework.com>
+ * @author     Cherry Team <support@cherryframework.com>,Justin Tadlock <justin@justintadlock.com>
  * @copyright  Copyright (c) 2008 - 2014, Justin Tadlock
  * @link       http://themehybrid.com/plugins/breadcrumb-trail
  * @link       http://www.cherryframework.com
@@ -431,7 +430,6 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			/**
 			 * Filter final item array
 			 * @since 4.0.0
-			 *
 			 * @var    array
 			 */
 			$this->items = apply_filters( 'cherry_breadcrumbs_items', $this->items, $this->args );

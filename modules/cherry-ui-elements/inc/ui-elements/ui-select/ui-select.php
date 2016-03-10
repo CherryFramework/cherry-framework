@@ -16,6 +16,9 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'UI_Select' ) ) {
+	/**
+	 * Class for the building UI_Select elements.
+	 */
 	class UI_Select {
 
 		/**

@@ -16,6 +16,9 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'UI_Slider' ) ) {
+	/**
+	 * Class for the building UI_Slider elements.
+	 */
 	class UI_Slider {
 
 		/**

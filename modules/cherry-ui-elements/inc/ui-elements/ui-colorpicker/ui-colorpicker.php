@@ -16,6 +16,9 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'UI_Colorpicker' ) ) {
+	/**
+	 * Class for the building UI_Colorpicker elements.
+	 */
 	class UI_Colorpicker {
 
 		/**

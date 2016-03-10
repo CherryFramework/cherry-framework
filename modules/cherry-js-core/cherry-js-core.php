@@ -1,6 +1,6 @@
 <?php
 /**
- *
+ * Module for js files upload
  * @package    Cherry_Framework
  * @subpackage Class
  * @author     Cherry Team <support@cherryframework.com>
@@ -15,7 +15,9 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'Cherry_Js_Core' ) ) {
-
+	/**
+	 * Module for js files upload
+	 */
 	class Cherry_Js_Core {
 
 		/**

@@ -16,6 +16,9 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'UI_Checkbox' ) ) {
+	/**
+	 * Class for the building UI_Checkbox elements.
+	 */
 	class UI_Checkbox {
 
 		/**

@@ -16,6 +16,9 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'UI_Text' ) ) {
+	/**
+	 * Class for the building ui-text elements.
+	 */
 	class UI_Text {
 
 		/**

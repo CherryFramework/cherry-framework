@@ -16,6 +16,9 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'UI_Textarea' ) ) {
+	/**
+	 * Class for the building UI_Textarea elements.
+	 */
 	class UI_Textarea {
 
 		/**

@@ -16,6 +16,9 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'UI_Switcher' ) ) {
+	/**
+	 * Class for the building UI_Switcher elements.
+	 */
 	class UI_Switcher {
 
 		/**
