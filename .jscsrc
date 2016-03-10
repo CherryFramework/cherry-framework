@@ -2,6 +2,14 @@
   "preset": "wordpress",
   "fileExtensions": [ ".js" ],
   "excludeFiles": [
-
+        "modules/cherry-ui-elements/inc/ui-elements/ui-switcher/assets/min/ui-switcher.min.js",
+        "modules/cherry-ui-elements/inc/ui-elements/ui-stepper/assets/min/ui-stepper.min.js",
+        "modules/cherry-ui-elements/inc/ui-elements/ui-slider/assets/min/ui-slider.min.js",
+        "modules/cherry-ui-elements/inc/ui-elements/ui-select/assets/min/ui-select.min.js",
+        "modules/cherry-ui-elements/inc/ui-elements/ui-select/assets/min/select2.min.js",
+        "modules/cherry-ui-elements/inc/ui-elements/ui-radio/assets/min/ui-radio.min.js",
+        "modules/cherry-ui-elements/inc/ui-elements/ui-media/assets/min/ui-media.min.js",
+        "modules/cherry-ui-elements/inc/ui-elements/ui-colorpicker/assets/min/ui-colorpicker.min.js",
+        "modules/cherry-js-core/assets/js/min/cherry-js-core.min.js",
   ]
 }
