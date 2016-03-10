@@ -1,6 +1,7 @@
 <?php
 /**
  * Widget factory module main class
+ *
  * @package    Cherry_Framework
  * @subpackage Class
  * @author     Cherry Team <cherryframework@gmail.com>
