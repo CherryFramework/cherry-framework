@@ -261,6 +261,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 						'true_slave'   => '',
 						'false_slave'  => '',
 					) ),
+					'required'           => $this->get_arg( $field, 'required', false),
 				);
 
 				$current_element = $this->ui_builder->get_ui_element_instance( $args['type'], $args );
