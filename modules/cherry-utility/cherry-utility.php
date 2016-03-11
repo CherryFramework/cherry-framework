@@ -62,7 +62,18 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 				'attributes',
 				'meta-data',
 			),
+			'meta_key'	=> array(
+				'term_thumb'	=> 'cherry_thumb'
+			)
 		);
+
+		/**
+		 * Satellite utilit class
+		 *
+		 * @since 1.0.0
+		 * @var string
+		 */
+		private static $satellite_utilit_class = 'satellite';
 
 		/**
 		 * Default static args
@@ -83,7 +94,7 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 			$this->module_directory_uri = $core->settings['base_url'] . 'modules/cherry-utility/';
 
 			$this->args = array_merge( $this->args, $args );
-			array_unshift( $this->args['utility'], 'satellite' );
+			array_unshift( $this->args['utility'], self::$satellite_utilit_class );
 			self::$static_args = $this->args;
 
 			$this->utility_require();
@@ -112,6 +123,7 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 		 */
 		public static function utility_composition( $self ) {
 			$utility = self::$static_args['utility'];
+
 			if ( ! empty( $utility ) ) {
 				$self->{'utility'} = new stdClass();
 
@@ -121,7 +133,7 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 					$class_name = str_replace(' ', '_', ucwords( $class_name ) );
 					$class_name = 'Cherry_' . $class_name . '_Utilit';
 
-					$self->utility->$sud_module = new $class_name();
+					$self->utility->$sud_module = new $class_name( self::$static_args );
 				}
 			}
 		}
