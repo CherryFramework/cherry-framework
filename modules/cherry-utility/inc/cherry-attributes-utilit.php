@@ -19,6 +19,23 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 	class Cherry_Attributes_Utilit extends Cherry_Satellite_Utilit{
 
 		/**
+		 * Default args
+		 *
+		 * @since 1.0.0
+		 * @var array
+		 */
+		private $args = array();
+
+		/**
+		* Cherry_Satellite_Utilit constructor
+		*
+		* @since 1.0.0
+		*/
+		function __construct( $args = array() ) {
+			$this->args = array_merge( $this->args, $args );
+		}
+
+		/**
 		 * Get post title.
 		 *
 		 * @since  1.0.0
@@ -35,6 +52,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			}
 
 			$default_args = array(
+				'visible'	=> 'true',
 				'length'	=> 200,
 				'class'		=> '',
 				'ending'	=> '&hellip;',
@@ -43,7 +61,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			$args = array_merge( $default_args, $args );
 			$html = '' ;
 
-			if ( '0' !== $args['length'] ) {
+			if ( '0' !== $args['length'] && 'true' === $args['visible'] ) {
 				$title = ( 'post' === $type ) ? $object->post_title : $object->name ;
 				$title_cut = $this->cut_text( $title, $args['length'], $args['ending'] );
 
@@ -75,6 +93,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			}
 
 			$default_args = array(
+				'visible'	=> 'true',
 				'length'		=> 1000000,
 				'class'			=> '',
 				'content_type'	=> 'post_content',//post_excerpt, post_content
@@ -84,7 +103,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			$args = array_merge( $default_args, $args );
 			$html = '' ;
 
-			if ( '0' !== $args['length'] ) {
+			if ( '0' !== $args['length'] && 'true' === $args['visible'] ) {
 				if ( 'term' === $type ) {
 					$args['content_type'] = 'description';
 				}
@@ -129,6 +148,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 
 			if ( 'true' === $args['visible'] ) {
 				$html_class=  ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
+				$text = esc_html( $args['text'] );
 
 				if ( 'term' === $type ) {
 					$title = $object->name;
@@ -138,7 +158,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 					$link = $this->get_post_permalink();
 				}
 
-				$html = sprintf( $args['html'], $link, $title, $html_class, $args['text'], $args['icon'] );
+				$html = sprintf( $args['html'], $link, $title, $html_class, $text, $args['icon'] );
 			}
 
 			return $html;
