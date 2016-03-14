@@ -18,8 +18,8 @@ var CherryJsCore;
 				script: wp_load_script,
 				style: wp_load_style
 			},
-			ui_auto_init: ( 'true' == ui_init_object.auto_init ) ? true : false,
-			ui_auto_target: ui_init_object.targets
+			ui_auto_init: ( 'true' == window.ui_init_object.auto_init ) ? true : false,
+			ui_auto_target: window.ui_init_object.targets
 		},
 
 		status: {

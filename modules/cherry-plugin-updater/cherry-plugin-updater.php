@@ -43,7 +43,8 @@ if ( ! class_exists( 'Cherry_Plugin_Updater' ) ) {
 		 * Init class parameters.
 		 *
 		 * @since  1.0.0
-		 * @param  array $attr Input attributes array.
+		 * @param object $core Core of framework.
+		 * @param array  $args Argument of base init.
 		 * @return void
 		 */
 		public function __construct( $core, $args = array() ) {
@@ -121,7 +122,12 @@ if ( ! class_exists( 'Cherry_Plugin_Updater' ) ) {
 
 			$change_details_plugin_url_script = true;
 		}
-
+		/**
+		 * Returns the instance.
+		 *
+		 * @since  1.0.0
+		 * @return object
+		 */
 		public static function get_instance( $core, $args ) {
 			return new self( $core, $args );
 		}

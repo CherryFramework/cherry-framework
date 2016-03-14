@@ -11,13 +11,21 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 if ( ! class_exists( 'UI_Radio' ) ) {
-	class UI_Radio extends UI_Element implements I_UI {
 
+	/**
+	 * Class for the building UI_Radio elements.
+	 */
+	class UI_Radio extends UI_Element implements I_UI {
+		/**
+		 * Default settings
+		 *
+		 * @var array
+		 */
 		private $defaults_settings = array(
 			'id'				=> 'cherry-ui-radio-id',
 			'name'				=> 'cherry-ui-radio-name',
@@ -26,17 +34,17 @@ if ( ! class_exists( 'UI_Radio' ) ) {
 				'radio-1' => array(
 					'label' => 'Radio 1',
 					'img_src'	=> '',
-					'slave'		=> ''
+					'slave'		=> '',
 				),
 				'radio-2' => array(
 					'label' => 'Radio 2',
 					'img_src'	=> '',
-					'slave'		=> ''
+					'slave'		=> '',
 				),
 				'radio-3' => array(
 					'label' => 'Radio 3',
 					'img_src'	=> '',
-					'slave'		=> ''
+					'slave'		=> '',
 				),
 			),
 			'slave'				=> array(),
@@ -70,17 +78,17 @@ if ( ! class_exists( 'UI_Radio' ) ) {
 			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
 
 			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
-				if ( $this->settings['options'] && !empty( $this->settings['options'] ) && is_array( $this->settings['options']) ) {
-					if( '' !== $this->settings['label'] ){
+				if ( $this->settings['options'] && ! empty( $this->settings['options'] ) && is_array( $this->settings['options'] ) ) {
+					if ( '' !== $this->settings['label'] ) {
 						$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . $this->settings['label'] . '</label> ';
 					}
 					$html .= '<div class="cherry-radio-group">';
 						foreach ( $this->settings['options'] as $option => $option_value ) {
 							$checked = $option == $this->settings['value'] ? ' checked' : '';
 							$radio_id = $this->settings['id'] . '-' . $option;
-							$img = isset( $option_value['img_src'] ) && !empty( $option_value['img_src'] ) ? '<img src="' . esc_url( $option_value['img_src'] ) . '" alt="' . esc_html( $option_value['label'] ) . '"><span class="check"><i class="dashicons dashicons-yes"></i></span>' : '<span class="cherry-radio-item"><i></i></span>';
-							$data_slave = isset( $option_value['slave'] ) && !empty( $option_value['slave'] ) ? ' data-slave="' . $option_value['slave'] . '"' : '';
-							$class_box = isset( $option_value['img_src'] ) && !empty( $option_value['img_src'] ) ? ' cherry-radio-img' . $checked : ' cherry-radio-item' . $checked;
+							$img = isset( $option_value['img_src'] ) && ! empty( $option_value['img_src'] ) ? '<img src="' . esc_url( $option_value['img_src'] ) . '" alt="' . esc_html( $option_value['label'] ) . '"><span class="check"><i class="dashicons dashicons-yes"></i></span>' : '<span class="cherry-radio-item"><i></i></span>';
+							$data_slave = isset( $option_value['slave'] ) && ! empty( $option_value['slave'] ) ? ' data-slave="' . $option_value['slave'] . '"' : '';
+							$class_box = isset( $option_value['img_src'] ) && ! empty( $option_value['img_src'] ) ? ' cherry-radio-img' . $checked : ' cherry-radio-item' . $checked;
 
 							$html .= '<div class="' . $class_box . '">';
 							$html .= '<input type="radio" id="' . esc_attr( $radio_id ) . '" class="cherry-radio-input ' . sanitize_html_class( $this->settings['class'] ) . '" name="' . esc_attr( $this->settings['name'] ) . '" ' . checked( $option, $this->settings['value'], false ) . ' value="' . esc_attr( $option ) . '"' . $data_slave . '>';
@@ -102,7 +110,7 @@ if ( ! class_exists( 'UI_Radio' ) ) {
 		 *
 		 * @since  4.0.0
 		 */
-		public static function enqueue_assets(){
+		public static function enqueue_assets() {
 			wp_enqueue_script(
 				'ui-radio-min',
 				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-radio.min.js',
@@ -119,6 +127,5 @@ if ( ! class_exists( 'UI_Radio' ) ) {
 				'all'
 			);
 		}
-
 	}
 }

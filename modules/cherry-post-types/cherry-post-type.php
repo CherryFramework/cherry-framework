@@ -1,6 +1,7 @@
 <?php
 /**
  * Custom post type
+ *
  * @package    Cherry_Framework
  * @subpackage Class
  * @author     Cherry Team <cherryframework@gmail.com>
@@ -73,7 +74,7 @@ class Cherry_Post_Type {
 	/**
 	 * Add font awesome icon to menu
 	 *
-	 * @param  string $icon font awesome icon code.
+	 * @param  [type] $icon font awesome icon code.
 	 * @return boolen true if succes | false if not.
 	 */
 	public function font_awesome_icon( $icon = '' ) {

@@ -1,6 +1,7 @@
 <?php
 /**
  * Class for the building ui-collection element.
+ *
  * @package    Cherry_Framework
  * @subpackage Class
  * @author     Cherry Team <support@cherryframework.com>
@@ -10,16 +11,17 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 if ( ! class_exists( 'UI_Collection' ) ) {
+
 	/**
 	 * UI_Collection class
 	 * Example usage:
 	 *
-	 * new UI_Collection(
+	 * New UI_Collection(
 	 *  	array(
 	 *  		'type'	  => 'collection',
 	 *  		'id'      => 'gallery',
@@ -43,10 +45,13 @@ if ( ! class_exists( 'UI_Collection' ) ) {
 	 *  		),
 	 *  	)
 	 *  );
-	 *
 	 */
 	class UI_Collection extends UI_Element implements I_UI {
-
+		/**
+		 * Default settings
+		 *
+		 * @var array
+		 */
 		private $defaults_settings = array(
 			'id'			=> 'collection',
 			'name'			=> 'collection',
@@ -70,9 +75,9 @@ if ( ! class_exists( 'UI_Collection' ) ) {
 			$count = max( 1, $this->get_rows_count() );
 			$rendered_controls = array();
 			if ( is_array( $this->settings['controls'] ) && count( $this->settings['controls'] ) ) {
-				for ( $i=0; $i < $count; $i++) {
+				for ( $i = 0; $i < $count; $i++ ) {
 					foreach ( $this->settings['controls'] as $class => $args ) {
-						if( in_array( 'I_UI', class_implements( $class ) ) ) {
+						if ( in_array( 'I_UI', class_implements( $class ) ) ) {
 							$control      = new $class( $args );
 							$control_old_name = $control->get_name();
 							$control_name = sprintf(
@@ -85,7 +90,7 @@ if ( ! class_exists( 'UI_Collection' ) ) {
 							$control->set_value( $control_value );
 							$rendered_controls[ $i ][] = array(
 								'args' => $args,
-								'html' => $control->render()
+								'html' => $control->render(),
 							);
 						}
 					}
@@ -94,7 +99,7 @@ if ( ! class_exists( 'UI_Collection' ) ) {
 			return Cherry_Core::render_view(
 				dirname( __FILE__ ) . '/views/collection.php',
 				array(
-					'rendered_controls' => $rendered_controls
+					'rendered_controls' => $rendered_controls,
 				)
 			);
 		}
@@ -127,8 +132,7 @@ if ( ! class_exists( 'UI_Collection' ) ) {
 		 */
 		public function get_control_value( $control_name, $row ) {
 			$values = $this->get_value();
-			if ( is_array( $values ) )
-			{
+			if ( is_array( $values ) ) {
 				if ( array_key_exists( $control_name, $values ) ) {
 					$control_values = $values[ $control_name ];
 					if ( array_key_exists( $row, $control_values ) ) {
@@ -140,11 +144,11 @@ if ( ! class_exists( 'UI_Collection' ) ) {
 		}
 
 		/**
-		 * Enqueue javascript and stylesheet UI_Text
+		 * Enqueue javascript and stylesheet UI_Colection
 		 *
 		 * @since  4.0.0
 		 */
-		public static function enqueue_assets(){
+		public static function enqueue_assets() {
 			wp_enqueue_script( 'jquery' );
 			wp_enqueue_script( 'jquery-ui-sortable' );
 			wp_enqueue_script(
@@ -165,6 +169,5 @@ if ( ! class_exists( 'UI_Collection' ) ) {
 				'all'
 			);
 		}
-
 	}
 }

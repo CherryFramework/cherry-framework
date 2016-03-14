@@ -11,13 +11,22 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 if ( ! class_exists( 'UI_Stepper' ) ) {
+
+	/**
+	 * Class for the building UI_Stepper elements.
+	 */
 	class UI_Stepper extends UI_Element implements I_UI {
 
+		/**
+		 * Default settings
+		 *
+		 * @var array
+		 */
 		private $defaults_settings = array(
 			'id'			=> 'cherry-ui-stepper-id',
 			'name'			=> 'cherry-ui-stepper-name',
@@ -71,7 +80,7 @@ if ( ! class_exists( 'UI_Stepper' ) ) {
 		 *
 		 * @since  4.0.0
 		 */
-		public static function enqueue_assets(){
+		public static function enqueue_assets() {
 			wp_enqueue_script(
 				'ui-stepper-min',
 				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-stepper.min.js',
@@ -87,6 +96,5 @@ if ( ! class_exists( 'UI_Stepper' ) ) {
 				'all'
 			);
 		}
-
 	}
 }

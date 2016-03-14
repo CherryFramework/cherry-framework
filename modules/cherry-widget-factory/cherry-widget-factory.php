@@ -1,5 +1,7 @@
 <?php
 /**
+ * Widget factory module main class
+ *
  * @package    Cherry_Framework
  * @subpackage Class
  * @author     Cherry Team <cherryframework@gmail.com>
@@ -92,7 +94,7 @@ if ( ! class_exists( 'Cherry_Widget_Factory' ) ) {
 		 * Pass current core instance into widget
 		 *
 		 * @param  mixed  $core current core object.
-		 * @param  string $path abstract widget file path.
+		 * @param  [type] $path abstract widget file path.
 		 * @return mixed
 		 */
 		public function pass_core_to_widgets( $core, $path ) {
@@ -133,7 +135,5 @@ if ( ! class_exists( 'Cherry_Widget_Factory' ) ) {
 
 			return self::$instance;
 		}
-
 	}
-
 }

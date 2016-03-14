@@ -11,15 +11,24 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 if ( ! class_exists( 'UI_Text' ) ) {
+
+	/**
+	 * Class for the building ui-text elements.
+	 */
 	class UI_Text extends UI_Element implements I_UI {
 
+		/**
+		 * Default settings
+		 *
+		 * @var array
+		 */
 		private $defaults_settings = array(
-			'type'			=> 'text',// text, email, password, search
+			'type'			=> 'text',
 			'id'			=> 'cherry-ui-input-id',
 			'name'			=> 'cherry-ui-input-name',
 			'value'			=> '',
@@ -65,7 +74,7 @@ if ( ! class_exists( 'UI_Text' ) ) {
 			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
 
 			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
-				if( '' !== $this->settings['label'] ){
+				if ( '' !== $this->settings['label'] ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
 				}
 				$html .= '<input type="' . esc_attr( $this->settings['type'] ) . '" id="' . esc_attr( $this->settings['id'] ) . '" class="widefat cherry-ui-text ' . esc_attr( $this->settings['class'] ) . '"  name="' . esc_attr( $this->settings['name'] ) . '"  value="' . esc_html( $this->settings['value'] ) . '" placeholder="' . esc_attr( $this->settings['placeholder'] ) . '" '.$this->get_required().'>';
@@ -78,7 +87,7 @@ if ( ! class_exists( 'UI_Text' ) ) {
 		 *
 		 * @since  4.0.0
 		 */
-		public static function enqueue_assets(){
+		public static function enqueue_assets() {
 
 			wp_enqueue_style(
 				'ui-text',
@@ -88,6 +97,5 @@ if ( ! class_exists( 'UI_Text' ) ) {
 				'all'
 			);
 		}
-
 	}
 }
