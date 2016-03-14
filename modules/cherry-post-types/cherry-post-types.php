@@ -1,6 +1,7 @@
 <?php
 /**
- * Create custom post types
+ * Create custom post type
+ *
  * @package    Cherry_Framework
  * @subpackage Class
  * @author     Cherry Team <cherryframework@gmail.com>
@@ -75,9 +76,9 @@ class Cherry_Post_Types implements I_Module {
 	/**
 	 * Create new Post Type.
 	 *
-	 * @param string $slug The post type slug name.
-	 * @param string $plural The post type plural name for display.
-	 * @param string $singular The post type singular name for display.
+	 * @param [type] $slug The post type slug name.
+	 * @param [type] $plural The post type plural name for display.
+	 * @param [type] $singular The post type singular name for display.
 	 * @param array  $args The custom post type arguments.
 	 * @throws Exception Invalid custom post type parameter.
 	 * @return Cherry_Post_Type
@@ -110,8 +111,8 @@ class Cherry_Post_Types implements I_Module {
 	/**
 	 * Get the custom post type default arguments.
 	 *
-	 * @param string $plural The post type plural display name.
-	 * @param string $singular The post type singular display name.
+	 * @param [type] $plural The post type plural display name.
+	 * @param [type] $singular The post type singular display name.
 	 * @return array
 	 */
 	private function get_default_arguments( $plural, $singular ) {

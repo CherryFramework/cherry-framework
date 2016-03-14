@@ -9,8 +9,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Class
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @author     Cherry Team <support@cherryframework.com>
+ * @author     Cherry Team <support@cherryframework.com>,Justin Tadlock <justin@justintadlock.com>
  * @copyright  Copyright (c) 2008 - 2014, Justin Tadlock
  * @link       http://themehybrid.com/plugins/breadcrumb-trail
  * @link       http://www.cherryframework.com
@@ -18,7 +17,7 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
@@ -92,7 +91,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			'item'      => 'cherry-breadcrumbs_item',
 			'separator' => 'cherry-breadcrumbs_item_sep',
 			'link'      => 'cherry-breadcrumbs_item_link',
-			'target'    => 'cherry-breadcrumbs_item_target'
+			'target'    => 'cherry-breadcrumbs_item_target',
 		);
 
 		/**
@@ -103,6 +102,9 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		 */
 		public $is_extend = false;
 
+		/**
+		 * Constructor of class
+		 */
 		function __construct( $core, $args = array() ) {
 
 			$this->core = $core;
@@ -134,9 +136,9 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 				'post_taxonomy'     => apply_filters(
 					'cherry_breadcrumbs_trail_taxonomies',
 					array(
-						'post'      => 'category'
+						'post'      => 'category',
 					)
-				)
+				),
 			);
 
 			$this->args = apply_filters( 'cherry_breadcrumb_args', wp_parse_args( $args, $defaults ) );
@@ -146,7 +148,6 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 				$this->css = wp_parse_args( $this->args['css_namespace'], $this->css );
 			}
 			// Cherry team editing end
-
 			if ( ! empty( $args['labels'] ) ) {
 				$this->args['labels'] = wp_parse_args( $args['labels'], $this->default_labels() );
 			} else {
@@ -253,7 +254,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			$breadcrumb .= "\n\t\t" . '<div class="' . esc_attr( $this->css['wrap'] ) . '">';
 
 			/* Format the separator. */
-			$separator = !empty( $this->args['separator'] )
+			$separator = ! empty( $this->args['separator'] )
 				? $this->args['separator']
 				: '/';
 
@@ -424,7 +425,6 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 					/* If viewing the 404 page. */
 					$this->add_404_items();
 				}
-
 			}
 
 			/* Add paged items if they exist. */
@@ -432,7 +432,8 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 
 			/**
 			 * Filter final item array
-			 * @since  4.0.0
+			 *
+			 * @since 4.0.0
 			 * @var    array
 			 */
 			$this->items = apply_filters( 'cherry_breadcrumbs_items', $this->items, $this->args );
@@ -444,10 +445,10 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		 *
 		 * @since 4.0.0
 		 *
-		 * @param string $format item format to add
-		 * @param string $label  item label
-		 * @param string $url    item URL
-		 * @param string $class  item CSS class
+		 * @param [type] $format item format to add.
+		 * @param [type] $label  item label.
+		 * @param [type] $url    item URL.
+		 * @param [type] $class  item CSS class.
 		 */
 		public function _add_item( $format = 'link_format', $label, $url = '', $class = '' ) {
 
@@ -460,7 +461,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 				$class = $this->css[ $css ];
 			}
 
-			$item = sprintf( $this->args[$format], $label, $class, $title, $url );
+			$item = sprintf( $this->args[ $format ], $label, $class, $title, $url );
 
 			$this->items[] = sprintf( $this->args['item_format'], $item, esc_attr( $this->css['item'] ) );
 
@@ -518,7 +519,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		 *
 		 * @since  4.0.0
 		 *
-		 * @param  string $path The path (slug) to search for posts by.
+		 * @param  [type] $path The path (slug) to search for posts by.
 		 */
 		function add_path_parents( $path ) {
 
@@ -526,8 +527,9 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			$path = trim( $path, '/' );
 
 			/* If there's no path, return. */
-			if ( empty( $path ) )
+			if ( empty( $path ) ) {
 				return;
+			}
 
 			// process default Cherry permalinks by own way
 			if ( in_array( $path, array( 'tag', 'category' ) ) ) {
@@ -537,13 +539,13 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			/* Get parent post by the path. */
 			$post = get_page_by_path( $path );
 
-			if ( !empty( $post ) ) {
+			if ( ! empty( $post ) ) {
 				$this->add_post_parents( $post->ID );
 			} elseif ( is_null( $post ) ) {
 
 				/* Separate post names into separate paths by '/'. */
 				$path = trim( $path, '/' );
-				preg_match_all( "/\/.*?\z/", $path, $matches );
+				preg_match_all( '/\/.*?\z/', $path, $matches );
 
 				/* If matches are found for the path. */
 				if ( isset( $matches ) ) {
@@ -562,7 +564,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 							$post = get_page_by_path( trim( $path, '/' ) );
 
 							/* If a parent post is found, set the $post_id and break out of the loop. */
-							if ( !empty( $post ) && 0 < $post->ID ) {
+							if ( ! empty( $post ) && 0 < $post->ID ) {
 								$this->add_post_parents( $post->ID );
 								break;
 							}
@@ -639,12 +641,12 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		 */
 		public function add_site_home_link() {
 
-			$format = ( is_multisite() && !is_main_site() && true === $this->args['network'] )
+			$format = ( is_multisite() && ! is_main_site() && true === $this->args['network'] )
 						? 'link_format'
 						: 'home_format';
 
 			$url   = home_url( '/' );
-			$label = ( is_multisite() && !is_main_site() && true === $this->args['network'] )
+			$label = ( is_multisite() && ! is_main_site() && true === $this->args['network'] )
 						? get_bloginfo( 'name' )
 						: $this->args['labels']['home'];
 
@@ -663,8 +665,9 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			$post    = get_page( $post_id );
 
 			// If the post has parents, add them to the trail.
-			if ( 0 < $post->post_parent )
+			if ( 0 < $post->post_parent ) {
 				$this->add_post_parents( $post->post_parent );
+			}
 
 			$url   = get_permalink( $post_id );
 			$label = get_the_title( $post_id );
@@ -722,7 +725,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		 *
 		 * @since  4.0.0
 		 *
-		 * @param  int    $post_id The ID of the post to get the terms for.
+		 * @param  int $post_id The ID of the post to get the terms for.
 		 */
 		public function add_post_terms( $post_id ) {
 
@@ -734,7 +737,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			$post_type = get_post_type( $post_id );
 
 			/* Add the terms of the taxonomy for this post. */
-			if ( !empty( $this->args['post_taxonomy'][ $post_type ] ) ) {
+			if ( ! empty( $this->args['post_taxonomy'][ $post_type ] ) ) {
 
 				$post_terms = wp_get_post_terms( $post_id, $this->args['post_taxonomy'][ $post_type ] );
 
@@ -751,7 +754,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		 *
 		 * @since  4.0.0
 		 *
-		 * @param  int    $slug  The post type archive slug to search for.
+		 * @param  int $slug  The post type archive slug to search for.
 		 */
 		public function get_post_types_by_slug( $slug ) {
 
@@ -761,8 +764,9 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 
 			foreach ( $post_types as $type ) {
 
-				if ( $slug === $type->has_archive || ( true === $type->has_archive && $slug === $type->rewrite['slug'] ) )
+				if ( $slug === $type->has_archive || ( true === $type->has_archive && $slug === $type->rewrite['slug'] ) ) {
 					$return[] = $type;
+				}
 			}
 
 			return $return;
@@ -820,13 +824,13 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 							/* Get public post types that match the rewrite slug. */
 							$post_types = $this->get_post_types_by_slug( $match );
 
-							if ( !empty( $post_types ) ) {
+							if ( ! empty( $post_types ) ) {
 
 								$post_type_object = $post_types[0];
 
 								$url  = get_post_type_archive_link( $post_type_object->name );
 								/* Add support for a non-standard label of 'archive_title' (special use case). */
-								$label = !empty( $post_type_object->labels->archive_title )
+								$label = ! empty( $post_type_object->labels->archive_title )
 											? $post_type_object->labels->archive_title
 											: $post_type_object->labels->name;
 
@@ -850,7 +854,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 
 						$url  = get_post_type_archive_link( $post_type_object->name );
 						/* Add support for a non-standard label of 'archive_title' (special use case). */
-						$label = !empty( $post_type_object->labels->archive_title )
+						$label = ! empty( $post_type_object->labels->archive_title )
 									? $post_type_object->labels->archive_title
 									: $post_type_object->labels->name;
 
@@ -858,7 +862,6 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 
 					}
 				}
-
 			}
 
 			/* If the taxonomy is hierarchical, list its parent terms. */
@@ -896,7 +899,6 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 				if ( $post_type_object->rewrite['with_front'] ) {
 					$this->add_rewrite_front_items();
 				}
-
 			}
 
 			/* Add the post type [plural] name to the trail end. */
@@ -929,7 +931,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			$user_id = get_query_var( 'author' );
 
 			/* If $author_base exists, check for parent pages. */
-			if ( !empty( $wp_rewrite->author_base ) ) {
+			if ( ! empty( $wp_rewrite->author_base ) ) {
 				$this->add_path_parents( $wp_rewrite->author_base );
 			}
 
@@ -1223,7 +1225,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		 *
 		 * @since 4.0.0
 		 *
-		 * @param integer $post_id first parent post ID
+		 * @param [type] $post_id first parent post ID.
 		 */
 		public function add_post_parents( $post_id ) {
 
@@ -1241,7 +1243,6 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 				);
 
 				$parents[] = sprintf( $this->args['item_format'], $item, esc_attr( $this->css['item'] ) );
-
 
 				$post = get_post( $post_id );
 				// If there's no longer a post parent, break out of the loop.
@@ -1268,7 +1269,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		 *
 		 * @since 4.0.0
 		 *
-		 * @param  int    $post_id The ID of the post to get the hierarchy for.
+		 * @param  int $post_id The ID of the post to get the hierarchy for.
 		 * @return void
 		 */
 		public function add_post_hierarchy( $post_id ) {
@@ -1294,11 +1295,11 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			}
 
 			/* If there's an archive page, add it to the trail. */
-			if ( !empty( $post_type_object->has_archive ) ) {
+			if ( ! empty( $post_type_object->has_archive ) ) {
 
 				$url = get_post_type_archive_link( $post_type );
 				/* Add support for a non-standard label of 'archive_title' (special use case). */
-				$label = !empty( $post_type_object->labels->archive_title )
+				$label = ! empty( $post_type_object->labels->archive_title )
 							? $post_type_object->labels->archive_title
 							: $post_type_object->labels->name;
 
@@ -1313,7 +1314,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		 * @since  4.0.0
 		 *
 		 * @param  int    $term_id  ID of the term to get the parents of.
-		 * @param  string $taxonomy Name of the taxonomy for the given term.
+		 * @param  [type] $taxonomy Name of the taxonomy for the given term.
 		 */
 		function add_term_parents( $term_id, $taxonomy ) {
 
@@ -1346,15 +1347,16 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			}
 
 			/* If we have parent terms, reverse the array to put them in the proper order for the trail. */
-			if ( !empty( $parents ) ) {
+			if ( ! empty( $parents ) ) {
 				$this->items = array_merge( $this->items, array_reverse( $parents ) );
 			}
 		}
 
 		/**
 		 * Service function to process single tag item
-		 * @param  string $tag     single tag
-		 * @param  int    $post_id processed post ID
+		 *
+		 * @param  [type] $tag     single tag.
+		 * @param  int    $post_id processed post ID.
 		 */
 		function _process_single_tag( $tag, $post_id ) {
 
@@ -1445,7 +1447,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		 * @since  4.0.0
 		 *
 		 * @param  int    $post_id ID of the post whose parents we want.
-		 * @param  string $path    Path of a potential parent page.
+		 * @param  [type] $path    Path of a potential parent page.
 		 */
 		public function map_rewrite_tags( $post_id, $path ) {
 
@@ -1478,8 +1480,8 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		 * Try to escape font icon from passed label and return it if found, or return label
 		 *
 		 * @since  4.0.4
-		 * @param  string      $label    passed label.
-		 * @param  bool|string $fallback optional fallback text to add inside icon tag/
+		 * @param  [type]      $label    passed label.
+		 * @param  bool|string $fallback optional fallback text to add inside icon tag.
 		 * @return string
 		 */
 		public function prepare_label( $label, $fallback = false ) {
@@ -1529,7 +1531,5 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 
 			return self::$instance;
 		}
-
 	}
-
 }

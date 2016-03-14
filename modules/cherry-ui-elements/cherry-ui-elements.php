@@ -1,5 +1,6 @@
 <?php
 /**
+ * Class for the building ui elements
  *
  * @package    Cherry_Framework
  * @subpackage Class
@@ -15,7 +16,9 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
-
+	/**
+	 * Class for the building ui elements
+	 */
 	class Cherry_UI_Elements {
 
 		/**
@@ -50,18 +53,29 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		 */
 		private $args = array(
 			'ui_elements'	=> array(
-				'text', 'number', 'textarea',
-				'select', 'checkbox', 'radio',
-				'colorpicker', 'media', 'stepper',
-				'switcher', 'slider', 'collection'
+				'text',
+				'number',
+				'textarea',
+				'select',
+				'checkbox',
+				'radio',
+				'colorpicker',
+				'media',
+				'stepper',
+				'switcher',
+				'slider',
+				'collection',
 			),
 		);
 
 		/**
-		* Cherry_Test_Builder constructor
-		*
-		* @since 1.0.0
-		*/
+		 * Cherry_Test_Builder constructor
+		 *
+		 * @param object $core core.
+		 * @param array  $args arguments.
+		 *
+		 * @since 1.0.0
+		 */
 		function __construct( $core, $args ) {
 
 			$this->module_directory = $core->settings['base_dir'] . '/modules/cherry-ui-elements';
@@ -78,7 +92,8 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		/**
 		 * Get ui element instance.
 		 *
-		 * @param  string ui_element slug.
+		 * @param [type] $ui_slug ui element.
+		 * @param array  $args arguments.
 		 *
 		 * @since  1.0.0
 		 * @return object
@@ -113,7 +128,7 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 			// Add I_UI interface.
 			require_once( $this->module_directory . '/i-ui.php' );
 
-			if ( ! class_exists('UI_Element') ) {
+			if ( ! class_exists( 'UI_Element' ) ) {
 				require_once( $this->module_directory . '/ui-element.php' );
 			}
 
@@ -151,5 +166,3 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		}
 	}
 }
-
-?>

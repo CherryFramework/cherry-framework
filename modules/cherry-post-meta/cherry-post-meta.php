@@ -1,5 +1,7 @@
 <?php
 /**
+ * Post meta management module
+ *
  * @package    Cherry_Framework
  * @subpackage Class
  * @author     Cherry Team <cherryframework@gmail.com>
@@ -64,6 +66,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 		/**
 		 * Current nonce name to check
+		 *
 		 * @var null
 		 */
 		public $nonce = 'cherry-meta-nonce';
@@ -119,7 +122,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 			add_filter( 'cherry_core_js_ui_init_settings', array( $this, 'init_ui_js' ), 10 );
 
-			array_walk( $this->args['fields'], array( $this, 'set_field_types') );
+			array_walk( $this->args['fields'], array( $this, 'set_field_types' ) );
 
 			$this->ui_builder = $this->core->init_module( 'cherry-ui-elements', $this->field_types );
 
@@ -130,7 +133,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 * Init UI elements JS
 		 *
 		 * @since  1.0.0
-		 * @param  array $settings UI elements init.
+		 *
 		 * @return array
 		 */
 		public function init_ui_js() {
@@ -171,7 +174,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 * Add meta box handler
 		 *
 		 * @since  1.0.0
-		 * @param  string $post_type The post type of the current post being edited.
+		 * @param  [type] $post_type The post type of the current post being edited.
 		 * @param  object $post      The current post object.
 		 * @return void
 		 */
@@ -211,8 +214,8 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 * Get registered control fields
 		 *
 		 * @since  1.0.0
-		 * @param  mixed  $term     current term object.
-		 * @param  string $taxonomy current taxonomy name.
+		 * @param  mixed  $post     current post object.
+		 * @param  [type] $format current format name.
 		 * @return string
 		 */
 		public function get_fields( $post, $format = '%s' ) {
@@ -261,21 +264,21 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 						'true_slave'   => '',
 						'false_slave'  => '',
 					) ),
-					'required'           => $this->get_arg( $field, 'required', false),
+					'required'           => $this->get_arg( $field, 'required', false ),
 				);
 
 				$current_element = $this->ui_builder->get_ui_element_instance( $args['type'], $args );
 
 				$elements[] = array(
 					'html'  => $current_element->render(),
-					'field' => $field
+					'field' => $field,
 				);
 
 			}
 			return Cherry_Core::render_view(
 				$this->module_directory . '/views/meta.php',
 				array(
-					'elements' => $elements
+					'elements' => $elements,
 				)
 			);
 		}
@@ -285,7 +288,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 *
 		 * @since  1.0.0
 		 * @param  array  $field   arguments array.
-		 * @param  string $arg     argument key.
+		 * @param  [type] $arg     argument key.
 		 * @param  mixed  $default default argument value.
 		 * @return mixed
 		 */
@@ -304,17 +307,17 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 *
 		 * @since  1.0.0
 		 * @param  array  $field field data.
-		 * @param  string $id    field key.
+		 * @param  [type] $id    field key.
 		 * @return bool
 		 */
 		public function set_field_types( $field, $id ) {
 
-			if ( is_array( $field ) || ! isset( $field[ 'type' ] ) ) {
+			if ( is_array( $field ) || ! isset( $field['type'] ) ) {
 				return false;
 			}
 
-			if ( ! in_array( $field[ 'type' ], $this->field_types ) ) {
-				$this->field_types[] = $field[ 'type' ];
+			if ( ! in_array( $field['type'], $this->field_types ) ) {
+				$this->field_types[] = $field['type'];
 			}
 
 			return true;
@@ -367,7 +370,5 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		public static function get_instance( $core, $args ) {
 			return new self( $core, $args );
 		}
-
 	}
-
 }

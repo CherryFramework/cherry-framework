@@ -1,6 +1,7 @@
 <?php
 /**
  * UI_Element
+ *
  * @package    Cherry_Framework
  * @subpackage Abstract Class
  * @author     Cherry Team <cherryframework@gmail.com>

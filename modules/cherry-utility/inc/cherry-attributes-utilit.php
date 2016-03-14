@@ -1,5 +1,6 @@
 <?php
 /**
+ * Class Cherry Attributes Utilit
  *
  * @package    Cherry_Framework
  * @subpackage Class
@@ -10,49 +11,33 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
-
+	/**
+	 * Class Cherry Attributes Utilit
+	 */
 	class Cherry_Attributes_Utilit extends Cherry_Satellite_Utilit{
-
-		/**
-		 * Default args
-		 *
-		 * @since 1.0.0
-		 * @var array
-		 */
-		private $args = array();
-
-		/**
-		* Cherry_Satellite_Utilit constructor
-		*
-		* @since 1.0.0
-		*/
-		function __construct( $args = array() ) {
-			$this->args = array_merge( $this->args, $args );
-		}
 
 		/**
 		 * Get post title.
 		 *
 		 * @since  1.0.0
-		 * @param array $args
-		 * @param string $type - post, term
-		 * @param int $ID
+		 * @param array  $args array of arguments.
+		 * @param [type] $type - post, term.
+		 * @param int    $id ID of post.
 		 * @return string
 		 */
-		public function get_title( $args = array(), $type = 'post', $ID = 0 ) {
-			$object = call_user_func( array( $this, 'get_' . $type . '_object' ), $ID );
+		public function get_title( $args = array(), $type = 'post', $id = 0 ) {
+			$object = call_user_func( array( $this, 'get_' . $type . '_object' ), $id );
 
 			if ( 'post' === $type && empty( $object->ID ) || 'term' === $type && empty( $object->term_id ) ) {
 				return false;
 			}
 
 			$default_args = array(
-				'visible'	=> 'true',
 				'length'	=> 200,
 				'class'		=> '',
 				'ending'	=> '&hellip;',
@@ -61,12 +46,12 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			$args = array_merge( $default_args, $args );
 			$html = '' ;
 
-			if ( '0' !== $args['length'] && 'true' === $args['visible'] ) {
+			if ( '0' !== $args['length'] ) {
 				$title = ( 'post' === $type ) ? $object->post_title : $object->name ;
 				$title_cut = $this->cut_text( $title, $args['length'], $args['ending'] );
 
-				if( $title_cut ){
-					$link = ( 'post' === $type ) ? $this->get_post_permalink() : $this->get_term_permalink( $object->term_id ) ;
+				if ( $title_cut ) {
+					$link = ( 'post' === $type ) ? $this->get_post_permalink() : $this->get_term_permalink( $object->term_id );
 					$html_class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
 
 					$html = sprintf( $args['html'], $html_class, $link, $title, $title_cut );
@@ -80,30 +65,29 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 		 * Get post excerpt
 		 *
 		 * @since  1.0.0
-		 * @param array $args
-		 * @param string $type - post, term
-		 * @param int $ID
+		 * @param array  $args array of arguments.
+		 * @param [type] $type - post, term.
+		 * @param int    $id ID of post.
 		 * @return string
 		 */
-		public function get_content( $args = array(), $type = 'post', $ID = 0 ) {
-			$object = call_user_func( array( $this, 'get_' . $type . '_object' ), $ID );
+		public function get_content( $args = array(), $type = 'post', $id = 0 ) {
+			$object = call_user_func( array( $this, 'get_' . $type . '_object' ), $id );
 
 			if ( 'post' === $type && empty( $object->ID ) || 'term' === $type && empty( $object->term_id ) ) {
 				return false;
 			}
 
 			$default_args = array(
-				'visible'	=> 'true',
 				'length'		=> 1000000,
 				'class'			=> '',
-				'content_type'	=> 'post_content',//post_excerpt, post_content
+				'content_type'	=> 'post_content',// post_excerpt, post_content
 				'ending'		=> '&hellip;',
 				'html'			=> '<p %1$s>%2$s</p>',
 			);
 			$args = array_merge( $default_args, $args );
 			$html = '' ;
 
-			if ( '0' !== $args['length'] && 'true' === $args['visible'] ) {
+			if ( '0' !== $args['length'] ) {
 				if ( 'term' === $type ) {
 					$args['content_type'] = 'description';
 				}
@@ -111,7 +95,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 				$text = $this->cut_text( $text, $args['length'], $args['ending'] );
 
 				if ( $text ) {
-					$html_class=  ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
+					$html_class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
 
 					$html = sprintf( $args['html'], $html_class, $text );
 				}
@@ -124,13 +108,13 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 		 * Get post more button
 		 *
 		 * @since  1.0.0
-		 * @param array $args
-		 * @param string $type - post, term
-		 * @param int $ID
+		 * @param array  $args array of arguments.
+		 * @param [type] $type - post, term.
+		 * @param int    $id ID of post.
 		 * @return string
 		 */
-		public function get_button( $args = array(), $type = 'post', $ID = 0 ) {
-			$object = call_user_func( array( $this, 'get_' . $type . '_object' ), $ID );
+		public function get_button( $args = array(), $type = 'post', $id = 0 ) {
+			$object = call_user_func( array( $this, 'get_' . $type . '_object' ), $id );
 
 			if ( 'post' === $type && empty( $object->ID ) || 'term' === $type && empty( $object->term_id ) ) {
 				return false;
@@ -147,8 +131,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			$html = '' ;
 
 			if ( 'true' === $args['visible'] ) {
-				$html_class=  ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
-				$text = esc_html( $args['text'] );
+				$html_class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
 
 				if ( 'term' === $type ) {
 					$title = $object->name;
@@ -158,7 +141,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 					$link = $this->get_post_permalink();
 				}
 
-				$html = sprintf( $args['html'], $link, $title, $html_class, $text, $args['icon'] );
+				$html = sprintf( $args['html'], $link, $title, $html_class, $args['text'], $args['icon'] );
 			}
 
 			return $html;

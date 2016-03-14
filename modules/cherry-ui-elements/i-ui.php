@@ -1,6 +1,7 @@
 <?php
 /**
  * I'am UI interface
+ *
  * @package    Cherry_Framework
  * @subpackage Class
  * @author     Cherry Team <cherryframework@gmail.com>

@@ -11,13 +11,21 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 if ( ! class_exists( 'UI_Checkbox' ) ) {
-	class UI_Checkbox extends UI_Element implements I_UI {
 
+	/**
+	 * Class for the building UI_Checkbox elements.
+	 */
+	class UI_Checkbox extends UI_Element implements I_UI {
+		/**
+		 * Default settings
+		 *
+		 * @var array
+		 */
 		private $defaults_settings = array(
 			'id'			=> 'cherry-ui-checkbox-id',
 			'name'			=> 'cherry-ui-checkbox-name',
@@ -29,7 +37,7 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 			'options'		=> array(
 				'checkbox-1'	=> 'checkbox 1',
 				'checkbox-2'	=> 'checkbox 2',
-				'checkbox-3'	=> 'checkbox 3'
+				'checkbox-3'	=> 'checkbox 3',
 			),
 			'label'			=> '',
 			'class'			=> '',
@@ -59,11 +67,11 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
 
 			$counter = 0;
-				if( $this->settings['options'] && !empty( $this->settings['options'] ) && is_array( $this->settings['options'] ) ) {
-					if ( !is_array( $this->settings['value'] ) ) {
+				if ( $this->settings['options'] && ! empty( $this->settings['options'] ) && is_array( $this->settings['options'] ) ) {
+					if ( ! is_array( $this->settings['value'] ) ) {
 						$this->settings['value'] = array( $this->settings['value'] );
 					}
-					if( '' !== $this->settings['label'] ){
+					if ( '' !== $this->settings['label'] ) {
 						$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
 					}
 
@@ -80,7 +88,7 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 						$checked = ( ! empty( $option_checked ) && 'true' === $item_value ) ? 'checked' : '';
 
 						$option_label = isset( $option_value ) && is_array( $option_value ) ? $option_value['label'] : $option_value;
-						$data_slave = isset( $option_value['slave'] ) && !empty( $option_value['slave'] ) ? ' data-slave="' . $option_value['slave'] . '"' : '';
+						$data_slave = isset( $option_value['slave'] ) && ! empty( $option_value['slave'] ) ? ' data-slave="' . $option_value['slave'] . '"' : '';
 
 						$html .= '<div class="cherry-checkbox-item-wrap ' . esc_attr( $this->settings['class'] ) . '">';
 							$html .= '<div class="cherry-checkbox-item ' . $checked . '"><span class="marker dashicons dashicons-yes"></span></div>';
@@ -101,7 +109,7 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 		 *
 		 * @since  4.0.0
 		 */
-		public static function enqueue_assets(){
+		public static function enqueue_assets() {
 			wp_enqueue_script(
 				'ui-checkbox-min',
 				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-checkbox.min.js',
@@ -118,6 +126,5 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 				'all'
 			);
 		}
-
 	}
 }
