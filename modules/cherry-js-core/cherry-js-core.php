@@ -16,6 +16,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'Cherry_Js_Core' ) ) {
+
 	/**
 	 * Module for js files upload
 	 */

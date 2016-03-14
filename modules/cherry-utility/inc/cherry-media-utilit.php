@@ -16,6 +16,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
+
 	/**
 	 * Class Cherry Media Utilit
 	 */

@@ -16,6 +16,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'UI_Collection' ) ) {
+
 	/**
 	 * UI_Collection class
 	 * Example usage:

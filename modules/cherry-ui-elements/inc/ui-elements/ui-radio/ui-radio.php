@@ -16,6 +16,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'UI_Radio' ) ) {
+
 	/**
 	 * Class for the building UI_Radio elements.
 	 */

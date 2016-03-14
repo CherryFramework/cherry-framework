@@ -16,6 +16,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
+
 	/**
 	 * Class Cherry Satellite Utilit
 	 */

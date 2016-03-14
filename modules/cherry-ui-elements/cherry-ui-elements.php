@@ -16,6 +16,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
+
 	/**
 	 * Class for the building ui elements
 	 */
