@@ -94,7 +94,6 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 
 				// And immediately try to call hooks for autoloaded modules.
 				if ( $this->is_module_autoload( $module ) ) {
-
 					$arg = ! empty( $settings['args'] ) ? $settings['args'] : array();
 
 					/**
@@ -136,7 +135,6 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @return object|bool
 		 */
 		public function pre_load( $module_instance, $args = array(), $core_instance ) {
-
 			if ( $this !== $core_instance ) {
 				return $module_instance;
 			}
@@ -173,7 +171,6 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @return bool
 		 */
 		public function load_module( $module ) {
-
 			$class_name = $this->get_class_name( $module );
 
 			if ( class_exists( $class_name ) ) {
