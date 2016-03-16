@@ -31,10 +31,11 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 		private $args = array();
 
 		/**
-		* Cherry_Satellite_Utilit constructor
-		*
-		* @since 1.0.0
-		*/
+		 * Class Cherry Meta Data Utilit constructor
+		 *
+		 * @param array $args arguments.
+		 * @since 1.0.0
+		 */
 		function __construct( $args = array() ) {
 			$this->args = array_merge( $this->args, $args );
 		}
@@ -156,11 +157,11 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 			if ( 'true' === $args['visible'] ) {
 				$post_type = get_post_type( $object->ID );
 				if ( post_type_supports( $post_type, 'comments' ) ) {
-					$count = ( comments_open() || get_comments_number() ) ? sprintf( $args['sufix'], $object->comment_count ) : sprintf( $args['sufix'], '0' ) ;
+					$count = ( comments_open() || get_comments_number() ) ? sprintf( $args['sufix'], $object->comment_count ) : sprintf( $args['sufix'], '0' );
 				}
 
-				$html_class=  ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
-				$title=  ( $args['title'] ) ? 'title="' . $args['title'] . '"' : '' ;
+				$html_class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '';
+				$title = ( $args['title'] ) ? 'title="' . $args['title'] . '"' : '';
 				$link = get_comments_link();
 
 				$html = sprintf( $args['html'], $args['prefix'], $link, $title, $html_class, $args['icon'], $count );

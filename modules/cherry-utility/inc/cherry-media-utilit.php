@@ -31,10 +31,11 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 		private $args = array();
 
 		/**
-		* Cherry_Satellite_Utilit constructor
-		*
-		* @since 1.0.0
-		*/
+		 * Class Cherry Media Utilit constructor
+		 *
+		 * @param array $args attributes.
+		 * @since 1.0.0
+		 */
 		function __construct( $args = array() ) {
 			$this->args = array_merge( $this->args, $args );
 		}
@@ -70,13 +71,13 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 			$class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
 			$html_tag_suze = ( $args['html_tag_suze'] ) ? 'width="' . $size_array['width']  . 'px" height="' . $size_array['height']  . 'px"' : '' ;
 
-			if( 'post' === $type ){
-				$ID = $object->ID;
-				$thumbnail_id = get_post_thumbnail_id( $ID );
+			if ( 'post' === $type ) {
+				$id = $object->ID;
+				$thumbnail_id = get_post_thumbnail_id( $id );
 				$alt = esc_attr( $object->post_title );
-			}else{
-				$ID = $object->term_id;
-				$thumbnail_id = get_term_meta( $ID, $this->args['meta_key']['term_thumb'] , true );
+			} else {
+				$id = $object->term_id;
+				$thumbnail_id = get_term_meta( $id, $this->args['meta_key']['term_thumb'] , true );
 				$alt = esc_attr( $object->name );
 			}
 
@@ -84,7 +85,7 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 				$src = wp_get_attachment_image_url( $thumbnail_id, $size );
 			} else {
 				// Place holder defaults attr
-				$title = ( $args[ 'placeholder_title' ] ) ? $args[ 'placeholder_title' ] : $size_array['width'] . 'x' . $size_array['height'] ;
+				$title = ( $args['placeholder_title'] ) ? $args['placeholder_title'] : $size_array['width'] . 'x' . $size_array['height'] ;
 				$attr = array(
 					'width'			=> $size_array['width'],
 					'height'		=> $size_array['height'],

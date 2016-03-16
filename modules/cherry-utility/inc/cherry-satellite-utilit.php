@@ -31,10 +31,11 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		private $args = array();
 
 		/**
-		* Cherry_Satellite_Utilit constructor
-		*
-		* @since 1.0.0
-		*/
+		 * Class Cherry Satellite Utilit constructor
+		 *
+		 * @param array $args arguments.
+		 * @since 1.0.0
+		 */
 		function __construct( $args = array() ) {
 			$this->args = array_merge( $this->args, $args );
 		}
@@ -98,11 +99,10 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		public function get_thumbnail_size_array( $size ) {
 			global $_wp_additional_image_sizes;
 			$size_array = array();
-
-			if( array_key_exists ( $size, $_wp_additional_image_sizes ) ){
+			if ( array_key_exists( $size, $_wp_additional_image_sizes ) ) {
 				$size_array = $_wp_additional_image_sizes[ $size ];
-			}else {
-				$size_array = $_wp_additional_image_sizes[ 'post-thumbnail' ];
+			} else {
+				$size_array = $_wp_additional_image_sizes['post-thumbnail'];
 			}
 
 			return $size_array;

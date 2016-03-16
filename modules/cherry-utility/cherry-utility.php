@@ -67,8 +67,8 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 				'meta-data',
 			),
 			'meta_key'	=> array(
-				'term_thumb'	=> 'cherry_thumb'
-			)
+				'term_thumb'	=> 'cherry_thumb',
+			),
 		);
 
 		/**

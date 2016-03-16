@@ -31,10 +31,11 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 		private $args = array();
 
 		/**
-		* Cherry_Satellite_Utilit constructor
-		*
-		* @since 1.0.0
-		*/
+		 * Cherry_Satellite_Utilit constructor
+		 *
+		 * @param array $args arguments.
+		 * @since 1.0.0
+		 */
 		function __construct( $args = array() ) {
 			$this->args = array_merge( $this->args, $args );
 		}
@@ -151,7 +152,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			$html = '' ;
 
 			if ( 'true' === $args['visible'] ) {
-				$html_class=  ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
+				$html_class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
 				$text = esc_html( $args['text'] );
 
 				if ( 'term' === $type ) {
