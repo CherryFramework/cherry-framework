@@ -1,5 +1,6 @@
 <?php
 /**
+ * Class Cherry Satellite Utilit
  *
  * @package    Cherry_Framework
  * @subpackage Class
@@ -10,12 +11,15 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 
+	/**
+	 * Class Cherry Satellite Utilit
+	 */
 	class Cherry_Satellite_Utilit {
 
 		/**
@@ -27,10 +31,11 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		private $args = array();
 
 		/**
-		* Cherry_Satellite_Utilit constructor
-		*
-		* @since 1.0.0
-		*/
+		 * Class Cherry Satellite Utilit constructor
+		 *
+		 * @param array $args arguments.
+		 * @since 1.0.0
+		 */
 		function __construct( $args = array() ) {
 			$this->args = array_merge( $this->args, $args );
 		}
@@ -41,8 +46,8 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * @since  1.0.0
 		 * @return object
 		 */
-		public function get_post_object( $ID ) {
-			return get_post( $ID );
+		public function get_post_object( $id ) {
+			return get_post( $id );
 		}
 
 		/**
@@ -51,8 +56,8 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * @since  1.0.0
 		 * @return object
 		 */
-		public function get_term_object( $ID ) {
-			return get_term( $ID);
+		public function get_term_object( $id ) {
+			return get_term( $id );
 		}
 
 		/**
@@ -71,8 +76,8 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * @since  1.0.0
 		 * @return string
 		 */
-		public function get_term_permalink( $ID = 0 ) {
-			return esc_url( get_category_link( $ID ) );
+		public function get_term_permalink( $id = 0 ) {
+			return esc_url( get_category_link( $id ) );
 		}
 
 		/**
@@ -86,7 +91,7 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		}
 
 		/**
-		 * get array image size
+		 * Get array image size
 		 *
 		 * @since  1.0.0
 		 * @return array
@@ -94,11 +99,10 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		public function get_thumbnail_size_array( $size ) {
 			global $_wp_additional_image_sizes;
 			$size_array = array();
-
-			if( array_key_exists ( $size, $_wp_additional_image_sizes ) ){
+			if ( array_key_exists( $size, $_wp_additional_image_sizes ) ) {
 				$size_array = $_wp_additional_image_sizes[ $size ];
-			}else {
-				$size_array = $_wp_additional_image_sizes[ 'post-thumbnail' ];
+			} else {
+				$size_array = $_wp_additional_image_sizes['post-thumbnail'];
 			}
 
 			return $size_array;
@@ -108,8 +112,8 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * Return post terms.
 		 *
 		 * @since  1.0.0
-		 * @param string $tax - category, post_tag, post_format
-		 * @param string $key - slug, term_id
+		 * @param [type] $tax - category, post_tag, post_format.
+		 * @param [type] $key - slug, term_id.
 		 * @return array
 		 */
 		public function get_terms_array( $tax = 'category', $key = 'slug' ) {

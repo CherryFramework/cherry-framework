@@ -1,30 +1,30 @@
 var CherryJsCore;
 
-(function($){
+( function( $ ) {
 	'use strict';
 
 	CherryJsCore = {
-		name : 'Cherry Js Core',
-		varsion : '1.0.0',
-		author : 'Cherry Team',
+		name: 'Cherry Js Core',
+		varsion: '1.0.0',
+		author: 'Cherry Team',
 
-		variable : {
-			$document : $( document ),
-			$window : $( window ),
-			browser : $.browser,
-			browser_supported : true,
-			security : cherry_ajax,
-			loaded_assets : {
-				script : wp_load_script,
-				style : wp_load_style
+		variable: {
+			$document: $( document ),
+			$window: $( window ),
+			browser: $.browser,
+			browser_supported: true,
+			security: cherry_ajax,
+			loaded_assets: {
+				script: wp_load_script,
+				style: wp_load_style
 			},
-			ui_auto_init: ( 'true' == ui_init_object.auto_init ) ? true : false,
-			ui_auto_target: ui_init_object.targets
+			ui_auto_init: ( 'true' == window.ui_init_object.auto_init ) ? true : false,
+			ui_auto_target: window.ui_init_object.targets
 		},
 
-		status : {
-			on_load : false,
-			is_ready : false
+		status: {
+			on_load: false,
+			is_ready: false
 		},
 
 		init : function(){

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Term meta management module
+ *
  * @package    Cherry_Framework
  * @subpackage Class
  * @author     Cherry Team <cherryframework@gmail.com>
@@ -107,7 +109,7 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 
 			add_filter( 'cherry_core_js_ui_init_settings', array( $this, 'init_ui_js' ), 10 );
 
-			array_walk( $this->args['fields'], array( $this, 'set_field_types') );
+			array_walk( $this->args['fields'], array( $this, 'set_field_types' ) );
 
 			$this->ui_builder = $this->core->init_module( 'cherry-ui-elements', $this->field_types );
 
@@ -134,7 +136,7 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 		 * Render add term form fields
 		 *
 		 * @since  1.0.0
-		 * @param  string $taxonomy taxonomy name.
+		 * @param  [type] $taxonomy taxonomy name.
 		 * @return void
 		 */
 		public function render_add_fields( $taxonomy ) {
@@ -148,7 +150,7 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 		 *
 		 * @since  1.0.0
 		 * @param  object $term     current term object.
-		 * @param  string $taxonomy taxonomy name.
+		 * @param  [type] $taxonomy taxonomy name.
 		 * @return void
 		 */
 		public function render_edit_fields( $term, $taxonomy ) {
@@ -162,7 +164,7 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 		 *
 		 * @since  1.0.0
 		 * @param  mixed  $term     current term object.
-		 * @param  string $taxonomy current taxonomy name.
+		 * @param  [type] $taxonomy current taxonomy name.
 		 * @return string
 		 */
 		public function get_fields( $term, $taxonomy, $format = '%s' ) {
@@ -226,7 +228,7 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 		 *
 		 * @since  1.0.0
 		 * @param  array  $field   arguments array.
-		 * @param  string $arg     argument key.
+		 * @param  [type] $arg     argument key.
 		 * @param  mixed  $default default argument value.
 		 * @return mixed
 		 */
@@ -245,17 +247,17 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 		 *
 		 * @since  1.0.0
 		 * @param  array  $field field data.
-		 * @param  string $id    field key.
+		 * @param  [type] $id    field key.
 		 * @return bool
 		 */
 		public function set_field_types( $field, $id ) {
 
-			if ( is_array( $field ) || ! isset( $field[ 'type' ] ) ) {
+			if ( is_array( $field ) || ! isset( $field['type'] ) ) {
 				return false;
 			}
 
-			if ( ! in_array( $field[ 'type' ], $this->field_types ) ) {
-				$this->field_types[] = $field[ 'type' ];
+			if ( ! in_array( $field['type'], $this->field_types ) ) {
+				$this->field_types[] = $field['type'];
 			}
 
 			return true;
@@ -304,7 +306,5 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 		public static function get_instance( $core, $args ) {
 			return new self( $core, $args );
 		}
-
 	}
-
 }

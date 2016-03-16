@@ -1,5 +1,6 @@
 <?php
 /**
+ * Module for js files upload
  *
  * @package    Cherry_Framework
  * @subpackage Class
@@ -16,6 +17,9 @@ if ( ! defined( 'WPINC' ) ) {
 
 if ( ! class_exists( 'Cherry_Js_Core' ) ) {
 
+	/**
+	 * Module for js files upload
+	 */
 	class Cherry_Js_Core {
 
 		/**
@@ -77,10 +81,8 @@ if ( ! class_exists( 'Cherry_Js_Core' ) ) {
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_cherry_scripts' ), 0 );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_cherry_scripts' ), 0 );
+			add_action( 'wp_print_scripts', array( $this, 'localize_script' ) );
 
-			add_action( 'wp_print_scripts', array( $this, 'localize_script' ));
-
-			//add_action( 'wp_ajax_get_compress_assets', array( $this, 'get_compress_assets' ) );
 		}
 
 		/**
@@ -90,7 +92,7 @@ if ( ! class_exists( 'Cherry_Js_Core' ) ) {
 		 */
 		public function enqueue_cherry_scripts() {
 
-			if ( 'framework' === $this->options[ 'product_type' ] ) {
+			if ( 'framework' === $this->options['product_type'] ) {
 				$src = esc_url( $this->module_directory_uri . 'assets/js/min/cherry-js-core.min.js' );
 				$version = $this->module_version;
 			} else {
@@ -166,84 +168,12 @@ if ( ! class_exists( 'Cherry_Js_Core' ) ) {
 		public function localize_script() {
 			wp_localize_script( 'cherry-js-core', 'wp_load_style', $this->get_include_style() );
 			wp_localize_script( 'cherry-js-core', 'wp_load_script', $this->get_include_script() );
-			wp_localize_script( 'cherry-js-core', 'cherry_ajax', wp_create_nonce('cherry_ajax_nonce') );
+			wp_localize_script( 'cherry-js-core', 'cherry_ajax', wp_create_nonce( 'cherry_ajax_nonce' ) );
 
 			$ui_init_settings = $this->get_ui_init_settings();
 			$ui_init_settings['auto_init'] = ( true == $ui_init_settings['auto_init'] ) ? 'true' : 'false';
 			wp_localize_script( 'cherry-js-core', 'ui_init_object', $ui_init_settings );
 		}
-
-		/**
-		 * Write Script
-		 *
-		 * @since 1.0.0
-		 */
-		/*public function get_compress_assets() {
-			check_ajax_referer( 'cherry_ajax_nonce', 'security' );
-
-			$style_url       = isset( $_GET[ 'style' ] )  ? $_GET[ 'style' ]  : false;
-			$script_url      = isset( $_GET[ 'script' ] ) ? $_GET[ 'script' ] : false;
-			$compress_style  = $this->compress_assets( $style_url );
-			$compress_script = $this->compress_assets( $script_url );
-
-			$json_data = json_encode( array( 'style' => $compress_style, 'script' => $compress_script ) );
-
-			echo $json_data;
-
-			wp_die();
-		}*/
-
-		/**
-		 * Write Script
-		 *
-		 * @since 1.0.0
-		 */
-		/*private function compress_assets( $file_url ) {
-
-			if ( ! $file_url ) {
-				return false;
-			}
-
-			if ( ! function_exists( 'WP_Filesystem' ) ) {
-				include_once( ABSPATH . '/wp-admin/includes/file.php' );
-			}
-
-			WP_Filesystem();
-			global $wp_filesystem;
-
-			$content = '';
-
-			foreach ( $file_url as $url ) {
-				$url = $this->url_to_dir( $url );
-
-				if ( $wp_filesystem->exists( $url ) ) {
-					$content .= $wp_filesystem->get_contents( $url );
-				}
-			}
-
-			$content = preg_replace("/((?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:\/\/.*))/", '', $content);
-
-			$content = str_replace(array("\r\n","\r","\t","\n",'  ','    ','     '), '', $content);
-
-			$content = preg_replace(array('(( )+\))','(\)( )+)'), ')', $content);
-
-			return $content;
-		}*/
-
-		/**
-		 * Convert url to path.
-		 *
-		 * @since 1.0.0
-		 */
-		/*private function url_to_dir( $url ) {
-			$site_url = site_url( '/' );
-
-			$dir = str_replace( $site_url, ABSPATH, $url );
-			$dir = str_replace( '/', '\\', $dir );
-			$dir = preg_replace ( "/(\?[\S]+)/", '', $dir );
-
-			return $dir;
-		}*/
 
 		/**
 		 * Returns the instance.

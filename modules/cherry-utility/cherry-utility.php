@@ -1,5 +1,6 @@
 <?php
 /**
+ * Class Cherry Utility
  *
  * @package    Cherry_Framework
  * @subpackage Class
@@ -16,6 +17,9 @@ if ( ! defined( 'WPINC' ) ) {
 
 if ( ! class_exists( 'Cherry_Utility' ) ) {
 
+	/**
+	 * Class Cherry Utility
+	 */
 	class Cherry_Utility {
 
 		/**
@@ -63,8 +67,8 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 				'meta-data',
 			),
 			'meta_key'	=> array(
-				'term_thumb'	=> 'cherry_thumb'
-			)
+				'term_thumb'	=> 'cherry_thumb',
+			),
 		);
 
 		/**
@@ -84,10 +88,10 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 		private static $static_args = array();
 
 		/**
-		* Cherry_Utility constructor
-		*
-		* @since 1.0.0
-		*/
+		 * Cherry_Utility constructor
+		 *
+		 * @since 1.0.0
+		 */
 		function __construct( $core, $args = array() ) {
 
 			$this->module_directory = $core->settings['base_dir'] . '/modules/cherry-utility';
@@ -128,9 +132,9 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 				$self->{'utility'} = new stdClass();
 
 				foreach ( $utility as $utilit ) {
-					$sud_module = str_replace('-', '_', $utilit );
-					$class_name = str_replace('-', ' ', $utilit );
-					$class_name = str_replace(' ', '_', ucwords( $class_name ) );
+					$sud_module = str_replace( '-', '_', $utilit );
+					$class_name = str_replace( '-', ' ', $utilit );
+					$class_name = str_replace( ' ', '_', ucwords( $class_name ) );
 					$class_name = 'Cherry_' . $class_name . '_Utilit';
 
 					$self->utility->$sud_module = new $class_name( self::$static_args );

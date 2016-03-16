@@ -1897,7 +1897,7 @@ S2.define('select2/selection/search',[
 
     if (this.$search.attr('placeholder') !== '') {
       width = this.$selection.find('.select2-selection__rendered').innerWidth();
-      width = parseFloat( width * 2 );
+      width = parseFloat( width );
     } else {
       var minimumWidth = this.$search.val().length + 1;
 

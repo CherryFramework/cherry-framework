@@ -1,0 +1,80 @@
+.cherry-settings-page {
+	.description {
+		&:after {
+			content: ' ';
+			clear: both;
+			height: 10px;
+			width: 100%;
+		}
+	}
+}
+
+.notice-box{
+	background: #222222;
+	position: fixed;
+	margin: 5px 0;
+	border-left: 5px solid #2a445d;
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+	box-sizing: border-box;
+	padding: 15px 20px 15px 15px;
+	min-width: 200px;
+	overflow: hidden;
+	z-index: 999;
+	-webkit-transition: all 250ms cubic-bezier(0.85, 0.04, 1, 1);
+			transition: all 250ms cubic-bezier(0.85, 0.04, 1, 1);
+		span.dashicons{
+			position: relative;
+			margin-right: 20px;
+			&:before{
+				position: absolute;
+				font-size: 40px;
+				left: -10px;
+				top: -10px;
+			}
+		}
+		&.success-notice{
+			border-color: #8bc735;
+			span.dashicons{
+				color: #8bc735;
+				&:before{
+					content: "\f147";
+				}
+			}
+			.inner{
+				b{
+					color: #8bc735;
+				}
+			}
+		}
+		&.info-notice{
+			border-color: #ffcc00;
+			span.dashicons{
+				color: #ffcc00;
+				&:before{
+					content: "\f348";
+				}
+			}
+			.inner{
+				b{
+					color: #ffcc00;
+				}
+			}
+		}
+		&.error-notice{
+			border-color: #f62e46;
+			span.dashicons{
+				color: #f62e46;
+				&:before{
+					content: "\f158";
+				}
+			}
+		}
+		&.show-state{
+			-webkit-transition: all 500ms cubic-bezier(0.1, 0.67, 0.26, 1);
+					transition: all 500ms cubic-bezier(0.1, 0.67, 0.26, 1);
+		}
+		.inner{
+			display: inline-block;
+			color: #fff;
+		}
+}

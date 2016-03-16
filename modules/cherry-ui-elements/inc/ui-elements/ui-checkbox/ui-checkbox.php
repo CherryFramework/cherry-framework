@@ -11,14 +11,21 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 if ( ! class_exists( 'UI_Checkbox' ) ) {
-	class UI_Checkbox {
 
-		private $settings = array();
+	/**
+	 * Class for the building UI_Checkbox elements.
+	 */
+	class UI_Checkbox extends UI_Element implements I_UI {
+		/**
+		 * Default settings
+		 *
+		 * @var array
+		 */
 		private $defaults_settings = array(
 			'id'			=> 'cherry-ui-checkbox-id',
 			'name'			=> 'cherry-ui-checkbox-name',
@@ -30,7 +37,7 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 			'options'		=> array(
 				'checkbox-1'	=> 'checkbox 1',
 				'checkbox-2'	=> 'checkbox 2',
-				'checkbox-3'	=> 'checkbox 3'
+				'checkbox-3'	=> 'checkbox 3',
 			),
 			'label'			=> '',
 			'class'			=> '',
@@ -45,31 +52,6 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 		function __construct( $args = array() ) {
 			$this->defaults_settings['id'] = 'cherry-ui-checkbox-'.uniqid();
 			$this->settings = wp_parse_args( $args, $this->defaults_settings );
-
-			//$arr = array( self::get_current_file_url() . '/assets/min/ui-checkbox.min.js', self::get_current_file_url() . '/assets/ui-checkbox.css' );
-			//$this->type_of_assets();
-			/*if ( defined( 'DOING_AJAX' ) && DOING_AJAX ){
-				?>
-					<script>
-					(function(){
-
-						CherryJsCore.utilites.namespace('ui_elements.tmp_assets');
-						CherryJsCore.ui_elements.tmp_assets = (typeof CherryJsCore.ui_elements.tmp_assets === 'object') ? [] : CherryJsCore.ui_elements.tmp_assets ;
-
-						if( $.inArray( 'ui-checkbox.min.js', CherryJsCore.variable.loaded_assets.script ) == -1 ){
-							CherryJsCore.ui_elements.tmp_assets.push("<?php echo self::get_current_file_url() . '/assets/min/ui-checkbox.min.js'; ?>");
-						}else{
-							CherryJsCore.ui_elements.checkbox.init( $('body') );
-						}
-
-						if( $.inArray( 'ui-checkbox.css', CherryJsCore.variable.loaded_assets.style ) == -1 ){
-							CherryJsCore.ui_elements.tmp_assets.push("<?php echo self::get_current_file_url() . '/assets/ui-checkbox.css' ?>");
-						}
-					}())
-					</script>
-				<?php
-			}else{}*/
-
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
 		}
 
@@ -85,11 +67,11 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
 
 			$counter = 0;
-				if( $this->settings['options'] && !empty( $this->settings['options'] ) && is_array( $this->settings['options'] ) ) {
-					if ( !is_array( $this->settings['value'] ) ) {
+				if ( $this->settings['options'] && ! empty( $this->settings['options'] ) && is_array( $this->settings['options'] ) ) {
+					if ( ! is_array( $this->settings['value'] ) ) {
 						$this->settings['value'] = array( $this->settings['value'] );
 					}
-					if( '' !== $this->settings['label'] ){
+					if ( '' !== $this->settings['label'] ) {
 						$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
 					}
 
@@ -106,7 +88,7 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 						$checked = ( ! empty( $option_checked ) && 'true' === $item_value ) ? 'checked' : '';
 
 						$option_label = isset( $option_value ) && is_array( $option_value ) ? $option_value['label'] : $option_value;
-						$data_slave = isset( $option_value['slave'] ) && !empty( $option_value['slave'] ) ? ' data-slave="' . $option_value['slave'] . '"' : '';
+						$data_slave = isset( $option_value['slave'] ) && ! empty( $option_value['slave'] ) ? ' data-slave="' . $option_value['slave'] . '"' : '';
 
 						$html .= '<div class="cherry-checkbox-item-wrap ' . esc_attr( $this->settings['class'] ) . '">';
 							$html .= '<div class="cherry-checkbox-item ' . $checked . '"><span class="marker dashicons dashicons-yes"></span></div>';
@@ -123,28 +105,14 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 		}
 
 		/**
-		 * Get current file URL
-		 *
-		 * @since  4.0.0
-		 */
-		public static function get_current_file_url() {
-			$assets_url = dirname( __FILE__ );
-			$site_url = site_url();
-			$assets_url = str_replace( untrailingslashit( ABSPATH ), $site_url, $assets_url );
-			$assets_url = str_replace( '\\', '/', $assets_url );
-
-			return $assets_url;
-		}
-
-		/**
 		 * Enqueue javascript and stylesheet UI_Checkbox
 		 *
 		 * @since  4.0.0
 		 */
-		public static function enqueue_assets(){
+		public static function enqueue_assets() {
 			wp_enqueue_script(
 				'ui-checkbox-min',
-				self::get_current_file_url() . '/assets/min/ui-checkbox.min.js',
+				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-checkbox.min.js',
 				array( 'jquery' ),
 				'1.0.0',
 				true
@@ -152,12 +120,11 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 
 			wp_enqueue_style(
 				'ui-checkbox-min',
-				self::get_current_file_url() . '/assets/min/ui-checkbox.min.css',
+				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-checkbox.min.css',
 				array(),
 				'1.0.0',
 				'all'
 			);
 		}
-
 	}
 }
