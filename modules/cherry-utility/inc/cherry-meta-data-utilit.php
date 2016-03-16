@@ -23,6 +23,23 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 	class Cherry_Meta_Data_Utilit extends Cherry_Satellite_Utilit{
 
 		/**
+		 * Default args
+		 *
+		 * @since 1.0.0
+		 * @var array
+		 */
+		private $args = array();
+
+		/**
+		* Cherry_Satellite_Utilit constructor
+		*
+		* @since 1.0.0
+		*/
+		function __construct( $args = array() ) {
+			$this->args = array_merge( $this->args, $args );
+		}
+
+		/**
 		 * Get post terms
 		 *
 		 * @since  1.0.0
@@ -55,8 +72,12 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 				$after = $args['after'];
 
 				$terms = get_the_terms( $object, $args['type'] );
-				$terms_count = count( $terms ) - 1 ;
 
+				if ( is_wp_error( $terms ) ) {
+					return '';
+				}
+
+				$terms_count = count( $terms ) - 1 ;
 				foreach ( $terms as $key => $term ) {
 					$html_class = 'class="' . $args['class'] . ' ' . $term->slug . ' "';
 					$name = $term->name ;
@@ -90,7 +111,7 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 				'prefix'	=> '',
 				'title'		=> '',
 				'class'		=> 'post-author',
-				'html'		=> '%1$s<a href="%2$s" %3$s %4$s>%5$s%6$s</a>',
+				'html'		=> '%1$s<a href="%2$s" %3$s %4$s rel="author">%5$s%6$s</a>',
 			);
 			$args = array_merge( $default_args, $args );
 			$html = '' ;
@@ -130,13 +151,22 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 				'html'		=> '%1$s<a href="%2$s" %3$s %4$s>%5$s%6$s</a>',
 			);
 			$args = array_merge( $default_args, $args );
-			$html = '' ;
+			$html = $count = '' ;
 
 			if ( 'true' === $args['visible'] ) {
+<<<<<<< HEAD
 				$html_class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
 				$title = ( $args['title'] ) ? 'title="' . $args['title'] . '"' : '' ;
+=======
+				$post_type = get_post_type( $object->ID );
+				if ( post_type_supports( $post_type, 'comments' ) ) {
+					$count = ( comments_open() || get_comments_number() ) ? sprintf( $args['sufix'], $object->comment_count ) : sprintf( $args['sufix'], '0' ) ;
+				}
+
+				$html_class=  ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
+				$title=  ( $args['title'] ) ? 'title="' . $args['title'] . '"' : '' ;
+>>>>>>> CherryFramework/master
 				$link = get_comments_link();
-				$count = sprintf( $args['sufix'], $object->comment_count );
 
 				$html = sprintf( $args['html'], $args['prefix'], $link, $title, $html_class, $args['icon'], $count );
 			}

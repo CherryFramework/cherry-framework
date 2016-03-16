@@ -23,6 +23,23 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 	class Cherry_Satellite_Utilit {
 
 		/**
+		 * Default args
+		 *
+		 * @since 1.0.0
+		 * @var array
+		 */
+		private $args = array();
+
+		/**
+		* Cherry_Satellite_Utilit constructor
+		*
+		* @since 1.0.0
+		*/
+		function __construct( $args = array() ) {
+			$this->args = array_merge( $this->args, $args );
+		}
+
+		/**
 		 * Get post
 		 *
 		 * @since  1.0.0
@@ -80,8 +97,15 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 */
 		public function get_thumbnail_size_array( $size ) {
 			global $_wp_additional_image_sizes;
+			$size_array = array();
 
-			return $_wp_additional_image_sizes[ $size ];
+			if( array_key_exists ( $size, $_wp_additional_image_sizes ) ){
+				$size_array = $_wp_additional_image_sizes[ $size ];
+			}else {
+				$size_array = $_wp_additional_image_sizes[ 'post-thumbnail' ];
+			}
+
+			return $size_array;
 		}
 
 		/**

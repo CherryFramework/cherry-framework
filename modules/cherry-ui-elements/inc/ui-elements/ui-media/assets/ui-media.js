@@ -15,6 +15,7 @@
 			}
 		},
 		render: function ( target ) {
+<<<<<<< HEAD
 			$( document ).on(
 				'click',
 				'.upload-button',
@@ -26,6 +27,22 @@
 										multiple = $(this).data('multi-upload'),
 										library_type = $(this).data('library-type'),
 										cherry_uploader;
+=======
+			var cherry_uploader;
+
+			$('.upload-button', target).on('click', function () {
+				var button_parent = $(this).parents('.cherry-ui-media-wrap'),
+					input = $('.cherry-upload-input', button_parent),
+					img_holder = $('.cherry-upload-preview', button_parent),
+					title_text = $(this).data('title'),
+					multiple = $(this).data('multi-upload'),
+					library_type = $(this).data('library-type');
+
+				if ( undefined !== cherry_uploader ) {
+					cherry_uploader.open();
+					return;
+				}
+>>>>>>> CherryFramework/master
 
 									cherry_uploader = wp.media.frames.file_frame = wp.media({
 										title: title_text,
