@@ -70,15 +70,6 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 			$class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
 			$html_tag_suze = ( $args['html_tag_suze'] ) ? 'width="' . $size_array['width']  . 'px" height="' . $size_array['height']  . 'px"' : '' ;
 
-<<<<<<< HEAD
-			if ( 'post' === $type ) {
-				$id = $object->ID;
-				$thumbnail_id = get_post_thumbnail_id( $id );
-				$alt = esc_attr( $object->post_title );
-			} else {
-				$id = $object->term_id;
-				$thumbnail_id = get_term_meta( $id, '_tm_thumb' , true );
-=======
 			if( 'post' === $type ){
 				$ID = $object->ID;
 				$thumbnail_id = get_post_thumbnail_id( $ID );
@@ -86,7 +77,6 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 			}else{
 				$ID = $object->term_id;
 				$thumbnail_id = get_term_meta( $ID, $this->args['meta_key']['term_thumb'] , true );
->>>>>>> CherryFramework/master
 				$alt = esc_attr( $object->name );
 			}
 

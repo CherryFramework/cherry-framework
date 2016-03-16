@@ -151,12 +151,8 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			$html = '' ;
 
 			if ( 'true' === $args['visible'] ) {
-<<<<<<< HEAD
-				$html_class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
-=======
 				$html_class=  ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
 				$text = esc_html( $args['text'] );
->>>>>>> CherryFramework/master
 
 				if ( 'term' === $type ) {
 					$title = $object->name;

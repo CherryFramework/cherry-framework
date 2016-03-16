@@ -154,10 +154,6 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 			$html = $count = '' ;
 
 			if ( 'true' === $args['visible'] ) {
-<<<<<<< HEAD
-				$html_class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
-				$title = ( $args['title'] ) ? 'title="' . $args['title'] . '"' : '' ;
-=======
 				$post_type = get_post_type( $object->ID );
 				if ( post_type_supports( $post_type, 'comments' ) ) {
 					$count = ( comments_open() || get_comments_number() ) ? sprintf( $args['sufix'], $object->comment_count ) : sprintf( $args['sufix'], '0' ) ;
@@ -165,7 +161,6 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 
 				$html_class=  ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
 				$title=  ( $args['title'] ) ? 'title="' . $args['title'] . '"' : '' ;
->>>>>>> CherryFramework/master
 				$link = get_comments_link();
 
 				$html = sprintf( $args['html'], $args['prefix'], $link, $title, $html_class, $args['icon'], $count );
