@@ -1069,7 +1069,5 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		public static function get_instance( $core, $args ) {
 			return new self( $core, $args );
 		}
-
 	}
-
 }

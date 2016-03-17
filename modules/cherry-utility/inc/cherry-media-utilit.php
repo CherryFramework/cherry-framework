@@ -17,24 +17,6 @@ if ( !defined( 'WPINC' ) ) {
 if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 
 	class Cherry_Media_Utilit extends Cherry_Satellite_Utilit{
-
-		/**
-		 * Default args
-		 *
-		 * @since 1.0.0
-		 * @var array
-		 */
-		private $args = array();
-
-		/**
-		* Cherry_Satellite_Utilit constructor
-		*
-		* @since 1.0.0
-		*/
-		function __construct( $args = array() ) {
-			$this->args = array_merge( $this->args, $args );
-		}
-
 		/**
 		 * Get post image.
 		 *
@@ -52,32 +34,37 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 				'size'						=> apply_filters( 'cherry_normal_image_size', 'post-thumbnail' ),
 				'mobile_size'				=> apply_filters( 'cherry_mobile_image_size', 'post-thumbnail' ),
 				'class'						=> 'wp-image',
-				'html'						=> '<img src="%1$s" alt="%2$s" %3$s %4$s >',
+				'html'						=> '<a href="%1$s" %2$s ><img src="%3$s" alt="%4$s" %5$s ></a>',
+				'placeholder'				=> true,
 				'placeholder_background'	=> '000',
 				'placeholder_foreground'	=> 'fff',
 				'placeholder_title'			=> '',
 				'html_tag_suze'				=> true,
+				'echo'						=> false,
 			);
-			$args = array_merge( $default_args, $args );
-			$size= wp_is_mobile() ? $args[ 'mobile_size' ] : $args[ 'size' ] ;
-			$size_array = $this->get_thumbnail_size_array( $size );
+			$args			= array_merge( $default_args, $args );
+			$size			= wp_is_mobile() ? $args[ 'mobile_size' ] : $args[ 'size' ] ;
+			$size_array		= $this->get_thumbnail_size_array( $size );
 
-			$class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
-			$html_tag_suze = ( $args['html_tag_suze'] ) ? 'width="' . $size_array['width']  . 'px" height="' . $size_array['height']  . 'px"' : '' ;
+			$html			= '';
+			$class			= ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
+			$html_tag_suze	= ( $args['html_tag_suze'] ) ? 'width="' . $size_array['width']  . '" height="' . $size_array['height']  . '"' : '' ;
 
-			if( 'post' === $type ){
+			if ( 'post' === $type ) {
 				$ID = $object->ID;
 				$thumbnail_id = get_post_thumbnail_id( $ID );
 				$alt = esc_attr( $object->post_title );
+				$link = $this->get_post_permalink();
 			}else{
 				$ID = $object->term_id;
 				$thumbnail_id = get_term_meta( $ID, $this->args['meta_key']['term_thumb'] , true );
 				$alt = esc_attr( $object->name );
+				$link = $this->get_term_permalink( $ID );
 			}
 
-			if( $thumbnail_id ){
+			if ( $thumbnail_id ) {
 				$src = wp_get_attachment_image_url( $thumbnail_id, $size );
-			}else{
+			} elseif ( $args[ 'placeholder' ] ) {
 				// Place holder defaults attr
 				$title = ( $args[ 'placeholder_title' ] ) ? $args[ 'placeholder_title' ] : $size_array['width'] . 'x' . $size_array['height'] ;
 				$attr = array(
@@ -93,9 +80,15 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 				$src = 'http://fakeimg.pl/' . $attr['width'] . 'x' . $attr['height'] . '/'. $attr['background'] .'/'. $attr['foreground'] . '/?text=' . $attr['title'] . '';
 			}
 
-			$html = sprintf( $args['html'], $src, $alt , $class, $html_tag_suze );
+			if ( isset( $src ) ) {
+				$html = sprintf( $args['html'], $link, $class, $src, $alt, $html_tag_suze );
+			}
 
-			return $html;
+			if ( ! $args[ 'echo' ] ) {
+				return $html;
+			}else{
+				echo $html;
+			}
 		}
 
 
@@ -113,9 +106,10 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 			}
 
 			$default_args = array(
-				'size'						=> apply_filters( 'cherry_normal_video_size', 'post-thumbnail' ),
-				'mobile_size'				=> apply_filters( 'cherry_mobile_video_size', 'post-thumbnail' ),
-				'class'						=> 'wp-video',
+				'size'			=> apply_filters( 'cherry_normal_video_size', 'post-thumbnail' ),
+				'mobile_size'	=> apply_filters( 'cherry_mobile_video_size', 'post-thumbnail' ),
+				'class'			=> 'wp-video',
+				'echo'			=> false,
 			);
 			$args = array_merge( $default_args, $args );
 			$size= wp_is_mobile() ? $args[ 'mobile_size' ] : $args[ 'size' ] ;
@@ -126,16 +120,20 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 				return;
 			}
 
-			$video = wp_oembed_get( $video_url[ 0 ], array( 'width' => $size_array['width'] ) );
+			$html = wp_oembed_get( $video_url[ 0 ], array( 'width' => $size_array['width'] ) );
 
-			if( !$video ){
+			if( !$html ){
 				$post_thumbnail_id = get_post_thumbnail_id( $object->ID );
 				$poster = wp_get_attachment_image_url( $post_thumbnail_id, $size );
 
-				$video = wp_video_shortcode( array( 'src' => $video_url[ 0 ], 'width' => '100%', 'height' => '100%', 'poster' => $poster ) );
+				$html = wp_video_shortcode( array( 'src' => $video_url[ 0 ], 'width' => '100%', 'height' => '100%', 'poster' => $poster ) );
 			}
 
-			return $video;
+			if ( ! $args[ 'echo' ] ) {
+				return $html;
+			}else{
+				echo $html;
+			}
 		}
 	}
 }

@@ -56,7 +56,7 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 		 * @since 1.0.0
 		 * @var array
 		 */
-		private $args = array(
+		public $args = array(
 			'utility'	=> array(
 				'media',
 				'attributes',
@@ -68,20 +68,12 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 		);
 
 		/**
-		 * Satellite utilit class
+		 * Utilit class
 		 *
 		 * @since 1.0.0
 		 * @var string
 		 */
-		private static $satellite_utilit_class = 'satellite';
-
-		/**
-		 * Default static args
-		 *
-		 * @since 1.0.0
-		 * @var array
-		 */
-		private static $static_args = array();
+		public $utility = null;
 
 		/**
 		* Cherry_Utility constructor
@@ -94,10 +86,9 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 			$this->module_directory_uri = $core->settings['base_url'] . 'modules/cherry-utility/';
 
 			$this->args = array_merge( $this->args, $args );
-			array_unshift( $this->args['utility'], self::$satellite_utilit_class );
-			self::$static_args = $this->args;
 
-			$this->utility_require();
+			$this->utility_require( $core );
+
 		}
 
 		/**
@@ -109,41 +100,32 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 
 			if ( ! empty( $this->args['utility'] ) ) {
 
+				$this->utility = new stdClass();
 				$utility = $this->args['utility'];
+				array_unshift( $utility, 'satellite' );
+
 				foreach ( $utility as $utilit ) {
 					require_once( $this->module_directory . '/inc/cherry-' . $utilit . '-utilit.php' );
-				}
-			}
-		}
 
-		/**
-		 * Require utility
-		 *
-		 * @return void
-		 */
-		public static function utility_composition( $self ) {
-			$utility = self::$static_args['utility'];
+					$utilit = str_replace('-', ' ', $utilit );
+					$class_name = ucwords( $utilit );
+					$class_name = str_replace(' ', '_', $class_name );
+					$utilit = str_replace(' ', '_', $utilit );
 
-			if ( ! empty( $utility ) ) {
-				$self->{'utility'} = new stdClass();
-
-				foreach ( $utility as $utilit ) {
-					$sud_module = str_replace('-', '_', $utilit );
-					$class_name = str_replace('-', ' ', $utilit );
-					$class_name = str_replace(' ', '_', ucwords( $class_name ) );
 					$class_name = 'Cherry_' . $class_name . '_Utilit';
 
-					$self->utility->$sud_module = new $class_name( self::$static_args );
+					$this->utility->$utilit = new $class_name( $this );
 				}
 			}
 		}
+
 		/**
 		 * Returns the instance.
 		 *
 		 * @since  1.0.0
 		 * @return object
 		 */
-		public static function get_instance( $core, $args = array() ) {
+		public static function get_instance( $core, $args ) {
 
 			// If the single instance hasn't been set, set it now.
 			if ( null == self::$instance ) {
