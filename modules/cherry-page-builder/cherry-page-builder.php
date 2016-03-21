@@ -91,15 +91,20 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 		function __construct( $core, $args = array() ) {
 
 			$this->core = $core;
-			$this->args = wp_parse_args( $args, array(
-				'capability'	=> 'manage_options',
-				'position'      => 20,
-				'icon'			=> 'dashicons-admin-site',
-				'sections'      => array(),
-				'settings'      => array(),
-				'before'        => '',
-				'after'			=> '',
-			) );
+			$this->args = wp_parse_args(
+				$args,
+				array(
+					'capability'	=> 'manage_options',
+					'position'      => 20,
+					'icon'			=> 'dashicons-admin-site',
+					'sections'      => array(),
+					'settings'      => array(),
+					'before'        => '',
+					'after'			=> '',
+					'before_button'	=> '',
+					'after_button'	=> '',
+				)
+			);
 
 			$this->views = $this->core->get_core_dir() . 'modules/' . $this->module_slug . '/views/';
 			add_action( 'admin_enqueue_scripts', array( $this, 'assets' ) );
@@ -109,14 +114,16 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 		 * Add admin menu page
 		 */
 		function add_admin_page() {
-			$page = $this->make( $this->args['slug'], $this->args['title'], $this->args['parent'], $this->args['views'] )->set( array(
+			$page = $this->make( $this->args['slug'], $this->args['title'], $this->args['parent'], $this->args['views'] )->set(
+				array(
 					'capability'    => $this->args['capability'],
 					'icon'          => $this->args['icon'],
 					'position'      => $this->args['position'],
 					'tabs'          => $this->args['tabs'],
 					'sections'      => $this->args['sections'],
 					'settings'      => $this->args['settings'],
-				));
+				)
+			);
 			$page->add_sections( $this->args['sections'] );
 			$page->add_settings( $this->args['settings'] );
 		}
@@ -192,6 +199,8 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 			$page_slug		= ! empty( $this->data['slug'] ) ? $this->data['slug'] : '';
 			$page_before	= ! empty( $this->args['before'] ) ? $this->args['before'] : '';
 			$page_after		= ! empty( $this->args['after'] ) ? $this->args['after'] : '';
+			$button_before	= ! empty( $this->args['button_before'] ) ? $this->args['button_before'] : '';
+			$button_after	= ! empty( $this->args['button_after'] ) ? $this->args['button_after'] : '';
 			$sections		= ( ! empty( $this->sections ) && is_array( $this->sections ) ) ? $this->sections : array();
 
 			$html = Cherry_Core::render_view(
@@ -201,6 +210,8 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 					'page_slug'		=> $page_slug,
 					'page_before'	=> $page_before,
 					'page_after'	=> $page_after,
+					'button_before'	=> $button_before,
+					'button_after'	=> $button_after,
 					'sections'		=> $sections,
 				)
 			);
@@ -279,6 +290,17 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 		}
 
 		/**
+		 * Clear sections
+		 */
+		public function clear_sections() {
+			if ( $this->has_sections() ) {
+				foreach ( $this->sections as $section ) {
+					delete_option( $section['slug'] );
+				}
+			}
+		}
+
+		/**
 		 * Handle section display of the Settings API.
 		 *
 		 * @param array $args     Page parameter.
@@ -295,7 +317,7 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 			$html = Cherry_Core::render_view(
 				$this->views . 'section.php',
 				array(
-					'description'			=> $description,
+					'description' => $description,
 				)
 			);
 			echo $html;
@@ -336,7 +358,6 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 		 * @return void
 		 */
 		public function assets() {
-			wp_enqueue_script( 'jquery-ui-tabs' );
 			wp_enqueue_script( 'jquery-form' );
 
 			wp_localize_script( 'cherry-settings-page', 'TMRealEstateMessage', array(
@@ -352,13 +373,6 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 				true
 			);
 
-			wp_enqueue_style(
-				'jquery-ui-tabs',
-				$this->core->get_core_url() . 'modules/' . $this->module_slug . '/assets/css/jquery-ui.min.css',
-				array(),
-				'1.11.4',
-				'all'
-			);
 			wp_enqueue_style(
 				'cherry-settings-page',
 				$this->core->get_core_url() . 'modules/' . $this->module_slug . '/assets/css/custom.min.css',
