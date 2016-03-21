@@ -41,7 +41,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			$default_args = array(
 				'visible'		=> 'true',
 				'length'		=> 200,
-				'trimmed_type'	=> 'word',//char
+				'trimmed_type'	=> 'word',
 				'class'			=> '',
 				'ending'		=> '&hellip;',
 				'html'			=> '<h3 %1$s><a href="%2$s" title="%3$s" rel="bookmark">%4$s</a></h3>',
@@ -88,7 +88,8 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			$default_args = array(
 				'visible'		=> 'true',
 				'length'		=> '0',
-				'trimmed_type'	=> 'word',//char
+				//char
+				'trimmed_type'	=> 'word',
 				'class'			=> '',
 				'content_type'	=> 'post_content',// post_excerpt, post_content
 				'ending'		=> '&hellip;',
@@ -148,7 +149,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			$default_args = array(
 				'visible'	=> 'true',
 				'text'		=> '',
-				'icon'		=> '',//apply_filters( 'cherry_author_icon', '<i class="material-icons">arrow_forward</i>' )
+				'icon'		=> '',
 				'class'		=> 'btn',
 				'html'		=> '<a href="%1$s" title="%2$s" %3$s><span class="btn__text">%4$s</span>%5$s</a>',
 				'echo'		=> false,

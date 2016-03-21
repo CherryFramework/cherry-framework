@@ -38,7 +38,7 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 			$default_args = array(
 				'visible'	=> 'true',
 				'type'		=> 'category',
-				'icon'		=> '',//apply_filters( 'cherry_terms_icon', '<i class="material-icons">bookmark</i>' )
+				'icon'		=> '',
 				'prefix'	=> '',
 				'delimiter'	=> ' ',
 				'before'	=> '<div class="post-terms">',
@@ -139,9 +139,9 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 
 			$default_args = array(
 				'visible'	=> 'true',
-				'icon'		=> '',//apply_filters( 'cherry_comment_icon', '<i class="material-icons">chat_bubble_outline</i>' )
+				'icon'		=> '',
 				'prefix'	=> '',
-				'sufix'		=> array( 'single' => '%s', 'plural' => '%s' ), //array( 'single' => '%s comment', 'plural' => '%s comments' )
+				'sufix'		=> array( 'single' => '%s', 'plural' => '%s' ),
 				'title'		=> '',
 				'class'		=> 'post-comments-count',
 				'html'		=> '%1$s<a href="%2$s" %3$s %4$s>%5$s%6$s</a>',
@@ -189,7 +189,7 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 
 			$default_args = array(
 				'visible'	=> 'true',
-				'icon'		=> '',//apply_filters( 'cherry_date_icon', '<i class="material-icons">schedule</i>' )
+				'icon'		=> '',
 				'prefix'	=> '',
 				'title'		=> '',
 				'class'		=> 'post-date',
