@@ -98,7 +98,7 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 
 			$default_args = array(
 				'visible'	=> 'true',
-				'icon'		=> '',//apply_filters( 'cherry_author_icon', '<i class="material-icons">person</i>' )
+				'icon'		=> '',
 				'prefix'	=> '',
 				'title'		=> '',
 				'class'		=> 'post-author',

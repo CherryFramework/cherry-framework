@@ -88,10 +88,9 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			$default_args = array(
 				'visible'		=> 'true',
 				'length'		=> '0',
-				//char
 				'trimmed_type'	=> 'word',
 				'class'			=> '',
-				'content_type'	=> 'post_content',// post_excerpt, post_content
+				'content_type'	=> 'post_content',
 				'ending'		=> '&hellip;',
 				'html'			=> '<p %1$s>%2$s</p>',
 				'echo'			=> false,
