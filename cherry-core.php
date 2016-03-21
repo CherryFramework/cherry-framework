@@ -107,7 +107,6 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 					$this->modules[ $module ] = apply_filters( $hook, false, $arg, $this );
 				}
 			}
-
 		}
 
 		/**

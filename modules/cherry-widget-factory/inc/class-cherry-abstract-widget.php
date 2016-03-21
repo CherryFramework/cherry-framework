@@ -194,7 +194,7 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 				return false;
 			}
 
-			$this->ui_builder = $core->init_module( 'cherry-ui-elements', array( 'ui_elements' => $this->field_types ) );
+			$this->ui_builder = $core->init_module( 'cherry-ui-elements', $this->field_types );
 
 			return true;
 		}
@@ -378,7 +378,7 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 		 */
 		public function set_field_types( $field, $id ) {
 
-			if ( ! is_array( $field ) || ! isset( $field['type'] ) ) {
+			if ( is_array( $field ) || ! isset( $field['type'] ) ) {
 				return false;
 			}
 

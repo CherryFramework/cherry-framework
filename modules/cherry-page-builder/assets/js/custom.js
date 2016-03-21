@@ -10,7 +10,22 @@ jQuery( document ).ready( function( $ ) {
 		};
 
 		pb.tabs = function( selectors ) {
-			jQuery( selectors ).tabs();
+			jQuery( selectors + ' .tabs-section a' ).each( function( index ) {
+				var id = jQuery( this ).attr( 'href' );
+				if ( ! index ) {
+					jQuery( this ).addClass( 'nav-tab-active' );
+				} else {
+					jQuery( selectors + ' .section' + id ).hide();
+				}
+			});
+			jQuery( selectors + ' .tabs-section a' ).click( function( e ) {
+				var id = jQuery( this ).attr( 'href' );
+				jQuery( selectors + ' .section' ).hide();
+				jQuery( selectors + ' .section' + id ).show();
+				jQuery( selectors + ' .tabs-section a' ).removeClass( 'nav-tab-active' );
+				jQuery( this ).addClass( 'nav-tab-active' );
+				e.preventDefault();
+			});
 		};
 
 		pb.saveEvent = function( selectors ) {

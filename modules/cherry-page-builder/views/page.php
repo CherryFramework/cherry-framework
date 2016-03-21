@@ -14,18 +14,27 @@
 	<?php endif; ?>
 	<?php if ( ! empty( $__data['sections'] ) && is_array( $__data['sections'] ) ) : ?>
 	<div class="cherry-settings-tabs">
-		<ul>
+		<h2 class="nav-tab-wrapper tabs-section">
 			<?php foreach ( $__data['sections'] as $section_slug => $section ) : ?>
-			<li><a href="#<?php echo $section_slug ?>"><?php echo $section['name'] ?></a></li>
+			<a href="#<?php echo $section_slug ?>" class="nav-tab"><?php echo $section['name'] ?></a>
 			<?php endforeach; ?>
-		</ul>
+		</h2>
 
 		<?php foreach ( $__data['sections'] as $section_slug => $section ) : ?>
-		<div id="<?php echo $section_slug ?>">
+		<div id="<?php echo $section_slug ?>" class="section">
 			<form method="POST" action="options.php" id="form-<?php echo $section_slug ?>">
 				<?php settings_fields( $section_slug ); ?>
 				<?php do_settings_sections( $section_slug ); ?>
-				<?php submit_button( __( 'Save', 'tm-real-estate' ), 'primary small', null, true, array( 'data-ajax' => true ) ); ?> 
+
+				<?php if ( ! empty( $__data['button_before'] ) ) : ?>
+				<?php echo $__data['button_before'] ?>
+				<?php endif; ?>
+
+				<?php submit_button( __( 'Save', 'tm-real-estate' ) . ' ' . $section['name'], 'primary small', null, true, array( 'data-ajax' => true ) ); ?> 
+
+				<?php if ( ! empty( $__data['button_after'] ) ) : ?>
+				<?php echo $__data['button_after'] ?>
+				<?php endif; ?>
 			</form>
 		</div>
 		<?php endforeach; ?>

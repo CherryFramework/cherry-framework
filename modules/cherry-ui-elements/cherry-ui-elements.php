@@ -127,7 +127,9 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		 */
 		public function ui_elements_require() {
 			// Add I_UI interface.
-			require_once( $this->module_directory . '/i-ui.php' );
+			if ( ! class_exists( 'UI_Element' ) ) {
+				require_once( $this->module_directory . '/i-ui.php' );
+			}
 
 			if ( ! class_exists( 'UI_Element' ) ) {
 				require_once( $this->module_directory . '/ui-element.php' );
@@ -167,3 +169,4 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		}
 	}
 }
+
