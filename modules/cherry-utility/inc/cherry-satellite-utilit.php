@@ -23,12 +23,12 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 	class Cherry_Satellite_Utilit {
 
 		/**
-		 * Default args
+		 * Parent module args
 		 *
 		 * @since 1.0.0
 		 * @var array
 		 */
-		private $args = array();
+		public $args = null;
 
 		/**
 		 * Class Cherry Satellite Utilit constructor
@@ -86,8 +86,23 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * @since  1.0.0
 		 * @return string
 		 */
-		public function cut_text( $text, $length, $after ) {
-			return ( '0' !== $length ) ? wp_trim_words( $text, $length, $after ) : '' ;
+
+		public function cut_text( $text, $length, $trimmed_type = 'word', $after ) {
+			$cut_text = '';
+
+			if ( '0' !== $length ) {
+				$text = strip_shortcodes( $text );
+				$text = apply_filters( 'the_content', $text );
+				$text = str_replace( ']]>', ']]&gt;', $text );
+
+				if ( 'word' === $trimmed_type ) {
+					$cut_text = wp_trim_words( $text, $length, $after );
+				} else {
+					$cut_text = wp_html_excerpt( $text, $length, $after );
+				}
+			}
+
+			return $cut_text;
 		}
 
 		/**
@@ -117,7 +132,7 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * @return array
 		 */
 		public function get_terms_array( $tax = 'category', $key = 'slug' ) {
-			$all_terms = ( array ) get_terms( $tax, array( 'hide_empty' => 0, 'hierarchical' => 0 ) );
+			$all_terms = (array) get_terms( $tax, array( 'hide_empty' => 0, 'hierarchical' => 0 ) );
 
 			foreach ( $all_terms as $term ) {
 				$terms[ $term->$key ] = $term->name;

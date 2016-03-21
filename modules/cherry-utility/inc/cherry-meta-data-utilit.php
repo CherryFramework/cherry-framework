@@ -20,25 +20,7 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 	/**
 	 * Class Cherry Meta Data Utilit
 	 */
-	class Cherry_Meta_Data_Utilit extends Cherry_Satellite_Utilit{
-
-		/**
-		 * Default args
-		 *
-		 * @since 1.0.0
-		 * @var array
-		 */
-		private $args = array();
-
-		/**
-		 * Class Cherry Meta Data Utilit constructor
-		 *
-		 * @param array $args arguments.
-		 * @since 1.0.0
-		 */
-		function __construct( $args = array() ) {
-			$this->args = array_merge( $this->args, $args );
-		}
+	class Cherry_Meta_Data_Utilit extends Cherry_Satellite_Utilit {
 
 		/**
 		 * Get post terms
@@ -56,13 +38,14 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 			$default_args = array(
 				'visible'	=> 'true',
 				'type'		=> 'category',
-				'icon'		=> apply_filters( 'cherry_terms_icon', '<i class="material-icons">bookmark</i>' ),
+				'icon'		=> '',//apply_filters( 'cherry_terms_icon', '<i class="material-icons">bookmark</i>' )
 				'prefix'	=> '',
 				'delimiter'	=> ' ',
 				'before'	=> '<div class="post-terms">',
 				'after'		=> '</div>',
 				'class'		=> 'post-term',
-				'html'		=> '<a href="%1$s" %2$s %3$s>%4$s</a>%5$s',
+				'html'		=> '<a href="%1$s" %2$s %3$s rel="category tag">%4$s</a>%5$s',
+				'echo'		=> false,
 			);
 			$args = array_merge( $default_args, $args );
 			$html = $before = $after = '';
@@ -74,11 +57,12 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 
 				$terms = get_the_terms( $object, $args['type'] );
 
-				if ( is_wp_error( $terms ) ) {
+				if ( ! $terms || is_wp_error( $terms ) ) {
 					return '';
 				}
 
 				$terms_count = count( $terms ) - 1 ;
+
 				foreach ( $terms as $key => $term ) {
 					$html_class = 'class="' . $args['class'] . ' ' . $term->slug . ' "';
 					$name = $term->name ;
@@ -90,7 +74,13 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 				}
 			}
 
-			return $before . $html . $after;
+			$html = $before . $html . $after;
+
+			if ( ! $args['echo'] ) {
+				return $html;
+			} else {
+				echo $html;
+			}
 		}
 
 		/**
@@ -108,11 +98,12 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 
 			$default_args = array(
 				'visible'	=> 'true',
-				'icon'		=> apply_filters( 'cherry_author_icon', '<i class="material-icons">person</i>' ),
+				'icon'		=> '',//apply_filters( 'cherry_author_icon', '<i class="material-icons">person</i>' )
 				'prefix'	=> '',
 				'title'		=> '',
 				'class'		=> 'post-author',
 				'html'		=> '%1$s<a href="%2$s" %3$s %4$s rel="author">%5$s%6$s</a>',
+				'echo'		=> false,
 			);
 			$args = array_merge( $default_args, $args );
 			$html = '' ;
@@ -126,7 +117,11 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 				$html = sprintf( $args['html'], $args['prefix'], $link, $title, $html_class, $args['icon'],  $author );
 			}
 
-			return $html;
+			if ( ! $args['echo'] ) {
+				return $html;
+			} else {
+				echo $html;
+			}
 		}
 
 		/**
@@ -144,12 +139,13 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 
 			$default_args = array(
 				'visible'	=> 'true',
-				'icon'		=> apply_filters( 'cherry_comment_icon', '<i class="material-icons">chat_bubble_outline</i>' ),
+				'icon'		=> '',//apply_filters( 'cherry_comment_icon', '<i class="material-icons">chat_bubble_outline</i>' )
 				'prefix'	=> '',
-				'sufix'		=> '%s', // _n( '%s comment', '%s comments', $post->comment_count )
+				'sufix'		=> array( 'single' => '%s', 'plural' => '%s' ), //array( 'single' => '%s comment', 'plural' => '%s comments' )
 				'title'		=> '',
 				'class'		=> 'post-comments-count',
 				'html'		=> '%1$s<a href="%2$s" %3$s %4$s>%5$s%6$s</a>',
+				'echo'		=> false,
 			);
 			$args = array_merge( $default_args, $args );
 			$html = $count = '' ;
@@ -157,7 +153,10 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 			if ( 'true' === $args['visible'] ) {
 				$post_type = get_post_type( $object->ID );
 				if ( post_type_supports( $post_type, 'comments' ) ) {
-					$count = ( comments_open() || get_comments_number() ) ? sprintf( $args['sufix'], $object->comment_count ) : sprintf( $args['sufix'], '0' );
+					$singular = $args['sufix']['single'];
+					$plural = $args['sufix']['plural'];
+
+					$count = sprintf( _n( $singular, $plural, $object->comment_count ), $object->comment_count );
 				}
 
 				$html_class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '';
@@ -167,7 +166,11 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 				$html = sprintf( $args['html'], $args['prefix'], $link, $title, $html_class, $args['icon'], $count );
 			}
 
-			return $html;
+			if ( ! $args['echo'] ) {
+				return $html;
+			} else {
+				echo $html;
+			}
 		}
 
 
@@ -186,11 +189,12 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 
 			$default_args = array(
 				'visible'	=> 'true',
-				'icon'		=> apply_filters( 'cherry_date_icon', '<i class="material-icons">schedule</i>' ),
+				'icon'		=> '',//apply_filters( 'cherry_date_icon', '<i class="material-icons">schedule</i>' )
 				'prefix'	=> '',
 				'title'		=> '',
 				'class'		=> 'post-date',
-				'html'		=> '%1$s<a href="%2$s" %3$s %4$s><time datetime="%5$s">%6$s%7$s</time></a>',
+				'html'		=> '%1$s<a href="%2$s" %3$s %4$s ><time datetime="%5$s">%6$s%7$s</time></a>',
+				'echo'		=> false,
 			);
 			$args = array_merge( $default_args, $args );
 			$html = '' ;
@@ -203,12 +207,16 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 				$date = get_the_time( $post_format );
 
 				preg_match_all( '/(\d+)/mi', $time, $date_array );
-				$link = get_day_link( ( int ) $date_array[0][0], ( int ) $date_array[0][1], ( int ) $date_array[0][2] );
+				$link = get_day_link( (int) $date_array[0][0], (int) $date_array[0][1], (int) $date_array[0][2] );
 
 				$html = sprintf( $args['html'], $args['prefix'], $link, $title, $html_class, $time, $args['icon'], $date );
 			}
 
-			return $html;
+			if ( ! $args['echo'] ) {
+				return $html;
+			} else {
+				echo $html;
+			}
 		}
 
 		/**
@@ -230,6 +238,7 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 				'prefix'	=> '',
 				'sufix'		=> '%s', // _n( '%s post', '%s posts', $object->count)
 				'html'		=> '%1$s<span %2$s>%3$s</span>',
+				'echo'		=> false,
 			);
 			$args = array_merge( $default_args, $args );
 			$html = '' ;
@@ -241,7 +250,11 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 				$html = sprintf( $args['html'], $args['prefix'], $html_class, $count );
 			}
 
-			return $html;
+			if ( ! $args['echo'] ) {
+				return $html;
+			} else {
+				echo $html;
+			}
 		}
 	}
 }
