@@ -69,23 +69,20 @@ class Cherry_Taxonomies implements I_Module {
 	 * @param  [type] $single         name.
 	 * @param  [type] $post_type_slug post types slug.
 	 * @param  [type] $plural         name.
-	 * @param  array  $args           arguments.
 	 * @return Cherry_Post_Type
 	 */
-	public function create( $single, $post_type_slug = 'post', $plural = '', array $args = array() ) {
-		$tax = new Cherry_Taxonomy( $single, $post_type_slug, $plural, $args );
-		if ( count( $args ) < 1 ) {
-			// Set main properties.
-			$this->defaults = array_merge(
-				$this->get_default_arguments(
-					$tax->get_single(),
-					$tax->get_plural(),
-					$tax->get_post_type_slug()
-				),
-				$this->defaults
-			);
-			$tax->set_arguments( $this->defaults );
-		}
+	public function create( $single, $post_type_slug = 'post', $plural = '' ) {
+		$tax = new Cherry_Taxonomy( $single, $post_type_slug, $plural );
+
+		$this->defaults = array_merge(
+			$this->defaults,
+			$this->get_default_arguments(
+				$tax->get_single(),
+				$tax->get_plural(),
+				$tax->get_post_type_slug()
+			)
+		);
+		$tax->set_arguments( $this->defaults );
 
 		return $tax;
 	}
@@ -99,17 +96,17 @@ class Cherry_Taxonomies implements I_Module {
 	 */
 	public function get_default_arguments( $plural, $singular, $post_type_slug ) {
 		$labels = array(
-			'name'              => __( $plural.' Types', 'tm-real-estate' ),
-			'singular_name'     => __( $singular.' Type', 'tm-real-estate' ),
-			'search_items'      => __( 'Search ' . $plural . ' Types', 'tm-real-estate' ),
-			'all_items'         => __( 'All ' . $plural . ' Types', 'tm-real-estate' ),
-			'parent_item'       => __( 'Parent ' . $singular . ' Type', 'tm-real-estate' ),
-			'parent_item_colon' => __( 'Parent ' . $singular . ' Type:', 'tm-real-estate' ),
-			'edit_item'         => __( 'Edit ' . $singular . ' Type', 'tm-real-estate' ),
-			'update_item'       => __( 'Update ' . $singular . ' Type', 'tm-real-estate' ),
-			'add_new_item'      => __( 'Add New ' . $singular . ' Type', 'tm-real-estate' ),
-			'new_item_name'     => __( 'New ' . $singular . ' Type Name', 'tm-real-estate' ),
-			'menu_name'         => __( $plural.' Types', 'tm-real-estate' ),
+			'name'              => __( $plural, 'tm-real-estate' ),
+			'singular_name'     => __( $singular, 'tm-real-estate' ),
+			'search_items'      => __( 'Search ' . $plural, 'tm-real-estate' ),
+			'all_items'         => __( 'All ' . $plural, 'tm-real-estate' ),
+			'parent_item'       => __( 'Parent ' . $singular, 'tm-real-estate' ),
+			'parent_item_colon' => __( 'Parent ' . $singular . ' :', 'tm-real-estate' ),
+			'edit_item'         => __( 'Edit ' . $singular, 'tm-real-estate' ),
+			'update_item'       => __( 'Update ' . $singular, 'tm-real-estate' ),
+			'add_new_item'      => __( 'Add New ' . $singular, 'tm-real-estate' ),
+			'new_item_name'     => __( 'New ' . $singular . ' Name', 'tm-real-estate' ),
+			'menu_name'         => __( $plural, 'tm-real-estate' ),
 		);
 
 		return array(
