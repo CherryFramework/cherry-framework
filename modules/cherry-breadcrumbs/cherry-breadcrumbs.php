@@ -9,6 +9,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Class
+ * @version    1.0.0
  * @author     Justin Tadlock <justin@justintadlock.com>
  * @author     Cherry Team <support@cherryframework.com>
  * @copyright  Copyright (c) 2008 - 2014, Justin Tadlock

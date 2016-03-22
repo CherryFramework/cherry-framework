@@ -4,6 +4,7 @@
  *
  * @package    Cherry Base Updater
  * @subpackage Themes Updater
+ * @version    1.0.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/

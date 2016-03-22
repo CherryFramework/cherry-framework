@@ -3,6 +3,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Class
+ * @version    1.0.0
  * @author     Cherry Team <support@cherryframework.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
