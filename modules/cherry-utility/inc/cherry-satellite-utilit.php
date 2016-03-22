@@ -41,7 +41,7 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * @since  1.0.0
 		 * @return object
 		 */
-		public function get_post_object( $ID ) {
+		public function get_post_object( $ID = 0 ) {
 			return get_post( $ID );
 		}
 
@@ -51,8 +51,8 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * @since  1.0.0
 		 * @return object
 		 */
-		public function get_term_object( $ID ) {
-			return get_term( $ID);
+		public function get_term_object( $ID = 0 ) {
+			return get_term( $ID );
 		}
 
 		/**
