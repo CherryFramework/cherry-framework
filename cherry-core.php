@@ -82,8 +82,11 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 
 				$hook = $module . '-module';
 
+				// Get module priority
+				$priority = $this->get_module_priority( $module );
+
 				// Attach all modules to apropriate hooks.
-				add_filter( $hook, array( $this, 'pre_load' ), $settings['priority'], 3 );
+				add_filter( $hook, array( $this, 'pre_load' ), $priority, 3 );
 
 				// And immediately try to call hooks for autoloaded modules.
 				if ( $this->is_module_autoload( $module ) ) {
@@ -194,7 +197,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			$class_name = $this->get_class_name( $module );
 
 			if ( ! class_exists( $class_name ) ) {
-				echo '<p>Class <b>' . $class_name . '</b> not exist!</p>';
+				echo '<p>Class <b>' . $class_name . '</b> does not exist!</p>';
 				return false;
 			}
 
@@ -226,6 +229,30 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		public function get_module_path( $module ) {
 			return $this->get_core_dir() . '/modules/' . $module . '/' . $module . '.php';
 		}
+
+		/**
+		 * Get module priority from it's version stored as
+		 *
+		 * @since  1.0.0
+		 * @param  string   $module   module slug or path.
+		 * @param  boolean  $is_path  set this as true, if `$module` is a path
+		 * @return integer
+		 */
+		public function get_module_priority( $module, $is_path = false ) {
+			$default_headers = array(
+	      'version' => 'Version',
+	    );
+
+			if ( ! $is_path ) {
+				$module = $this->get_module_path( $module );
+			}
+
+	    $data    = get_file_data( $module , $default_headers );
+	    $version = isset( $data[ 'version' ] ) ? $data[ 'version' ] : '1.0.0';
+			$int_max = defined( 'PHP_INT_MAX' ) ? PHP_INT_MAX : 2147483647;
+
+	    return $int_max - (int) str_replace( '.', $version );
+	  }
 
 		/**
 		 * Get path to the core directory.
