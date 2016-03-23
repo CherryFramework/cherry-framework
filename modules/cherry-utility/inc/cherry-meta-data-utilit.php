@@ -16,7 +16,7 @@ if ( !defined( 'WPINC' ) ) {
 
 if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 
-	class Cherry_Meta_Data_Utilit extends Cherry_Satellite_Utilit{
+	class Cherry_Meta_Data_Utilit extends Cherry_Satellite_Utilit {
 
 		/**
 		 * Get post terms
@@ -39,46 +39,26 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 				'delimiter'	=> ' ',
 				'before'	=> '<div class="post-terms">',
 				'after'		=> '</div>',
-				'html'		=> '<a href="%1$s" %2$s %3$s rel="tag">%4$s</a>%5$s',
-				'title'		=> '',
 				'class'		=> 'post-term',
 				'echo'		=> false,
 			);
-			$args = array_merge( $default_args, $args );
-			$html = $before = $after = '';
+			$args = wp_parse_args( $args, $default_args );
+			$html = '';
 
-			if ( $args['visible'] ) {
-				$html = $args['prefix'] . $args['icon'] ;
-				$before = $args['before'];
-				$after = $args['after'];
-
-				//$terms = get_the_term_list ( $object, $args['type'] );
-				$terms = get_the_terms( $object, $args['type'] );
+			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
+				$prefix = $args['prefix'] . $args['icon'] ;
+				$terms = get_the_term_list ( $object, $args['type'], $prefix, $args['delimiter'] );
 
 				if ( ! $terms || is_wp_error( $terms ) ) {
 					return '';
 				}
 
-				$terms_count = count( $terms ) - 1 ;
-
-				foreach ( $terms as $key => $term ) {
-					$html_class= 'class="' . $args['class'] . ' ' . $term->slug . ' "';
-					$name = $term->name ;
-					$title =  ( $args['title'] ) ? 'title="' . $args['title'] . '"' : 'title="' . $name . '"' ;
-					$link = get_term_link( $term->term_id , $args['type'] );
-					$delimiter = ( $terms_count !== $key ) ? $args['delimiter'] : '' ;
-
-					$html .= sprintf( $args['html'], $link, $title, $html_class, $name, $delimiter );
-				}
+				$html = $terms;
 			}
 
-			$html = $before . $html . $after;
+			$html = $args['before'] . $html . $args['after'];
 
-			if ( ! $args[ 'echo' ] ) {
-				return $html;
-			}else{
-				echo $html;
-			}
+			return $this->output_method( $html, $args['echo'] );
 		}
 
 		/**
@@ -103,10 +83,10 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 				'class'		=> 'post-author',
 				'echo'		=> false,
 			);
-			$args = array_merge( $default_args, $args );
+			$args = wp_parse_args( $args, $default_args );
 			$html = '' ;
 
-			if ( $args['visible'] ) {
+			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
 				$html_class=  ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
 				$title=  ( $args['title'] ) ? 'title="' . $args['title'] . '"' : '' ;
 				$author = get_the_author();
@@ -115,11 +95,7 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 				$html = sprintf( $args['html'], $args['prefix'], $link, $title, $html_class, $args['icon'], $author );
 			}
 
-			if ( ! $args[ 'echo' ] ) {
-				return $html;
-			}else{
-				echo $html;
-			}
+			return $this->output_method( $html, $args['echo'] );
 		}
 
 		/**
@@ -145,10 +121,10 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 				'class'			=> 'post-comments-count',
 				'echo'			=> false,
 			);
-			$args = array_merge( $default_args, $args );
+			$args = wp_parse_args( $args, $default_args );
 			$html = $count = '' ;
 
-			if ( $args['visible'] ) {
+			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
 				$post_type = get_post_type( $object->ID );
 				if ( post_type_supports( $post_type, 'comments' ) ) {
 					$sufix = is_string( $args['sufix'] ) ? $args['sufix'] : translate_nooped_plural( $args['sufix'], $object->comment_count, $args['sufix']['domain'] ) ;
@@ -162,11 +138,7 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 				$html = sprintf( $args['html'], $args['prefix'], $link, $title, $html_class, $args['icon'], $count );
 			}
 
-			if ( ! $args[ 'echo' ] ) {
-				return $html;
-			}else{
-				echo $html;
-			}
+			return $this->output_method( $html, $args['echo'] );
 		}
 
 
@@ -192,10 +164,10 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 				'class'		=> 'post-date',
 				'echo'		=> false,
 			);
-			$args = array_merge( $default_args, $args );
+			$args = wp_parse_args( $args, $default_args );
 			$html = '' ;
 
-			if ( $args['visible'] ) {
+			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
 				$html_class=  ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
 				$title=  ( $args['title'] ) ? 'title="' . $args['title'] . '"' : '' ;
 				$post_format = get_option( 'date_format' );
@@ -208,11 +180,7 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 				$html = sprintf( $args['html'], $args['prefix'], $link, $title, $html_class, $time, $args['icon'], $date );
 			}
 
-			if ( ! $args[ 'echo' ] ) {
-				return $html;
-			}else{
-				echo $html;
-			}
+			return $this->output_method( $html, $args['echo'] );
 		}
 
 		/**
@@ -238,10 +206,10 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 				'class'			=> 'post-count',
 				'echo'			=> false,
 			);
-			$args = array_merge( $default_args, $args );
+			$args = wp_parse_args( $args, $default_args );
 			$html = '' ;
 
-			if ( $args['visible'] ) {
+			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
 				$html_class=  ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
 				$name = $object->name ;
 				$title = ( $args['title'] ) ? 'title="' . $args['title'] . '"' : 'title="' . $name . '"' ;
@@ -253,11 +221,7 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 				$html = sprintf( $args['html'], $args['prefix'], $link, $title, $html_class, $args['icon'], $count );
 			}
 
-			if ( ! $args[ 'echo' ] ) {
-				return $html;
-			}else{
-				echo $html;
-			}
+			return $this->output_method( $html, $args['echo'] );
 		}
 	}
 }

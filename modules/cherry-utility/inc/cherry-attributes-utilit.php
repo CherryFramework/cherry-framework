@@ -16,7 +16,7 @@ if ( !defined( 'WPINC' ) ) {
 
 if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 
-	class Cherry_Attributes_Utilit extends Cherry_Satellite_Utilit{
+	class Cherry_Attributes_Utilit extends Cherry_Satellite_Utilit {
 
 		/**
 		 * Get post title.
@@ -31,7 +31,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			$object = call_user_func( array( $this, 'get_' . $type . '_object' ), $ID );
 
 			if ( 'post' === $type && empty( $object->ID ) || 'term' === $type && empty( $object->term_id ) ) {
-				return false;
+				return '';
 			}
 
 			$default_args = array(
@@ -44,17 +44,14 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 				'title'			=> '',
 				'echo'			=> false,
 			);
-			$args = array_merge( $default_args, $args );
+			$args = wp_parse_args( $args, $default_args );
 			$html = '' ;
-			$length = ( int ) $args['length'];
 
-			if ( $args['visible'] ) {
+			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
 				$title = $title_cut = ( 'post' === $type ) ? $object->post_title : $object->name ;
 				$title= ( $args['title'] ) ? 'title="' . $args['title'] . '"' : 'title="' . $title . '"' ;
 
-				if( $length ){
-					$title_cut = $this->cut_text( $title_cut, $length, $args['trimmed_type'], $args['ending'] );
-				}
+				$title_cut = $this->cut_text( $title_cut, $args['length'], $args['trimmed_type'], $args['ending'] );
 
 				$link = ( 'post' === $type ) ? $this->get_post_permalink() : $this->get_term_permalink( $object->term_id ) ;
 				$html_class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
@@ -62,11 +59,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 				$html = sprintf( $args['html'], $html_class, $link, $title, $title_cut );
 			}
 
-			if ( ! $args[ 'echo' ] ) {
-				return $html;
-			}else{
-				echo $html;
-			}
+			return $this->output_method( $html, $args['echo'] );
 		}
 
 		/**
@@ -82,7 +75,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			$object = call_user_func( array( $this, 'get_' . $type . '_object' ), $ID );
 
 			if ( 'post' === $type && empty( $object->ID ) || 'term' === $type && empty( $object->term_id ) ) {
-				return false;
+				return '';
 			}
 
 			$default_args = array(
@@ -95,10 +88,10 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 				'class'			=> '',
 				'echo'			=> false,
 			);
-			$args = array_merge( $default_args, $args );
+			$args = wp_parse_args( $args, $default_args );
 			$html = '' ;
 
-			if ( $args['visible'] ) {
+			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
 				if ( 'term' === $type ) {
 					$text = $object->description;
 				} elseif ( 'post_content' === $args['content_type'] || 'post_excerpt' === $args['content_type'] && ! $object->$args['content_type'] ) {
@@ -107,11 +100,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 					$text = get_the_excerpt();
 				}
 
-				$length = ( int ) $args['length'];
-
-				if ( $length ) {
-					$text = $this->cut_text( $text, $length, $args['trimmed_type'], $args['ending'] );
-				}
+				$text = $this->cut_text( $text, $args['length'], $args['trimmed_type'], $args['ending'] );
 
 				if ( $text ) {
 					$html_class=  ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
@@ -122,11 +111,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 
 			$html =  apply_filters( 'the_content', $html );
 
-			if ( ! $args[ 'echo' ] ) {
-				return $html;
-			}else{
-				echo $html;
-			}
+			return $this->output_method( $html, $args['echo'] );
 		}
 
 		/**
@@ -154,10 +139,10 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 				'title'		=> '',
 				'echo'		=> false,
 			);
-			$args = array_merge( $default_args, $args );
+			$args = wp_parse_args( $args, $default_args );
 			$html = '' ;
 
-			if ( $args['visible'] ) {
+			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
 
 				if ( $args['text'] || $args['icon']) {
 
@@ -180,11 +165,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 				}
 			}
 
-			if ( ! $args[ 'echo' ] ) {
-				return $html;
-			}else{
-				echo $html;
-			}
+			return $this->output_method( $html, $args['echo'] );
 		}
 	}
 }

@@ -16,7 +16,7 @@ if ( !defined( 'WPINC' ) ) {
 
 if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 
-	class Cherry_Media_Utilit extends Cherry_Satellite_Utilit{
+	class Cherry_Media_Utilit extends Cherry_Satellite_Utilit {
 		/**
 		 * Get post image.
 		 *
@@ -27,7 +27,7 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 			$object = call_user_func( array( $this, 'get_' . $type . '_object' ), $ID );
 
 			if ( 'post' === $type && empty($object->ID) || 'term' === $type && empty($object->term_id) ){
-				return false;
+				return '';
 			}
 
 			$default_args = array(
@@ -43,15 +43,10 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 				'html_tag_suze'				=> true,
 				'echo'						=> false,
 			);
-			$args			= array_merge( $default_args, $args );
-			$size			= wp_is_mobile() ? $args[ 'mobile_size' ] : $args[ 'size' ] ;
-			$size_array		= $this->get_thumbnail_size_array( $size );
+			$args = wp_parse_args( $args, $default_args );
+			$html = '';
 
-			$html			= '';
-			$class			= ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
-			$html_tag_suze	= ( $args['html_tag_suze'] ) ? 'width="' . $size_array['width']  . '" height="' . $size_array['height']  . '"' : '' ;
-
-			if ( $args['visible'] ) {
+			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
 				if ( 'post' === $type ) {
 					$ID = $object->ID;
 					$thumbnail_id = get_post_thumbnail_id( $ID );
@@ -64,9 +59,12 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 					$link = $this->get_term_permalink( $ID );
 				}
 
+				$size		= wp_is_mobile() ? $args[ 'mobile_size' ] : $args[ 'size' ] ;
+				$size_array	= $this->get_thumbnail_size_array( $size );
+
 				if ( $thumbnail_id ) {
 					$src = wp_get_attachment_image_url( $thumbnail_id, $size );
-				} elseif ( $args[ 'placeholder' ] ) {
+				} elseif ( filter_var( $args['placeholder'], FILTER_VALIDATE_BOOLEAN ) ) {
 					// Place holder defaults attr
 					$title = ( $args[ 'placeholder_title' ] ) ? $args[ 'placeholder_title' ] : $size_array['width'] . 'x' . $size_array['height'] ;
 					$attr = array(
@@ -82,16 +80,15 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 					$src = 'http://fakeimg.pl/' . $attr['width'] . 'x' . $attr['height'] . '/'. $attr['background'] .'/'. $attr['foreground'] . '/?text=' . $attr['title'] . '';
 				}
 
+				$class			= ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
+				$html_tag_suze	= ( filter_var( $args['html_tag_suze'], FILTER_VALIDATE_BOOLEAN ) ) ? 'width="' . $size_array['width']  . '" height="' . $size_array['height']  . '"' : '' ;
+
 				if ( isset( $src ) ) {
 					$html = sprintf( $args['html'], $link, $class, $src, $alt, $html_tag_suze );
 				}
 			}
 
-			if ( ! $args[ 'echo' ] ) {
-				return $html;
-			}else{
-				echo $html;
-			}
+			return $this->output_method( $html, $args['echo'] );
 		}
 
 
@@ -105,7 +102,7 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 			$object = $this->get_post_object( $ID );
 
 			if ( empty( $object->ID ) ){
-				return false;
+				return '';
 			}
 
 			$default_args = array(
@@ -115,10 +112,10 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 				'class'			=> 'wp-video',
 				'echo'			=> false,
 			);
-			$args = array_merge( $default_args, $args );
+			$args = wp_parse_args( $args, $default_args );
 			$html = '';
 
-			if ( $args['visible'] ) {
+			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
 				$size= wp_is_mobile() ? $args[ 'mobile_size' ] : $args[ 'size' ] ;
 				$size_array = $this->get_thumbnail_size_array( $size );
 				$video_url = wp_extract_urls( $object->post_content );
@@ -137,11 +134,7 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 				}
 			}
 
-			if ( ! $args[ 'echo' ] ) {
-				return $html;
-			}else{
-				echo $html;
-			}
+			return $this->output_method( $html, $args['echo'] );
 		}
 	}
 }
