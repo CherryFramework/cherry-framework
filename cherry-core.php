@@ -239,19 +239,37 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @return integer
 		 */
 		public function get_module_priority( $module, $is_path = false ) {
+
+			// Default phpDoc headers
 			$default_headers = array(
 	      'version' => 'Version',
 	    );
 
+			// If `$module` is a slug, get module path
 			if ( ! $is_path ) {
 				$module = $this->get_module_path( $module );
 			}
 
 	    $data    = get_file_data( $module , $default_headers );
-	    $version = isset( $data[ 'version' ] ) ? $data[ 'version' ] : '1.0.0';
+			$version = isset( $data[ 'version' ] ) ? $data[ 'version' ] : '1.0.0';
 			$int_max = defined( 'PHP_INT_MAX' ) ? PHP_INT_MAX : 2147483647;
 
-	    return $int_max - (int) str_replace( '.', $version );
+			// If version string is invalid
+			if ( false === strpos( $version, '.' ) ) {
+				$version = '1.0.0';
+			}
+
+			// Convert version into integer
+			$parts = explode( '.', $version );
+
+			foreach( $parts as $index => $part ) {
+				$parts[ $index ] = $part * pow( 10, $index );
+			}
+
+			$version = (int) join( '', $parts );
+
+			// Calculate priority
+	    return $int_max - $version;
 	  }
 
 		/**
