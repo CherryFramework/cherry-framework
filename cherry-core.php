@@ -231,26 +231,26 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		}
 
 		/**
-		 * Get module priority from it's version stored as
+		 * Get module priority from it's version stored as PHPDoc comment
 		 *
 		 * @since  1.0.0
 		 * @param  string   $module   module slug or path.
-		 * @param  boolean  $is_path  set this as true, if `$module` is a path
+		 * @param  boolean  $is_path  set this as true, if `$module` is a path.
 		 * @return integer
 		 */
 		public function get_module_priority( $module, $is_path = false ) {
 
 			// Default phpDoc headers
 			$default_headers = array(
-	      'version' => 'Version',
-	    );
+				'version' => 'Version',
+			);
 
 			// If `$module` is a slug, get module path
 			if ( ! $is_path ) {
 				$module = $this->get_module_path( $module );
 			}
 
-	    $data    = get_file_data( $module , $default_headers );
+			$data    = get_file_data( $module , $default_headers );
 			$version = isset( $data[ 'version' ] ) ? $data[ 'version' ] : '1.0.0';
 			$int_max = defined( 'PHP_INT_MAX' ) ? PHP_INT_MAX : 2147483647;
 
@@ -269,8 +269,8 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			$version = (int) join( '', $parts );
 
 			// Calculate priority
-	    return $int_max - $version;
-	  }
+			return $int_max - $version;
+		}
 
 		/**
 		 * Get path to the core directory.
