@@ -235,7 +235,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 *
 		 * @since  1.0.0
 		 * @param  string   $module   module slug or path.
-		 * @param  boolean  $is_path  set this as true, if `$module` is a path.
+		 * @param  boolean  $is_path  set this as true, if `$module` contains a path.
 		 * @return integer
 		 */
 		public function get_module_priority( $module, $is_path = false ) {
