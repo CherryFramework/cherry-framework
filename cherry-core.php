@@ -260,7 +260,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			}
 
 			// Clean the version string
-			preg_match( '/[0-9\.]+/', $version, $version );
+			preg_match( '/[\d\.]+/', $version, $version );
 
 			// Convert version into integer
 			$parts = explode( '.', $version[0] );
