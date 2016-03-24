@@ -116,6 +116,5 @@ if ( ! class_exists( 'Cherry_Array_Utilit' ) ) {
 			}
 			return $array;
 		}
-
 	}
 }
