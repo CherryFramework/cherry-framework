@@ -259,11 +259,14 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 				$version = '1.0.0';
 			}
 
+			// Clean the version string
+			preg_match( '/[0-9\.]+/', $version, $version );
+
 			// Convert version into integer
-			$parts = explode( '.', $version );
+			$parts = explode( '.', $version[0] );
 
 			foreach( $parts as $index => $part ) {
-				$parts[ $index ] = $part * pow( 10, $index );
+				$parts[ $index ] = (int) $part * pow( 10, $index );
 			}
 
 			$version = (int) join( '', $parts );
