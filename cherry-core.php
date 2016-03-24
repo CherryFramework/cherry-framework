@@ -245,19 +245,22 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 				'version' => 'Version',
 			);
 
+			// Maximum version number
+			$max_version = [ 99, 99, 999 ];
+
 			// If `$module` is a slug, get module path
 			if ( ! $is_path ) {
 				$module = $this->get_module_path( $module );
 			}
 
 			$data    = get_file_data( $module , $default_headers );
-			$version = isset( $data[ 'version' ] ) ? $data[ 'version' ] : '1.0.0';
-			$int_max = defined( 'PHP_INT_MAX' ) ? PHP_INT_MAX : 2147483647;
+			$version = '1.0.0';
 
-			// If version string is invalid
-			if ( false === strpos( $version, '.' ) ) {
-				$version = '1.0.0';
-			}
+			// Check if version string has a valid value
+			if ( isset( $data[ 'version' ] ) &&
+			 		 false !== strpos( $data[ 'version' ], '.' ) ) {
+				$version = $data[ 'version' ];
+		  }
 
 			// Clean the version string
 			preg_match( '/[\d\.]+/', $version, $version );
@@ -266,7 +269,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			$parts = explode( '.', $version[0] );
 
 			foreach( $parts as $index => $part ) {
-				$parts[ $index ] = (int) $part * pow( 10, $index );
+				$parts[ $index ] = $max_version[ $index ] - (int) $part;
 			}
 
 			$version = (int) join( '', $parts );
