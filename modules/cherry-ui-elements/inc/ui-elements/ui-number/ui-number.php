@@ -28,17 +28,38 @@ if ( ! class_exists( 'UI_Number' ) ) {
 		 * @since  4.0.0
 		 */
 		public function render() {
-			$html = '';
+			return Cherry_Core::render_view(
+				dirname( __FILE__ ) . '/views/number.php',
+				array(
+					'master'   => 'cherry-ui-container ' . Cherry_Array_Utilit::get( $this->settings, 'master', '' ),
+					'label'    => Cherry_Array_Utilit::get( $this->settings, 'label', '' ),
+					'atts'     => $this->get_input_attributes(),
+					'atts_str' => Cherry_Array_Utilit::join( $this->get_input_attributes() ),
+				)
+			);
+		}
 
-			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
-
-			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
-				if ( '' !== $this->settings['label'] ) {
-					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
-				}
-				$html .= '<input type="number" id="' . esc_attr( $this->settings['id'] ) . '" class="widefat cherry-ui-text ' . esc_attr( $this->settings['class'] ) . '"  name="' . esc_attr( $this->settings['name'] ) . '"  value="' . esc_html( $this->settings['value'] ) . '" placeholder="' . esc_attr( $this->settings['placeholder'] ) . '">';
-			$html .= '</div>';
-			return $html;
+		/**
+		 * Get attributes to input control
+		 *
+		 * @return [array] attributes.
+		 */
+		public function get_input_attributes() {
+			$settings = Cherry_Array_Utilit::leave_right_keys(
+				array(
+					'id',
+					'class',
+					'name',
+					'value',
+					'placeholder',
+					'max',
+					'min',
+				),
+				$this->settings
+			);
+			$settings['type']  = 'number';
+			$settings['class'] = sprintf( 'widefat cherry-ui-text %s', Cherry_Array_Utilit::get( $settings, 'class' ) );
+			return Cherry_Array_Utilit::remove_empty( $settings );
 		}
 	}
 }

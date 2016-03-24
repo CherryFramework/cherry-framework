@@ -51,7 +51,7 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 
 			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
 				$prefix = $args['prefix'] . $args['icon'] ;
-				$terms = get_the_term_list ( $object, $args['type'], $prefix, $args['delimiter'] );
+				$terms = get_the_term_list( $object, $args['type'], $prefix, $args['delimiter'] );
 
 				if ( ! $terms || is_wp_error( $terms ) ) {
 					return '';
@@ -91,10 +91,10 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 			$html = '' ;
 
 			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
-				$html_class=  ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
-				$title=  ( $args['title'] ) ? 'title="' . $args['title'] . '"' : '' ;
-				$author = get_the_author();
-				$link = get_author_posts_url( $object->post_author );
+				$html_class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '';
+				$title      = ( $args['title'] ) ? 'title="' . $args['title'] . '"' : '';
+				$author     = get_the_author();
+				$link       = get_author_posts_url( $object->post_author );
 
 				$html = sprintf( $args['html'], $args['prefix'], $link, $title, $html_class, $args['icon'], $author );
 			}
@@ -117,9 +117,9 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 
 			$default_args = array(
 				'visible'		=> true,
-				'icon'			=> '',//apply_filters( 'cherry_comment_icon', '<i class="material-icons">chat_bubble_outline</i>' )
+				'icon'			=> '',
 				'prefix'		=> '',
-				'sufix'			=> '%s', //_n_noop( '%s comment', '%s comments')
+				'sufix'			=> '%s',
 				'html'			=> '%1$s<a href="%2$s" %3$s %4$s>%5$s%6$s</a>',
 				'title'			=> '',
 				'class'			=> 'post-comments-count',
@@ -131,7 +131,7 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
 				$post_type = get_post_type( $object->ID );
 				if ( post_type_supports( $post_type, 'comments' ) ) {
-					$sufix = is_string( $args['sufix'] ) ? $args['sufix'] : translate_nooped_plural( $args['sufix'], $object->comment_count, $args['sufix']['domain'] ) ;
+					$sufix = is_string( $args['sufix'] ) ? $args['sufix'] : translate_nooped_plural( $args['sufix'], $object->comment_count, $args['sufix']['domain'] );
 					$count = sprintf( $sufix, $object->comment_count );
 				}
 
@@ -172,8 +172,8 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 			$html = '' ;
 
 			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
-				$html_class=  ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
-				$title=  ( $args['title'] ) ? 'title="' . $args['title'] . '"' : '' ;
+				$html_class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
+				$title = ( $args['title'] ) ? 'title="' . $args['title'] . '"' : '' ;
 				$post_format = get_option( 'date_format' );
 				$time = esc_attr( get_the_time( 'Y-m-d\TH:i:sP' ) );
 				$date = get_the_time( $post_format );
@@ -202,9 +202,9 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 
 			$default_args = array(
 				'visible'		=> true,
-				'icon'			=> '',//apply_filters( 'cherry_date_icon', '<i class="material-icons">schedule</i>' )
+				'icon'			=> '',
 				'prefix'		=> '',
-				'sufix'			=> '%s', //_n_noop( '%s comment', '%s comments')
+				'sufix'			=> '%s',
 				'html'			=> '%1$s<a href="%2$s" %3$s %4$s rel="bookmark">%5$s%6$s</a>',
 				'title'			=> '',
 				'class'			=> 'post-count',
@@ -214,12 +214,12 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 			$html = '' ;
 
 			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
-				$html_class=  ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
+				$html_class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
 				$name = $object->name ;
 				$title = ( $args['title'] ) ? 'title="' . $args['title'] . '"' : 'title="' . $name . '"' ;
 				$link = get_term_link( $object->term_id , $object->taxonomy );
 
-				$sufix = is_string( $args['sufix'] ) ? $args['sufix'] : translate_nooped_plural( $args['sufix'], $object->count, $args['sufix']['domain'] ) ;
+				$sufix = is_string( $args['sufix'] ) ? $args['sufix'] : translate_nooped_plural( $args['sufix'], $object->count, $args['sufix']['domain'] );
 				$count = sprintf( $sufix, $object->count );
 
 				$html = sprintf( $args['html'], $args['prefix'], $link, $title, $html_class, $args['icon'], $count );

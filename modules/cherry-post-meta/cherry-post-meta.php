@@ -254,6 +254,8 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 					'upload_button_text' => $this->get_arg( $field, 'upload_button_text', 'Choose' ),
 					'max_value'          => $this->get_arg( $field, 'max_value', '100' ),
 					'min_value'          => $this->get_arg( $field, 'min_value', '0' ),
+					'max'                => $this->get_arg( $field, 'max', '100' ),
+					'min'                => $this->get_arg( $field, 'min', '0' ),
 					'step_value'         => $this->get_arg( $field, 'step_value', '1' ),
 					'style'              => $this->get_arg( $field, 'style', 'normal' ),
 					'display_input'      => $this->get_arg( $field, 'display_input', true ),
