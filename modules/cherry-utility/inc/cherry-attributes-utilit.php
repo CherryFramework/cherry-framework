@@ -20,7 +20,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 	/**
 	 * Class Cherry Attributes Utilit
 	 */
-	class Cherry_Attributes_Utilit extends Cherry_Satellite_Utilit{
+	class Cherry_Attributes_Utilit extends Cherry_Satellite_Utilit {
 
 		/**
 		 * Get post title.
@@ -35,38 +35,35 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			$object = call_user_func( array( $this, 'get_' . $type . '_object' ), $id );
 
 			if ( 'post' === $type && empty( $object->ID ) || 'term' === $type && empty( $object->term_id ) ) {
-				return false;
+				return '';
 			}
 
 			$default_args = array(
-				'visible'		=> 'true',
-				'length'		=> 200,
-				'trimmed_type'	=> 'word',
-				'class'			=> '',
+				'visible'		=> true,
+				'length'		=> 0,
+				'trimmed_type'	=> 'word',//char
 				'ending'		=> '&hellip;',
-				'html'			=> '<h3 %1$s><a href="%2$s" title="%3$s" rel="bookmark">%4$s</a></h3>',
+				'html'			=> '<h3 %1$s><a href="%2$s" %3$s rel="bookmark">%4$s</a></h3>',
+				'class'			=> '',
+				'title'			=> '',
 				'echo'			=> false,
 			);
-			$args = array_merge( $default_args, $args );
+			$args = wp_parse_args( $args, $default_args );
 			$html = '' ;
 
-			if ( '0' !== $args['length'] && 'true' === $args['visible'] ) {
-				$title = ( 'post' === $type ) ? $object->post_title : $object->name ;
-				$title_cut = $this->cut_text( $title, $args['length'], $args['trimmed_type'], $args['ending'] );
+			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
+				$title = $title_cut = ( 'post' === $type ) ? $object->post_title : $object->name ;
+				$title= ( $args['title'] ) ? 'title="' . $args['title'] . '"' : 'title="' . $title . '"' ;
 
-				if ( $title_cut ) {
-					$link = ( 'post' === $type ) ? $this->get_post_permalink() : $this->get_term_permalink( $object->term_id );
-					$html_class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
+				$title_cut = $this->cut_text( $title_cut, $args['length'], $args['trimmed_type'], $args['ending'] );
 
-					$html = sprintf( $args['html'], $html_class, $link, $title, $title_cut );
-				}
+				$link = ( 'post' === $type ) ? $this->get_post_permalink() : $this->get_term_permalink( $object->term_id ) ;
+				$html_class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
+
+				$html = sprintf( $args['html'], $html_class, $link, $title, $title_cut );
 			}
 
-			if ( ! $args['echo'] ) {
-				return $html;
-			} else {
-				echo $html;
-			}
+			return $this->output_method( $html, $args['echo'] );
 		}
 
 		/**
@@ -82,36 +79,32 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			$object = call_user_func( array( $this, 'get_' . $type . '_object' ), $id );
 
 			if ( 'post' === $type && empty( $object->ID ) || 'term' === $type && empty( $object->term_id ) ) {
-				return false;
+				return '';
 			}
 
 			$default_args = array(
-				'visible'		=> 'true',
-				'length'		=> '0',
-				'trimmed_type'	=> 'word',
-				'class'			=> '',
-				'content_type'	=> 'post_content',
+				'visible'		=> true,
+				'content_type'	=> 'post_content',//post_excerpt, post_content, term_description
+				'length'		=> 0,
+				'trimmed_type'	=> 'word',//char
 				'ending'		=> '&hellip;',
 				'html'			=> '<p %1$s>%2$s</p>',
+				'class'			=> '',
 				'echo'			=> false,
 			);
-			$args = array_merge( $default_args, $args );
+			$args = wp_parse_args( $args, $default_args );
 			$html = '' ;
 
-			if ( 'true' === $args['visible'] ) {
+			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
 				if ( 'term' === $type ) {
 					$text = $object->description;
 				} elseif ( 'post_content' === $args['content_type'] || 'post_excerpt' === $args['content_type'] && ! $object->$args['content_type'] ) {
 					$text = get_the_content();
-				} else {
+				}else{
 					$text = get_the_excerpt();
 				}
 
-				$length = (int) $args['length'];
-
-				if ( $length ) {
-					$text = $this->cut_text( $text, $length, $args['trimmed_type'], $args['ending'] );
-				}
+				$text = $this->cut_text( $text, $args['length'], $args['trimmed_type'], $args['ending'] );
 
 				if ( $text ) {
 					$html_class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
@@ -120,13 +113,9 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 				}
 			}
 
-			$html = apply_filters( 'the_content', $html );
+			$html =  apply_filters( 'the_content', $html );
 
-			if ( ! $args['echo'] ) {
-				return $html;
-			} else {
-				echo $html;
-			}
+			return $this->output_method( $html, $args['echo'] );
 		}
 
 		/**
@@ -146,21 +135,22 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			}
 
 			$default_args = array(
-				'visible'	=> 'true',
+				'visible'	=> true,
 				'text'		=> '',
-				'icon'		=> '',
+				'icon'		=> '',//apply_filters( 'cherry_button_icon', '<i class="material-icons">arrow_forward</i>' )
+				'html'		=> '<a href="%1$s" %2$s %3$s><span class="btn__text">%4$s</span>%5$s</a>',
 				'class'		=> 'btn',
-				'html'		=> '<a href="%1$s" title="%2$s" %3$s><span class="btn__text">%4$s</span>%5$s</a>',
+				'title'		=> '',
 				'echo'		=> false,
 			);
-			$args = array_merge( $default_args, $args );
+			$args = wp_parse_args( $args, $default_args );
 			$html = '' ;
 
-			if ( 'true' === $args['visible'] ) {
+			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
 
-				if ( $args['text'] || $args['icon'] ) {
+				if ( $args['text'] || $args['icon']) {
 
-					$html_class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
+					$html_class=  ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
 					$text = esc_html( $args['text'] );
 
 					if ( 'term' === $type ) {
@@ -172,15 +162,12 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 						$link = $this->get_post_permalink();
 					}
 
+					$title= ( $args['title'] ) ? 'title="' . $args['title'] . '"' : 'title="' . $title . '"' ;
 					$html = sprintf( $args['html'], $link, $title, $html_class, wp_kses( $text, wp_kses_allowed_html( 'post' ) ), $args['icon'] );
 				}
 			}
 
-			if ( ! $args['echo'] ) {
-				return $html;
-			} else {
-				echo $html;
-			}
+			return $this->output_method( $html, $args['echo'] );
 		}
 	}
 }

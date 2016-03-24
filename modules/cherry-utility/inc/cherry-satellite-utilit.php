@@ -31,13 +31,12 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		public $args = null;
 
 		/**
-		 * Class Cherry Satellite Utilit constructor
-		 *
-		 * @param array $args arguments.
-		 * @since 1.0.0
-		 */
-		function __construct( $args = array() ) {
-			$this->args = array_merge( $this->args, $args );
+		* Cherry_Satellite_Utilit constructor
+		*
+		* @since 1.0.0
+		*/
+		function __construct( $module ) {
+			$this->args = $module->args;
 		}
 
 		/**
@@ -46,8 +45,8 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * @since  1.0.0
 		 * @return object
 		 */
-		public function get_post_object( $id ) {
-			return get_post( $id );
+		public function get_post_object( $ID = 0 ) {
+			return get_post( $ID );
 		}
 
 		/**
@@ -56,8 +55,8 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * @since  1.0.0
 		 * @return object
 		 */
-		public function get_term_object( $id ) {
-			return get_term( $id );
+		public function get_term_object( $ID = 0 ) {
+			return get_term( $ID );
 		}
 
 		/**
@@ -86,22 +85,23 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * @since  1.0.0
 		 * @return string
 		 */
-		public function cut_text( $text, $length, $trimmed_type = 'word', $after ) {
-			$cut_text = '';
 
-			if ( '0' !== $length ) {
+		public function cut_text( $text = '', $length = 0, $trimmed_type = 'word' , $after ) {
+			$length = ( int ) $length;
+
+			if ( $length ) {
 				$text = strip_shortcodes( $text );
 				$text = apply_filters( 'the_content', $text );
 				$text = str_replace( ']]>', ']]&gt;', $text );
 
 				if ( 'word' === $trimmed_type ) {
-					$cut_text = wp_trim_words( $text, $length, $after );
-				} else {
-					$cut_text = wp_html_excerpt( $text, $length, $after );
+					$text = wp_trim_words( $text, $length, $after );
+				} else{
+					$text = wp_html_excerpt( $text, $length, $after );
 				}
-			}
+			 }
 
-			return $cut_text;
+			return $text;
 		}
 
 		/**
@@ -121,6 +121,22 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 
 			return $size_array;
 		}
+
+		/**
+		 * Output content method.
+		 *
+		 * @since  1.0.0
+		 * @return string
+		 */
+		public function output_method( $content = '', $echo = false ) {
+			if ( ! filter_var( $echo, FILTER_VALIDATE_BOOLEAN ) ) {
+				return $content;
+			}else{
+				echo $content;
+			}
+		}
+
+
 
 		/**
 		 * Return post terms.
