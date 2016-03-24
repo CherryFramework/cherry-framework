@@ -80,10 +80,10 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 		public $utility = null;
 
 		/**
-		* Cherry_Utility constructor
-		*
-		* @since 1.0.0
-		*/
+		 * Cherry_Utility constructor
+		 *
+		 * @since 1.0.0
+		 */
 		function __construct( $core, $args = array() ) {
 
 			$this->module_directory = $core->settings['base_dir'] . '/modules/cherry-utility';
@@ -111,10 +111,10 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 				foreach ( $utility as $utilit ) {
 					require_once( $this->module_directory . '/inc/cherry-' . $utilit . '-utilit.php' );
 
-					$utilit = str_replace('-', ' ', $utilit );
+					$utilit = str_replace( '-', ' ', $utilit );
 					$class_name = ucwords( $utilit );
-					$class_name = str_replace(' ', '_', $class_name );
-					$utilit = str_replace(' ', '_', $utilit );
+					$class_name = str_replace( ' ', '_', $class_name );
+					$utilit = str_replace( ' ', '_', $utilit );
 
 					$class_name = 'Cherry_' . $class_name . '_Utilit';
 

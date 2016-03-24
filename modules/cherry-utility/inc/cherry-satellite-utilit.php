@@ -31,10 +31,10 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		public $args = null;
 
 		/**
-		* Cherry_Satellite_Utilit constructor
-		*
-		* @since 1.0.0
-		*/
+		 * Cherry_Satellite_Utilit constructor
+		 *
+		 * @since 1.0.0
+		 */
 		function __construct( $module ) {
 			$this->args = $module->args;
 		}
@@ -45,8 +45,8 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * @since  1.0.0
 		 * @return object
 		 */
-		public function get_post_object( $ID = 0 ) {
-			return get_post( $ID );
+		public function get_post_object( $id = 0 ) {
+			return get_post( $id );
 		}
 
 		/**
@@ -55,8 +55,8 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * @since  1.0.0
 		 * @return object
 		 */
-		public function get_term_object( $ID = 0 ) {
-			return get_term( $ID );
+		public function get_term_object( $id = 0 ) {
+			return get_term( $id );
 		}
 
 		/**
@@ -85,9 +85,8 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * @since  1.0.0
 		 * @return string
 		 */
-
-		public function cut_text( $text = '', $length = 0, $trimmed_type = 'word' , $after ) {
-			$length = ( int ) $length;
+		public function cut_text( $text = '', $length = 0, $trimmed_type = 'word', $after ) {
+			$length = (int) $length;
 
 			if ( $length ) {
 				$text = strip_shortcodes( $text );
@@ -96,10 +95,10 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 
 				if ( 'word' === $trimmed_type ) {
 					$text = wp_trim_words( $text, $length, $after );
-				} else{
+				} else {
 					$text = wp_html_excerpt( $text, $length, $after );
 				}
-			 }
+			}
 
 			return $text;
 		}
@@ -131,7 +130,7 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		public function output_method( $content = '', $echo = false ) {
 			if ( ! filter_var( $echo, FILTER_VALIDATE_BOOLEAN ) ) {
 				return $content;
-			}else{
+			} else {
 				echo $content;
 			}
 		}

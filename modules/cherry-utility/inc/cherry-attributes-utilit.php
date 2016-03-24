@@ -41,7 +41,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			$default_args = array(
 				'visible'		=> true,
 				'length'		=> 0,
-				'trimmed_type'	=> 'word',//char
+				'trimmed_type'	=> 'word',
 				'ending'		=> '&hellip;',
 				'html'			=> '<h3 %1$s><a href="%2$s" %3$s rel="bookmark">%4$s</a></h3>',
 				'class'			=> '',
@@ -53,11 +53,11 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 
 			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
 				$title = $title_cut = ( 'post' === $type ) ? $object->post_title : $object->name ;
-				$title= ( $args['title'] ) ? 'title="' . $args['title'] . '"' : 'title="' . $title . '"' ;
+				$title = ( $args['title'] ) ? 'title="' . $args['title'] . '"' : 'title="' . $title . '"' ;
 
 				$title_cut = $this->cut_text( $title_cut, $args['length'], $args['trimmed_type'], $args['ending'] );
 
-				$link = ( 'post' === $type ) ? $this->get_post_permalink() : $this->get_term_permalink( $object->term_id ) ;
+				$link = ( 'post' === $type ) ? $this->get_post_permalink() : $this->get_term_permalink( $object->term_id );
 				$html_class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
 
 				$html = sprintf( $args['html'], $html_class, $link, $title, $title_cut );
@@ -84,9 +84,9 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 
 			$default_args = array(
 				'visible'		=> true,
-				'content_type'	=> 'post_content',//post_excerpt, post_content, term_description
+				'content_type'	=> 'post_content',
 				'length'		=> 0,
-				'trimmed_type'	=> 'word',//char
+				'trimmed_type'	=> 'word',
 				'ending'		=> '&hellip;',
 				'html'			=> '<p %1$s>%2$s</p>',
 				'class'			=> '',
@@ -100,7 +100,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 					$text = $object->description;
 				} elseif ( 'post_content' === $args['content_type'] || 'post_excerpt' === $args['content_type'] && ! $object->$args['content_type'] ) {
 					$text = get_the_content();
-				}else{
+				} else {
 					$text = get_the_excerpt();
 				}
 
@@ -113,7 +113,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 				}
 			}
 
-			$html =  apply_filters( 'the_content', $html );
+			$html = apply_filters( 'the_content', $html );
 
 			return $this->output_method( $html, $args['echo'] );
 		}
@@ -137,7 +137,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			$default_args = array(
 				'visible'	=> true,
 				'text'		=> '',
-				'icon'		=> '',//apply_filters( 'cherry_button_icon', '<i class="material-icons">arrow_forward</i>' )
+				'icon'		=> '',
 				'html'		=> '<a href="%1$s" %2$s %3$s><span class="btn__text">%4$s</span>%5$s</a>',
 				'class'		=> 'btn',
 				'title'		=> '',
@@ -148,9 +148,9 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 
 			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
 
-				if ( $args['text'] || $args['icon']) {
+				if ( $args['text'] || $args['icon'] ) {
 
-					$html_class=  ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
+					$html_class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
 					$text = esc_html( $args['text'] );
 
 					if ( 'term' === $type ) {
@@ -162,7 +162,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 						$link = $this->get_post_permalink();
 					}
 
-					$title= ( $args['title'] ) ? 'title="' . $args['title'] . '"' : 'title="' . $title . '"' ;
+					$title = ( $args['title'] ) ? 'title="' . $args['title'] . '"' : 'title="' . $title . '"' ;
 					$html = sprintf( $args['html'], $link, $title, $html_class, wp_kses( $text, wp_kses_allowed_html( 'post' ) ), $args['icon'] );
 				}
 			}
