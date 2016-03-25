@@ -6,7 +6,7 @@
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @license    http://www.gnu.org/licenses/gpl-3.0.html
  */
 
 // If this file is called directly, abort.
@@ -82,8 +82,11 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 
 				$hook = $module . '-module';
 
+				// Get module priority
+				$priority = $this->get_module_priority( $module );
+
 				// Attach all modules to apropriate hooks.
-				add_filter( $hook, array( $this, 'pre_load' ), $settings['priority'], 3 );
+				add_filter( $hook, array( $this, 'pre_load' ), $priority, 3 );
 
 				// And immediately try to call hooks for autoloaded modules.
 				if ( $this->is_module_autoload( $module ) ) {
@@ -194,7 +197,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			$class_name = $this->get_class_name( $module );
 
 			if ( ! class_exists( $class_name ) ) {
-				echo '<p>Class <b>' . $class_name . '</b> not exist!</p>';
+				echo '<p>Class <b>' . $class_name . '</b> does not exist!</p>';
 				return false;
 			}
 
@@ -225,6 +228,52 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 */
 		public function get_module_path( $module ) {
 			return $this->get_core_dir() . '/modules/' . $module . '/' . $module . '.php';
+		}
+
+		/**
+		 * Get module priority from it's version stored as PHPDoc comment
+		 *
+		 * @since  1.0.0
+		 * @param  string   $module   module slug or path.
+		 * @param  boolean  $is_path  set this as true, if `$module` contains a path.
+		 * @return integer
+		 */
+		public function get_module_priority( $module, $is_path = false ) {
+
+			// Default phpDoc headers
+			$default_headers = array(
+				'version' => 'Version',
+			);
+
+			// Maximum version number
+			$max_version = [ 99, 99, 999 ];
+
+			// If `$module` is a slug, get module path
+			if ( ! $is_path ) {
+				$module = $this->get_module_path( $module );
+			}
+
+			$data    = get_file_data( $module , $default_headers );
+			$version = '1.0.0';
+
+			// Check if version string has a valid value
+			if ( isset( $data[ 'version' ] ) &&
+			 		 false !== strpos( $data[ 'version' ], '.' ) ) {
+				$version = $data[ 'version' ];
+		  }
+
+			// Clean the version string
+			preg_match( '/[\d\.]+/', $version, $version );
+
+			// Convert version into integer
+			$parts = explode( '.', $version[0] );
+
+			// Calculate priority
+			foreach( $parts as $index => $part ) {
+				$parts[ $index ] = $max_version[ $index ] - (int) $part;
+			}
+
+			return (int) join( '', $parts );
 		}
 
 		/**
