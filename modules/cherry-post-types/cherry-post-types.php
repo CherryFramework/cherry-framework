@@ -1,13 +1,19 @@
 <?php
 /**
- * Create custom post type
+ * Module Name: Post Types
+ * Description: Provides functionality for creating custom post types
+ * Version: 1.0.0
+ * Author: Cherry Team
+ * Author URI: http://www.cherryframework.com/
+ * License: GPLv3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @package    Cherry_Framework
  * @subpackage Class
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @license    http://www.gnu.org/licenses/gpl-3.0.html
  */
 
 // If this file is called directly, abort.
@@ -69,7 +75,7 @@ class Cherry_Post_Types implements I_Module {
 		$this->module_directory = $core->settings['base_dir'] . '/modules/cherry-post-types';
 
 		if ( ! class_exists( 'Cherry_Post_Type' ) ) {
-			require_once( $this->module_directory . '/cherry-post-type.php' );
+			require_once( $this->module_directory . '/inc/cherry-post-type.php' );
 		}
 	}
 

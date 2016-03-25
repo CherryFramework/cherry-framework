@@ -1,13 +1,19 @@
 <?php
 /**
- * Customizer functionality.
+ * Module Name: Customizer
+ * Description: Module provides customizer functionality
+ * Version: 1.0.0
+ * Author: Cherry Team
+ * Author URI: http://www.cherryframework.com/
+ * License: GPLv3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @package    Cherry_Framework
  * @subpackage Modules
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @license    http://www.gnu.org/licenses/gpl-3.0.html
  */
 
 if ( class_exists( 'Cherry_Customizer' ) ) {
@@ -16,6 +22,8 @@ if ( class_exists( 'Cherry_Customizer' ) ) {
 
 /**
  * Contains methods for customizing the theme customization screen.
+ *
+ * @since 1.0.0
  */
 class Cherry_Customizer {
 
