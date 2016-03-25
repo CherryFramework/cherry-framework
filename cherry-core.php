@@ -268,14 +268,12 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			// Convert version into integer
 			$parts = explode( '.', $version[0] );
 
+			// Calculate priority
 			foreach( $parts as $index => $part ) {
 				$parts[ $index ] = $max_version[ $index ] - (int) $part;
 			}
 
-			$version = (int) join( '', $parts );
-
-			// Calculate priority
-			return $int_max - $version;
+			return (int) join( '', $parts );
 		}
 
 		/**
