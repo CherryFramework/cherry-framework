@@ -45,7 +45,6 @@
 		"cherry-widget-factory":{
 			"required" : false,
 			"relation" : [ "cherry-ui-elements" ]
-			}
-		},
+		}
 	}
 }
