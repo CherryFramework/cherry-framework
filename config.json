@@ -1,0 +1,51 @@
+{
+	"name":"Cherry Framework",
+	"versin":"1.0.0",
+	"modules":{
+		"cherry-breadcrumbs":{
+			"required" : false,
+			"relation" : []
+		},
+		"cherry-customizer":{
+			"required" : false,
+			"relation" : []
+		},
+		"cherry-dynamic-css":{
+			"required" : false,
+			"relation" : []
+		},
+		"cherry-google-fonts-loader":{
+			"required" : false,
+			"relation" : []
+		},
+		"cherry-js-core":{
+			"required" : false,
+			"relation" : []
+		},
+		"cherry-plugin-updater":{
+			"required" : false,
+			"relation" : []
+		},
+		"cherry-post-formats-api":{
+			"required" : false,
+			"relation" : []
+		},
+		"cherry-term-meta":{
+			"required" : false,
+			"relation" : []
+		},
+		"cherry-ui-elements":{
+			"required" : false,
+			"relation" : [ "cherry-js-core" ]
+		},
+		"cherry-utility":{
+			"required" : false,
+			"relation" : []
+		},
+		"cherry-widget-factory":{
+			"required" : false,
+			"relation" : [ "cherry-ui-elements" ]
+			}
+		},
+	}
+}
