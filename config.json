@@ -4,47 +4,47 @@
 	"modules":{
 		"cherry-breadcrumbs":{
 			"required" : false,
-			"relation" : []
+			"dependencies" : []
 		},
 		"cherry-customizer":{
 			"required" : false,
-			"relation" : []
+			"dependencies" : []
 		},
 		"cherry-dynamic-css":{
 			"required" : false,
-			"relation" : []
+			"dependencies" : []
 		},
 		"cherry-google-fonts-loader":{
 			"required" : false,
-			"relation" : []
+			"dependencies" : []
 		},
 		"cherry-js-core":{
 			"required" : false,
-			"relation" : []
+			"dependencies" : []
 		},
 		"cherry-plugin-updater":{
 			"required" : false,
-			"relation" : []
+			"dependencies" : []
 		},
 		"cherry-post-formats-api":{
 			"required" : false,
-			"relation" : []
+			"dependencies" : []
 		},
 		"cherry-term-meta":{
 			"required" : false,
-			"relation" : []
+			"dependencies" : []
 		},
 		"cherry-ui-elements":{
 			"required" : false,
-			"relation" : [ "cherry-js-core" ]
+			"dependencies" : [ "cherry-js-core" ]
 		},
 		"cherry-utility":{
 			"required" : false,
-			"relation" : []
+			"dependencies" : []
 		},
 		"cherry-widget-factory":{
 			"required" : false,
-			"relation" : [ "cherry-ui-elements" ]
+			"dependencies" : [ "cherry-ui-elements" ]
 		}
 	}
 }
