@@ -1,50 +1,50 @@
 {
-	"name":"Cherry Framework",
-	"versin":"1.0.0",
-	"modules":{
-		"cherry-breadcrumbs":{
-			"required" : false,
-			"dependencies" : []
+	"name": "Cherry Framework",
+	"versin": "1.0.0",
+	"modules": {
+		"cherry-breadcrumbs": {
+			"required": false,
+			"dependencies": []
 		},
-		"cherry-customizer":{
-			"required" : false,
-			"dependencies" : []
+		"cherry-customizer": {
+			"required": false,
+			"dependencies": []
 		},
-		"cherry-dynamic-css":{
-			"required" : false,
-			"dependencies" : []
+		"cherry-dynamic-css": {
+			"required": false,
+			"dependencies": []
 		},
-		"cherry-google-fonts-loader":{
-			"required" : false,
-			"dependencies" : []
+		"cherry-google-fonts-loader": {
+			"required": false,
+			"dependencies": []
 		},
-		"cherry-js-core":{
-			"required" : false,
-			"dependencies" : []
+		"cherry-js-core": {
+			"required": false,
+			"dependencies": []
 		},
-		"cherry-plugin-updater":{
-			"required" : false,
-			"dependencies" : []
+		"cherry-plugin-updater": {
+			"required": false,
+			"dependencies": []
 		},
-		"cherry-post-formats-api":{
-			"required" : false,
-			"dependencies" : []
+		"cherry-post-formats-api": {
+			"required": false,
+			"dependencies": []
 		},
-		"cherry-term-meta":{
-			"required" : false,
-			"dependencies" : []
+		"cherry-term-meta": {
+			"required": false,
+			"dependencies": []
 		},
-		"cherry-ui-elements":{
-			"required" : false,
-			"dependencies" : [ "cherry-js-core" ]
+		"cherry-ui-elements": {
+			"required": false,
+			"dependencies": [ "cherry-js-core" ]
 		},
-		"cherry-utility":{
-			"required" : false,
-			"dependencies" : []
+		"cherry-utility": {
+			"required": false,
+			"dependencies": []
 		},
-		"cherry-widget-factory":{
-			"required" : false,
-			"dependencies" : [ "cherry-ui-elements" ]
+		"cherry-widget-factory": {
+			"required": false,
+			"dependencies": [ "cherry-ui-elements" ]
 		}
 	}
 }
