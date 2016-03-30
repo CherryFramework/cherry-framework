@@ -241,9 +241,9 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @link   https://developer.wordpress.org/reference/functions/get_file_data/
 		 *
 		 * @since  1.0.0
-		 * @param  string  $module   module slug or path.
-		 * @param  boolean $is_path  set this as true, if `$module` contains a path.
-		 * @return integer
+		 * @param  [string]  $module   module slug or path.
+		 * @param  [boolean] $is_path  set this as true, if `$module` contains a path.
+		 * @return [integer]
 		 */
 		public function get_module_priority( $module, $is_path = false ) {
 
