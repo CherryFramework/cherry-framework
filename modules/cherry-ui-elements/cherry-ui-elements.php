@@ -1,13 +1,20 @@
 <?php
 /**
  * Class for the building ui elements
+ * Module Name: UI Elements
+ * Description:
+ * Version: 1.0.0
+ * Author: Cherry Team
+ * Author URI: http://www.cherryframework.com/
+ * License: GPLv3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @package    Cherry_Framework
  * @subpackage Class
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @license    http://www.gnu.org/licenses/gpl-3.0.html
  */
 
 // If this file is called directly, abort.

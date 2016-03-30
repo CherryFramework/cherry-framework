@@ -1,5 +1,13 @@
 <?php
 /**
+ * Module Name: Breadcrumb Trail
+ * Description: A breadcrumb menu script for WordPress
+ * Version: 1.0.0
+ * Author: Cherry Team
+ * Author URI: http://www.cherryframework.com/
+ * License: GPLv3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ *
  * Breadcrumb Trail - A breadcrumb menu script for WordPress.
  *
  * Breadcrumb Trail is a script for showing a breadcrumb trail for any type of page.  It tries to
@@ -13,7 +21,7 @@
  * @copyright  Copyright (c) 2008 - 2014, Justin Tadlock
  * @link       http://themehybrid.com/plugins/breadcrumb-trail
  * @link       http://www.cherryframework.com
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @license    http://www.gnu.org/licenses/gpl-3.0.html
  */
 
 // If this file is called directly, abort.
