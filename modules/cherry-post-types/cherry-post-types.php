@@ -1,5 +1,6 @@
 <?php
 /**
+ * Create custom post type
  * Module Name: Post Types
  * Description: Provides functionality for creating custom post types
  * Version: 1.0.0

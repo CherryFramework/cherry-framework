@@ -1,5 +1,6 @@
 <?php
 /**
+ * Create options page
  * Module Name: Page Builder
  * Description: Provides functionality for building custom options pages
  * Version: 1.0.0
@@ -15,7 +16,6 @@
  * @link       http://www.cherryframework.com/
  * @license    http://www.gnu.org/licenses/gpl-3.0.html
  */
-
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {

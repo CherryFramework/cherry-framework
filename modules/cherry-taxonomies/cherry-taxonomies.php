@@ -1,5 +1,6 @@
 <?php
 /**
+ * Create taxonomy
  * Module Name: Taxanomies
  * Description: Provides functionality for creating custom taxanomies
  * Version: 1.0.0

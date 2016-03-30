@@ -1,5 +1,6 @@
 <?php
 /**
+ * Term meta management module
  * Module Name: Term Meta
  * Description: Manage term metadata
  * Version: 1.0.0

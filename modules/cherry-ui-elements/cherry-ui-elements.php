@@ -1,5 +1,6 @@
 <?php
 /**
+ * Class for the building ui elements
  * Module Name: UI Elements
  * Description:
  * Version: 1.0.0

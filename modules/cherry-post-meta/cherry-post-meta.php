@@ -1,5 +1,6 @@
 <?php
 /**
+ * Post meta management module
  * Module Name: Post Meta
  * Description: Manage post meta
  * Version: 1.0.0

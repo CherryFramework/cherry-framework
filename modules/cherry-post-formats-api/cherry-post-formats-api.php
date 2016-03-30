@@ -1,5 +1,6 @@
 <?php
 /**
+ * API functions for post formats specific content
  * Module Name: Post Formats API
  * Description: API for post formats specific content
  * Version: 1.0.0

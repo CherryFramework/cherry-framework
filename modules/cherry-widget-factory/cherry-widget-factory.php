@@ -1,5 +1,6 @@
 <?php
 /**
+ * Widget factory module main class
  * Module Name: Widget Factory
  * Description: Base widget class that simplifies creating of your own widgets.
  * Version: 1.0.0

@@ -22,8 +22,6 @@ if ( class_exists( 'Cherry_Customizer' ) ) {
 
 /**
  * Contains methods for customizing the theme customization screen.
- *
- * @since 1.0.0
  */
 class Cherry_Customizer {
 

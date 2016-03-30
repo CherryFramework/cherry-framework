@@ -1,5 +1,6 @@
 <?php
 /**
+ * Class Cherry Utility
  * Module Name: Utility
  * Description: Multiple utility functions
  * Version: 1.0.0

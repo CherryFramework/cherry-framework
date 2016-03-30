@@ -1,5 +1,6 @@
 <?php
 /**
+ * Module for js files upload
  * Module Name: JS Core
  * Description: Initializes global JS object which provides additional plugin functionality
  * Version: 1.0.0
