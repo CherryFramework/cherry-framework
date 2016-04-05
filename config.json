@@ -28,11 +28,11 @@
 		},
 		"cherry-post-formats-api": {
 			"required": false,
-			"dependencies": []
+			"dependencies": [ "cherry-js-core" ]
 		},
 		"cherry-term-meta": {
 			"required": false,
-			"dependencies": []
+			"dependencies": [ "cherry-ui-elements" ]
 		},
 		"cherry-ui-elements": {
 			"required": false,
@@ -43,6 +43,10 @@
 			"dependencies": []
 		},
 		"cherry-widget-factory": {
+			"required": false,
+			"dependencies": [ "cherry-ui-elements" ]
+		},
+		"cherry-post-meta": {
 			"required": false,
 			"dependencies": [ "cherry-ui-elements" ]
 		}
