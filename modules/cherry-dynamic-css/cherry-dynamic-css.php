@@ -1,20 +1,11 @@
 <?php
 /**
- * Dynamic CSS parser
- * Module Name: Dynamic CSS
- * Description: CSS parser which uses variables & functions for CSS code optimization
- * Version: 1.0.0
- * Author: Cherry Team
- * Author URI: http://www.cherryframework.com/
- * License: GPLv3
- * License URI: http://www.gnu.org/licenses/gpl-3.0.html
- *
  * @package    Cherry_Framework
  * @subpackage Class
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
- * @license    http://www.gnu.org/licenses/gpl-3.0.html
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 // If this file is called directly, abort.
@@ -197,7 +188,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 * Get path inside of current module
 		 *
 		 * @since  1.0.0
-		 * @param  [type] $path file inside module directory to get path for.
+		 * @param  string $path file inside module directory to get path for
 		 * @return string
 		 */
 		public function get_path( $path = null ) {
@@ -232,6 +223,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 				'typography'           => array( $utilities, 'get_typography_css' ),
 				'box'                  => array( $utilities, 'get_box_model_css' ),
 				'emph'                 => array( $utilities, 'element_emphasis' ),
+				'font_family'          => array( $utilities, 'typography_font_family' ),
 				'font_size'            => array( $utilities, 'typography_size' ),
 				'container_compare'    => array( $utilities, 'container_width_compare' ),
 				'sum'                  => array( $utilities, 'simple_sum' ),
@@ -254,7 +246,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 * Parse CSS string and replasce varaibles and functions
 		 *
 		 * @since  1.0.0
-		 * @param  [type] $css CSS to parse.
+		 * @param  string $css CSS to parse.
 		 * @return string
 		 */
 		public function parse( $css ) {
@@ -325,7 +317,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 * Callback function to replace CSS vars
 		 *
 		 * @since 1.0.0
-		 * @param [type] $matches  founded vars.
+		 * @param string  $matches  founded vars
 		 */
 		function replace_vars( $matches ) {
 
@@ -369,7 +361,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 * Callback function to replace CSS functions
 		 *
 		 * @since 1.0.0
-		 * @param [type] $matches  founded dunction.
+		 * @param string  $matches  founded dunction
 		 */
 		function replace_func( $matches ) {
 
@@ -397,6 +389,11 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 				return $result;
 			}
 
+			if ( 'font_family' == $matches[2] ) {
+				$result = call_user_func( $function, $args );
+				return $result;
+			}
+
 			$args = str_replace( ' ', '', $args );
 			$args = explode( ',', $args );
 
@@ -418,6 +415,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 * Filter user function arguments
 		 *
 		 * @since 4.0.0
+		 *
 		 */
 		function prepare_args( $item ) {
 
@@ -442,5 +440,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		public static function get_instance( $core, $args ) {
 			return new self( $core, $args );
 		}
+
 	}
+
 }
