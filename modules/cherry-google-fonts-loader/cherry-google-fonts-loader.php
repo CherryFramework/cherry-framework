@@ -244,11 +244,11 @@ if ( ! class_exists( 'Cherry_Google_Fonts_Loader' ) ) {
 			$font_style = $this->get_setting( $font['style'] );
 
 			// Fix text weight values
-			foreach ( array( 'normal' => '400', 'bold' => '600' ) as $text => $num ) {
-				if ( $text === $load_style ) {
-					$load_style = $num;
-				}
-			}
+			// foreach ( array( 'normal' => '400', 'bold' => '600' ) as $text => $num ) {
+			// 	if ( $text === $load_style ) {
+			// 		$load_style = $num;
+			// 	}
+			// }
 
 			if ( 'italic' === $font_style ) {
 				$load_style .= $font_style;
