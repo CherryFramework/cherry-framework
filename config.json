@@ -1,54 +1,139 @@
 {
 	"name": "Cherry Framework",
 	"version": "1.0.0",
+	"description":		"",
+	"doc_link":			"",
+	"git_link":			"",
 	"modules": {
 		"cherry-breadcrumbs": {
-			"required": false,
-			"dependencies": []
+			"name":				"",
+			"description":		"",
+			"doc_link":			"",
+			"git_link":			"",
+			"compatible":		["theme", "plugin"],
+			"wordpress_org":	true,
+			"required":			false,
+			"dependencies":		[]
 		},
 		"cherry-customizer": {
-			"required": false,
-			"dependencies": []
+			"name":				"",
+			"description":		"",
+			"doc_link":			"",
+			"git_link":			"",
+			"compatible":		["theme", "plugin"],
+			"wordpress_org":	true,
+			"required":			false,
+			"dependencies":		[]
 		},
 		"cherry-dynamic-css": {
-			"required": false,
-			"dependencies": []
+			"name":				"",
+			"description":		"",
+			"doc_link":			"",
+			"git_link":			"",
+			"compatible":		["theme", "plugin"],
+			"wordpress_org":	true,
+			"required":			false,
+			"dependencies":		[]
 		},
 		"cherry-google-fonts-loader": {
-			"required": false,
-			"dependencies": []
+			"name":				"",
+			"description":		"",
+			"doc_link":			"",
+			"git_link":			"",
+			"compatible":		["theme", "plugin"],
+			"wordpress_org":	true,
+			"required":			false,
+			"dependencies":		[]
 		},
 		"cherry-js-core": {
-			"required": false,
-			"dependencies": []
+			"name":				"",
+			"description":		"",
+			"doc_link":			"",
+			"git_link":			"",
+			"compatible":		["theme", "plugin"],
+			"wordpress_org":	true,
+			"required":			false,
+			"dependencies":		[]
 		},
 		"cherry-plugin-updater": {
-			"required": false,
-			"dependencies": []
+			"name":				"",
+			"description":		"",
+			"doc_link":			"",
+			"git_link":			"",
+			"compatible":		["plugin"],
+			"wordpress_org":	false,
+			"required":			false,
+			"dependencies":		[]
+		},
+		"cherry-theme-updater": {
+			"name":				"",
+			"description":		"",
+			"doc_link":			"",
+			"git_link":			"",
+			"compatible":		["theme"],
+			"wordpress_org":	false,
+			"required":			false,
+			"dependencies":		[]
 		},
 		"cherry-post-formats-api": {
-			"required": false,
-			"dependencies": [ "cherry-js-core" ]
+			"name":				"",
+			"description":		"",
+			"doc_link":			"",
+			"git_link":			"",
+			"compatible":		["theme", "plugin"],
+			"wordpress_org":	true,
+			"required":			false,
+			"dependencies":		[ "cherry-js-core" ]
 		},
 		"cherry-term-meta": {
-			"required": false,
-			"dependencies": [ "cherry-ui-elements" ]
+			"name":				"",
+			"description":		"",
+			"doc_link":			"",
+			"git_link":			"",
+			"compatible":		["theme", "plugin"],
+			"wordpress_org":	true,
+			"required":			false,
+			"dependencies":		[ "cherry-ui-elements" ]
 		},
 		"cherry-ui-elements": {
-			"required": false,
-			"dependencies": [ "cherry-js-core" ]
+			"name":				"",
+			"description":		"",
+			"doc_link":			"",
+			"git_link":			"",
+			"compatible":		["theme", "plugin"],
+			"wordpress_org":	true,
+			"required":			false,
+			"dependencies":		[ "cherry-js-core" ]
 		},
 		"cherry-utility": {
-			"required": false,
-			"dependencies": []
+			"name":				"",
+			"description":		"",
+			"doc_link":			"",
+			"git_link":			"",
+			"compatible":		["theme", "plugin"],
+			"wordpress_org":	true,
+			"required":			false,
+			"dependencies":		[]
 		},
 		"cherry-widget-factory": {
-			"required": false,
-			"dependencies": [ "cherry-ui-elements" ]
+			"name":				"",
+			"description":		"",
+			"doc_link":			"",
+			"git_link":			"",
+			"compatible":		["theme", "plugin"],
+			"wordpress_org":	true,
+			"required":			false,
+			"dependencies":		[ "cherry-ui-elements" ]
 		},
 		"cherry-post-meta": {
-			"required": false,
-			"dependencies": [ "cherry-ui-elements" ]
+			"name":				"",
+			"description":		"",
+			"doc_link":			"",
+			"git_link":			"",
+			"compatible":		["theme", "plugin"],
+			"wordpress_org":	true,
+			"required":			false,
+			"dependencies":		[ "cherry-ui-elements" ]
 		}
 	}
 }
