@@ -1,139 +1,139 @@
 {
-	"name": "Cherry Framework",
-	"version": "1.0.0",
-	"description":		"",
-	"doc_link":			"",
-	"git_link":			"",
-	"modules": {
-		"cherry-breadcrumbs": {
-			"name":				"",
-			"description":		"",
-			"doc_link":			"",
-			"git_link":			"",
-			"compatible":		["theme", "plugin"],
-			"wordpress_org":	true,
-			"required":			false,
-			"dependencies":		[]
+	"name" : "Cherry Framework",
+	"version" : "1.0.0",
+	"description" : "",
+	"doc_link" : "",
+	"git_link" : "",
+	"modules" : {
+		"cherry-breadcrumbs" : {
+			"name" : "",
+			"description" : "",
+			"doc_link" : "",
+			"git_link" : "",
+			"compatible" : ["theme", "plugin"],
+			"wordpress_org" : true,
+			"required" : false,
+			"dependencies" : []
 		},
-		"cherry-customizer": {
-			"name":				"",
-			"description":		"",
-			"doc_link":			"",
-			"git_link":			"",
-			"compatible":		["theme", "plugin"],
-			"wordpress_org":	true,
-			"required":			false,
-			"dependencies":		[]
+		"cherry-customizer" : {
+			"name" : "",
+			"description" : "",
+			"doc_link" : "",
+			"git_link" : "",
+			"compatible" : ["theme", "plugin"],
+			"wordpress_org" : true,
+			"required" : false,
+			"dependencies" : []
 		},
-		"cherry-dynamic-css": {
-			"name":				"",
-			"description":		"",
-			"doc_link":			"",
-			"git_link":			"",
-			"compatible":		["theme", "plugin"],
-			"wordpress_org":	true,
-			"required":			false,
-			"dependencies":		[]
+		"cherry-dynamic-css" : {
+			"name" : "",
+			"description" : "",
+			"doc_link" : "",
+			"git_link" : "",
+			"compatible" : ["theme", "plugin"],
+			"wordpress_org" : true,
+			"required" : false,
+			"dependencies" : []
 		},
-		"cherry-google-fonts-loader": {
-			"name":				"",
-			"description":		"",
-			"doc_link":			"",
-			"git_link":			"",
-			"compatible":		["theme", "plugin"],
-			"wordpress_org":	true,
-			"required":			false,
-			"dependencies":		[]
+		"cherry-google-fonts-loader" : {
+			"name" : "",
+			"description" : "",
+			"doc_link" : "",
+			"git_link" : "",
+			"compatible" : ["theme", "plugin"],
+			"wordpress_org" : true,
+			"required" : false,
+			"dependencies" : []
 		},
-		"cherry-js-core": {
-			"name":				"",
-			"description":		"",
-			"doc_link":			"",
-			"git_link":			"",
-			"compatible":		["theme", "plugin"],
-			"wordpress_org":	true,
-			"required":			false,
-			"dependencies":		[]
+		"cherry-js-core" : {
+			"name" : "",
+			"description" : "",
+			"doc_link" : "",
+			"git_link" : "",
+			"compatible" : ["theme", "plugin"],
+			"wordpress_org" : true,
+			"required" : false,
+			"dependencies" : []
 		},
-		"cherry-plugin-updater": {
-			"name":				"",
-			"description":		"",
-			"doc_link":			"",
-			"git_link":			"",
-			"compatible":		["plugin"],
-			"wordpress_org":	false,
-			"required":			false,
-			"dependencies":		[]
+		"cherry-plugin-updater" : {
+			"name" : "",
+			"description" : "",
+			"doc_link" : "",
+			"git_link" : "",
+			"compatible" : ["plugin"],
+			"wordpress_org" : false,
+			"required" : false,
+			"dependencies" : []
 		},
-		"cherry-theme-updater": {
-			"name":				"",
-			"description":		"",
-			"doc_link":			"",
-			"git_link":			"",
-			"compatible":		["theme"],
-			"wordpress_org":	false,
-			"required":			false,
-			"dependencies":		[]
+		"cherry-theme-updater" : {
+			"name" : "",
+			"description" : "",
+			"doc_link" : "",
+			"git_link" : "",
+			"compatible" : ["theme"],
+			"wordpress_org" : false,
+			"required" : false,
+			"dependencies" : []
 		},
-		"cherry-post-formats-api": {
-			"name":				"",
-			"description":		"",
-			"doc_link":			"",
-			"git_link":			"",
-			"compatible":		["theme", "plugin"],
-			"wordpress_org":	true,
-			"required":			false,
-			"dependencies":		[ "cherry-js-core" ]
+		"cherry-post-formats-api" : {
+			"name" : "",
+			"description" : "",
+			"doc_link" : "",
+			"git_link" : "",
+			"compatible" : ["theme", "plugin"],
+			"wordpress_org" : true,
+			"required" : false,
+			"dependencies" : [ "cherry-js-core" ]
 		},
-		"cherry-term-meta": {
-			"name":				"",
-			"description":		"",
-			"doc_link":			"",
-			"git_link":			"",
-			"compatible":		["theme", "plugin"],
-			"wordpress_org":	true,
-			"required":			false,
-			"dependencies":		[ "cherry-ui-elements" ]
+		"cherry-term-meta" : {
+			"name" : "",
+			"description" : "",
+			"doc_link" : "",
+			"git_link" : "",
+			"compatible" : ["theme", "plugin"],
+			"wordpress_org" : true,
+			"required" : false,
+			"dependencies" : [ "cherry-ui-elements" ]
 		},
-		"cherry-ui-elements": {
-			"name":				"",
-			"description":		"",
-			"doc_link":			"",
-			"git_link":			"",
-			"compatible":		["theme", "plugin"],
-			"wordpress_org":	true,
-			"required":			false,
-			"dependencies":		[ "cherry-js-core" ]
+		"cherry-ui-elements" : {
+			"name" : "",
+			"description" : "",
+			"doc_link" : "",
+			"git_link" : "",
+			"compatible" : ["theme", "plugin"],
+			"wordpress_org" : true,
+			"required" : false,
+			"dependencies" : [ "cherry-js-core" ]
 		},
-		"cherry-utility": {
-			"name":				"",
-			"description":		"",
-			"doc_link":			"",
-			"git_link":			"",
-			"compatible":		["theme", "plugin"],
-			"wordpress_org":	true,
-			"required":			false,
-			"dependencies":		[]
+		"cherry-utility" : {
+			"name" : "",
+			"description" : "",
+			"doc_link" : "",
+			"git_link" : "",
+			"compatible" : ["theme", "plugin"],
+			"wordpress_org" : true,
+			"required" : false,
+			"dependencies" : []
 		},
-		"cherry-widget-factory": {
-			"name":				"",
-			"description":		"",
-			"doc_link":			"",
-			"git_link":			"",
-			"compatible":		["theme", "plugin"],
-			"wordpress_org":	true,
-			"required":			false,
-			"dependencies":		[ "cherry-ui-elements" ]
+		"cherry-widget-factory" : {
+			"name" : "",
+			"description" : "",
+			"doc_link" : "",
+			"git_link" : "",
+			"compatible" : ["theme", "plugin"],
+			"wordpress_org" : true,
+			"required" : false,
+			"dependencies" : [ "cherry-ui-elements" ]
 		},
-		"cherry-post-meta": {
-			"name":				"",
-			"description":		"",
-			"doc_link":			"",
-			"git_link":			"",
-			"compatible":		["theme", "plugin"],
-			"wordpress_org":	true,
-			"required":			false,
-			"dependencies":		[ "cherry-ui-elements" ]
+		"cherry-post-meta" : {
+			"name" : "",
+			"description" : "",
+			"doc_link" : "",
+			"git_link" : "",
+			"compatible" : ["theme", "plugin"],
+			"wordpress_org" : true,
+			"required" : false,
+			"dependencies" : [ "cherry-ui-elements" ]
 		}
 	}
 }
