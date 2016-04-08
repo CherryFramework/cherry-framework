@@ -273,7 +273,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			}
 
 			// Convert version into integer
-			$parts = explode( '.', $version[0] );
+			$parts = explode( '.', $version );
 
 			// Calculate priority
 			foreach ( $parts as $index => $part ) {
