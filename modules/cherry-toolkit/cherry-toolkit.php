@@ -63,6 +63,24 @@ if ( ! class_exists( 'Cherry_Toolkit' ) ) {
 		}
 
 		/**
+		 * Safely get attribute from field settings array.
+		 *
+		 * @since  1.0.0
+		 * @param  array  $field   arguments array.
+		 * @param  [type] $arg     argument key.
+		 * @param  mixed  $default default argument value.
+		 * @return mixed
+		 */
+		public function get_arg( $field, $arg, $default = '' ) {
+
+			if ( is_array( $field ) && isset( $field[ $arg ] ) ) {
+				return $field[ $arg ];
+			}
+
+			return $default;
+		}
+
+		/**
 		 * Get class instance
 		 * @param  string       $class_name Class name.
 		 * @param  Cherry_Core  $core       Core instance.
