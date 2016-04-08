@@ -28,7 +28,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Example usage:
  * $this->core->modules['cherry-taxonomies']->create( 'Property', 'property', 'Properties' )->init();
  */
-class Cherry_Taxonomies implements I_Module {
+class Cherry_Taxonomies {
 	/**
 	 * Module version
 	 *

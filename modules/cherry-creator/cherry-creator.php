@@ -27,7 +27,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Cherry post types class
  * Example usage:
  */
-class Cherry_Creator implements I_Module {
+class Cherry_Creator {
 	/**
 	 * Module version
 	 *
