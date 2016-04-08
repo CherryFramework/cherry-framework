@@ -1,50 +1,59 @@
-jQuery( document ).ready( function( $ ) {
+/**
+ * Page settings
+ */
+(function($){
+	"use strict";
 
-	var pageBuilder = function() {
+	CherryJsCore.utilites.namespace('page_builder');
+	CherryJsCore.page_builder = {
 
-		var pb = this;
+		init: function () {
+			var self = this;
+			self.tabs( '.cherry-settings-tabs' ).saveEvent( '.cherry-settings-tabs form' );
+		},
 
-		pb.init = function() {
-			pb.tabs( '.cherry-settings-tabs' );
-			pb.saveEvent( '.cherry-settings-tabs form' );
-		};
-
-		pb.tabs = function( selectors ) {
+		tabs: function( selectors ) {
 			jQuery( selectors + ' .tabs-section a' ).each( function( index ) {
-				var id = jQuery( this ).attr( 'href' );
+				var $_this = jQuery( this );
+				var id = $_this.attr( 'href' );
 				if ( ! index ) {
-					jQuery( this ).addClass( 'nav-tab-active' );
+					$_this.addClass( 'nav-tab-active' );
 				} else {
 					jQuery( selectors + ' .section' + id ).hide();
 				}
 			});
 			jQuery( selectors + ' .tabs-section a' ).click( function( e ) {
-				var id = jQuery( this ).attr( 'href' );
+				var $_this = jQuery( this );
+				var id = $_this.attr( 'href' );
 				jQuery( selectors + ' .section' ).hide();
 				jQuery( selectors + ' .section' + id ).show();
 				jQuery( selectors + ' .tabs-section a' ).removeClass( 'nav-tab-active' );
-				jQuery( this ).addClass( 'nav-tab-active' );
+				$_this.addClass( 'nav-tab-active' );
 				e.preventDefault();
 			});
-		};
+			return this;
+		},
 
-		pb.saveEvent = function( selectors ) {
+		saveEvent: function( selectors ) {
+			var self = this;
 			jQuery( selectors ).submit( function( e ) {
-				jQuery( this ).ajaxSubmit({
+				var $_this = jQuery( this );
+				$_this.ajaxSubmit({
 					success: function() {
-						pb.noticeCreate( 'success', window.TMRealEstateMessage.success );
+						self.noticeCreate( 'success', window.TMRealEstateMessage.success );
 					},
 					error: function() {
-						pb.noticeCreate( 'failed', window.TMRealEstateMessage.failed );
+						self.noticeCreate( 'failed', window.TMRealEstateMessage.failed );
 					},
 					timeout: 5000
 				});
 
 				e.preventDefault();
 			});
-		};
+			return this;
+		},
 
-		pb.noticeCreate = function( type, message ) {
+		noticeCreate: function( type, message ) {
 			var
 				notice = $( '<div class="notice-box ' + type + '-notice"><span class="dashicons"></span><div class="inner">' + message + '</div></div>' ),
 				rightDelta = 0,
@@ -75,9 +84,10 @@ jQuery( document ).ready( function( $ ) {
 					topDelta += $( this ).outerHeight( true );
 				});
 			}
-		};
+			return this;
+		}
 	};
 
-	var pb = new pageBuilder();
-	pb.init();
-} );
+	CherryJsCore.page_builder.init();
+}(jQuery));
+
