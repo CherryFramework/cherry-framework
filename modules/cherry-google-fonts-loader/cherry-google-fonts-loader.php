@@ -1,5 +1,6 @@
 <?php
 /**
+ *
  * Module Name: Google Fonts Loader
  * Description: Enqueue Google fonts
  * Version: 1.0.0
@@ -9,7 +10,8 @@
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @package    Cherry_Framework
- * @subpackage Class
+ * @subpackage Modules
+ * @version    1.0.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
