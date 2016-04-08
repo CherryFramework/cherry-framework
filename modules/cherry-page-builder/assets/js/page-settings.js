@@ -22,7 +22,7 @@
 					jQuery( selectors + ' .section' + id ).hide();
 				}
 			});
-			jQuery( selectors + ' .tabs-section a' ).click( function( e ) {
+			jQuery( selectors + ' .tabs-section a' ).on( 'click', function( e ) {
 				var $_this = jQuery( this );
 				var id = $_this.attr( 'href' );
 				jQuery( selectors + ' .section' ).hide();
