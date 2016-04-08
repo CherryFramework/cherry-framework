@@ -66,9 +66,6 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 
 			$this->settings = array_merge( $default_settings, $settings );
 
-			// Load I_Module interface
-			require_once( 'i-module.php' );
-
 			$this->autoload_modules();
 
 		}

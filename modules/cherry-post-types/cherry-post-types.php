@@ -31,7 +31,7 @@ if ( ! defined( 'WPINC' ) ) {
  *			'Properties'
  *		)->font_awesome_icon( 'f1ad' );
  */
-class Cherry_Post_Types implements I_Module {
+class Cherry_Post_Types {
 	/**
 	 * Module version
 	 *
