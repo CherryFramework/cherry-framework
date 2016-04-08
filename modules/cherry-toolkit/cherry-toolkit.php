@@ -66,9 +66,9 @@ if ( ! class_exists( 'Cherry_Toolkit' ) ) {
 		 * Safely get attribute from field settings array.
 		 *
 		 * @since  1.0.0
-		 * @param  array  $field   arguments array.
-		 * @param  [type] $arg     argument key.
-		 * @param  mixed  $default default argument value.
+		 * @param  array            $field   arguments array.
+		 * @param  string|int|float $arg     argument key.
+		 * @param  mixed            $default default argument value.
 		 * @return mixed
 		 */
 		public function get_arg( $field, $arg, $default = '' ) {
