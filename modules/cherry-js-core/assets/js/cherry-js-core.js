@@ -156,9 +156,9 @@ var CherryJsCore = {};
 
 					}
 
-					/*if ( compressScript ) {
+					if ( compressScript ) {
 						script = new Function( compressScript ) ();
-					}*/
+					}
 
 					return callback_function();
 				});

@@ -272,8 +272,11 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * Add a customize section.
 		 *
 		 * @since 1.0.0
+		 * @param array $id   Settings ID.
 		 * @param array $args Section arguments.
-		 *
+		*/
+
+		/**
 		 * The priorities of the core sections are below:
 		 *
 		 * Title                ID                Priority (Order)
@@ -636,6 +639,9 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			return ( array_key_exists( $input, $choices ) ? $input : $setting->default );
 		}
 
+		/**
+		 * Function sanitize_radio
+		 */
 		public function sanitize_radio( $input, $setting ) {
 			return $this->sanitize_select( $input, $setting );
 		}
@@ -966,7 +972,9 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			return array_combine( $keys, $values );
 		}
 
-		// Function _build_keys
+		/**
+		 * Function _build_keys
+		 */
 		public function _build_keys( $item ) {
 
 			if ( empty( $item['family'] ) ) {
@@ -976,7 +984,9 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			return sprintf( '%1$s, %2$s', $item['family'], $item['category'] );
 		}
 
-		// Function _build_values
+		/**
+		 * Function _build_values
+		 */
 		public function _build_values( $item ) {
 
 			if ( empty( $item['family'] ) ) {
@@ -986,7 +996,9 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			return $item['family'];
 		}
 
-		// Function add_options
+		/**
+		 * Function add_options
+		 */
 		public function add_options() {
 
 			if ( empty( $this->options ) ) {
