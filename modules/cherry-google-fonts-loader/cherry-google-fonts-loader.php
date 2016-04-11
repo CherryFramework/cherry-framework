@@ -245,8 +245,8 @@ if ( ! class_exists( 'Cherry_Google_Fonts_Loader' ) ) {
 			$load_style = $this->get_setting( $font['weight'] );
 			$font_style = $this->get_setting( $font['style'] );
 
-			/*//Fix text weight values
-			foreach ( array( 'normal' => '400', 'bold' => '600' ) as $text => $num ) {
+			//Fix text weight values
+			/*foreach ( array( 'normal' => '400', 'bold' => '600' ) as $text => $num ) {
 				if ( $text === $load_style ) {
 					$load_style = $num;
 				}

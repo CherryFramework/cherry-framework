@@ -31,9 +31,9 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * Make passed color darken.
 		 *
 		 * @since  1.0.0
-		 * @param  string $color HEX or RGB(A) color value.
-		 * @param  float $darken Darken percent (0-100).
-		 * @return string Processed color.
+		 * @param  string  $color HEX or RGB(A) color value.
+		 * @param  float  $darken Darken percent (0-100).
+		 * @return string  Processed color.
 		 */
 		public function color_darken( $color, $darken = 0 ) {
 
@@ -73,9 +73,9 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * Make passed color lighten.
 		 *
 		 * @since  1.0.0
-		 * @param  string $color HEX or RGB(A) color value.
-		 * @param  float $lighten Lighten percent (0-100).
-		 * @return string Processed color.
+		 * @param  string  $color HEX or RGB(A) color value.
+		 * @param  float  $lighten Lighten percent (0-100).
+		 * @return string  Processed color.
 		 */
 		public function color_lighten( $color, $lighten = 0 ) {
 
@@ -116,7 +116,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 *
 		 * @since  1.0.0
 		 * @param  string  $color   Color to convert.
-		 * @param  integer $opacity Opacity.
+		 * @param  integer  $opacity Opacity.
 		 * @return string
 		 */
 		public function color_alpha( $color, $opacity = 100 ) {
@@ -484,7 +484,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 *
 		 * @since  4.0.5
 		 * @param  string &$item Array item.
-		 * @param  int $index Array item index.
+		 * @param  int    $index Array item index.
 		 * @return void
 		 */
 		public function typography_prepare_family( &$item, $index ) {

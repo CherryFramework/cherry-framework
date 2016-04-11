@@ -1,7 +1,7 @@
 /**
  * ColorPicker
  */
-( function( $. CherryJsCore ) {
+( function( $, CherryJsCore ) {
 	'use strict';
 
 	CherryJsCore.utilites.namespace('ui_elements.colorpicker');
@@ -26,4 +26,4 @@
 			CherryJsCore.ui_elements.colorpicker.init( data.target );
 		}
 	);
-}( jQuery, CherryJsCore) );
+}(jQuery, CherryJsCore));

@@ -129,7 +129,6 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * @since 1.0.0
 		 * @param object $core Cherry_Core instance.
 		 * @param array  $args Aguments.
-		 *
 		 */
 
 		/*
@@ -171,7 +170,6 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * );
 		 */
 		public function __construct( $core, $args ) {
-
 			/**
 			 * Cherry Customizer only works in WordPress 4.0 or later.
 			 */
@@ -215,9 +213,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 */
 		public function register( $wp_customize ) {
 
-			/*
-			 * Failsafe is safe.
-			 */
+			//Failsafe is safe.
 			if ( ! isset( $wp_customize ) ) {
 				return;
 			}
@@ -248,6 +244,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * Add a customize panel.
 		 *
 		 * @since 1.0.0
+		 * @param number $id.
 		 * @param array $args Panel arguments.
 		 */
 		public function add_panel( $id, $args ) {
