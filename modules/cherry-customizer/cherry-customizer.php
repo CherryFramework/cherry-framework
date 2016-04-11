@@ -130,6 +130,9 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * @param object $core Cherry_Core instance.
 		 * @param array  $args Aguments.
 		 *
+		 */
+
+		/*
 		 * $args = array(
 		 *      'prefix'     => 'unique_prefix', // theme or plugin slug (*).
 		 *      'capability' => 'edit_theme_options', // (default: `edit_theme_options`).
@@ -306,6 +309,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * Add a customize control.
 		 *
 		 * @since 1.0.0
+		 * @param numder $id.
 		 * @param array $args Control arguments.
 		 */
 		public function add_control( $id, $args ) {

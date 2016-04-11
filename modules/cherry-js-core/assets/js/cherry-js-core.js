@@ -47,10 +47,10 @@ var CherryJsCore;
 						for ( var version in not_supported[ browser ] ) {
 							if( uset_browser.version <= not_supported [ browser ] [ version ] ){
 								return false;
-							};
-						};
-					};
-				};
+							}
+						}
+					}
+				}
 
 				return true;
 			}() );
@@ -128,12 +128,12 @@ var CherryJsCore;
 						file_name = file_url.replace( reg_name, '' ),
 						file_type = file_url.match( reg_type )[ 0 ];
 
-					if( '.js' === file_type && $.inArray( file_name, CherryJsCore.variable.loaded_assets.script ) == -1 ){
+					if( '.js' === file_type && -1 === $.inArray( file_name, CherryJsCore.variable.loaded_assets.script ) ){
 						data.script.push( file_url );
 						CherryJsCore.variable.loaded_assets.script.push( file_name );
 					}
 
-					if( '.css' === file_type && $.inArray( file_name, CherryJsCore.variable.loaded_assets.style ) == -1 ){
+					if( '.css' === file_type && -1 === $.inArray( file_name, CherryJsCore.variable.loaded_assets.style ) ){
 						data.style.push( file_url );
 						CherryJsCore.variable.loaded_assets.style.push( file_name );
 					}

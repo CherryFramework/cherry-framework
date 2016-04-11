@@ -1,8 +1,8 @@
 /**
  * ColorPicker
  */
-(function($){
-	"use strict";
+( function( $. CherryJsCore ) {
+	'use strict';
 
 	CherryJsCore.utilites.namespace('ui_elements.colorpicker');
 	CherryJsCore.ui_elements.colorpicker = {
@@ -19,10 +19,11 @@
 				$('.cherry-ui-colorpicker', target).wpColorPicker();
 			}
 		}
-	}
+	};
+
 	$( window ).on( 'cherry-ui-elements-init',
 		function( event, data ) {
 			CherryJsCore.ui_elements.colorpicker.init( data.target );
 		}
 	);
-}(jQuery));
+}( jQuery, CherryJsCore) );
