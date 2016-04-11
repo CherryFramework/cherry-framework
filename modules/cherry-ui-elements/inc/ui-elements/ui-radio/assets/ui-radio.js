@@ -52,7 +52,6 @@
 
 	$( window ).on( 'cherry-ui-elements-init',
 		function( event, data ) {
-			var e = event;
 			CherryJsCore.ui_elements.radio.init( data.target );
 		}
 	);

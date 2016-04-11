@@ -21,7 +21,7 @@
 					change_value = parseFloat( values.input_value + values.step_value );
 
 				if( isNaN( change_value ) ){
-					change_value = 0
+					change_value = 0;
 				}
 				if(change_value <= values.max_value){
 					item.val( change_value ).trigger('change');
@@ -34,7 +34,7 @@
 					change_value = values.input_value - values.step_value;
 
 				if ( isNaN( change_value ) ) {
-					 change_value = 0
+					 change_value = 0;
 				}
 				if(change_value >= values.min_value){
 					item.val(change_value).trigger('change');
@@ -64,9 +64,11 @@
 				return values;
 			}
 		}
-	}
+	};
 	$( window ).on( 'cherry-ui-elements-init',
 		function( event, data ) {
+			console.log(event);
+			console.log(data);
 			CherryJsCore.ui_elements.stepper.init( data.target );
 		}
 	);
