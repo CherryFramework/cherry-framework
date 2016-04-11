@@ -10,7 +10,8 @@
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @package    Cherry_Framework
- * @subpackage Class
+ * @subpackage Modules
+ * @version    1.0.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -197,7 +198,11 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 * Get path inside of current module
 		 *
 		 * @since  1.0.0
+<<<<<<< HEAD
 		 * @param  [type] $path file inside module directory to get path for.
+=======
+		 * @param  string $path file inside module directory to get path for.
+>>>>>>> 67c5878e09ac022a23623e680105c053cb7b1c16
 		 * @return string
 		 */
 		public function get_path( $path = null ) {
@@ -232,6 +237,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 				'typography'           => array( $utilities, 'get_typography_css' ),
 				'box'                  => array( $utilities, 'get_box_model_css' ),
 				'emph'                 => array( $utilities, 'element_emphasis' ),
+				'font_family'          => array( $utilities, 'typography_font_family' ),
 				'font_size'            => array( $utilities, 'typography_size' ),
 				'container_compare'    => array( $utilities, 'container_width_compare' ),
 				'sum'                  => array( $utilities, 'simple_sum' ),
@@ -325,7 +331,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 * Callback function to replace CSS vars
 		 *
 		 * @since 1.0.0
-		 * @param [type] $matches  founded vars.
+		 * @param string $matches  founded vars.
 		 */
 		function replace_vars( $matches ) {
 
@@ -369,7 +375,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 * Callback function to replace CSS functions
 		 *
 		 * @since 1.0.0
-		 * @param [type] $matches  founded dunction.
+		 * @param string $matches  founded dunction.
 		 */
 		function replace_func( $matches ) {
 
@@ -394,6 +400,11 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 
 			if ( empty( $args ) ) {
 				$result = call_user_func( $function );
+				return $result;
+			}
+
+			if ( 'font_family' == $matches[2] ) {
+				$result = call_user_func( $function, $args );
 				return $result;
 			}
 
@@ -443,4 +454,5 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 			return new self( $core, $args );
 		}
 	}
+
 }

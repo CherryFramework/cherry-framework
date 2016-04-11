@@ -10,8 +10,9 @@
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @package    Cherry_Framework
- * @subpackage Class
- * @author     Cherry Team <support@cherryframework.com>
+ * @subpackage Modules
+ * @version    1.0.0
+ * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
  * @license    http://www.gnu.org/licenses/gpl-3.0.html

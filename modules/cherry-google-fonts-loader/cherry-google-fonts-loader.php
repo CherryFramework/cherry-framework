@@ -1,5 +1,6 @@
 <?php
 /**
+ *
  * Module Name: Google Fonts Loader
  * Description: Enqueue Google fonts
  * Version: 1.0.0
@@ -9,7 +10,8 @@
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @package    Cherry_Framework
- * @subpackage Class
+ * @subpackage Modules
+ * @version    1.0.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -243,12 +245,12 @@ if ( ! class_exists( 'Cherry_Google_Fonts_Loader' ) ) {
 			$load_style = $this->get_setting( $font['weight'] );
 			$font_style = $this->get_setting( $font['style'] );
 
-			// Fix text weight values
+			/*//Fix text weight values
 			foreach ( array( 'normal' => '400', 'bold' => '600' ) as $text => $num ) {
 				if ( $text === $load_style ) {
 					$load_style = $num;
 				}
-			}
+			}*/
 
 			if ( 'italic' === $font_style ) {
 				$load_style .= $font_style;

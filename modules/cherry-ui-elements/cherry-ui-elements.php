@@ -10,7 +10,8 @@
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @package    Cherry_Framework
- * @subpackage Class
+ * @subpackage Modules
+ * @version    1.0.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -135,16 +136,16 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		public function ui_elements_require() {
 			// Add I_UI interface.
 			if ( ! interface_exists( 'I_UI' ) ) {
-				require_once( $this->module_directory . '/i-ui.php' );
+				require_once( __DIR__ . '/i-ui.php' );
 			}
 
 			if ( ! class_exists( 'UI_Element' ) ) {
-				require_once( $this->module_directory . '/ui-element.php' );
+				require_once( __DIR__ . '/ui-element.php' );
 			}
 
 			if ( ! empty( $this->args['ui_elements'] ) ) {
 				foreach ( $this->args['ui_elements'] as $ui_element ) {
-					require_once( $this->module_directory . '/inc/ui-elements/ui-' . $ui_element . '/ui-' . $ui_element . '.php' );
+					require_once( __DIR__ . '/inc/ui-elements/ui-' . $ui_element . '/ui-' . $ui_element . '.php' );
 				}
 			}
 		}

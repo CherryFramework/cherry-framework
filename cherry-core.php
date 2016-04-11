@@ -66,9 +66,6 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 
 			$this->settings = array_merge( $default_settings, $settings );
 
-			// Load I_Module interface
-			require_once( 'i-module.php' );
-
 			$this->autoload_modules();
 
 		}
@@ -270,11 +267,10 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			// Check if version string has a valid value
 			if ( isset( $data['version'] ) &&
 			 		 false !== strpos( $data['version'], '.' ) ) {
-				$version = $data['version'];
+				// Clean the version string
+	 			preg_match( '/[\d\.]+/', $data['version'], $version );
+	 			$version = $version[0];
 			}
-
-			// Clean the version string
-			preg_match( '/[\d\.]+/', $version, $version );
 
 			// Convert version into integer
 			$parts = explode( '.', $version[0] );

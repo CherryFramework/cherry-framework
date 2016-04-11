@@ -1,5 +1,6 @@
 <?php
 /**
+ *
  * Module Name: Breadcrumb Trail
  * Description: A breadcrumb menu script for WordPress
  * Version: 1.0.0
@@ -16,7 +17,7 @@
  * breadcrumb scripts.
  *
  * @package    Cherry_Framework
- * @subpackage Class
+ * @subpackage Modules
  * @author     Cherry Team <support@cherryframework.com>,Justin Tadlock <justin@justintadlock.com>
  * @copyright  Copyright (c) 2008 - 2014, Justin Tadlock
  * @link       http://themehybrid.com/plugins/breadcrumb-trail
