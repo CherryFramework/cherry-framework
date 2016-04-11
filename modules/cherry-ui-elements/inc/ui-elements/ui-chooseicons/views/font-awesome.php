@@ -1,0 +1,1 @@
+<i class="fa <?php echo $__data['class']; ?>"></i>
