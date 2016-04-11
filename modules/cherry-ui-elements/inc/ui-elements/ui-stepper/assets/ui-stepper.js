@@ -67,9 +67,7 @@
 	};
 	$( window ).on( 'cherry-ui-elements-init',
 		function( event, data ) {
-			console.log(event);
-			console.log(data);
 			CherryJsCore.ui_elements.stepper.init( data.target );
 		}
 	);
-}(jQuery, CherryJsCore));
+}(jQuery, window.CherryJsCore));

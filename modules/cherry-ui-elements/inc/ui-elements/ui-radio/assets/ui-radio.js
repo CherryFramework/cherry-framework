@@ -56,4 +56,4 @@
 		}
 	);
 
-}( jQuery, CherryJsCore ) );
+}( jQuery, window.CherryJsCore ) );

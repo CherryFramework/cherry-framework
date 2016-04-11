@@ -26,4 +26,4 @@
 			CherryJsCore.ui_elements.colorpicker.init( data.target );
 		}
 	);
-}(jQuery, CherryJsCore));
+}(jQuery, window.CherryJsCore));

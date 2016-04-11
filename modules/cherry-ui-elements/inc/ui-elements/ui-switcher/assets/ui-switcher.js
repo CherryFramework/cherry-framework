@@ -82,4 +82,4 @@
 			CherryJsCore.ui_elements.switcher.init( data.target );
 		}
 	);
-}( jQuery, CherryJsCore ) );
+}( jQuery, window.CherryJsCore ) );
