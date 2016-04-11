@@ -1,0 +1,5 @@
+.jscsrc
+.jshintignore
+.travis.yml
+codesniffer.ruleset.xml
+travis.sh
