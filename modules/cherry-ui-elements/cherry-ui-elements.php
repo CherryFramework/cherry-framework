@@ -74,6 +74,7 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 				'switcher',
 				'slider',
 				'collection',
+				'chooseicons',
 			),
 		);
 

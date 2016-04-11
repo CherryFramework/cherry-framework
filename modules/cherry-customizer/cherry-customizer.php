@@ -23,10 +23,6 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-/**
- * Contains methods for customizing the theme customization screen.
- */
-class Cherry_Customizer {
 if ( ! class_exists( 'Cherry_Customizer' ) ) {
 
 	/**
