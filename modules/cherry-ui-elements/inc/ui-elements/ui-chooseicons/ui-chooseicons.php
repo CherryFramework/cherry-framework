@@ -117,7 +117,7 @@ if ( ! class_exists( 'UI_Choose_Icons' ) ) {
 		/**
 		 * Get folder glob pattern
 		 *
-		 * @param  string $folder folder name.
+		 * @param  [string] $folder folder name.
 		 * @return folder glob pattern
 		 */
 		public static function get_folder_pattern( $folder = '' ) {
