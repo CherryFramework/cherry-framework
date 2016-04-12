@@ -1,8 +1,8 @@
 /**
  * Slider
  */
-(function($){
-	"use strict";
+( function( $, CherryJsCore ) {
+	'use strict';
 
 	CherryJsCore.utilites.namespace('ui_elements.slider');
 	CherryJsCore.ui_elements.slider = {
@@ -17,29 +17,29 @@
 		},
 		render: function ( target ) {
 
-			var
-				sliderSelector = $( ".cherry-slider-unit", target )
-			;
+			var sliderSelector = $( '.cherry-slider-unit', target );
+
 			sliderSelector.slider({
-				range: "min",
+				range: 'min',
 				animate: true,
-				create: function( event, ui ) {
-					$( this ).slider( "option", "min", $( this ).data('left-limit') );
-					$( this ).slider( "option", "max", $( this ).data('right-limit') );
-					$( this ).slider( "option", "value", $( this ).data('value') );
+				create: function() {
+					$( this ).slider( 'option', 'min', $( this ).data('left-limit') );
+					$( this ).slider( 'option', 'max', $( this ).data('right-limit') );
+					$( this ).slider( 'option', 'value', $( this ).data('value') );
 				},
 				slide: function( event, ui ) {
 					$( this ).parent().siblings('.cherry-slider-input').find('input').val(ui.value).trigger('change');
 				}
 			});
 			$('.cherry-ui-stepper-input', target).on('change', function(){
-				$(this).parent().parent().siblings('.cherry-slider-holder').find('.cherry-slider-unit').slider( "option", "value", $(this).val() );
-			})
+				var $this = $( this );
+				$this.parent().parent().siblings('.cherry-slider-holder').find('.cherry-slider-unit').slider( 'option', 'value', $this.val() );
+			});
 		}
-	}
+	};
 	$( window ).on( 'cherry-ui-elements-init',
 		function( event, data ) {
 			CherryJsCore.ui_elements.slider.init( data.target );
 		}
 	);
-}(jQuery));
+}( jQuery, window.CherryJsCore ) );

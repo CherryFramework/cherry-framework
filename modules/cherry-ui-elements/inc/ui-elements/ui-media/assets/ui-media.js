@@ -1,8 +1,8 @@
 /**
  * Media
  */
-(function($){
-	"use strict";
+( function( $, CherryJsCore ){
+	'use strict';
 
 	CherryJsCore.utilites.namespace('ui_elements.media');
 	CherryJsCore.ui_elements.media = {
@@ -18,7 +18,7 @@
 			$( document ).on(
 				'click',
 				'.upload-button',
-				function( e ){
+				function(){
 					var button_parent = $(this).parents('.cherry-ui-media-wrap'),
 										input = $('.cherry-upload-input', button_parent),
 										img_holder = $('.cherry-upload-preview', button_parent),
@@ -26,7 +26,7 @@
 										multiple = $(this).data('multi-upload'),
 										library_type = $(this).data('library-type'),
 										cherry_uploader;
-									
+
 									cherry_uploader = wp.media.frames.file_frame = wp.media({
 										title: title_text,
 										button: {text: title_text},
@@ -58,10 +58,10 @@
 													case 'image/jpeg':
 													case 'image/png':
 													case 'image/gif':
-															if( img_data.sizes != undefined){
+															if ( undefined !== img_data.sizes ) {
 																img_src = img_data.sizes.thumbnail ? img_data.sizes.thumbnail.url : img_data.sizes.full.url;
 															}
-															thumb = '<img  src="' + img_src + '" alt="" data-img-attr="'+return_data+'">';
+															thumb = '<img  src="' + img_src + '" alt="" data-img-attr="' + return_data + '">';
 														break;
 													case 'image/x-icon':
 															thumb = '<span class="dashicons dashicons-format-image"></span>';
@@ -98,7 +98,7 @@
 										$('.cherry-remove-image').on('click', function () {
 											removeMediaPreview( $(this) );
 											return !1;
-										})
+										});
 									}).open();
 
 									return !1;
@@ -109,7 +109,8 @@
 			jQuery('.cherry-remove-image', target).on('click', function () {
 				removeMediaPreview( jQuery(this) );
 				return !1;
-			})
+			});
+
 			var removeMediaPreview = function( item ){
 				var button_parent = item.parents('.cherry-ui-media-wrap'),
 					input = jQuery('.cherry-upload-input', button_parent),
@@ -122,8 +123,8 @@
 					imput_value = imput_value.replace(/(,$)/, '');
 					input.attr({'value':imput_value}).trigger( 'change' );
 					img_holder.remove();
+			};
 
-			}
 			// Upload End
 			// Image ordering
 			jQuery('.cherry-all-images-wrap', target).sortable({
@@ -135,9 +136,7 @@
 				helper: 'clone',
 				opacity: 0.65,
 				placeholder: 'cherry-media-thumb-sortable-placeholder',
-				start:function(event,ui){},
-				stop:function(event,ui){},
-				update: function(event, ui) {
+				update: function() {
 					var attachment_ids = '';
 						jQuery('.cherry-image-wrap', this).each(
 							function() {
@@ -151,10 +150,11 @@
 			});
 			// End Image ordering
 		}
-	}
+	};
+
 	$( window ).on( 'cherry-ui-elements-init',
 		function( event, data ) {
 			CherryJsCore.ui_elements.media.init( data.target );
 		}
 	);
-}(jQuery));
+} ( jQuery, window.CherryJsCore ));
