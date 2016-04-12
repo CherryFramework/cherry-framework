@@ -66,6 +66,13 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 
 			$this->settings = array_merge( $default_settings, $settings );
 
+			// Cherry_Toolkit module should be loaded by default
+			if ( ! isset( $this->settings['modules']['cherry-toolkit'] ) ) {
+				$this->settings['modules']['cherry-toolkit'] = array(
+					'autoload' => true,
+				);
+			}
+
 			$this->autoload_modules();
 
 		}
