@@ -1,34 +1,34 @@
 /**
  * Page settings
  */
-(function($){
-	"use strict";
+(function( $ ) {
+	'use strict';
 
-	CherryJsCore.utilites.namespace('page_builder');
+	CherryJsCore.utilites.namespace( 'page_builder' );
 	CherryJsCore.page_builder = {
 
-		init: function () {
+		init: function() {
 			var self = this;
 			self.tabs( '.cherry-settings-tabs' ).saveEvent( '.cherry-settings-tabs form' );
 		},
 
 		tabs: function( selectors ) {
 			jQuery( selectors + ' .tabs-section a' ).each( function( index ) {
-				var $_this = jQuery( this );
-				var id = $_this.attr( 'href' );
+				var $this = jQuery( this );
+				var id = $this.attr( 'href' );
 				if ( ! index ) {
-					$_this.addClass( 'nav-tab-active' );
+					$this.addClass( 'nav-tab-active' );
 				} else {
 					jQuery( selectors + ' .section' + id ).hide();
 				}
 			});
 			jQuery( selectors + ' .tabs-section a' ).on( 'click', function( e ) {
-				var $_this = jQuery( this );
-				var id = $_this.attr( 'href' );
+				var $this = jQuery( this );
+				var id = $this.attr( 'href' );
 				jQuery( selectors + ' .section' ).hide();
 				jQuery( selectors + ' .section' + id ).show();
 				jQuery( selectors + ' .tabs-section a' ).removeClass( 'nav-tab-active' );
-				$_this.addClass( 'nav-tab-active' );
+				$this.addClass( 'nav-tab-active' );
 				e.preventDefault();
 			});
 			return this;
@@ -37,8 +37,8 @@
 		saveEvent: function( selectors ) {
 			var self = this;
 			jQuery( selectors ).submit( function( e ) {
-				var $_this = jQuery( this );
-				$_this.ajaxSubmit({
+				var $this = jQuery( this );
+				$this.ajaxSubmit({
 					success: function() {
 						self.noticeCreate( 'success', window.TMRealEstateMessage.success );
 					},
@@ -89,5 +89,5 @@
 	};
 
 	CherryJsCore.page_builder.init();
-}(jQuery));
+} ( jQuery ) );
 
