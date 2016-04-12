@@ -187,33 +187,33 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 					$value = '';
 				}
 
-				$value = ! empty( $value ) ? $value : $this->get_arg( $field, 'value', '' );
+				$value = ! empty( $value ) ? $value : Cherry_Toolkit::get_arg( $field, 'value', '' );
 
 				if ( isset( $field['options_callback'] ) ) {
 					$options = call_user_func( $field['options_callback'] );
 				} else {
-					$options = $this->get_arg( $field, 'options', array() );
+					$options = Cherry_Toolkit::get_arg( $field, 'options', array() );
 				}
 
 				$args = array(
-					'type'               => $this->get_arg( $field, 'type', 'text' ),
+					'type'               => Cherry_Toolkit::get_arg( $field, 'type', 'text' ),
 					'id'                 => $key,
 					'name'               => $key,
 					'value'              => $value,
-					'label'              => $this->get_arg( $field, 'label', '' ),
+					'label'              => Cherry_Toolkit::get_arg( $field, 'label', '' ),
 					'options'            => $options,
-					'multiple'           => $this->get_arg( $field, 'multiple', false ),
-					'filter'             => $this->get_arg( $field, 'filter', false ),
-					'size'               => $this->get_arg( $field, 'size', 1 ),
-					'null_option'        => $this->get_arg( $field, 'null_option', 'None' ),
-					'multi_upload'       => $this->get_arg( $field, 'multi_upload', true ),
-					'library_type'       => $this->get_arg( $field, 'library_type', 'image' ),
-					'upload_button_text' => $this->get_arg( $field, 'upload_button_text', 'Choose' ),
-					'max_value'          => $this->get_arg( $field, 'max_value', '100' ),
-					'min_value'          => $this->get_arg( $field, 'min_value', '0' ),
-					'step_value'         => $this->get_arg( $field, 'step_value', '1' ),
-					'style'              => $this->get_arg( $field, 'style', 'normal' ),
-					'toggle'             => $this->get_arg( $field, 'toggle', array(
+					'multiple'           => Cherry_Toolkit::get_arg( $field, 'multiple', false ),
+					'filter'             => Cherry_Toolkit::get_arg( $field, 'filter', false ),
+					'size'               => Cherry_Toolkit::get_arg( $field, 'size', 1 ),
+					'null_option'        => Cherry_Toolkit::get_arg( $field, 'null_option', 'None' ),
+					'multi_upload'       => Cherry_Toolkit::get_arg( $field, 'multi_upload', true ),
+					'library_type'       => Cherry_Toolkit::get_arg( $field, 'library_type', 'image' ),
+					'upload_button_text' => Cherry_Toolkit::get_arg( $field, 'upload_button_text', 'Choose' ),
+					'max_value'          => Cherry_Toolkit::get_arg( $field, 'max_value', '100' ),
+					'min_value'          => Cherry_Toolkit::get_arg( $field, 'min_value', '0' ),
+					'step_value'         => Cherry_Toolkit::get_arg( $field, 'step_value', '1' ),
+					'style'              => Cherry_Toolkit::get_arg( $field, 'style', 'normal' ),
+					'toggle'             => Cherry_Toolkit::get_arg( $field, 'toggle', array(
 						'true_toggle'  => 'On',
 						'false_toggle' => 'Off',
 						'true_slave'   => '',
@@ -228,25 +228,6 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 			}
 
 			return $result;
-
-		}
-
-		/**
-		 * Safely get attribute from field settings array.
-		 *
-		 * @since  1.0.0
-		 * @param  array  $field   arguments array.
-		 * @param  [type] $arg     argument key.
-		 * @param  mixed  $default default argument value.
-		 * @return mixed
-		 */
-		public function get_arg( $field, $arg, $default = '' ) {
-
-			if ( isset( $field[ $arg ] ) ) {
-				return $field[ $arg ];
-			} else {
-				return $default;
-			}
 
 		}
 
