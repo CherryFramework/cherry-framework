@@ -274,7 +274,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * @since 1.0.0
 		 * @param array $id   Settings ID.
 		 * @param array $args Section arguments.
-		*/
+		 */
 
 		/**
 		 * The priorities of the core sections are below:
