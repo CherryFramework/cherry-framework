@@ -1,8 +1,8 @@
 /**
  * Select
  */
-(function($){
-	"use strict";
+( function( $, CherryJsCore ){
+	'use strict';
 
 	CherryJsCore.utilites.namespace('ui_elements.select');
 	CherryJsCore.ui_elements.select = {
@@ -34,10 +34,12 @@
 				});
 			});
 		}
-	}
+	};
+
 	$( window ).on( 'cherry-ui-elements-init',
 		function( event, data ) {
 			CherryJsCore.ui_elements.select.init( data.target );
 		}
 	);
-}(jQuery));
+
+}( jQuery, window.CherryJsCore ) );

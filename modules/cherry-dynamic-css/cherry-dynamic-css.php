@@ -1,11 +1,21 @@
 <?php
 /**
+ *
+ * Module Name: Dynamic Css
+ * Description: Generate Css
+ * Version: 1.0.0
+ * Author: Cherry Team
+ * Author URI: http://www.cherryframework.com/
+ * License: GPLv3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ *
  * @package    Cherry_Framework
- * @subpackage Class
+ * @subpackage Modules
+ * @version    1.0.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @license    http://www.gnu.org/licenses/gpl-3.0.html
  */
 
 // If this file is called directly, abort.
@@ -188,7 +198,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 * Get path inside of current module
 		 *
 		 * @since  1.0.0
-		 * @param  string $path file inside module directory to get path for
+		 * @param  string $path file inside module directory to get path for.
 		 * @return string
 		 */
 		public function get_path( $path = null ) {
@@ -317,11 +327,11 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 * Callback function to replace CSS vars
 		 *
 		 * @since 1.0.0
-		 * @param string  $matches  founded vars
+		 * @param string $matches  founded vars.
 		 */
 		function replace_vars( $matches ) {
 
-			$not_found = sprintf( '/* %s */', __( 'Variable not found', 'cherry' ) );
+			$not_found = '/* Variable not found */';
 
 			// check if variable name found
 			if ( empty( $matches[2] ) ) {
@@ -361,11 +371,11 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 * Callback function to replace CSS functions
 		 *
 		 * @since 1.0.0
-		 * @param string  $matches  founded dunction
+		 * @param string $matches  founded dunction.
 		 */
 		function replace_func( $matches ) {
 
-			$not_found = sprintf( '/* %s */', __( 'Function does not exist', 'cherry' ) );
+			$not_found = '/* Function does not exist */';
 
 			// check if functions name found
 			if ( empty( $matches[2] ) ) {
@@ -415,7 +425,6 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 * Filter user function arguments
 		 *
 		 * @since 4.0.0
-		 *
 		 */
 		function prepare_args( $item ) {
 
@@ -440,7 +449,6 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		public static function get_instance( $core, $args ) {
 			return new self( $core, $args );
 		}
-
 	}
 
 }

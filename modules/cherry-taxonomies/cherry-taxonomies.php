@@ -10,7 +10,8 @@
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @package    Cherry_Framework
- * @subpackage Class
+ * @subpackage Modules
+ * @version    1.0.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -22,117 +23,117 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-/**
- * Cherry Taxonomy class
- *
- * Example usage:
- * $this->core->modules['cherry-taxonomies']->create( 'Property', 'property', 'Properties' )->init();
- */
-class Cherry_Taxonomies {
-	/**
-	 * Module version
-	 *
-	 * @var string
-	 */
-	public $module_version = '1.0.0';
+if ( ! class_exists( 'Cherry_Taxonomies' ) ) {
 
 	/**
-	 * Module slug
-	 *
-	 * @var string
+	 * Cherry Taxonomies.
 	 */
-	public $module_slug = 'cherry-taxonomies';
+	class Cherry_Taxonomies {
+		/**
+		 * Module version
+		 *
+		 * @var string
+		 */
+		public $module_version = '1.0.0';
 
-	/**
-	 * Default post type arguments
-	 *
-	 * @var null
-	 */
-	private $defaults = null;
+		/**
+		 * Module slug
+		 *
+		 * @var string
+		 */
+		public $module_slug = 'cherry-taxonomies';
 
-	/**
-	 * Module directory
-	 *
-	 * @since 1.0.0
-	 * @var string
-	 */
-	private $module_directory = '';
+		/**
+		 * Default post type arguments
+		 *
+		 * @var null
+		 */
+		private $defaults = null;
 
-	/**
-	 * Cherry_Post_Type class constructor
-	 */
-	public function __construct( $core, $args = array() ) {
-		$this->defaults = $args;
-		$this->module_directory = $core->settings['base_dir'] . '/modules/cherry-taxonomies';
+		/**
+		 * Module directory
+		 *
+		 * @since 1.0.0
+		 * @var string
+		 */
+		private $module_directory = '';
 
-		if ( ! class_exists( 'Cherry_Taxonomy' ) ) {
-			require_once( $this->module_directory . '/inc/cherry-taxonomy.php' );
+		/**
+		 * Cherry_Post_Type class constructor
+		 */
+		public function __construct( $core, $args = array() ) {
+			$this->defaults = $args;
+			$this->module_directory = $core->settings['base_dir'] . '/modules/cherry-taxonomies';
+
+			if ( ! class_exists( 'Cherry_Taxonomy' ) ) {
+				require_once( $this->module_directory . '/inc/cherry-taxonomy.php' );
+			}
 		}
-	}
 
-	/**
-	 * Create new Post Type.
-	 *
-	 * @param  [type] $single         name.
-	 * @param  [type] $post_type_slug post types slug.
-	 * @param  [type] $plural         name.
-	 * @return Cherry_Post_Type
-	 */
-	public function create( $single, $post_type_slug = 'post', $plural = '' ) {
-		$tax = new Cherry_Taxonomy( $single, $post_type_slug, $plural );
+		/**
+		 * Create new Post Type.
+		 *
+		 * @param  [type] $single         name.
+		 * @param  [type] $post_type_slug post types slug.
+		 * @param  [type] $plural         name.
+		 * @return Cherry_Post_Type
+		 */
+		public function create( $single, $post_type_slug = 'post', $plural = '' ) {
+			$tax = new Cherry_Taxonomy( $single, $post_type_slug, $plural );
 
-		$this->defaults = array_merge(
-			$this->defaults,
-			$this->get_default_arguments(
-				$tax->get_single(),
-				$tax->get_plural(),
-				$tax->get_post_type_slug()
-			)
-		);
-		$tax->set_arguments( $this->defaults );
+			$this->defaults = array_merge(
+				$this->defaults,
+				$this->get_default_arguments(
+					$tax->get_single(),
+					$tax->get_plural(),
+					$tax->get_post_type_slug()
+				)
+			);
+			$tax->set_arguments( $this->defaults );
 
-		return $tax;
-	}
+			return $tax;
+		}
 
-	/**
-	 * Get the taxonomy default arguments.
-	 *
-	 * @param [type] $plural The post type plural display name.
-	 * @param [type] $singular The post type singular display name.
-	 * @return array
-	 */
-	public function get_default_arguments( $plural, $singular, $post_type_slug ) {
-		$labels = array(
-			'name'              => __( $plural, 'tm-real-estate' ),
-			'singular_name'     => __( $singular, 'tm-real-estate' ),
-			'search_items'      => __( 'Search ' . $plural, 'tm-real-estate' ),
-			'all_items'         => __( 'All ' . $plural, 'tm-real-estate' ),
-			'parent_item'       => __( 'Parent ' . $singular, 'tm-real-estate' ),
-			'parent_item_colon' => __( 'Parent ' . $singular . ' :', 'tm-real-estate' ),
-			'edit_item'         => __( 'Edit ' . $singular, 'tm-real-estate' ),
-			'update_item'       => __( 'Update ' . $singular, 'tm-real-estate' ),
-			'add_new_item'      => __( 'Add New ' . $singular, 'tm-real-estate' ),
-			'new_item_name'     => __( 'New ' . $singular . ' Name', 'tm-real-estate' ),
-			'menu_name'         => __( $plural, 'tm-real-estate' ),
-		);
+		/**
+		 * Get the taxonomy default arguments.
+		 *
+		 * @param [type] $plural The post type plural display name.
+		 * @param [type] $singular The post type singular display name.
+		 * @return array
+		 */
+		public function get_default_arguments( $plural, $singular, $post_type_slug ) {
+			$labels = array(
+				'name'              => __( $plural, 'tm-real-estate' ),
+				'singular_name'     => __( $singular, 'tm-real-estate' ),
+				'search_items'      => __( 'Search ' . $plural, 'tm-real-estate' ),
+				'all_items'         => __( 'All ' . $plural, 'tm-real-estate' ),
+				'parent_item'       => __( 'Parent ' . $singular, 'tm-real-estate' ),
+				'parent_item_colon' => __( 'Parent ' . $singular . ' :', 'tm-real-estate' ),
+				'edit_item'         => __( 'Edit ' . $singular, 'tm-real-estate' ),
+				'update_item'       => __( 'Update ' . $singular, 'tm-real-estate' ),
+				'add_new_item'      => __( 'Add New ' . $singular, 'tm-real-estate' ),
+				'new_item_name'     => __( 'New ' . $singular . ' Name', 'tm-real-estate' ),
+				'menu_name'         => __( $plural, 'tm-real-estate' ),
+			);
 
-		return array(
-			'hierarchical'      => true,
-			'labels'            => $labels,
-			'show_ui'           => true,
-			'show_admin_column' => true,
-			'query_var'         => true,
-			'rewrite'           => array( 'slug' => $post_type_slug ),
-		);
-	}
+			return array(
+				'hierarchical'      => true,
+				'labels'            => $labels,
+				'show_ui'           => true,
+				'show_admin_column' => true,
+				'query_var'         => true,
+				'rewrite'           => array( 'slug' => $post_type_slug ),
+			);
+		}
 
-	/**
-	 * Returns the instance.
-	 *
-	 * @since  1.0.0
-	 * @return object
-	 */
-	public static function get_instance( $core, $args ) {
-		return new self( $core, $args );
+		/**
+		 * Returns the instance.
+		 *
+		 * @since  1.0.0
+		 * @return object
+		 */
+		public static function get_instance( $core, $args ) {
+			return new self( $core, $args );
+		}
 	}
 }
