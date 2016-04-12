@@ -327,7 +327,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 * Callback function to replace CSS vars
 		 *
 		 * @since 1.0.0
-		 * @param string $matches  founded vars.
+		 * @param [string] $matches  founded vars.
 		 */
 		function replace_vars( $matches ) {
 
@@ -371,7 +371,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 * Callback function to replace CSS functions
 		 *
 		 * @since 1.0.0
-		 * @param string $matches  founded dunction.
+		 * @param [string] $matches  founded dunction.
 		 */
 		function replace_func( $matches ) {
 

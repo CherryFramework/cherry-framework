@@ -94,9 +94,9 @@ abstract class Icon_Set {
 	/**
 	 * Set Cache
 	 *
-	 * @param string  $key cache key.
-	 * @param string  $val value to cahce.
-	 * @param integer $time life time.
+	 * @param [string]  $key cache key.
+	 * @param [string]  $val value to cahce.
+	 * @param [integer] $time life time.
 	 */
 	public static function set_cache( $key, $val, $time = 3600 ) {
 		set_transient( $key, $val, $time );
