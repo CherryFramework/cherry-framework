@@ -2,7 +2,7 @@
  * Post formats related scripts
  * @use CherryJsCore
  */
-(function($){
+( function($, CherryJsCore){
 	'use strict';
 
 	CherryJsCore.utilites.namespace( 'post_formats' );
@@ -58,10 +58,8 @@
 			});
 
 		}
-	}
+	};
 
-	$(function(){
-		CherryJsCore.post_formats.init();
-	})
+	CherryJsCore.post_formats.init();
 
-}(jQuery));
+} (jQuery, window.CherryJsCore) );

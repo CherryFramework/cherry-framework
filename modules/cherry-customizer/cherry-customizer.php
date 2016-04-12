@@ -129,7 +129,9 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * @since 1.0.0
 		 * @param object $core Cherry_Core instance.
 		 * @param array  $args Aguments.
-		 *
+		 */
+
+		/*
 		 * $args = array(
 		 *      'prefix'     => 'unique_prefix', // theme or plugin slug (*).
 		 *      'capability' => 'edit_theme_options', // (default: `edit_theme_options`).
@@ -167,8 +169,10 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 *      )
 		 * );
 		 */
+		/**
+		 * Cherry customizer class construct.
+		 */
 		public function __construct( $core, $args ) {
-
 			/**
 			 * Cherry Customizer only works in WordPress 4.0 or later.
 			 */
@@ -212,9 +216,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 */
 		public function register( $wp_customize ) {
 
-			/*
-			 * Failsafe is safe.
-			 */
+			// Failsafe is safe.
 			if ( ! isset( $wp_customize ) ) {
 				return;
 			}
@@ -245,7 +247,8 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * Add a customize panel.
 		 *
 		 * @since 1.0.0
-		 * @param array $args Panel arguments.
+		 * @param number $id Settings ID.
+		 * @param array  $args Panel arguments.
 		 */
 		public function add_panel( $id, $args ) {
 			$prefix          = $this->prefix . '_';
@@ -269,8 +272,11 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * Add a customize section.
 		 *
 		 * @since 1.0.0
+		 * @param array $id   Settings ID.
 		 * @param array $args Section arguments.
-		 *
+		*/
+
+		/**
 		 * The priorities of the core sections are below:
 		 *
 		 * Title                ID                Priority (Order)
@@ -306,7 +312,8 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * Add a customize control.
 		 *
 		 * @since 1.0.0
-		 * @param array $args Control arguments.
+		 * @param numder $id Settings ID.
+		 * @param array  $args Control arguments.
 		 */
 		public function add_control( $id, $args ) {
 			static $control_priority = 0;
@@ -498,7 +505,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * Retrieve a option value by ID.
 		 *
 		 * @since  1.0.0
-		 * @param  mixed      $id
+		 * @param  mixed $id Settings ID.
 		 * @return bool|mixed
 		 */
 		public function get_value( $id, $default = null ) {
@@ -524,7 +531,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * Retrieve a default option value.
 		 *
 		 * @since  1.0.0
-		 * @param  string $id
+		 * @param  string $id Settings ID.
 		 * @return mixed
 		 */
 		public function get_default( $id ) {
@@ -535,7 +542,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * Whitelist for setting type.
 		 *
 		 * @since  1.0.0
-		 * @param  string $type
+		 * @param  string $type Settings type.
 		 * @return bool
 		 */
 		public function sanitize_type( $type ) {
@@ -632,6 +639,9 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			return ( array_key_exists( $input, $choices ) ? $input : $setting->default );
 		}
 
+		/**
+		 * Function sanitize_radio
+		 */
 		public function sanitize_radio( $input, $setting ) {
 			return $this->sanitize_select( $input, $setting );
 		}
@@ -962,15 +972,21 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			return array_combine( $keys, $values );
 		}
 
+		/**
+		 * Function _build_keys
+		 */
 		public function _build_keys( $item ) {
 
 			if ( empty( $item['family'] ) ) {
 				return false;
 			}
 
-			return sprintf( "%s, %s", $item['family'], $item['category'] );
+			return sprintf( '%1$s, %2$s', $item['family'], $item['category'] );
 		}
 
+		/**
+		 * Function _build_values
+		 */
 		public function _build_values( $item ) {
 
 			if ( empty( $item['family'] ) ) {
@@ -980,6 +996,9 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			return $item['family'];
 		}
 
+		/**
+		 * Function add_options
+		 */
 		public function add_options() {
 
 			if ( empty( $this->options ) ) {

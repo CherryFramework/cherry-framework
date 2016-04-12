@@ -25,6 +25,9 @@ if ( ! defined( 'WPINC' ) ) {
 
 if ( ! class_exists( 'Cherry_Post_Types' ) ) {
 
+	/**
+	 * Cherry Post Types.
+	 */
 	class Cherry_Post_Types {
 		/**
 		 * Module version

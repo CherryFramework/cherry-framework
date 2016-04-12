@@ -25,6 +25,9 @@ if ( ! defined( 'WPINC' ) ) {
 
 if ( ! class_exists( 'Cherry_Taxonomies' ) ) {
 
+	/**
+	 * Cherry Taxonomies.
+	 */
 	class Cherry_Taxonomies {
 		/**
 		 * Module version

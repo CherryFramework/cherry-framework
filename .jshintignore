@@ -1,4 +1,7 @@
-*.min.js
-
+**/*.min.js
 modules/cherry-ui-elements/inc/ui-elements/ui-select/assets/select2.js
 modules/cherry-ui-elements/inc/ui-elements/ui-collection/assets/js/jquery.collection.js
+//Cherry Framework
+modules/cherry-ui-elements/inc/ui-elements/ui-stepper/assets/ui-stepper.js
+modules/cherry-ui-elements/inc/ui-elements/ui-radio/assets/ui-radio.js
+modules/cherry-js-core/assets/js/cherry-js-core.js
