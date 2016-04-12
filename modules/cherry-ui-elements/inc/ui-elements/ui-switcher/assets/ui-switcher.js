@@ -2,7 +2,7 @@
  * Switcher
  */
 ( function( $, CherryJsCore ){
-	use strict;
+	'use strict';
 
 	CherryJsCore.utilites.namespace('ui_elements.switcher');
 	CherryJsCore.ui_elements.switcher = {
@@ -75,10 +75,11 @@
 				}
 			});
 		}
-	}
+	};
+
 	$( window ).on( 'cherry-ui-elements-init',
 		function( event, data ) {
 			CherryJsCore.ui_elements.switcher.init( data.target );
 		}
 	);
-}( jQuery, CherryJsCore ) );
+}( jQuery, window.CherryJsCore ) );

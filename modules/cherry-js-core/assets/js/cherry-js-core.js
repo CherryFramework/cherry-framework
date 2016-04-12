@@ -1,4 +1,4 @@
-var CherryJsCore;
+var CherryJsCore = {};
 
 ( function( $ ) {
 	'use strict';

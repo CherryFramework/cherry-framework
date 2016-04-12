@@ -32,8 +32,8 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 *
 		 * @since  1.0.0
 		 * @param  string $color HEX or RGB(A) color value.
-		 * @param  float $darken Darken percent (0-100).
-		 * @return string Processed color.
+		 * @param  float  $darken Darken percent (0-100).
+		 * @return string  Processed color.
 		 */
 		public function color_darken( $color, $darken = 0 ) {
 
@@ -74,8 +74,8 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 *
 		 * @since  1.0.0
 		 * @param  string $color HEX or RGB(A) color value.
-		 * @param  float $lighten Lighten percent (0-100).
-		 * @return string Processed color.
+		 * @param  float  $lighten Lighten percent (0-100).
+		 * @return string  Processed color.
 		 */
 		public function color_lighten( $color, $lighten = 0 ) {
 
@@ -483,8 +483,8 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * Prepare font family for passing into typography function.
 		 *
 		 * @since  4.0.5
-		 * @param  string &$item Array item.
-		 * @param  int $index Array item index.
+		 * @param  string $item Array item.
+		 * @param  int    $index Array item index.
 		 * @return void
 		 */
 		public function typography_prepare_family( &$item, $index ) {
@@ -499,8 +499,8 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * Get box model CSS from layout editor option.
 		 *
 		 * @since  1.0.0
-		 * @param  array  $data Layout parameters array from options.
-		 * @param  array  $mod Optional parameter - pass function name and arg to modify values inside layout array.
+		 * @param  array $data Layout parameters array from options.
+		 * @param  array $mod Optional parameter - pass function name and arg to modify values inside layout array.
 		 * @return string Indents, border etc.
 		 */
 		public function cherry_get_box_model_css( $data, $mod = array() ) {
@@ -665,7 +665,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * Prepare font family to the using in CSS.
 		 *
 		 * @since  1.0.1
-		 * @param  string $font_family.
+		 * @param  string $font_family Font name.
 		 * @return string
 		 */
 		public function typography_font_family( $font_family ) {
@@ -692,10 +692,10 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * Make float size.
 		 *
 		 * @since  1.0.0
-		 * @param  double $size.
+		 * @param  double $size Font size.
 		 * @param  string $operation Arithmetic operator (multiple, addition).
 		 * @param  string $func Function name (floor, ceil, round, abs).
-		 * @param  double $percent.
+		 * @param  double $percent Font size in percent.
 		 * @return double Size.
 		 */
 		public function typography_size( $size, $operation = ' ', $func = 'round', $percent ) {
@@ -713,7 +713,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 					break;
 			}
 
-			switch( $func ) {
+			switch ( $func ) {
 				case 'floor' :
 					$size = floor( $size );
 					break;
@@ -745,12 +745,12 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 				return;
 			}
 
-			echo $rule . ": " . $value;
+			echo $rule . ': ' . $value;
 
 			if ( is_numeric( $value ) ) {
-				echo "px; ";
+				echo 'px; ';
 			} else {
-				echo"; ";
+				echo '; ';
 			}
 		}
 
@@ -773,8 +773,8 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * Return width value for container.
 		 *
 		 * @since  1.0.0
-		 * @param  int   $container_width A container width value.
-		 * @param  int   $element_width   Some-block (parent-block for container) width value.
+		 * @param  int $container_width A container width value.
+		 * @param  int $element_width Some-block (parent-block for container) width value.
 		 * @return int                    Width value.
 		 */
 		public function container_width_compare( $container_width, $element_width ) {

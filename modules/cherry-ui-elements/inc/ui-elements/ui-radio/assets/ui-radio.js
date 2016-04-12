@@ -26,7 +26,7 @@
 				} );
 			} );
 
-			$('.cherry-radio-input[type="radio"]', target).on('change', function(event){
+			$('.cherry-radio-input[type="radio"]', target).on('change', function(){
 				var $this = $(this),
 					slave = $this.data('slave'),
 					radio_group = $this.parents('.cherry-radio-group'),
@@ -46,7 +46,7 @@
 				});
 
 				$this.trigger( 'radio_change_event', [slave, radio_group_list] );
-			})
+			});
 		}
 	};
 
@@ -56,4 +56,4 @@
 		}
 	);
 
-}( jQuery, CherryJsCore ) );
+}( jQuery, window.CherryJsCore ) );

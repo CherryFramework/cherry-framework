@@ -42,4 +42,4 @@
 			CherryJsCore.ui_elements.slider.init( data.target );
 		}
 	);
-}(jQuery));
+}( jQuery, window.CherryJsCore ) );

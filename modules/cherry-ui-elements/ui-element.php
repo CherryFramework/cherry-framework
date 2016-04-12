@@ -13,7 +13,11 @@
 /**
  * UI_Element abstract class
  */
-if ( ! class_exists('UI_Element') ) {
+if ( ! class_exists( 'UI_Element' ) ) {
+
+	/**
+	 * UI_Element Abstract Class
+	 */
 	abstract class UI_Element {
 
 		/**

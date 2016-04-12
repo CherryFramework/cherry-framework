@@ -157,4 +157,4 @@
 			CherryJsCore.ui_elements.media.init( data.target );
 		}
 	);
-} ( jQuery, CherryJsCore ) );
+} ( jQuery, window.CherryJsCore ));
