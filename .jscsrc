@@ -28,6 +28,7 @@
         "modules/cherry-ui-elements/inc/ui-elements/ui-collection/assets/js/min/ui-collection.min.js",
         "modules/cherry-ui-elements/inc/ui-elements/ui-collection/assets/js/ui-collection.js",
 		"modules/cherry-page-builder/assets/js/page-settings.min.js",
+		"modules/cherry-page-builder/assets/js/page-settings.js",
         "modules/cherry-ui-elements/inc/ui-elements/ui-collection/assets/js/min/jquery.collection.min.js",
   ]
 }
