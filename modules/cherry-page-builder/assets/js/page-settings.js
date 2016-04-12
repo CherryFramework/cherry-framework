@@ -4,8 +4,8 @@
 (function( $ ) {
 	'use strict';
 
-	CherryJsCore.utilites.namespace( 'page_builder' );
-	CherryJsCore.page_builder = {
+	window.CherryJsCore.utilites.namespace( 'page_builder' );
+	window.CherryJsCore.page_builder = {
 
 		init: function() {
 			var self = this;
