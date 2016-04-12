@@ -45,8 +45,9 @@ if ( ! class_exists( 'Cherry_Toolkit' ) ) {
 
 		/**
 		 * Constructor for the module
-		 * @param Cherry_Core $core Core instance
-		 * @param array       $args Module arguments
+		 *
+		 * @param Cherry_Core $core Core instance.
+		 * @param array $args Module arguments.
 		 */
 		function __construct( $core, $args ) {
 		  // void
@@ -82,12 +83,14 @@ if ( ! class_exists( 'Cherry_Toolkit' ) ) {
 
 		/**
 		 * Get class instance
-		 * @param  string       $class_name Class name.
-		 * @param  Cherry_Core  $core       Core instance.
-		 * @param  array $args
-		 * @return object                   [description]
+		 *
+		 * @param  string $class_name Class name.
+		 * @param  Cherry_Core $core Core instance.
+		 * @param  array $args Additional arguments.
+		 * @return object New class instance.
+		 * @throws InvalidArgumentException If class does not exists.
 		 */
-		public static function get_class_instance( $class_name, $core, $args ) {
+		public static function get_class_instance( $class_name = '', $core, $args ) {
 		  if ( ! class_exists( $class_name ) ) {
 		    throw new InvalidArgumentException( 'Class "' . $class_name . '" does not exists' );
 		  }
