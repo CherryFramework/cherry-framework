@@ -735,8 +735,8 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * Build a CSS-rule.
 		 *
 		 * @since  1.0.0
-		 * @param  string|int $value CSS-proterty value.
-		 * @param  string     $rule  CSS-proterty name.
+		 * @param  [string|int] $value CSS-proterty value.
+		 * @param  [string]     $rule  CSS-proterty name.
 		 * @return string            CSS-rule.
 		 */
 		public function empty_value( $value, $rule ) {

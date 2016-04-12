@@ -105,7 +105,7 @@ abstract class Icon_Set {
 	/**
 	 * Get Cache
 	 *
-	 * @param  string $key cache key.
+	 * @param  [string] $key cache key.
 	 * @return mixed
 	 */
 	public static function get_cache( $key ) {
