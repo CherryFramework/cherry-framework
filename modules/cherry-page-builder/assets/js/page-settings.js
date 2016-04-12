@@ -88,5 +88,5 @@
 		}
 	};
 
-	CherryJsCore.page_builder.init();
+	window.CherryJsCore.page_builder.init();
 }( jQuery ) );
