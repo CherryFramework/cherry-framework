@@ -274,19 +274,6 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * @since 1.0.0
 		 * @param array $id   Settings ID.
 		 * @param array $args Section arguments.
-		*/
-
-		/**
-		 * The priorities of the core sections are below:
-		 *
-		 * Title                ID                Priority (Order)
-		 * Site Title & Tagline title_tagline     20
-		 * Colors               colors            40
-		 * Header Image         header_image      60
-		 * Background Image     background_image  80
-		 * Navigation           nav               100
-		 * Widgets (Panel)      widgets           110
-		 * Static Front Page    static_front_page 120
 		 */
 		public function add_section( $id, $args ) {
 			$prefix          = $this->prefix . '_';

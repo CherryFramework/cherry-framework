@@ -10,6 +10,9 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+/**
+ * Abstract icon set class
+ */
 abstract class Icon_Set {
 
 	/**
@@ -90,24 +93,26 @@ abstract class Icon_Set {
 
 	/**
 	 * Set Cache
-	 * @param string  $key
-	 * @param string  $val    
-	 * @param integer $time   
-	 * @param string  $prefix 
+	 *
+	 * @param string  $key cache key.
+	 * @param string  $val value to cahce.
+	 * @param integer $time life time.
 	 */
-	public static function set_cache($key, $val, $time = 3600)
-	{
+	public static function set_cache( $key, $val, $time = 3600 ) {
 		set_transient( $key, $val, $time );
 	}
+
 	/**
 	 * Get Cache
-	 * @param  string $key    
-	 * @param  string $prefix 
+	 *
+	 * @param  string $key cache key.
 	 * @return mixed
 	 */
-	public static function get_cache( $key ) { 
+	public static function get_cache( $key ) {
 		$cached   = get_transient( $key );
-		if ( false !== $cached ) return $cached;
+		if ( false !== $cached ) {
+			return $cached;
+		}
 		return false;
 	}
 

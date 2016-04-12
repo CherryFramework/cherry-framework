@@ -10,6 +10,9 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+/**
+ * Font awesome icon set class
+ */
 class Icon_Set_Font_Awesome extends Icon_Set {
 	/**
 	 * Get icon set name

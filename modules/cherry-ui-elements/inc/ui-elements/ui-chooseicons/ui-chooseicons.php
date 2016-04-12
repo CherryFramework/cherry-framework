@@ -108,7 +108,6 @@ if ( ! class_exists( 'UI_Choose_Icons' ) ) {
 		public static function filename_to_class( $filename ) {
 			$filename = str_replace( '.php', '', $filename );
 			$pieces   = explode( '-', $filename );
-			
 			foreach ( $pieces as &$piece ) {
 				$piece = ucwords( $piece );
 			}
@@ -141,7 +140,7 @@ if ( ! class_exists( 'UI_Choose_Icons' ) ) {
 
 			// Convert and render our icon sets
 			if ( count( $icon_sets ) ) {
-				foreach ( $icon_sets as $icon_set) {
+				foreach ( $icon_sets as $icon_set ) {
 					if ( $icon_set instanceof Icon_Set ) {
 						$settings['icons'] = $settings['icons'] + $icon_set->render()->get_converted_data();
 					}
@@ -177,7 +176,7 @@ if ( ! class_exists( 'UI_Choose_Icons' ) ) {
 			wp_enqueue_style( 'material-icons', 'https://fonts.googleapis.com/icon?family=Material+Icons' );
 
 			// Scripts
-			wp_enqueue_script( 'ui-chooseicons', self::get_current_file_url( __FILE__ ) . '/assets/js/ui-chooseicons.js', array( 'cherry-js-core' ) );
+			wp_enqueue_script( 'ui-chooseicons', self::get_current_file_url( __FILE__ ) . '/assets/js/ui-chooseicons.min.js', array( 'cherry-js-core' ) );
 		}
 
 		/**

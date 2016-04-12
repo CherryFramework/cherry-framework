@@ -198,11 +198,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 * Get path inside of current module
 		 *
 		 * @since  1.0.0
-<<<<<<< HEAD
 		 * @param  [type] $path file inside module directory to get path for.
-=======
-		 * @param  string $path file inside module directory to get path for.
->>>>>>> 67c5878e09ac022a23623e680105c053cb7b1c16
 		 * @return string
 		 */
 		public function get_path( $path = null ) {

@@ -10,6 +10,9 @@
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+/**
+ * Material font icon set class
+ */
 class Icon_Set_Font_Material extends Icon_Set {
 	/**
 	 * Get icon set name
