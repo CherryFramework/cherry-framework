@@ -72,7 +72,7 @@ if ( ! class_exists( 'Cherry_Toolkit' ) ) {
 		 * @param  mixed            $default default argument value.
 		 * @return mixed
 		 */
-		public function get_arg( $field, $arg, $default = '' ) {
+		public static function get_arg( $field, $arg, $default = '' ) {
 
 			if ( is_array( $field ) && isset( $field[ $arg ] ) ) {
 				return $field[ $arg ];
