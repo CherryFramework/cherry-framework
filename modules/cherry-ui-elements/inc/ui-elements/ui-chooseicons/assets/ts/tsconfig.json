@@ -1,0 +1,12 @@
+{
+	"compilerOptions": {
+		"noImplicitAny": true,
+		"removeComments": true,
+		"preserveConstEnums": true,
+		"out": "../js/ui-chooseicons.min.js",
+		"sourceMap": true
+	},
+	"files": [
+		"ui-chooseicons.ts"
+	]
+}
