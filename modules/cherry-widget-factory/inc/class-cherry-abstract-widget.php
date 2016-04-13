@@ -325,7 +325,11 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 			foreach ( $this->settings as $key => $setting ) {
 
 				if ( isset( $new_instance[ $key ] ) ) {
-					$instance[ $key ] = $this->sanitize_instance_item( $new_instance[ $key ] );
+
+					$instance[ $key ] = ! empty( $setting['sanitize_callback'] ) && is_callable( $setting['sanitize_callback'] )
+					? call_user_func( $setting['sanitize_callback'],$new_instance[ $key ] )
+					: $this->sanitize_instance_item( $new_instance[ $key ] );
+
 				} elseif ( 'checkbox' === $setting['type'] ) {
 					$instance[ $key ] = array();
 				} elseif ( isset( $old_instance[ $key ] ) && is_array( $old_instance[ $key ] ) ) {
