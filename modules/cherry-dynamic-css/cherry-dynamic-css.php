@@ -331,7 +331,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 */
 		function replace_vars( $matches ) {
 
-			$not_found = sprintf( '/* %s */', __( 'Variable not found', 'cherry' ) );
+			$not_found = '/* Variable not found */';
 
 			// check if variable name found
 			if ( empty( $matches[2] ) ) {
@@ -375,7 +375,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 */
 		function replace_func( $matches ) {
 
-			$not_found = sprintf( '/* %s */', __( 'Function does not exist', 'cherry' ) );
+			$not_found = '/* Function does not exist */';
 
 			// check if functions name found
 			if ( empty( $matches[2] ) ) {
