@@ -148,7 +148,7 @@ if ( ! class_exists( 'UI_Choose_Icons' ) ) {
 				}
 			}
 
-			return Cherry_Core::render_view(
+			return Cherry_Toolkit::render_view(
 				dirname( __FILE__ ) . '/views/choose-icons.php',
 				$settings
 			);

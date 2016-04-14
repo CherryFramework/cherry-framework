@@ -28,7 +28,7 @@ if ( ! class_exists( 'UI_Number' ) ) {
 		 * @since  4.0.0
 		 */
 		public function render() {
-			return Cherry_Core::render_view(
+			return Cherry_Toolkit::render_view(
 				dirname( __FILE__ ) . '/views/number.php',
 				array(
 					'master'   => 'cherry-ui-container ' . Cherry_Array_Utilit::get( $this->settings, 'master', '' ),

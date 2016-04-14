@@ -35,7 +35,7 @@ class Icon_Set_Font_Material extends Icon_Set {
 		$result = array();
 		if ( count( $this->converted_data ) ) {
 			foreach ( $this->converted_data as &$icon ) {
-				$icon['html'] = Cherry_Core::render_view(
+				$icon['html'] = Cherry_Toolkit::render_view(
 					dirname( dirname( __FILE__ ) ) . '/views/material-icons.php',
 					$icon
 				);

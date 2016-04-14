@@ -97,7 +97,7 @@ if ( ! class_exists( 'UI_Collection' ) ) {
 					}
 				}
 			}
-			return Cherry_Core::render_view(
+			return Cherry_Toolkit::render_view(
 				dirname( __FILE__ ) . '/views/collection.php',
 				array(
 					'rendered_controls' => $rendered_controls,
