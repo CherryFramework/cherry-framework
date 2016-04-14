@@ -37,6 +37,8 @@ if ( ! class_exists( 'UI_Stepper' ) ) {
 			'label'			=> '',
 			'class'			=> '',
 			'master'		=> '',
+			'step_up'		=> 'Step Up',
+			'step_down'		=> 'Step Down',
 		);
 		/**
 		 * Constructor method for the UI_Stepper class.
@@ -68,7 +70,7 @@ if ( ! class_exists( 'UI_Stepper' ) ) {
 				}
 				$html .= '<div class="cherry-ui-stepper ' . esc_attr( $this->settings['class'] ) . '">';
 					$html .= '<input type="text" id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-stepper-input" name="' . esc_attr( $this->settings['name'] ) . '" value="' . esc_html( $this->settings['value'] ) . '" data-max-value="' . esc_html( $this->settings['max_value'] ) . '" placeholder="inherit" data-min-value="' . esc_html( $this->settings['min_value'] ) . '" data-step-value="' . esc_html( $this->settings['step_value'] ) . '">';
-					$html .= '<span class="cherry-stepper-controls"><em class="step-up" title="' . __( 'Step Up', 'cherry' ) . '">+</em><em class="step-down" title="' . __( 'Step Down', 'cherry' ) . '">-</em></span>';
+					$html .= '<span class="cherry-stepper-controls"><em class="step-up" title="' . $this->settings['step_up'] . '">+</em><em class="step-down" title="' . $this->settings['step_down'] . '">-</em></span>';
 				$html .= '</div>';
 			$html .= '</div>';
 

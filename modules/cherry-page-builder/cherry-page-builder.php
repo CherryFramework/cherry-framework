@@ -369,13 +369,13 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 			wp_enqueue_script( 'jquery-form' );
 
 			wp_localize_script( 'cherry-settings-page', 'TMRealEstateMessage', array(
-				'success' => __( 'Successfully', 'tm-real-estate' ),
-				'failed' => __( 'Failed', 'tm-real-estate' ),
+				'success' => 'Successfully',
+				'failed' => 'Failed',
 			) );
 
 			wp_enqueue_script(
 				'cherry-settings-page',
-				$this->core->get_core_url() . 'modules/' . $this->module_slug . '/assets/js/page-settings.min.js',
+				$this->core->get_core_url() . 'modules/' . $this->module_slug . '/assets/js/min/page-settings.min.js',
 				array( 'jquery' ),
 				'0.2.0',
 				true
@@ -383,7 +383,7 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 
 			wp_enqueue_style(
 				'cherry-settings-page',
-				$this->core->get_core_url() . 'modules/' . $this->module_slug . '/assets/css/page-settings.min.css',
+				$this->core->get_core_url() . 'modules/' . $this->module_slug . '/assets/css/min/page-settings.min.css',
 				array(),
 				'0.1.0',
 				'all'

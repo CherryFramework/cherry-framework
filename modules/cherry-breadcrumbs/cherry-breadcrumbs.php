@@ -137,6 +137,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 				'show_browse'       => true,
 				'echo'              => true,
 				'labels'            => array(),
+				'date_labels'       => array(),
 				// Cherry team editing start
 				'action'            => 'cherry_breadcrumbs_render',
 				'css_namespace'     => array(),
@@ -161,6 +162,12 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 				$this->args['labels'] = wp_parse_args( $args['labels'], $this->default_labels() );
 			} else {
 				$this->args['labels'] = $this->default_labels();
+			}
+
+			if ( ! empty( $args['date_labels'] ) ) {
+				$this->args['date_labels'] = wp_parse_args( $args['date_labels'], $this->default_date_labels() );
+			} else {
+				$this->args['date_labels'] = $this->default_date_labels();
 			}
 
 			if ( is_front_page() && false === $this->args['show_on_front'] ) {
@@ -314,6 +321,25 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		 *
 		 * @since  4.0.0
 		 */
+		public function default_date_labels() {
+			$labels = array(
+				'archive_minute_hour'	=> 'minute and hour archives time format',
+				'archive_minute'		=> 'minute archives time format',
+				'archive_hour'			=> 'hour archives time format',
+				'archive_year'			=> 'yearly archives date format',
+				'archive_month'			=> 'monthly archives date format',
+				'archive_day'			=> 'daily archives date format',
+				'archive_week'			=> 'weekly archives date format',
+			);
+
+			return $labels;
+		}
+
+		/**
+		 * Returns an array of the default labels.
+		 *
+		 * @since  4.0.0
+		 */
 		public function default_labels() {
 			$page_on_front_id = get_option( 'page_on_front' );
 			$use_custom_front_title = 'true';
@@ -324,24 +350,24 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			}
 
 			if ( $use_custom_front_title ) {
-				$default = __( 'Home', 'cherry' );
+				$default = 'Home';
 				$page_on_front_title = $default;
 				$page_on_front_title = $this->prepare_label( $page_on_front_title, $default );
 			}
 
 			$labels = array(
-				'browse'              => __( 'Browse:',                             'cherry' ),
+				'browse'              => 'Browse:',
 				'home'                => $page_on_front_title,
-				'error_404'           => __( '404 Not Found',                       'cherry' ),
-				'archives'            => __( 'Archives',                            'cherry' ),
+				'error_404'           => '404 Not Found',
+				'archives'            => 'Archives',
 				/* Translators: %s is the search query. The HTML entities are opening and closing curly quotes. */
-				'search'              => __( 'Search results for &#8220;%s&#8221;', 'cherry' ),
+				'search'              => 'Search results for &#8220;%s&#8221;',
 				/* Translators: %s is the page number. */
-				'paged'               => __( 'Page %s',                             'cherry' ),
+				'paged'               => 'Page %s',
 				/* Translators: Minute archive title. %s is the minute time format. */
-				'archive_minute'      => __( 'Minute %s',                           'cherry' ),
+				'archive_minute'      => 'Minute %s',
 				/* Translators: Weekly archive title. %s is the week date format. */
-				'archive_week'        => __( 'Week %s',                             'cherry' ),
+				'archive_week'        => 'Week %s',
 
 				/* "%s" is replaced with the translated date/time format. */
 				'archive_minute_hour' => '%s',
@@ -971,7 +997,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			/* Add the minute + hour item. */
 			$label = sprintf(
 				$this->args['labels']['archive_minute_hour'],
-				get_the_time( _x( 'g:i a', 'minute and hour archives time format', 'cherry' ) )
+				get_the_time( $this->args['date_labels']['archive_minute_hour'] )
 			);
 			$this->_add_item( 'target_format', $label );
 
@@ -990,7 +1016,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			/* Add the minute item. */
 			$label = sprintf(
 				$this->args['labels']['archive_minute'],
-				get_the_time( _x( 'i', 'minute archives time format', 'cherry' ) )
+				get_the_time( $this->args['date_labels']['archive_minute'] )
 			);
 
 			$this->_add_item( 'target_format', $label );
@@ -1010,7 +1036,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			/* Add the hour item. */
 			$label = sprintf(
 				$this->args['labels']['archive_hour'],
-				get_the_time( _x( 'g a', 'hour archives time format', 'cherry' ) )
+				get_the_time( $this->args['date_labels']['archive_hour'] )
 			);
 			$this->_add_item( 'target_format', $label );
 
@@ -1029,17 +1055,17 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			/* Get year, month, and day. */
 			$year = sprintf(
 				$this->args['labels']['archive_year'],
-				get_the_time( _x( 'Y', 'yearly archives date format',  'cherry' ) )
+				get_the_time( $this->args['date_labels']['archive_year'] )
 			);
 
 			$month = sprintf(
 				$this->args['labels']['archive_month'],
-				get_the_time( _x( 'F', 'monthly archives date format', 'cherry' ) )
+				get_the_time( $this->args['date_labels']['archive_month'] )
 			);
 
 			$day = sprintf(
 				$this->args['labels']['archive_day'],
-				get_the_time( _x( 'j', 'daily archives date format',   'cherry' ) )
+				get_the_time( $this->args['date_labels']['archive_day'] )
 			);
 
 			/* Add the year and month items. */
@@ -1083,11 +1109,11 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			/* Get the year and week. */
 			$year = sprintf(
 				$this->args['labels']['archive_year'],
-				get_the_time( _x( 'Y', 'yearly archives date format', 'cherry' ) )
+				get_the_time( $this->args['date_labels']['archive_year'] )
 			);
 			$week = sprintf(
 				$this->args['labels']['archive_week'],
-				get_the_time( _x( 'W', 'weekly archives date format', 'cherry' ) )
+				get_the_time( $this->args['date_labels']['archive_week'] )
 			);
 
 			/* Add the year item. */
@@ -1125,11 +1151,11 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			/* Get the year and month. */
 			$year  = sprintf(
 				$this->args['labels']['archive_year'],
-				get_the_time( _x( 'Y', 'yearly archives date format',  'cherry' ) )
+				get_the_time( $this->args['date_labels']['archive_year'] )
 			);
 			$month = sprintf(
 				$this->args['labels']['archive_month'],
-				get_the_time( _x( 'F', 'monthly archives date format', 'cherry' ) )
+				get_the_time( $this->args['date_labels']['archive_month'] )
 			);
 
 			/* Add the year item. */
@@ -1165,7 +1191,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			/* Get the year. */
 			$year = sprintf(
 				$this->args['labels']['archive_year'],
-				get_the_time( _x( 'Y', 'yearly archives date format',  'cherry' ) )
+				get_the_time( $this->args['date_labels']['archive_year'] )
 			);
 
 			/* Add the year item. */
@@ -1380,7 +1406,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 				$url   = get_year_link( get_the_time( 'Y', $post_id ) );
 				$label = sprintf(
 					$this->args['labels']['archive_year'],
-					get_the_time( _x( 'Y', 'yearly archives date format', 'cherry' ) )
+					get_the_time( $this->args['date_labels']['archive_year'] )
 				);
 
 				$this->_add_item( 'link_format', $label, $url );
@@ -1391,7 +1417,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 				$url   = get_month_link( get_the_time( 'Y', $post_id ), get_the_time( 'm', $post_id ) );
 				$label = sprintf(
 					$this->args['labels']['archive_month'],
-					get_the_time( _x( 'F', 'monthly archives date format', 'cherry' ) )
+					get_the_time( $this->args['date_labels']['archive_month'] )
 				);
 
 				$this->_add_item( 'link_format', $label, $url );
@@ -1404,7 +1430,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 				);
 				$label = sprintf(
 					$this->args['labels']['archive_day'],
-					get_the_time( _x( 'j', 'daily archives date format', 'cherry' ) )
+					get_the_time( $this->args['date_labels']['archive_day'] )
 				);
 
 				$this->_add_item( 'link_format', $label, $url );

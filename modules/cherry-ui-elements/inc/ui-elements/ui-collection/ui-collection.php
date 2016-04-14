@@ -26,7 +26,7 @@ if ( ! class_exists( 'UI_Collection' ) ) {
 	 *  		'type'	  => 'collection',
 	 *  		'id'      => 'gallery',
 	 *  		'name'    => 'gallery',
-	 *  		'left_label' => __( 'Gallery', 'tm-real-estate' ),
+	 *  		'left_label' => __( 'Gallery', 'cherry' ),
 	 *  		'controls' => array(
 	 *  			'UI_Text' => array(
 	 *  				'type'    => 'text',
@@ -34,13 +34,13 @@ if ( ! class_exists( 'UI_Collection' ) ) {
 	 *  				'class'   => 'large_text',
 	 *  				'name'    => 'title',
 	 *  				'value'   => '',
-	 *  				'left_label' => __( 'Title', 'tm-real-estate' )
+	 *  				'left_label' => __( 'Title', 'cherry' )
 	 *  			),
 	 *  			'UI_Media' => array(
 	 *  				'id'      => 'image',
 	 *  				'name'    => 'image',
 	 *  				'value'   => '',
-	 *  				'left_label' => __( 'Image', 'tm-real-estate' )
+	 *  				'left_label' => __( 'Image', 'cherry' )
 	 *  			),
 	 *  		),
 	 *  	)
@@ -55,6 +55,7 @@ if ( ! class_exists( 'UI_Collection' ) ) {
 		private $defaults_settings = array(
 			'id'			=> 'collection',
 			'name'			=> 'collection',
+			'button_label'	=> 'Add',
 			'controls'      => array(),
 		);
 		/**

@@ -25,7 +25,7 @@
 					<?php echo $icon['html']; ?>
 				</a>
 			<?php endforeach; ?>
-			<span><?php _e( 'The end', 'cherry' ); ?></span>
+			<span><?php echo $this->settings['end_text']; ?></span>
 		</div>
 	</div>
 	<?php endif; ?>
