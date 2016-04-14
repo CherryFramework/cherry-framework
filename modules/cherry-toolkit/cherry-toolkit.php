@@ -101,9 +101,9 @@ if ( ! class_exists( 'Cherry_Toolkit' ) ) {
 		/**
 		 * Render view
 		 *
-		 * @param  string  $path View path.
-		 * @param  array   $data Include data.
-		 * @return string        Rendered html.
+		 * @param  string $path View path.
+		 * @param  array  $data Include data.
+		 * @return string       Rendered html.
 		 */
 		public static function render_view( $path, array $data = array() ) {
 
