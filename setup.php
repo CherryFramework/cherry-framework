@@ -1,5 +1,9 @@
 <?php
 /**
+ * Setup function that used for checking latest version of the core.
+ * It creates `$__tm_version` global variable and writes the latest core version
+ * and it's path into it.
+ *
  * @package    Cherry_Framework
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
