@@ -15,6 +15,7 @@
 			}
 		},
 		render: function ( target ) {
+			var cherry_uploader;
 			$( document ).on(
 				'click',
 				'.upload-button',
@@ -24,8 +25,12 @@
 										img_holder = $('.cherry-upload-preview', button_parent),
 										title_text = $(this).data('title'),
 										multiple = $(this).data('multi-upload'),
-										library_type = $(this).data('library-type'),
-										cherry_uploader;
+										library_type = $(this).data('library-type');
+
+										if ( undefined !== cherry_uploader ) {
+											cherry_uploader.open();
+											return;
+										}
 
 									cherry_uploader = wp.media.frames.file_frame = wp.media({
 										title: title_text,
