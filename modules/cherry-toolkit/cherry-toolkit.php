@@ -97,5 +97,39 @@ if ( ! class_exists( 'Cherry_Toolkit' ) ) {
 
 		  return new $class_name( $core, $args );
 		}
+
+		/**
+		 * Render view
+		 *
+		 * @param  string  $path View path.
+		 * @param  array   $data Include data.
+		 * @return string        Rendered html.
+		 */
+		public static function render_view( $path, array $data = array() ) {
+
+			// Add parameters to temporary query variable.
+			if ( array_key_exists( 'wp_query', $GLOBALS ) ) {
+				if ( is_array( $GLOBALS['wp_query']->query_vars ) ) {
+					$GLOBALS['wp_query']->query_vars['__data'] = $data;
+				}
+			}
+
+			ob_start();
+			load_template( $path, false );
+			$result = ltrim( ob_get_clean() );
+
+			/**
+			 * Remove temporary wp query variable
+			 * Yeah. I'm paranoic.
+			 */
+			if ( array_key_exists( 'wp_query', $GLOBALS ) ) {
+				if ( is_array( $GLOBALS['wp_query']->query_vars ) ) {
+					unset( $GLOBALS['wp_query']->query_vars['__data'] );
+				}
+			}
+
+			// Return the compiled view and terminate the output buffer.
+			return $result;
+		}
 	}
 }
