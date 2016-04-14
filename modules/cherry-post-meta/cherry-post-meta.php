@@ -285,7 +285,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 				);
 
 			}
-			return Cherry_Core::render_view(
+			return Cherry_Toolkit::render_view(
 				$this->module_directory . '/views/meta.php',
 				array(
 					'elements' => $elements,
