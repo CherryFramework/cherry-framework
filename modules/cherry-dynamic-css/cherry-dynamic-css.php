@@ -1,8 +1,8 @@
 <?php
 /**
- *
- * Module Name: Dynamic Css
- * Description: Generate Css
+ * Dynamic CSS parser
+ * Module Name: Dynamic CSS
+ * Description: CSS parser which uses variables & functions for CSS code optimization
  * Version: 1.0.0
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
@@ -198,7 +198,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 * Get path inside of current module
 		 *
 		 * @since  1.0.0
-		 * @param  string $path file inside module directory to get path for.
+		 * @param  [type] $path file inside module directory to get path for.
 		 * @return string
 		 */
 		public function get_path( $path = null ) {
@@ -256,7 +256,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 * Parse CSS string and replasce varaibles and functions
 		 *
 		 * @since  1.0.0
-		 * @param  string $css CSS to parse.
+		 * @param  [type] $css CSS to parse.
 		 * @return string
 		 */
 		public function parse( $css ) {
@@ -327,7 +327,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 * Callback function to replace CSS vars
 		 *
 		 * @since 1.0.0
-		 * @param string $matches  founded vars.
+		 * @param [string] $matches  founded vars.
 		 */
 		function replace_vars( $matches ) {
 
@@ -371,7 +371,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 * Callback function to replace CSS functions
 		 *
 		 * @since 1.0.0
-		 * @param string $matches  founded dunction.
+		 * @param [string] $matches  founded dunction.
 		 */
 		function replace_func( $matches ) {
 
