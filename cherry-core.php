@@ -1,6 +1,7 @@
 <?php
 /**
  * Class Cherry Core
+ * Version: 0.9.4
  *
  * @package    Cherry_Framework
  * @subpackage Class
@@ -29,13 +30,6 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @var   object
 		 */
 		private static $instance = null;
-
-		/**
-		 * Core version.
-		 *
-		 * @var string
-		 */
-		public $core_version = '0.9.4';
 
 		/**
 		 * Core settings.
