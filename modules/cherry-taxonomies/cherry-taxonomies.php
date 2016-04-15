@@ -113,7 +113,7 @@ if ( ! class_exists( 'Cherry_Taxonomies' ) ) {
 				'update_item'       => 'Update ' . $singular,
 				'add_new_item'      => 'Add New ' . $singular,
 				'new_item_name'     => 'New ' . $singular . ' Name',
-				'menu_name'         => $plural
+				'menu_name'         => $plural,
 			);
 
 			return array(
