@@ -44,10 +44,11 @@ if ( ! class_exists( 'UI_Choose_Icons' ) ) {
 					'id'			=> 'cherry-ui-choose-icons-id',
 					'name'			=> 'cherry-ui-choose-icons-name',
 					'value'			=> '',
-					'placeholder'	=> __( 'Type to filter', 'cherry' ),
-					'label'			=> __( 'Choose your icon', 'cherry' ),
+					'placeholder'	=> 'Type to filter',
+					'label'			=> 'Choose your icon',
+					'end_text'		=> 'The end',
 					'class'			=> '',
-					'required'      => false,
+					'required'		=> false,
 				)
 			);
 		}
@@ -147,7 +148,7 @@ if ( ! class_exists( 'UI_Choose_Icons' ) ) {
 				}
 			}
 
-			return Cherry_Core::render_view(
+			return Cherry_Toolkit::render_view(
 				dirname( __FILE__ ) . '/views/choose-icons.php',
 				$settings
 			);

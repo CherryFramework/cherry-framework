@@ -70,7 +70,7 @@
 			"description" : "Provides functionality for building custom options pages.",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-page-builder",
-			"compatible" : ["theme","plugin"],
+			"compatible" : ["plugin"],
 			"wordpress_org" : true,
 			"required" : false,
 			"dependencies" : []
@@ -110,7 +110,7 @@
 			"description" : "Provides functionality for creating custom post types.",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-post-types",
-			"compatible" : ["theme", "plugin"],
+			"compatible" : ["plugin"],
 			"wordpress_org" : true,
 			"required" : false,
 			"dependencies" : [ "cherry-ui-elements" ]
@@ -120,7 +120,7 @@
 			"description" : "Provides functionality for creating custom taxanomies.",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-taxonomies",
-			"compatible" : ["theme", "plugin"],
+			"compatible" : ["plugin"],
 			"wordpress_org" : true,
 			"required" : false,
 			"dependencies" : []
@@ -174,6 +174,16 @@
 			"wordpress_org" : true,
 			"required" : false,
 			"dependencies" : [ "cherry-ui-elements" ]
+		},
+		"cherry-toolkit": {
+			"name": "Framework Toolkit",
+			"description": "Framework Toolkit contains various PHP utilities",
+			"doc_link": "",
+			"git_link": "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-toolkit",
+			"compatible": ["theme", "plugin"],
+			"wordpress_org": true,
+			"required": true,
+			"dependencies": []
 		}
 	}
 }

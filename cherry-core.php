@@ -1,6 +1,7 @@
 <?php
 /**
  * Class Cherry Core
+ * Version: 0.9.4
  *
  * @package    Cherry_Framework
  * @subpackage Class
@@ -29,13 +30,6 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @var   object
 		 */
 		private static $instance = null;
-
-		/**
-		 * Core version.
-		 *
-		 * @var string
-		 */
-		public $core_version = '0.9.4';
 
 		/**
 		 * Core settings.
@@ -308,40 +302,6 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 */
 		public function get_core_url() {
 			return trailingslashit( $this->settings['base_url'] );
-		}
-
-		/**
-		 * Render view
-		 *
-		 * @param type  $path view path.
-		 * @param  array $data include data.
-		 * @return rendered html
-		 */
-		public static function render_view( $path, array $data = array() ) {
-
-			// Add parameters to temporary query variable.
-			if ( array_key_exists( 'wp_query', $GLOBALS ) ) {
-				if ( is_array( $GLOBALS['wp_query']->query_vars ) ) {
-					$GLOBALS['wp_query']->query_vars['__data'] = $data;
-				}
-			}
-
-			ob_start();
-			load_template( $path, false );
-			$result = ltrim( ob_get_clean() );
-
-			/**
-			 * Remove temporary wp query variable
-			 * Yeah. I'm paranoic.
-			 */
-			if ( array_key_exists( 'wp_query', $GLOBALS ) ) {
-				if ( is_array( $GLOBALS['wp_query']->query_vars ) ) {
-					unset( $GLOBALS['wp_query']->query_vars['__data'] );
-				}
-			}
-
-			// Return the compiled view and terminate the output buffer.
-			return $result;
 		}
 
 		/**
