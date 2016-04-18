@@ -15,7 +15,6 @@
 			}
 		},
 		render: function ( target ) {
-			var cherry_uploader;
 			$( document ).on(
 				'click',
 				'.upload-button',
@@ -27,20 +26,20 @@
 										multiple = $(this).data('multi-upload'),
 										library_type = $(this).data('library-type');
 
-										if ( undefined !== cherry_uploader ) {
-											cherry_uploader.open();
+										if ( undefined !== CherryJsCore.ui_elements.media.uploader ) {
+											CherryJsCore.ui_elements.media.uploader.open();
 											return;
 										}
 
-									cherry_uploader = wp.media.frames.file_frame = wp.media({
+									CherryJsCore.ui_elements.media.uploader = wp.media.frames.file_frame = wp.media({
 										title: title_text,
 										button: {text: title_text},
 										multiple: multiple,
 										library : { type : library_type }
 									});
 
-									cherry_uploader.on('select', function() {
-										var attachment = cherry_uploader.state().get('selection').toJSON(),
+									CherryJsCore.ui_elements.media.uploader.on('select', function() {
+										var attachment = CherryJsCore.ui_elements.media.uploader.state().get('selection').toJSON(),
 											count = 0,
 											input_value = '',
 											new_img = '',
