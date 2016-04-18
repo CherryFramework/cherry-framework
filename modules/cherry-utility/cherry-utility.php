@@ -73,7 +73,6 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 				'media',
 				'attributes',
 				'meta-data',
-				'array',
 			),
 			'meta_key'	=> array(
 				'term_thumb'	=> 'cherry_thumb',
