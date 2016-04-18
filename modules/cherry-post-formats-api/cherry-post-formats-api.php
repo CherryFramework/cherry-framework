@@ -203,7 +203,7 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		 */
 		public function includes() {
 
-			$based_dir = $this->core->get_core_dir() . 'modules/' . $this->module_slug;
+			$based_dir = $this->core->settings['base_dir'] . 'modules/' . $this->module_slug;
 			require_once $based_dir . '/inc/class-cherry-facebook-embed.php';
 
 			// Register Facebook Embed.
@@ -220,7 +220,7 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		 */
 		public function assets() {
 
-			$base_url = $this->core->get_core_url() . 'modules/' . $this->module_slug;
+			$base_url = $this->core->settings['base_url'] . 'modules/' . $this->module_slug;
 
 			wp_enqueue_script(
 				'cherry-post-formats',

@@ -1,18 +1,18 @@
 <?php
 /**
  * Setup function that used for checking latest version of the core.
- * It creates `$__tm_version` global variable and writes the latest core version
+ * It creates `$chery_core_version` global variable and writes the latest core version
  * and it's path into it.
  *
  * @package    Cherry_Framework
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-3.0.html
  */
 
 return create_function( '', '
-	global $__tm_version;
+	global $chery_core_version;
 
 	$path = trailingslashit( __DIR__ ) . \'cherry-core.php\';
 
@@ -26,19 +26,19 @@ return create_function( '', '
 
 	$old_versions = null;
 
-	if ( null !== $__tm_version ) {
-		$old_versions = array_keys( $__tm_version );
+	if ( null !== $chery_core_version ) {
+		$old_versions = array_keys( $chery_core_version );
 	}
 
 	if ( is_array( $old_versions ) && isset( $old_versions[0] ) ) {
 		$compare = version_compare( $old_versions[0], $version, \'<\' );
 
 		if ( $compare ) {
-			$__tm_version = array();
-			$__tm_version[ $version ] = $path;
+			$chery_core_version = array();
+			$chery_core_version[ $version ] = $path;
 		}
 	} else {
-		$__tm_version = array();
-		$__tm_version[ $version ] = $path;
+		$chery_core_version = array();
+		$chery_core_version[ $version ] = $path;
 	}
 ' );
