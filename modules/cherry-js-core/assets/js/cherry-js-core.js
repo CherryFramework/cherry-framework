@@ -4,19 +4,19 @@ var CherryJsCore = {};
 	'use strict';
 
 	CherryJsCore = {
-		name : 'Cherry Js Core',
-		version : '1.0.0',
-		author : 'Cherry Team',
+		name: 'Cherry Js Core',
+		version: '1.0.0',
+		author: 'Cherry Team',
 
-		variable : {
-			$document : $( document ),
-			$window : $( window ),
-			browser : $.browser,
-			browser_supported : true,
-			security : window.cherry_ajax,
-			loaded_assets : {
-				script : window.wp_load_script,
-				style : window.wp_load_style
+		variable: {
+			$document: $( document ),
+			$window: $( window ),
+			browser: $.browser,
+			browser_supported: true,
+			security: window.cherry_ajax,
+			loaded_assets: {
+				script: window.wp_load_script,
+				style: window.wp_load_style
 			},
 			ui_auto_init: ( 'true' === window.ui_init_object.auto_init ) ? true : false,
 			ui_auto_target: window.ui_init_object.targets
@@ -27,20 +27,20 @@ var CherryJsCore = {};
 			is_ready: false
 		},
 
-		init : function(){
+		init: function(){
 
-			CherryJsCore.set_variable ();
+			CherryJsCore.set_variable();
 
 			$( document ).ready( CherryJsCore.ready );
 
 			$( window ).load( CherryJsCore.load );
 		},
 
-		set_variable : function(){
-			//set variable browser_supported
+		set_variable: function() {
+			//Set variable browser_supported
 			CherryJsCore.variable.browser_supported = ( function (){
 				var uset_browser = CherryJsCore.variable.browser,
-					not_supported = { 'msie' : [8] };
+					not_supported = { 'msie': [8] };
 
 				for ( var browser in not_supported ) {
 					if( uset_browser.browser  !== 'undefined' ){
@@ -56,7 +56,7 @@ var CherryJsCore = {};
 			}() );
 		},
 
-		ready : function(){
+		ready: function() {
 			CherryJsCore.status.is_ready = true;
 
 			// Auto ui init if `ui_auto_init` is true
@@ -71,30 +71,30 @@ var CherryJsCore = {};
 			CherryJsCore.expressions.widget_updated_ui_init();
 		},
 
-		load : function(){
+		load: function() {
 			CherryJsCore.status.on_load = true;
 		},
 
-		expressions : {
-			ui_init : function() {
+		expressions: {
+			ui_init: function() {
 				CherryJsCore.variable.ui_auto_target.forEach( function( target ) {
 					CherryJsCore.variable.$window.trigger( 'cherry-ui-elements-init', { 'target': $( target ) } );
 				});
 			},
-			widget_added_ui_init : function() {
+			widget_added_ui_init: function() {
 				$( document ).on( 'widget-added', function( event, data ){
 					$( window ).trigger( 'cherry-ui-elements-init', { 'target': data } );
 				} );
 			},
-			widget_updated_ui_init : function() {
+			widget_updated_ui_init: function() {
 				$( document ).on( 'widget-updated', function( event, data ){
 					$( window ).trigger( 'cherry-ui-elements-init', { 'target': data } );
 				} );
 			}
 		},
 
-		utilites : {
-			namespace : function( space_path ){
+		utilites: {
+			namespace: function( space_path ) {
 				var parts = space_path.split( '.' ),
 					parent = CherryJsCore,
 					length = parts.length,
@@ -108,16 +108,16 @@ var CherryJsCore = {};
 					}
 				return parent;
 			},
-			get_compress_assets: function ( url, callback ){
+			get_compress_assets: function( url, callback ) {
 				var data = {
-					action : 'get_compress_assets',
-					security : CherryJsCore.variable.security,
-					style : [],
-					script : []
+						action: 'get_compress_assets',
+						security: CherryJsCore.variable.security,
+						style: [],
+						script: []
 					},
 					reg_name = /([\S.]+\/)/gmi,
 					reg_type = /(\.js|\.css)/gmi,
-					callback_function = callback || function(){};
+					callback_function = callback || function() {};
 
 				if( !$.isArray( url ) ){
 					url = [ url ];
