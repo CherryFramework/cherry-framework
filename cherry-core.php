@@ -1,14 +1,14 @@
 <?php
 /**
  * Class Cherry Core
- * Version: 0.9.4
+ * Version: 1.0.0
  *
  * @package    Cherry_Framework
  * @subpackage Class
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-3.0.html
  */
 
 // If this file is called directly, abort.
@@ -53,12 +53,16 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		public function __construct( $settings = array() ) {
 
 			$default_settings = array(
-				'base_dir'	=> null,
-				'base_url'	=> null,
-				'modules'	=> array(),
+				'framework_path'	=> 'cherry-framework',
+				'modules'			=> array(),
+				'base_dir'			=> '',
+				'base_url'			=> '',
 			);
 
 			$this->settings = array_merge( $default_settings, $settings );
+
+			$this->settings['base_dir'] = trailingslashit( get_template_directory() . '/' . $this->settings['framework_path'] . '/' );
+			$this->settings['base_url'] = trailingslashit( get_template_directory_uri() . '/' . $this->settings['framework_path'] . '/' );
 
 			// Cherry_Toolkit module should be loaded by default
 			if ( ! isset( $this->settings['modules']['cherry-toolkit'] ) ) {
@@ -229,7 +233,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @return string
 		 */
 		public function get_module_path( $module ) {
-			return $this->get_core_dir() . '/modules/' . $module . '/' . $module . '.php';
+			return $this->settings['base_dir'] . '/modules/' . $module . '/' . $module . '.php';
 		}
 
 		/**
@@ -282,26 +286,6 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			}
 
 			return (int) join( '', $parts );
-		}
-
-		/**
-		 * Get path to the core directory.
-		 *
-		 * @since  1.0.0
-		 * @return string
-		 */
-		public function get_core_dir() {
-			return trailingslashit( $this->settings['base_dir'] );
-		}
-
-		/**
-		 * Get path to the core URI.
-		 *
-		 * @since  1.0.0
-		 * @return string
-		 */
-		public function get_core_url() {
-			return trailingslashit( $this->settings['base_url'] );
 		}
 
 		/**
