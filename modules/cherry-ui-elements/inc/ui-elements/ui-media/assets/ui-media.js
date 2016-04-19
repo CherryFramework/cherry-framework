@@ -20,10 +20,11 @@
 				'.upload-button',
 				function(e){
 					var button_parent = $(e.currentTarget).parents('.cherry-ui-media-wrap'),
-										input = $('.cherry-upload-input', button_parent),
-										title_text = $(e.currentTarget).data('title'),
-										multiple = $(e.currentTarget).data('multi-upload'),
-										library_type = $(e.currentTarget).data('library-type');
+						input = $('.cherry-upload-input', button_parent),
+						title_text = $(e.currentTarget).data('title'),
+						multiple = $(e.currentTarget).data('multi-upload'),
+						library_type = $(e.currentTarget).data('library-type');
+
 					CherryJsCore.ui_elements.media.img_holder = $('.cherry-upload-preview', button_parent);
 
 					if ( undefined !== CherryJsCore.ui_elements.media.uploader ) {
@@ -97,7 +98,7 @@
 						}
 
 						input.val(input_value.replace(/(^,)/, '')).trigger( 'change' );
-						console.log(CherryJsCore.ui_elements.media.img_holder);
+
 						$('.cherry-all-images-wrap', CherryJsCore.ui_elements.media.img_holder).html(new_img);
 
 						$('.cherry-remove-image').on('click', function () {
