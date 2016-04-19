@@ -343,7 +343,8 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 			foreach ( $this->args['fields'] as $key => $field ) {
 
-				if ( ! isset( $_POST[ $key ] ) ) {
+				if ( empty( $_POST[ $key ] ) ) {
+					update_post_meta( $post_id, $key, false );
 					continue;
 				}
 

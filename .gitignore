@@ -24,3 +24,12 @@ Desktop.ini
 # Folder
 #########################
 node_modules
+
+#########################
+# Travis-si files
+#########################
+.jscsrc
+.jshintignore
+.travis.yml
+codesniffer.ruleset.xml
+travis.sh

@@ -163,7 +163,7 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 				'visible'	=> true,
 				'icon'		=> '',
 				'prefix'	=> '',
-				'html'		=> '%1$s<a href="%2$s" %3$s %4$s ><time pubdate datetime="%5$s">%6$s%7$s</time></a>',
+				'html'		=> '%1$s<a href="%2$s" %3$s %4$s ><time datetime="%5$s">%6$s%7$s</time></a>',
 				'title'		=> '',
 				'class'		=> 'post-date',
 				'echo'		=> false,
