@@ -1,11 +1,21 @@
 <?php
 /**
+ * Post meta management module
+ * Module Name: Post Meta
+ * Description: Manage post meta
+ * Version: 1.0.0
+ * Author: Cherry Team
+ * Author URI: http://www.cherryframework.com/
+ * License: GPLv3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ *
  * @package    Cherry_Framework
- * @subpackage Class
+ * @subpackage Modules
+ * @version    1.0.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @license    http://www.gnu.org/licenses/gpl-3.0.html
  */
 
 // If this file is called directly, abort.
@@ -64,25 +74,37 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 		/**
 		 * Current nonce name to check
+		 *
 		 * @var null
 		 */
 		public $nonce = 'cherry-meta-nonce';
 
 		/**
+		 * Module directory
+		 *
+		 * @since 1.0.0
+		 * @var string
+		 */
+		private $module_directory = '';
+
+		/**
 		 * Constructor for the module
 		 */
 		function __construct( $core, $args ) {
-
+			$this->module_directory = $core->settings['base_dir'] . '/modules/' . $this->module_slug;
 			$this->core = $core;
-			$this->args = wp_parse_args( $args, array(
-				'id'            => 'cherry-post-metabox',
-				'title'         => '',
-				'page'          => array( 'post' ),
-				'context'       => 'normal',
-				'priority'      => 'high',
-				'callback_args' => false,
-				'fields'        => array(),
-			) );
+			$this->args = wp_parse_args(
+				$args,
+				array(
+					'id'            => 'cherry-post-metabox',
+					'title'         => '',
+					'page'          => array( 'post' ),
+					'context'       => 'normal',
+					'priority'      => 'high',
+					'callback_args' => false,
+					'fields'        => array(),
+				)
+			);
 
 			if ( empty( $this->args['fields'] ) ) {
 				return;
@@ -108,7 +130,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 			add_filter( 'cherry_core_js_ui_init_settings', array( $this, 'init_ui_js' ), 10 );
 
-			array_walk( $this->args['fields'], array( $this, 'set_field_types') );
+			array_walk( $this->args['fields'], array( $this, 'set_field_types' ) );
 
 			$this->ui_builder = $this->core->init_module( 'cherry-ui-elements', $this->field_types );
 
@@ -119,7 +141,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 * Init UI elements JS
 		 *
 		 * @since  1.0.0
-		 * @param  array $settings UI elements init.
+		 *
 		 * @return array
 		 */
 		public function init_ui_js() {
@@ -160,7 +182,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 * Add meta box handler
 		 *
 		 * @since  1.0.0
-		 * @param  string $post_type The post type of the current post being edited.
+		 * @param  [type] $post_type The post type of the current post being edited.
 		 * @param  object $post      The current post object.
 		 * @return void
 		 */
@@ -169,7 +191,6 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 			if ( ! $this->is_allowed_page() ) {
 				return;
 			}
-
 			add_meta_box(
 				$this->args['id'],
 				$this->args['title'],
@@ -201,13 +222,13 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 * Get registered control fields
 		 *
 		 * @since  1.0.0
-		 * @param  mixed  $term     current term object.
-		 * @param  string $taxonomy current taxonomy name.
+		 * @param  mixed  $post     current post object.
+		 * @param  [type] $format current format name.
 		 * @return string
 		 */
 		public function get_fields( $post, $format = '%s' ) {
 
-			$result = '';
+			$elements = array();
 
 			foreach ( $this->args['fields'] as $key => $field ) {
 
@@ -217,68 +238,59 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 					$value = '';
 				}
 
-				$value = ( ! empty( $value ) ) ? $value : $this->get_arg( $field, 'value', '' );
+				$value = ( false !== $value ) ? $value : Cherry_Toolkit::get_arg( $field, 'value', '' );
 
 				if ( isset( $field['options_callback'] ) ) {
 					$options = call_user_func( $field['options_callback'] );
 				} else {
-					$options = $this->get_arg( $field, 'options', array() );
+					$options = Cherry_Toolkit::get_arg( $field, 'options', array() );
 				}
 
 				$args = array(
-					'type'               => $this->get_arg( $field, 'type', 'text' ),
+					'type'               => Cherry_Toolkit::get_arg( $field, 'type', 'text' ),
 					'id'                 => $key,
 					'name'               => $key,
 					'value'              => $value,
-					'label'              => $this->get_arg( $field, 'label', '' ),
+					'label'              => Cherry_Toolkit::get_arg( $field, 'label', '' ),
 					'options'            => $options,
-					'multiple'           => $this->get_arg( $field, 'multiple', false ),
-					'filter'             => $this->get_arg( $field, 'filter', false ),
-					'size'               => $this->get_arg( $field, 'size', 1 ),
-					'null_option'        => $this->get_arg( $field, 'null_option', 'None' ),
-					'multi_upload'       => $this->get_arg( $field, 'multi_upload', true ),
-					'library_type'       => $this->get_arg( $field, 'library_type', 'image' ),
-					'upload_button_text' => $this->get_arg( $field, 'upload_button_text', 'Choose' ),
-					'max_value'          => $this->get_arg( $field, 'max_value', '100' ),
-					'min_value'          => $this->get_arg( $field, 'min_value', '0' ),
-					'step_value'         => $this->get_arg( $field, 'step_value', '1' ),
-					'style'              => $this->get_arg( $field, 'style', 'normal' ),
-					'display_input'      => $this->get_arg( $field, 'display_input', true ),
-					'toggle'             => $this->get_arg( $field, 'toggle', array(
+					'multiple'           => Cherry_Toolkit::get_arg( $field, 'multiple', false ),
+					'filter'             => Cherry_Toolkit::get_arg( $field, 'filter', false ),
+					'size'               => Cherry_Toolkit::get_arg( $field, 'size', 1 ),
+					'null_option'        => Cherry_Toolkit::get_arg( $field, 'null_option', 'None' ),
+					'multi_upload'       => Cherry_Toolkit::get_arg( $field, 'multi_upload', true ),
+					'library_type'       => Cherry_Toolkit::get_arg( $field, 'library_type', 'image' ),
+					'upload_button_text' => Cherry_Toolkit::get_arg( $field, 'upload_button_text', 'Choose' ),
+					'max_value'          => Cherry_Toolkit::get_arg( $field, 'max_value', '100' ),
+					'min_value'          => Cherry_Toolkit::get_arg( $field, 'min_value', '0' ),
+					'max'                => Cherry_Toolkit::get_arg( $field, 'max', '100' ),
+					'min'                => Cherry_Toolkit::get_arg( $field, 'min', '0' ),
+					'step_value'         => Cherry_Toolkit::get_arg( $field, 'step_value', '1' ),
+					'style'              => Cherry_Toolkit::get_arg( $field, 'style', 'normal' ),
+					'display_input'      => Cherry_Toolkit::get_arg( $field, 'display_input', true ),
+					'controls'           => Cherry_Toolkit::get_arg( $field, 'controls', array() ),
+					'toggle'             => Cherry_Toolkit::get_arg( $field, 'toggle', array(
 						'true_toggle'  => 'On',
 						'false_toggle' => 'Off',
 						'true_slave'   => '',
 						'false_slave'  => '',
 					) ),
+					'required'           => Cherry_Toolkit::get_arg( $field, 'required', false ),
 				);
 
 				$current_element = $this->ui_builder->get_ui_element_instance( $args['type'], $args );
 
-				$result .= sprintf( $format, $current_element->render() );
+				$elements[] = array(
+					'html'  => $current_element->render(),
+					'field' => $field,
+				);
 
 			}
-
-			return $result;
-
-		}
-
-		/**
-		 * Safely get attribute from field settings array.
-		 *
-		 * @since  1.0.0
-		 * @param  array  $field   arguments array.
-		 * @param  string $arg     argument key.
-		 * @param  mixed  $default default argument value.
-		 * @return mixed
-		 */
-		public function get_arg( $field, $arg, $default = '' ) {
-
-			if ( isset( $field[ $arg ] ) ) {
-				return $field[ $arg ];
-			} else {
-				return $default;
-			}
-
+			return Cherry_Toolkit::render_view(
+				$this->module_directory . '/views/meta.php',
+				array(
+					'elements' => $elements,
+				)
+			);
 		}
 
 		/**
@@ -286,17 +298,17 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 *
 		 * @since  1.0.0
 		 * @param  array  $field field data.
-		 * @param  string $id    field key.
+		 * @param  [type] $id    field key.
 		 * @return bool
 		 */
 		public function set_field_types( $field, $id ) {
 
-			if ( is_array( $field ) || ! isset( $field[ 'type' ] ) ) {
+			if ( is_array( $field ) || ! isset( $field['type'] ) ) {
 				return false;
 			}
 
-			if ( ! in_array( $field[ 'type' ], $this->field_types ) ) {
-				$this->field_types[] = $field[ 'type' ];
+			if ( ! in_array( $field['type'], $this->field_types ) ) {
+				$this->field_types[] = $field['type'];
 			}
 
 			return true;
@@ -350,7 +362,5 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		public static function get_instance( $core, $args ) {
 			return new self( $core, $args );
 		}
-
 	}
-
 }

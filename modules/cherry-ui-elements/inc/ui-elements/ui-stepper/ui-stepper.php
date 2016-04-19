@@ -11,14 +11,22 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 if ( ! class_exists( 'UI_Stepper' ) ) {
-	class UI_Stepper {
 
-		private $settings = array();
+	/**
+	 * Class for the building UI_Stepper elements.
+	 */
+	class UI_Stepper extends UI_Element implements I_UI {
+
+		/**
+		 * Default settings
+		 *
+		 * @var array
+		 */
 		private $defaults_settings = array(
 			'id'			=> 'cherry-ui-stepper-id',
 			'name'			=> 'cherry-ui-stepper-name',
@@ -29,6 +37,8 @@ if ( ! class_exists( 'UI_Stepper' ) ) {
 			'label'			=> '',
 			'class'			=> '',
 			'master'		=> '',
+			'step_up'		=> 'Step Up',
+			'step_down'		=> 'Step Down',
 		);
 		/**
 		 * Constructor method for the UI_Stepper class.
@@ -60,7 +70,7 @@ if ( ! class_exists( 'UI_Stepper' ) ) {
 				}
 				$html .= '<div class="cherry-ui-stepper ' . esc_attr( $this->settings['class'] ) . '">';
 					$html .= '<input type="text" id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-stepper-input" name="' . esc_attr( $this->settings['name'] ) . '" value="' . esc_html( $this->settings['value'] ) . '" data-max-value="' . esc_html( $this->settings['max_value'] ) . '" placeholder="inherit" data-min-value="' . esc_html( $this->settings['min_value'] ) . '" data-step-value="' . esc_html( $this->settings['step_value'] ) . '">';
-					$html .= '<span class="cherry-stepper-controls"><em class="step-up" title="' . __( 'Step Up', 'cherry' ) . '">+</em><em class="step-down" title="' . __( 'Step Down', 'cherry' ) . '">-</em></span>';
+					$html .= '<span class="cherry-stepper-controls"><em class="step-up" title="' . $this->settings['step_up'] . '">+</em><em class="step-down" title="' . $this->settings['step_down'] . '">-</em></span>';
 				$html .= '</div>';
 			$html .= '</div>';
 
@@ -68,35 +78,21 @@ if ( ! class_exists( 'UI_Stepper' ) ) {
 		}
 
 		/**
-		 * Get current file URL
-		 *
-		 * @since  4.0.0
-		 */
-		public static function get_current_file_url() {
-			$assets_url = dirname( __FILE__ );
-			$site_url = site_url();
-			$assets_url = str_replace( untrailingslashit( ABSPATH ), $site_url, $assets_url );
-			$assets_url = str_replace( '\\', '/', $assets_url );
-
-			return $assets_url;
-		}
-
-		/**
 		 * Enqueue javascript and stylesheet UI_Stepper.
 		 *
 		 * @since  4.0.0
 		 */
-		public static function enqueue_assets(){
+		public static function enqueue_assets() {
 			wp_enqueue_script(
 				'ui-stepper-min',
-				self::get_current_file_url() . '/assets/min/ui-stepper.min.js',
+				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-stepper.min.js',
 				array( 'jquery' ),
 				'1.0.0',
 				true
 			);
 			wp_enqueue_style(
 				'ui-stepper-min',
-				self::get_current_file_url() . '/assets/min/ui-stepper.min.css',
+				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-stepper.min.css',
 				array(),
 				'1.0.0',
 				'all'

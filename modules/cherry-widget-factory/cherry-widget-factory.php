@@ -1,11 +1,21 @@
 <?php
 /**
+ * Widget factory module main class
+ * Module Name: Widget Factory
+ * Description: Base widget class that simplifies creating of your own widgets.
+ * Version: 1.0.0
+ * Author: Cherry Team
+ * Author URI: http://www.cherryframework.com/
+ * License: GPLv3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ *
  * @package    Cherry_Framework
- * @subpackage Class
+ * @subpackage Modules
+ * @version    1.0.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @license    http://www.gnu.org/licenses/gpl-3.0.html
  */
 
 // If this file is called directly, abort.
@@ -92,7 +102,7 @@ if ( ! class_exists( 'Cherry_Widget_Factory' ) ) {
 		 * Pass current core instance into widget
 		 *
 		 * @param  mixed  $core current core object.
-		 * @param  string $path abstract widget file path.
+		 * @param  [type] $path abstract widget file path.
 		 * @return mixed
 		 */
 		public function pass_core_to_widgets( $core, $path ) {
@@ -133,7 +143,5 @@ if ( ! class_exists( 'Cherry_Widget_Factory' ) ) {
 
 			return self::$instance;
 		}
-
 	}
-
 }

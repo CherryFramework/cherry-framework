@@ -1,12 +1,21 @@
 <?php
 /**
+ * Class Cherry Utility
+ * Module Name: Utility
+ * Description: Multiple utility functions
+ * Version: 1.0.0
+ * Author: Cherry Team
+ * Author URI: http://www.cherryframework.com/
+ * License: GPLv3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @package    Cherry_Framework
- * @subpackage Class
+ * @subpackage Modules
+ * @version    1.0.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @license    http://www.gnu.org/licenses/gpl-3.0.html
  */
 
 // If this file is called directly, abort.
@@ -16,6 +25,9 @@ if ( ! defined( 'WPINC' ) ) {
 
 if ( ! class_exists( 'Cherry_Utility' ) ) {
 
+	/**
+	 * Class Cherry Utility
+	 */
 	class Cherry_Utility {
 
 		/**
@@ -61,10 +73,11 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 				'media',
 				'attributes',
 				'meta-data',
+				'array',
 			),
 			'meta_key'	=> array(
-				'term_thumb'	=> 'cherry_thumb'
-			)
+				'term_thumb'	=> 'cherry_thumb',
+			),
 		);
 
 		/**
@@ -76,10 +89,10 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 		public $utility = null;
 
 		/**
-		* Cherry_Utility constructor
-		*
-		* @since 1.0.0
-		*/
+		 * Cherry_Utility constructor
+		 *
+		 * @since 1.0.0
+		 */
 		function __construct( $core, $args = array() ) {
 
 			$this->module_directory = $core->settings['base_dir'] . '/modules/cherry-utility';
@@ -107,10 +120,10 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 				foreach ( $utility as $utilit ) {
 					require_once( $this->module_directory . '/inc/cherry-' . $utilit . '-utilit.php' );
 
-					$utilit = str_replace('-', ' ', $utilit );
+					$utilit = str_replace( '-', ' ', $utilit );
 					$class_name = ucwords( $utilit );
-					$class_name = str_replace(' ', '_', $class_name );
-					$utilit = str_replace(' ', '_', $utilit );
+					$class_name = str_replace( ' ', '_', $class_name );
+					$utilit = str_replace( ' ', '_', $utilit );
 
 					$class_name = 'Cherry_' . $class_name . '_Utilit';
 

@@ -1,5 +1,13 @@
 <?php
 /**
+ * Module Name: Breadcrumb Trail
+ * Description: A breadcrumb menu script for WordPress
+ * Version: 1.0.0
+ * Author: Cherry Team
+ * Author URI: http://www.cherryframework.com/
+ * License: GPLv3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ *
  * Breadcrumb Trail - A breadcrumb menu script for WordPress.
  *
  * Breadcrumb Trail is a script for showing a breadcrumb trail for any type of page.  It tries to
@@ -8,17 +16,16 @@
  * breadcrumb scripts.
  *
  * @package    Cherry_Framework
- * @subpackage Class
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @author     Cherry Team <support@cherryframework.com>
+ * @subpackage Modules
+ * @author     Cherry Team <support@cherryframework.com>, Justin Tadlock <justin@justintadlock.com>
  * @copyright  Copyright (c) 2008 - 2014, Justin Tadlock
  * @link       http://themehybrid.com/plugins/breadcrumb-trail
  * @link       http://www.cherryframework.com
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @license    http://www.gnu.org/licenses/gpl-3.0.html
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
@@ -33,9 +40,10 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 	class Cherry_Breadcrumbs {
 
 		/**
-		 * Module version
+		 * Module version.
 		 *
-		 * @var string
+		 * @since 1.0.0
+		 * @var   string
 		 */
 		public $module_version = '1.0.0';
 
@@ -48,41 +56,42 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		private static $instance = null;
 
 		/**
-		 * Core instance
+		 * Core instance.
 		 *
-		 * @var object
+		 * @since 1.0.0
+		 * @var   object
 		 */
 		public $core = null;
 
 		/**
-		 * Indexed array of breadcrumb trail items
+		 * Indexed array of breadcrumb trail items.
 		 *
-		 * @since  4.0.0
-		 * @var    array
+		 * @since 1.0.0
+		 * @var   array
 		 */
 		public $items = array();
 
 		/**
-		 * Breadcrumb arguments
+		 * Breadcrumb arguments.
 		 *
-		 * @since  4.0.0
-		 * @var    array
+		 * @since 1.0.0
+		 * @var   array
 		 */
 		public $args = array();
 
 		/**
-		 * Page title
+		 * Page title.
 		 *
-		 * @since 4.0.0
+		 * @since 1.0.0
 		 * @var   array
 		 */
 		public $page_title = null;
 
 		/**
-		 * Breadcrumbs CSS
+		 * Breadcrumbs CSS.
 		 *
-		 * @since  4.0.0
-		 * @var    array
+		 * @since 1.0.0
+		 * @var   array
 		 */
 		public $css = array(
 			'module'    => 'cherry-breadcrumbs',
@@ -92,17 +101,20 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			'item'      => 'cherry-breadcrumbs_item',
 			'separator' => 'cherry-breadcrumbs_item_sep',
 			'link'      => 'cherry-breadcrumbs_item_link',
-			'target'    => 'cherry-breadcrumbs_item_target'
+			'target'    => 'cherry-breadcrumbs_item_target',
 		);
 
 		/**
-		 * Check if Breadcrumbs class was extended
+		 * Check if Breadcrumbs class was extended.
 		 *
 		 * @since 1.0.0
 		 * @var   boolean
 		 */
 		public $is_extend = false;
 
+		/**
+		 * Constructor of class.
+		 */
 		function __construct( $core, $args = array() ) {
 
 			$this->core = $core;
@@ -126,6 +138,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 				'show_browse'       => true,
 				'echo'              => true,
 				'labels'            => array(),
+				'date_labels'       => array(),
 				// Cherry team editing start
 				'action'            => 'cherry_breadcrumbs_render',
 				'css_namespace'     => array(),
@@ -134,9 +147,9 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 				'post_taxonomy'     => apply_filters(
 					'cherry_breadcrumbs_trail_taxonomies',
 					array(
-						'post'      => 'category'
+						'post'      => 'category',
 					)
-				)
+				),
 			);
 
 			$this->args = apply_filters( 'cherry_breadcrumb_args', wp_parse_args( $args, $defaults ) );
@@ -146,11 +159,16 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 				$this->css = wp_parse_args( $this->args['css_namespace'], $this->css );
 			}
 			// Cherry team editing end
-
 			if ( ! empty( $args['labels'] ) ) {
 				$this->args['labels'] = wp_parse_args( $args['labels'], $this->default_labels() );
 			} else {
 				$this->args['labels'] = $this->default_labels();
+			}
+
+			if ( ! empty( $args['date_labels'] ) ) {
+				$this->args['date_labels'] = wp_parse_args( $args['date_labels'], $this->default_date_labels() );
+			} else {
+				$this->args['date_labels'] = $this->default_date_labels();
 			}
 
 			if ( is_front_page() && false === $this->args['show_on_front'] ) {
@@ -168,7 +186,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		/**
 		 * Formats and outputs the breadcrumb trail.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 */
 		public function get_trail() {
 
@@ -213,9 +231,9 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		}
 
 		/**
-		 * Get breacrumbs list items
+		 * Get breacrumbs list items.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 */
 		public function get_items() {
 
@@ -253,7 +271,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			$breadcrumb .= "\n\t\t" . '<div class="' . esc_attr( $this->css['wrap'] ) . '">';
 
 			/* Format the separator. */
-			$separator = !empty( $this->args['separator'] )
+			$separator = ! empty( $this->args['separator'] )
 				? $this->args['separator']
 				: '/';
 
@@ -280,9 +298,9 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		}
 
 		/**
-		 * Get page title
+		 * Get page title.
 		 *
-		 * @since 4.0.0
+		 * @since 1.0.0
 		 */
 		public function get_title() {
 
@@ -302,7 +320,26 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		/**
 		 * Returns an array of the default labels.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
+		 */
+		public function default_date_labels() {
+			$labels = array(
+				'archive_minute_hour' => 'g:i a', // minute and hour archives time format
+				'archive_minute'      => 'i', // minute archives time format
+				'archive_hour'        => 'g a', // hour archives time format
+				'archive_year'        => 'Y', // yearly archives date format
+				'archive_month'       => 'F', // monthly archives date format
+				'archive_day'         => 'j', // daily archives date format
+				'archive_week'        => 'W', // weekly archives date format
+			);
+
+			return $labels;
+		}
+
+		/**
+		 * Returns an array of the default labels.
+		 *
+		 * @since 1.0.0
 		 */
 		public function default_labels() {
 			$page_on_front_id = get_option( 'page_on_front' );
@@ -314,24 +351,20 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			}
 
 			if ( $use_custom_front_title ) {
-				$default = __( 'Home', 'cherry' );
+				$default = 'Home';
 				$page_on_front_title = $default;
 				$page_on_front_title = $this->prepare_label( $page_on_front_title, $default );
 			}
 
 			$labels = array(
-				'browse'              => __( 'Browse:',                             'cherry' ),
+				'browse'              => 'Browse:',
 				'home'                => $page_on_front_title,
-				'error_404'           => __( '404 Not Found',                       'cherry' ),
-				'archives'            => __( 'Archives',                            'cherry' ),
-				/* Translators: %s is the search query. The HTML entities are opening and closing curly quotes. */
-				'search'              => __( 'Search results for &#8220;%s&#8221;', 'cherry' ),
-				/* Translators: %s is the page number. */
-				'paged'               => __( 'Page %s',                             'cherry' ),
-				/* Translators: Minute archive title. %s is the minute time format. */
-				'archive_minute'      => __( 'Minute %s',                           'cherry' ),
-				/* Translators: Weekly archive title. %s is the week date format. */
-				'archive_week'        => __( 'Week %s',                             'cherry' ),
+				'error_404'           => '404 Not Found',
+				'archives'            => 'Archives',
+				'search'              => 'Search results for &#8220;%s&#8221;',
+				'paged'               => 'Page %s',
+				'archive_minute'      => 'Minute %s',
+				'archive_week'        => 'Week %s',
 
 				/* "%s" is replaced with the translated date/time format. */
 				'archive_minute_hour' => '%s',
@@ -345,9 +378,9 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		}
 
 		/**
-		 * Build breadcrumbs trail items array
+		 * Build breadcrumbs trail items array.
 		 *
-		 * @since 4.0.0
+		 * @since 1.0.0
 		 */
 		public function build_trail() {
 
@@ -424,7 +457,6 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 					/* If viewing the 404 page. */
 					$this->add_404_items();
 				}
-
 			}
 
 			/* Add paged items if they exist. */
@@ -432,22 +464,23 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 
 			/**
 			 * Filter final item array
-			 * @since  4.0.0
-			 * @var    array
+			 *
+			 * @since 1.0.0
+			 * @var   array
 			 */
 			$this->items = apply_filters( 'cherry_breadcrumbs_items', $this->items, $this->args );
 
 		}
 
 		/**
-		 * Add trail item int array
+		 * Add trail item int array.
 		 *
-		 * @since 4.0.0
+		 * @since 1.0.0
 		 *
-		 * @param string $format item format to add
-		 * @param string $label  item label
-		 * @param string $url    item URL
-		 * @param string $class  item CSS class
+		 * @param string $format Item format to add.
+		 * @param string $label  Item label.
+		 * @param string $url    Item URL.
+		 * @param string $class  Item CSS class.
 		 */
 		public function _add_item( $format = 'link_format', $label, $url = '', $class = '' ) {
 
@@ -460,7 +493,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 				$class = $this->css[ $css ];
 			}
 
-			$item = sprintf( $this->args[$format], $label, $class, $title, $url );
+			$item = sprintf( $this->args[ $format ], $label, $class, $title, $url );
 
 			$this->items[] = sprintf( $this->args['item_format'], $item, esc_attr( $this->css['item'] ) );
 
@@ -473,7 +506,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		/**
 		 * Add front items based on $wp_rewrite->front.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 */
 		public function add_rewrite_front_items() {
 
@@ -487,8 +520,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		/**
 		 * Adds the page/paged number to the items array.
 		 *
-		 * @since  0.6.0
-		 * @access public
+		 * @since  1.0.0
 		 * @return void
 		 */
 		public function add_paged_items() {
@@ -516,9 +548,9 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		 * post type.  The goal of this function is to create a clear path back to home given what would
 		 * normally be a "ghost" directory.  If any page matches the given path, it'll be added.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 *
-		 * @param  string $path The path (slug) to search for posts by.
+		 * @param string $path The path (slug) to search for posts by.
 		 */
 		function add_path_parents( $path ) {
 
@@ -526,8 +558,9 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			$path = trim( $path, '/' );
 
 			/* If there's no path, return. */
-			if ( empty( $path ) )
+			if ( empty( $path ) ) {
 				return;
+			}
 
 			// process default Cherry permalinks by own way
 			if ( in_array( $path, array( 'tag', 'category' ) ) ) {
@@ -537,13 +570,13 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			/* Get parent post by the path. */
 			$post = get_page_by_path( $path );
 
-			if ( !empty( $post ) ) {
+			if ( ! empty( $post ) ) {
 				$this->add_post_parents( $post->ID );
 			} elseif ( is_null( $post ) ) {
 
 				/* Separate post names into separate paths by '/'. */
 				$path = trim( $path, '/' );
-				preg_match_all( "/\/.*?\z/", $path, $matches );
+				preg_match_all( '/\/.*?\z/', $path, $matches );
 
 				/* If matches are found for the path. */
 				if ( isset( $matches ) ) {
@@ -562,7 +595,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 							$post = get_page_by_path( trim( $path, '/' ) );
 
 							/* If a parent post is found, set the $post_id and break out of the loop. */
-							if ( !empty( $post ) && 0 < $post->ID ) {
+							if ( ! empty( $post ) && 0 < $post->ID ) {
 								$this->add_post_parents( $post->ID );
 								break;
 							}
@@ -573,9 +606,9 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		}
 
 		/**
-		 * Build front page breadcrumb items
+		 * Build front page breadcrumb items.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 */
 		public function add_front_page() {
 
@@ -604,10 +637,10 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		}
 
 		/**
-		 * Add network home link for multisite
-		 * Check if is multisite and add link to parent site to breadcrumb items
+		 * Add network home link for multisite.
+		 * Check if is multisite and add link to parent site to breadcrumb items.
 		 *
-		 * @since 4.0.0
+		 * @since 1.0.0
 		 */
 		public function add_network_home_link() {
 
@@ -632,19 +665,19 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		}
 
 		/**
-		 * Add site home link
-		 * Add site home link if is paged front page
+		 * Add site home link.
+		 * Add site home link if is paged front page.
 		 *
-		 * @since 4.0.0
+		 * @since 1.0.0
 		 */
 		public function add_site_home_link() {
 
-			$format = ( is_multisite() && !is_main_site() && true === $this->args['network'] )
+			$format = ( is_multisite() && ! is_main_site() && true === $this->args['network'] )
 						? 'link_format'
 						: 'home_format';
 
 			$url   = home_url( '/' );
-			$label = ( is_multisite() && !is_main_site() && true === $this->args['network'] )
+			$label = ( is_multisite() && ! is_main_site() && true === $this->args['network'] )
 						? get_bloginfo( 'name' )
 						: $this->args['labels']['home'];
 
@@ -652,9 +685,9 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		}
 
 		/**
-		 * Add blog page breadcrumbs item
+		 * Add blog page breadcrumbs item.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 */
 		public function add_blog_page() {
 
@@ -663,8 +696,9 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			$post    = get_page( $post_id );
 
 			// If the post has parents, add them to the trail.
-			if ( 0 < $post->post_parent )
+			if ( 0 < $post->post_parent ) {
 				$this->add_post_parents( $post->post_parent );
+			}
 
 			$url   = get_permalink( $post_id );
 			$label = get_the_title( $post_id );
@@ -680,7 +714,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		/**
 		 * Adds singular post items to the items array.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 */
 		public function add_singular_items() {
 
@@ -720,9 +754,9 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		/**
 		 * Adds a post's terms from a specific taxonomy to the items array.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 *
-		 * @param  int    $post_id The ID of the post to get the terms for.
+		 * @param int $post_id The ID of the post to get the terms for.
 		 */
 		public function add_post_terms( $post_id ) {
 
@@ -734,7 +768,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			$post_type = get_post_type( $post_id );
 
 			/* Add the terms of the taxonomy for this post. */
-			if ( !empty( $this->args['post_taxonomy'][ $post_type ] ) ) {
+			if ( ! empty( $this->args['post_taxonomy'][ $post_type ] ) ) {
 
 				$post_terms = wp_get_post_terms( $post_id, $this->args['post_taxonomy'][ $post_type ] );
 
@@ -749,9 +783,9 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		 * Gets post types by slug.  This is needed because the get_post_types() function doesn't exactly
 		 * match the 'has_archive' argument when it's set as a string instead of a boolean.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 *
-		 * @param  int    $slug  The post type archive slug to search for.
+		 * @param int $slug The post type archive slug to search for.
 		 */
 		public function get_post_types_by_slug( $slug ) {
 
@@ -761,8 +795,9 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 
 			foreach ( $post_types as $type ) {
 
-				if ( $slug === $type->has_archive || ( true === $type->has_archive && $slug === $type->rewrite['slug'] ) )
+				if ( $slug === $type->has_archive || ( true === $type->has_archive && $slug === $type->rewrite['slug'] ) ) {
 					$return[] = $type;
+				}
 			}
 
 			return $return;
@@ -771,7 +806,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		/**
 		 * Adds the items to the trail items array for taxonomy term archives.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 */
 		public function add_term_archive_items() {
 
@@ -820,13 +855,13 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 							/* Get public post types that match the rewrite slug. */
 							$post_types = $this->get_post_types_by_slug( $match );
 
-							if ( !empty( $post_types ) ) {
+							if ( ! empty( $post_types ) ) {
 
 								$post_type_object = $post_types[0];
 
 								$url  = get_post_type_archive_link( $post_type_object->name );
 								/* Add support for a non-standard label of 'archive_title' (special use case). */
-								$label = !empty( $post_type_object->labels->archive_title )
+								$label = ! empty( $post_type_object->labels->archive_title )
 											? $post_type_object->labels->archive_title
 											: $post_type_object->labels->name;
 
@@ -850,7 +885,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 
 						$url  = get_post_type_archive_link( $post_type_object->name );
 						/* Add support for a non-standard label of 'archive_title' (special use case). */
-						$label = !empty( $post_type_object->labels->archive_title )
+						$label = ! empty( $post_type_object->labels->archive_title )
 									? $post_type_object->labels->archive_title
 									: $post_type_object->labels->name;
 
@@ -858,7 +893,6 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 
 					}
 				}
-
 			}
 
 			/* If the taxonomy is hierarchical, list its parent terms. */
@@ -883,7 +917,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		/**
 		 * Adds the items to the trail items array for post type archives.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 */
 		public function add_post_type_archive_items() {
 
@@ -896,7 +930,6 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 				if ( $post_type_object->rewrite['with_front'] ) {
 					$this->add_rewrite_front_items();
 				}
-
 			}
 
 			/* Add the post type [plural] name to the trail end. */
@@ -917,7 +950,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		/**
 		 * Adds the items to the trail items array for user (author) archives.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 */
 		public function add_user_archive_items() {
 			global $wp_rewrite;
@@ -929,7 +962,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			$user_id = get_query_var( 'author' );
 
 			/* If $author_base exists, check for parent pages. */
-			if ( !empty( $wp_rewrite->author_base ) ) {
+			if ( ! empty( $wp_rewrite->author_base ) ) {
 				$this->add_path_parents( $wp_rewrite->author_base );
 			}
 
@@ -950,7 +983,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		/**
 		 * Adds the items to the trail items array for minute + hour archives.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 */
 		public function add_minute_hour_archive_items() {
 
@@ -960,7 +993,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			/* Add the minute + hour item. */
 			$label = sprintf(
 				$this->args['labels']['archive_minute_hour'],
-				get_the_time( _x( 'g:i a', 'minute and hour archives time format', 'cherry' ) )
+				get_the_time( $this->args['date_labels']['archive_minute_hour'] )
 			);
 			$this->_add_item( 'target_format', $label );
 
@@ -969,7 +1002,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		/**
 		 * Adds the items to the trail items array for minute archives.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 */
 		public function add_minute_archive_items() {
 
@@ -979,7 +1012,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			/* Add the minute item. */
 			$label = sprintf(
 				$this->args['labels']['archive_minute'],
-				get_the_time( _x( 'i', 'minute archives time format', 'cherry' ) )
+				get_the_time( $this->args['date_labels']['archive_minute'] )
 			);
 
 			$this->_add_item( 'target_format', $label );
@@ -989,7 +1022,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		/**
 		 * Adds the items to the trail items array for hour archives.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 */
 		public function add_hour_archive_items() {
 
@@ -999,7 +1032,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			/* Add the hour item. */
 			$label = sprintf(
 				$this->args['labels']['archive_hour'],
-				get_the_time( _x( 'g a', 'hour archives time format', 'cherry' ) )
+				get_the_time( $this->args['date_labels']['archive_hour'] )
 			);
 			$this->_add_item( 'target_format', $label );
 
@@ -1008,7 +1041,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		/**
 		 * Adds the items to the trail items array for day archives.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 */
 		public function add_day_archive_items() {
 
@@ -1018,17 +1051,17 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			/* Get year, month, and day. */
 			$year = sprintf(
 				$this->args['labels']['archive_year'],
-				get_the_time( _x( 'Y', 'yearly archives date format',  'cherry' ) )
+				get_the_time( $this->args['date_labels']['archive_year'] )
 			);
 
 			$month = sprintf(
 				$this->args['labels']['archive_month'],
-				get_the_time( _x( 'F', 'monthly archives date format', 'cherry' ) )
+				get_the_time( $this->args['date_labels']['archive_month'] )
 			);
 
 			$day = sprintf(
 				$this->args['labels']['archive_day'],
-				get_the_time( _x( 'j', 'daily archives date format',   'cherry' ) )
+				get_the_time( $this->args['date_labels']['archive_day'] )
 			);
 
 			/* Add the year and month items. */
@@ -1062,7 +1095,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		/**
 		 * Adds the items to the trail items array for week archives.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 */
 		public function add_week_archive_items() {
 
@@ -1072,11 +1105,11 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			/* Get the year and week. */
 			$year = sprintf(
 				$this->args['labels']['archive_year'],
-				get_the_time( _x( 'Y', 'yearly archives date format', 'cherry' ) )
+				get_the_time( $this->args['date_labels']['archive_year'] )
 			);
 			$week = sprintf(
 				$this->args['labels']['archive_week'],
-				get_the_time( _x( 'W', 'weekly archives date format', 'cherry' ) )
+				get_the_time( $this->args['date_labels']['archive_week'] )
 			);
 
 			/* Add the year item. */
@@ -1104,7 +1137,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		/**
 		 * Adds the items to the trail items array for month archives.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 */
 		public function add_month_archive_items() {
 
@@ -1114,11 +1147,11 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			/* Get the year and month. */
 			$year  = sprintf(
 				$this->args['labels']['archive_year'],
-				get_the_time( _x( 'Y', 'yearly archives date format',  'cherry' ) )
+				get_the_time( $this->args['date_labels']['archive_year'] )
 			);
 			$month = sprintf(
 				$this->args['labels']['archive_month'],
-				get_the_time( _x( 'F', 'monthly archives date format', 'cherry' ) )
+				get_the_time( $this->args['date_labels']['archive_month'] )
 			);
 
 			/* Add the year item. */
@@ -1144,7 +1177,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		/**
 		 * Adds the items to the trail items array for year archives.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 */
 		public function add_year_archive_items() {
 
@@ -1154,7 +1187,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			/* Get the year. */
 			$year = sprintf(
 				$this->args['labels']['archive_year'],
-				get_the_time( _x( 'Y', 'yearly archives date format',  'cherry' ) )
+				get_the_time( $this->args['date_labels']['archive_year'] )
 			);
 
 			/* Add the year item. */
@@ -1174,7 +1207,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		 * Adds the items to the trail items array for archives that don't have a more specific method
 		 * defined in this class.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 */
 		public function add_default_archive_items() {
 
@@ -1190,7 +1223,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		/**
 		 * Adds the items to the trail items array for search results.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 */
 		public function add_search_items() {
 
@@ -1208,8 +1241,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		/**
 		 * Adds the items to the trail items array for 404 pages.
 		 *
-		 * @since  0.6.0
-		 * @access public
+		 * @since  1.0.0
 		 * @return void
 		 */
 		public function add_404_items() {
@@ -1221,9 +1253,9 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		/**
 		 * Add post parents link to breadcrumbs items
 		 *
-		 * @since 4.0.0
+		 * @since 1.0.0
 		 *
-		 * @param integer $post_id first parent post ID
+		 * @param int $post_id first parent post ID.
 		 */
 		public function add_post_parents( $post_id ) {
 
@@ -1241,7 +1273,6 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 				);
 
 				$parents[] = sprintf( $this->args['item_format'], $item, esc_attr( $this->css['item'] ) );
-
 
 				$post = get_post( $post_id );
 				// If there's no longer a post parent, break out of the loop.
@@ -1266,9 +1297,9 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		 * The hierarchy is determined by post type's
 		 * rewrite arguments and whether it has an archive page.
 		 *
-		 * @since 4.0.0
+		 * @since 1.0.0
 		 *
-		 * @param  int    $post_id The ID of the post to get the hierarchy for.
+		 * @param  int $post_id The ID of the post to get the hierarchy for.
 		 * @return void
 		 */
 		public function add_post_hierarchy( $post_id ) {
@@ -1294,11 +1325,11 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			}
 
 			/* If there's an archive page, add it to the trail. */
-			if ( !empty( $post_type_object->has_archive ) ) {
+			if ( ! empty( $post_type_object->has_archive ) ) {
 
 				$url = get_post_type_archive_link( $post_type );
 				/* Add support for a non-standard label of 'archive_title' (special use case). */
-				$label = !empty( $post_type_object->labels->archive_title )
+				$label = ! empty( $post_type_object->labels->archive_title )
 							? $post_type_object->labels->archive_title
 							: $post_type_object->labels->name;
 
@@ -1310,7 +1341,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		 * Searches for term parents of hierarchical taxonomies.
 		 * This function is similar to the WordPress function get_category_parents() but handles any type of taxonomy.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 *
 		 * @param  int    $term_id  ID of the term to get the parents of.
 		 * @param  string $taxonomy Name of the taxonomy for the given term.
@@ -1346,15 +1377,16 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			}
 
 			/* If we have parent terms, reverse the array to put them in the proper order for the trail. */
-			if ( !empty( $parents ) ) {
+			if ( ! empty( $parents ) ) {
 				$this->items = array_merge( $this->items, array_reverse( $parents ) );
 			}
 		}
 
 		/**
-		 * Service function to process single tag item
-		 * @param  string $tag     single tag
-		 * @param  int    $post_id processed post ID
+		 * Service function to process single tag item.
+		 *
+		 * @param  string $tag     Single tag.
+		 * @param  int    $post_id Processed post ID.
 		 */
 		function _process_single_tag( $tag, $post_id ) {
 
@@ -1369,7 +1401,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 				$url   = get_year_link( get_the_time( 'Y', $post_id ) );
 				$label = sprintf(
 					$this->args['labels']['archive_year'],
-					get_the_time( _x( 'Y', 'yearly archives date format', 'cherry' ) )
+					get_the_time( $this->args['date_labels']['archive_year'] )
 				);
 
 				$this->_add_item( 'link_format', $label, $url );
@@ -1380,7 +1412,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 				$url   = get_month_link( get_the_time( 'Y', $post_id ), get_the_time( 'm', $post_id ) );
 				$label = sprintf(
 					$this->args['labels']['archive_month'],
-					get_the_time( _x( 'F', 'monthly archives date format', 'cherry' ) )
+					get_the_time( $this->args['date_labels']['archive_month'] )
 				);
 
 				$this->_add_item( 'link_format', $label, $url );
@@ -1393,7 +1425,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 				);
 				$label = sprintf(
 					$this->args['labels']['archive_day'],
-					get_the_time( _x( 'j', 'daily archives date format', 'cherry' ) )
+					get_the_time( $this->args['date_labels']['archive_day'] )
 				);
 
 				$this->_add_item( 'link_format', $label, $url );
@@ -1442,7 +1474,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		 * it for the 'post' post type. In the future, maybe it'll handle a wider variety of possibilities,
 		 * especially for custom post types.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 *
 		 * @param  int    $post_id ID of the post whose parents we want.
 		 * @param  string $path    Path of a potential parent page.
@@ -1477,9 +1509,9 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		/**
 		 * Try to escape font icon from passed label and return it if found, or return label
 		 *
-		 * @since  4.0.4
-		 * @param  string      $label    passed label.
-		 * @param  bool|string $fallback optional fallback text to add inside icon tag/
+		 * @since  1.0.0
+		 * @param  string      $label    Passed label.
+		 * @param  bool|string $fallback Optional fallback text to add inside icon tag.
 		 * @return string
 		 */
 		public function prepare_label( $label, $fallback = false ) {
@@ -1529,7 +1561,5 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 
 			return self::$instance;
 		}
-
 	}
-
 }

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Class Cherry Core
+ * Version: 0.9.4
  *
  * @package    Cherry_Framework
  * @subpackage Class
@@ -16,6 +18,9 @@ if ( ! defined( 'WPINC' ) ) {
 
 if ( ! class_exists( 'Cherry_Core' ) ) {
 
+	/**
+	 * Class Cherry Core
+	 */
 	class Cherry_Core {
 
 		/**
@@ -25,13 +30,6 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @var   object
 		 */
 		private static $instance = null;
-
-		/**
-		 * Core version.
-		 *
-		 * @var string
-		 */
-		public $core_version = '0.9.4';
 
 		/**
 		 * Core settings.
@@ -48,10 +46,10 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		public $modules = array();
 
 		/**
-		* Cherry_Core constructor
-		*
-		* @since 1.0.0
-		*/
+		 * Cherry_Core constructor
+		 *
+		 * @since 1.0.0
+		 */
 		public function __construct( $settings = array() ) {
 
 			$default_settings = array(
@@ -61,6 +59,13 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			);
 
 			$this->settings = array_merge( $default_settings, $settings );
+
+			// Cherry_Toolkit module should be loaded by default
+			if ( ! isset( $this->settings['modules']['cherry-toolkit'] ) ) {
+				$this->settings['modules']['cherry-toolkit'] = array(
+					'autoload' => true,
+				);
+			}
 
 			$this->autoload_modules();
 
@@ -82,12 +87,14 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 
 				$hook = $module . '-module';
 
+				// Get module priority
+				$priority = $this->get_module_priority( $module );
+
 				// Attach all modules to apropriate hooks.
-				add_filter( $hook, array( $this, 'pre_load' ), $settings['priority'], 3 );
+				add_filter( $hook, array( $this, 'pre_load' ), $priority, 3 );
 
 				// And immediately try to call hooks for autoloaded modules.
 				if ( $this->is_module_autoload( $module ) ) {
-
 					$arg = ! empty( $settings['args'] ) ? $settings['args'] : array();
 
 					/**
@@ -106,11 +113,11 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		/**
 		 * Init sinle module
 		 *
-		 * @param  string $module module slug.
+		 * @param  [type] $module module slug.
 		 * @param  array  $args   Module arguments array.
 		 *
 		 * @since  1.0.0
-		 * @return void
+		 * @return mixed
 		 */
 		public function init_module( $module, $args = array() ) {
 			$hook = $module . '-module';
@@ -124,11 +131,10 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @since  1.0.0
 		 * @param bool|object $module_instance Module instnce to return, false at start.
 		 * @param array       $args            Module rguments.
-		 * @param Cherry_Core $this            Current core object.
+		 * @param Cherry_Core $core_instance            Current core object.
 		 * @return object|bool
 		 */
 		public function pre_load( $module_instance, $args = array(), $core_instance ) {
-
 			if ( $this !== $core_instance ) {
 				return $module_instance;
 			}
@@ -144,7 +150,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		/**
 		 * Check module autoload.
 		 *
-		 * @param  string  $module module slug.
+		 * @param  [type] $module module slug.
 		 * @return boolean
 		 */
 		public function is_module_autoload( $module ) {
@@ -159,13 +165,12 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		/**
 		 * Include module.
 		 *
-		 * @param  string $module module slug.
+		 * @param  [type] $module module slug.
 		 *
 		 * @since  1.0.0
 		 * @return bool
 		 */
 		public function load_module( $module ) {
-
 			$class_name = $this->get_class_name( $module );
 
 			if ( class_exists( $class_name ) ) {
@@ -184,7 +189,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		/**
 		 * Get module instance.
 		 *
-		 * @param  string $module module slug.
+		 * @param  [type] $module module slug.
 		 *
 		 * @since  1.0.0
 		 * @return object
@@ -204,7 +209,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		/**
 		 * Get class name by module slug.
 		 *
-		 * @param  string $slug Module slug.
+		 * @param  [type] $slug Module slug.
 		 *
 		 * @since  1.0.0
 		 * @return string       Class name
@@ -220,11 +225,63 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * Get path to main file for passed module
 		 *
 		 * @since  1.0.0
-		 * @param  string $module module slug.
+		 * @param  [type] $module module slug.
 		 * @return string
 		 */
 		public function get_module_path( $module ) {
 			return $this->get_core_dir() . '/modules/' . $module . '/' . $module . '.php';
+		}
+
+		/**
+		 * Get module priority from it's version.
+		 * Version information should be provided as a value stored in the header notation.
+		 *
+		 * @link   https://developer.wordpress.org/reference/functions/get_file_data/
+		 *
+		 * @since  1.0.0
+		 * @param  [string]  $module   module slug or path.
+		 * @param  [boolean] $is_path  set this as true, if `$module` contains a path.
+		 * @return [integer]
+		 */
+		public function get_module_priority( $module, $is_path = false ) {
+
+			// Default phpDoc headers
+			$default_headers = array(
+				'version' => 'Version',
+			);
+
+			// Maximum version number (major, minor, patch)
+			$max_version = array(
+				99,
+				99,
+				999,
+			);
+
+			// If `$module` is a slug, get module path
+			if ( ! $is_path ) {
+				$module = $this->get_module_path( $module );
+			}
+
+			$data    = get_file_data( $module , $default_headers );
+			$version = '1.0.0';
+
+			// Check if version string has a valid value
+			if ( isset( $data['version'] ) &&
+			 		 false !== strpos( $data['version'], '.' ) ) {
+				// Clean the version string
+	 			preg_match( '/[\d\.]+/', $data['version'], $version );
+	 			$version = $version[0];
+			}
+
+			// Convert version into integer
+			$parts = explode( '.', $version );
+
+			// Calculate priority
+			foreach ( $parts as $index => $part ) {
+				$parts[ $index ] = $max_version[ $index ] - (int) $part;
+			}
+
+			return (int) join( '', $parts );
 		}
 
 		/**
@@ -233,7 +290,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @since  1.0.0
 		 * @return string
 		 */
-		public function get_core_dir(){
+		public function get_core_dir() {
 			return trailingslashit( $this->settings['base_dir'] );
 		}
 
@@ -243,7 +300,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @since  1.0.0
 		 * @return string
 		 */
-		public function get_core_url(){
+		public function get_core_url() {
 			return trailingslashit( $this->settings['base_url'] );
 		}
 
@@ -262,7 +319,5 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 
 			return self::$instance;
 		}
-
 	}
-
 }

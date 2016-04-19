@@ -1,12 +1,21 @@
 <?php
 /**
+ * Class for the building ui elements
+ * Module Name: UI Elements
+ * Description:
+ * Version: 1.0.0
+ * Author: Cherry Team
+ * Author URI: http://www.cherryframework.com/
+ * License: GPLv3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @package    Cherry_Framework
- * @subpackage Class
+ * @subpackage Modules
+ * @version    1.0.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @license    http://www.gnu.org/licenses/gpl-3.0.html
  */
 
 // If this file is called directly, abort.
@@ -16,6 +25,9 @@ if ( ! defined( 'WPINC' ) ) {
 
 if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 
+	/**
+	 * Class for the building ui elements
+	 */
 	class Cherry_UI_Elements {
 
 		/**
@@ -49,14 +61,31 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		 * @var array
 		 */
 		private $args = array(
-			'ui_elements'	=> array( 'text', 'textarea', 'select', 'checkbox', 'radio', 'colorpicker', 'media', 'stepper', 'switcher', 'slider' ),
+			'ui_elements'	=> array(
+				'text',
+				'number',
+				'textarea',
+				'select',
+				'checkbox',
+				'radio',
+				'colorpicker',
+				'media',
+				'stepper',
+				'switcher',
+				'slider',
+				'collection',
+				'chooseicons',
+			),
 		);
 
 		/**
-		* Cherry_Test_Builder constructor
-		*
-		* @since 1.0.0
-		*/
+		 * Cherry_Test_Builder constructor
+		 *
+		 * @param object $core core.
+		 * @param array  $args arguments.
+		 *
+		 * @since 1.0.0
+		 */
 		function __construct( $core, $args ) {
 
 			$this->module_directory = $core->settings['base_dir'] . '/modules/cherry-ui-elements';
@@ -68,12 +97,14 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 
 			// Load admin assets.
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ), 9 );
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_admin_assets' ), 9 );
 		}
 
 		/**
 		 * Get ui element instance.
 		 *
-		 * @param  string ui_element slug.
+		 * @param [type] $ui_slug ui element.
+		 * @param array  $args arguments.
 		 *
 		 * @since  1.0.0
 		 * @return object
@@ -96,7 +127,6 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 				echo '<p>Class <b>' . $ui_class_name . '</b> not exist!</p>';
 				return false;
 			}
-
 			return new $ui_class_name( $args );
 		}
 
@@ -106,10 +136,18 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		 * @return void
 		 */
 		public function ui_elements_require() {
+			// Add I_UI interface.
+			if ( ! interface_exists( 'I_UI' ) ) {
+				require_once( __DIR__ . '/i-ui.php' );
+			}
+
+			if ( ! class_exists( 'UI_Element' ) ) {
+				require_once( __DIR__ . '/ui-element.php' );
+			}
 
 			if ( ! empty( $this->args['ui_elements'] ) ) {
 				foreach ( $this->args['ui_elements'] as $ui_element ) {
-					require_once( $this->module_directory . '/inc/ui-elements/ui-' . $ui_element . '/ui-' . $ui_element . '.php' );
+					require_once( __DIR__ . '/inc/ui-elements/ui-' . $ui_element . '/ui-' . $ui_element . '.php' );
 				}
 			}
 		}
@@ -120,11 +158,12 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		 * @since 1.0.0
 		 */
 		public function enqueue_admin_assets() {
-
 			if ( ! empty( $this->args['ui_elements'] ) ) {
 				foreach ( $this->args['ui_elements'] as $ui_element ) {
 					$ui_class_name = 'UI_' . ucwords( $ui_element );
-					$ui_class_name::enqueue_assets();
+					if ( in_array( 'I_UI', class_implements( $ui_class_name ) ) ) {
+						$ui_class_name::enqueue_assets();
+					}
 				}
 			}
 		}
@@ -141,4 +180,3 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 	}
 }
 
-?>

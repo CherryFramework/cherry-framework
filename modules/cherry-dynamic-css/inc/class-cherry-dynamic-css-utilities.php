@@ -31,9 +31,9 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * Make passed color darken.
 		 *
 		 * @since  1.0.0
-		 * @param  string  $color  HEX or RGB(A) color value.
-		 * @param  float   $darken Darken percent (0-100).
-		 * @return string          Processed color.
+		 * @param  [string] $color HEX or RGB(A) color value.
+		 * @param  [float]  $darken Darken percent (0-100).
+		 * @return string  Processed color.
 		 */
 		public function color_darken( $color, $darken = 0 ) {
 
@@ -54,9 +54,9 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 			$percent = $prepared_data['percent'];
 
 			// Calc darken vals.
-			$r = round( $r - 255*$percent, 0 );
-			$g = round( $g - 255*$percent, 0 );
-			$b = round( $b - 255*$percent, 0 );
+			$r = round( $r - 255 * $percent, 0 );
+			$g = round( $g - 255 * $percent, 0 );
+			$b = round( $b - 255 * $percent, 0 );
 
 			$r = $r < 0 ? 0 : $r;
 			$g = $g < 0 ? 0 : $g;
@@ -73,9 +73,9 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * Make passed color lighten.
 		 *
 		 * @since  1.0.0
-		 * @param  string  $color   HEX or RGB(A) color value.
-		 * @param  float   $lighten Lighten percent (0-100).
-		 * @return string           Processed color.
+		 * @param  [string] $color HEX or RGB(A) color value.
+		 * @param  [float]  $lighten Lighten percent (0-100).
+		 * @return string  Processed color.
 		 */
 		public function color_lighten( $color, $lighten = 0 ) {
 
@@ -96,9 +96,9 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 			$percent = $prepared_data['percent'];
 
 			// Calc lighten vals
-			$r = round( $r + 255*$percent, 0 );
-			$g = round( $g + 255*$percent, 0 );
-			$b = round( $b + 255*$percent, 0 );
+			$r = round( $r + 255 * $percent, 0 );
+			$g = round( $g + 255 * $percent, 0 );
+			$b = round( $b + 255 * $percent, 0 );
 
 			$r = $r > 255 ? 255 : $r;
 			$g = $g > 255 ? 255 : $g;
@@ -115,8 +115,8 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * Convert passed color into RGBa with passed opacity.
 		 *
 		 * @since  1.0.0
-		 * @param  string  $color   Color to convert.
-		 * @param  integer $opacity Opacity.
+		 * @param  [string]  $color   Color to convert.
+		 * @param  [integer] $opacity Opacity.
 		 * @return string
 		 */
 		public function color_alpha( $color, $opacity = 100 ) {
@@ -146,9 +146,9 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * 2nd selected if passed is light, so it must be darken.
 		 *
 		 * @since  1.0.0
-		 * @param  string $color     Color to get contrast for.
-		 * @param  string $if_dark   Return this if we had dark color.
-		 * @param  string $if_light  Return this if we had light color.
+		 * @param  [string] $color     Color to get contrast for.
+		 * @param  [string] $if_dark   Return this if we had dark color.
+		 * @param  [string] $if_light  Return this if we had light color.
 		 * @return string            Color.
 		 */
 		public function color_contrast( $color, $if_dark = '#ffffff', $if_light = '#000000' ) {
@@ -184,8 +184,8 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * and change percentage.
 		 *
 		 * @since  1.0.0
-		 * @param  string $color   HEX or RGB(A) color value.
-		 * @param  float  $percent Modify percent (0-100).
+		 * @param  [string] $color   HEX or RGB(A) color value.
+		 * @param  [float]  $percent Modify percent (0-100).
 		 * @return array           Prepared color and modify percent.
 		 */
 		public function prepare_color_mod( $color, $percent = 0 ) {
@@ -193,7 +193,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 			$is_rgb  = ( false !== strpos( $color, 'rgb' ) && false === $is_rgba ) ? true : false;
 			$is_hex  = ( false === $is_rgba && false === $is_rgb ) ? true : false;
 
-			$percent = round( (double)$percent / 100, 4 );
+			$percent = round( ( double ) $percent / 100, 4 );
 
 			if ( $is_hex && '#' == $color[0] ) {
 				$color = substr( $color, 1 );
@@ -250,8 +250,8 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * If passed multiplie images - returns retina ready CSS.
 		 *
 		 * @since  1.0.0
-		 * @param  string $selector CSS selector to apply bg for.
-		 * @param  array  $data     data-array from options.
+		 * @param  [string] $selector CSS selector to apply bg for.
+		 * @param  [array]  $data     data-array from options.
 		 * @return string
 		 */
 		public function get_background_css( $selector, $data ) {
@@ -277,7 +277,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 
 			$images = explode( ',', $data['image'] );
 
-			$property_format = "%s {background-image: url(%s);%s}";
+			$property_format = "%1$s {background-image: url(%2$s);%3$s}";
 
 			if ( 1 == count( $images ) && wp_attachment_is_image( $images[0] ) ) {
 
@@ -316,7 +316,6 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 				} else {
 					$img1x = $img_url;
 				}
-
 			}
 
 			$bg1 = sprintf( $property_format, $selector, $img1x, $standard_bg );
@@ -332,8 +331,8 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * Always adds hash to color use `sanitize_hex_color` if exist.
 		 *
 		 * @since  1.0.0
-		 * @param  string  $color  Maybe HEX color.
-		 * @return string|null     Sanitized color.
+		 * @param  [string] $color Maybe HEX color.
+		 * @return string|null Sanitized color.
 		 */
 		public function sanitize_hex_color( $color ) {
 			$color = ltrim( $color, '#' );
@@ -348,7 +347,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 			}
 
 			// 3 or 6 hex digits, or the empty string.
-			if ( preg_match('|^#([A-Fa-f0-9]{3}){1,2}$|', $color ) ) {
+			if ( preg_match( '|^#([A-Fa-f0-9]{3}){1,2}$|', $color ) ) {
 				return $color;
 			}
 
@@ -359,7 +358,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * Implode background properties array into CSS string.
 		 *
 		 * @since  1.0.0
-		 * @param  array  $data Background data-array.
+		 * @param  [array] $data Background data-array.
 		 * @return string       Set of background rules.
 		 */
 		public function prepare_background( $data ) {
@@ -399,9 +398,9 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * Implode typography data array from options into CSS string.
 		 *
 		 * @since  1.0.0
-		 * @param  array  $data Typography parameters array from options.
-		 * @param  array  $mod  Optional parameter - pass function name and arg to modify values inside typography array.
-		 * @return string       Font, letter-spacing, text-align, color CSS properties string.
+		 * @param  [array] $data Typography parameters array from options.
+		 * @param  [array] $mod Optional parameter - pass function name and arg to modify values inside typography array.
+		 * @return string Font, letter-spacing, text-align, color CSS properties string.
 		 */
 		public function cherry_get_typography_css( $data, $mod = array() ) {
 
@@ -484,8 +483,8 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * Prepare font family for passing into typography function.
 		 *
 		 * @since  4.0.5
-		 * @param  string &$item Array item.
-		 * @param  int    $index Array item index.
+		 * @param  [string] $item Array item.
+		 * @param  [int]    $index Array item index.
 		 * @return void
 		 */
 		public function typography_prepare_family( &$item, $index ) {
@@ -500,9 +499,9 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * Get box model CSS from layout editor option.
 		 *
 		 * @since  1.0.0
-		 * @param  array  $data Layout parameters array from options.
-		 * @param  array  $mod  Optional parameter - pass function name and arg to modify values inside layout array.
-		 * @return string       Indents, border etc.
+		 * @param  [array] $data Layout parameters array from options.
+		 * @param  [array] $mod Optional parameter - pass function name and arg to modify values inside layout array.
+		 * @return string Indents, border etc.
 		 */
 		public function cherry_get_box_model_css( $data, $mod = array() ) {
 
@@ -537,7 +536,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 
 				$parser_data = array(
 					'prefix'  => '',
-					'allowed' => $box_defaults
+					'allowed' => $box_defaults,
 				);
 
 				array_walk( $data['position'], 'cherry_prepare_box_item', $parser_data );
@@ -595,8 +594,8 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * Service function to grab CSS indents from data array into string.
 		 *
 		 * @since  1.0.0
-		 * @param  array  $data     data-array.
-		 * @param  string $property CSS property.
+		 * @param  [array]  $data     data-array.
+		 * @param  [string] $property CSS property.
 		 * @return string
 		 */
 		public function cherry_prepare_css_indents( $data, $property ) {
@@ -636,9 +635,9 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * Service callback function for.
 		 *
 		 * @since  1.0.0
-		 * @param  string $item Position value.
-		 * @param  string $key  Position key.
-		 * @param  array  $data Array of allowed positions and property prefix.
+		 * @param  [string] $item Position value.
+		 * @param  [string] $key  Position key.
+		 * @param  [array]  $data Array of allowed positions and property prefix.
 		 * @return void
 		 */
 		public function cherry_prepare_box_item( &$item, $key, $data ) {
@@ -663,14 +662,41 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		}
 
 		/**
+		 * Prepare font family to the using in CSS.
+		 *
+		 * @since  1.0.1
+		 * @param  [string] $font_family Font name.
+		 * @return string
+		 */
+		public function typography_font_family( $font_family ) {
+			$font_family = trim( $font_family );
+			$family_args = explode( ',', $font_family );
+
+			$names = '';
+			$type  = end( $family_args );
+			$type  = trim( $type );
+
+			for ( $i = 0; $i < count( $family_args ) - 1; $i++ ) {
+
+				if ( strpos( $family_args[ $i ], ' ' ) ) {
+					$names .= "'" . $family_args[ $i ] . "',";
+				} else {
+					$names .= $family_args[ $i ] . ',';
+				}
+			}
+
+			return sprintf( '%1$s, %2$s', trim( $names, ',' ), $type );
+		}
+
+		/**
 		 * Make float size.
 		 *
 		 * @since  1.0.0
-		 * @param  double $size
-		 * @param  string $operation Arithmetic operator (multiple, addition).
-		 * @param  string $func      Function name (floor, ceil, round, abs).
-		 * @param  double $percent
-		 * @return double            Size.
+		 * @param  [double] $size Font size.
+		 * @param  [string] $operation Arithmetic operator (multiple, addition).
+		 * @param  [string] $func Function name (floor, ceil, round, abs).
+		 * @param  [double] $percent Font size in percent.
+		 * @return double Size.
 		 */
 		public function typography_size( $size, $operation = ' ', $func = 'round', $percent ) {
 
@@ -678,26 +704,26 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 				return false;
 			}
 
-			switch( $operation ) {
-				case 'multiple':
-					$size = (double)$size * (double)$percent;
+			switch ( $operation ) {
+				case 'multiple' :
+					$size = ( double ) $size * ( double ) $percent;
 					break;
-				case 'addition':
-					$size = (double)$size + (double)$percent;
+				case 'addition' :
+					$size = ( double ) $size + ( double ) $percent;
 					break;
 			}
 
-			switch( $func ) {
-				case 'floor':
+			switch ( $func ) {
+				case 'floor' :
 					$size = floor( $size );
 					break;
-				case 'ceil':
+				case 'ceil' :
 					$size = ceil( $size );
 					break;
-				case 'round':
+				case 'round' :
 					$size = round( $size );
 					break;
-				case 'abs':
+				case 'abs' :
 					$size = abs( $size );
 					break;
 			}
@@ -709,8 +735,8 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * Build a CSS-rule.
 		 *
 		 * @since  1.0.0
-		 * @param  string|int $value CSS-proterty value.
-		 * @param  string     $rule  CSS-proterty name.
+		 * @param  [string|int] $value CSS-proterty value.
+		 * @param  [string]     $rule  CSS-proterty name.
 		 * @return string            CSS-rule.
 		 */
 		public function empty_value( $value, $rule ) {
@@ -719,12 +745,12 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 				return;
 			}
 
-			echo $rule . ": " . $value;
+			echo $rule . ': ' . $value;
 
 			if ( is_numeric( $value ) ) {
-				echo "px; ";
+				echo 'px; ';
 			} else {
-				echo"; ";
+				echo '; ';
 			}
 		}
 
@@ -732,9 +758,9 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * Set element emphasis.
 		 *
 		 * @since 1.0.0
-		 * @param string $parent   Parent selector.
-		 * @param string $color    Color.
-		 * @param string $property To define.
+		 * @param [string] $parent   Parent selector.
+		 * @param [string] $color    Color.
+		 * @param [string] $property To define.
 		 */
 		public function element_emphasis( $parent, $color, $property ) {
 			$result  = $parent . ' {' . $property . ':' . $color . ';}';
@@ -747,8 +773,8 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * Return width value for container.
 		 *
 		 * @since  1.0.0
-		 * @param  int   $container_width A container width value.
-		 * @param  int   $element_width   Some-block (parent-block for container) width value.
+		 * @param  [int] $container_width A container width value.
+		 * @param  [int] $element_width Some-block (parent-block for container) width value.
 		 * @return int                    Width value.
 		 */
 		public function container_width_compare( $container_width, $element_width ) {
@@ -759,8 +785,8 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * Sum of $a and $b.
 		 *
 		 * @since  1.0.0
-		 * @param  int $a Operand 1.
-		 * @param  int $b Operand 2.
+		 * @param  [int] $a Operand 1.
+		 * @param  [int] $b Operand 2.
 		 * @return int    Addition.
 		 */
 		public function simple_sum( $a, $b ) {
@@ -771,8 +797,8 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		 * Difference of $a and $b.
 		 *
 		 * @since  1.0.0
-		 * @param  int $a Operand 1.
-		 * @param  int $b Operand 2.
+		 * @param  [int] $a Operand 1.
+		 * @param  [int] $b Operand 2.
 		 * @return int    Subtraction.
 		 */
 		public function simple_diff( $a, $b ) {

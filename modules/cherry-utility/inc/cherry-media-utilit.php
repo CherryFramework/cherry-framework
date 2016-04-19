@@ -1,5 +1,6 @@
 <?php
 /**
+ * Class Cherry Media Utilit
  *
  * @package    Cherry_Framework
  * @subpackage Class
@@ -10,23 +11,25 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 
+	/**
+	 * Class Cherry Media Utilit
+	 */
 	class Cherry_Media_Utilit extends Cherry_Satellite_Utilit {
 		/**
 		 * Get post image.
 		 *
- 		 * @since  1.0.0
 		 * @return string
 		 */
-		public function get_image( $args = array(), $type = 'post', $ID = 0 ) {
-			$object = call_user_func( array( $this, 'get_' . $type . '_object' ), $ID );
+		public function get_image( $args = array(), $type = 'post', $id = 0 ) {
+			$object = call_user_func( array( $this, 'get_' . $type . '_object' ), $id );
 
-			if ( 'post' === $type && empty($object->ID) || 'term' === $type && empty($object->term_id) ){
+			if ( 'post' === $type && empty( $object->ID ) || 'term' === $type && empty( $object->term_id ) ) {
 				return '';
 			}
 
@@ -48,25 +51,25 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 
 			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
 				if ( 'post' === $type ) {
-					$ID = $object->ID;
-					$thumbnail_id = get_post_thumbnail_id( $ID );
+					$id = $object->ID;
+					$thumbnail_id = get_post_thumbnail_id( $id );
 					$alt = esc_attr( $object->post_title );
 					$link = $this->get_post_permalink();
-				}else{
-					$ID = $object->term_id;
-					$thumbnail_id = get_term_meta( $ID, $this->args['meta_key']['term_thumb'] , true );
+				} else {
+					$id = $object->term_id;
+					$thumbnail_id = get_term_meta( $id, $this->args['meta_key']['term_thumb'] , true );
 					$alt = esc_attr( $object->name );
-					$link = $this->get_term_permalink( $ID );
+					$link = $this->get_term_permalink( $id );
 				}
 
-				$size		= wp_is_mobile() ? $args[ 'mobile_size' ] : $args[ 'size' ] ;
+				$size		= wp_is_mobile() ? $args['mobile_size'] : $args['size'];
 				$size_array	= $this->get_thumbnail_size_array( $size );
 
 				if ( $thumbnail_id ) {
 					$src = wp_get_attachment_image_url( $thumbnail_id, $size );
 				} elseif ( filter_var( $args['placeholder'], FILTER_VALIDATE_BOOLEAN ) ) {
 					// Place holder defaults attr
-					$title = ( $args[ 'placeholder_title' ] ) ? $args[ 'placeholder_title' ] : $size_array['width'] . 'x' . $size_array['height'] ;
+					$title = ( $args['placeholder_title'] ) ? $args['placeholder_title'] : $size_array['width'] . 'x' . $size_array['height'] ;
 					$attr = array(
 						'width'			=> $size_array['width'],
 						'height'		=> $size_array['height'],
@@ -98,10 +101,10 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 		 * @since  1.0.0
 		 * @return string
 		 */
-		public function get_video( $args = array(), $ID = 0 ) {
-			$object = $this->get_post_object( $ID );
+		public function get_video( $args = array(), $id = 0 ) {
+			$object = $this->get_post_object( $id );
 
-			if ( empty( $object->ID ) ){
+			if ( empty( $object->ID ) ) {
 				return '';
 			}
 
@@ -116,21 +119,21 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 			$html = '';
 
 			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
-				$size= wp_is_mobile() ? $args[ 'mobile_size' ] : $args[ 'size' ] ;
+				$size = wp_is_mobile() ? $args['mobile_size'] : $args['size'];
 				$size_array = $this->get_thumbnail_size_array( $size );
 				$video_url = wp_extract_urls( $object->post_content );
 
-				if( empty( $video_url ) || !$video_url ){
+				if ( empty( $video_url ) || ! $video_url ) {
 					return;
 				}
 
-				$html = wp_oembed_get( $video_url[ 0 ], array( 'width' => $size_array['width'] ) );
+				$html = wp_oembed_get( $video_url[0], array( 'width' => $size_array['width'] ) );
 
-				if( !$html ){
+				if ( ! $html ) {
 					$post_thumbnail_id = get_post_thumbnail_id( $object->ID );
 					$poster = wp_get_attachment_image_url( $post_thumbnail_id, $size );
 
-					$html = wp_video_shortcode( array( 'src' => $video_url[ 0 ], 'width' => '100%', 'height' => '100%', 'poster' => $poster ) );
+					$html = wp_video_shortcode( array( 'src' => $video_url[0], 'width' => '100%', 'height' => '100%', 'poster' => $poster ) );
 				}
 			}
 

@@ -1,5 +1,6 @@
 <?php
 /**
+ * Class Cherry Satellite Utilit
  *
  * @package    Cherry_Framework
  * @subpackage Class
@@ -10,12 +11,15 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 
+	/**
+	 * Class Cherry Satellite Utilit
+	 */
 	class Cherry_Satellite_Utilit {
 
 		/**
@@ -27,10 +31,10 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		public $args = null;
 
 		/**
-		* Cherry_Satellite_Utilit constructor
-		*
-		* @since 1.0.0
-		*/
+		 * Cherry_Satellite_Utilit constructor
+		 *
+		 * @since 1.0.0
+		 */
 		function __construct( $module ) {
 			$this->args = $module->args;
 		}
@@ -41,8 +45,8 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * @since  1.0.0
 		 * @return object
 		 */
-		public function get_post_object( $ID = 0 ) {
-			return get_post( $ID );
+		public function get_post_object( $id = 0 ) {
+			return get_post( $id );
 		}
 
 		/**
@@ -51,8 +55,8 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * @since  1.0.0
 		 * @return object
 		 */
-		public function get_term_object( $ID = 0 ) {
-			return get_term( $ID );
+		public function get_term_object( $id = 0 ) {
+			return get_term( $id );
 		}
 
 		/**
@@ -71,8 +75,8 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * @since  1.0.0
 		 * @return string
 		 */
-		public function get_term_permalink( $ID = 0 ) {
-			return esc_url( get_category_link( $ID ) );
+		public function get_term_permalink( $id = 0 ) {
+			return esc_url( get_category_link( $id ) );
 		}
 
 		/**
@@ -81,9 +85,8 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * @since  1.0.0
 		 * @return string
 		 */
-
-		public function cut_text( $text = '', $length = 0, $trimmed_type = 'word' , $after ) {
-			$length = ( int ) $length;
+		public function cut_text( $text = '', $length = 0, $trimmed_type = 'word', $after ) {
+			$length = (int) $length;
 
 			if ( $length ) {
 				$text = strip_shortcodes( $text );
@@ -92,16 +95,16 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 
 				if ( 'word' === $trimmed_type ) {
 					$text = wp_trim_words( $text, $length, $after );
-				} else{
+				} else {
 					$text = wp_html_excerpt( $text, $length, $after );
 				}
-			 }
+			}
 
 			return $text;
 		}
 
 		/**
-		 * get array image size
+		 * Get array image size
 		 *
 		 * @since  1.0.0
 		 * @return array
@@ -109,11 +112,10 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		public function get_thumbnail_size_array( $size ) {
 			global $_wp_additional_image_sizes;
 			$size_array = array();
-
-			if( array_key_exists ( $size, $_wp_additional_image_sizes ) ){
+			if ( array_key_exists( $size, $_wp_additional_image_sizes ) ) {
 				$size_array = $_wp_additional_image_sizes[ $size ];
-			}else {
-				$size_array = $_wp_additional_image_sizes[ 'post-thumbnail' ];
+			} else {
+				$size_array = $_wp_additional_image_sizes['post-thumbnail'];
 			}
 
 			return $size_array;
@@ -128,7 +130,7 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		public function output_method( $content = '', $echo = false ) {
 			if ( ! filter_var( $echo, FILTER_VALIDATE_BOOLEAN ) ) {
 				return $content;
-			}else{
+			} else {
 				echo $content;
 			}
 		}
@@ -139,12 +141,12 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * Return post terms.
 		 *
 		 * @since  1.0.0
-		 * @param string $tax - category, post_tag, post_format
-		 * @param string $key - slug, term_id
+		 * @param [type] $tax - category, post_tag, post_format.
+		 * @param [type] $key - slug, term_id.
 		 * @return array
 		 */
 		public function get_terms_array( $tax = 'category', $key = 'slug' ) {
-			$all_terms = ( array ) get_terms( $tax, array( 'hide_empty' => 0, 'hierarchical' => 0 ) );
+			$all_terms = (array) get_terms( $tax, array( 'hide_empty' => 0, 'hierarchical' => 0 ) );
 
 			foreach ( $all_terms as $term ) {
 				$terms[ $term->$key ] = $term->name;

@@ -1,13 +1,21 @@
 <?php
 /**
- * Google fonts enqueue module
+ *
+ * Module Name: Google Fonts Loader
+ * Description: Enqueue Google fonts
+ * Version: 1.0.0
+ * Author: Cherry Team
+ * Author URI: http://www.cherryframework.com/
+ * License: GPLv3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @package    Cherry_Framework
- * @subpackage Class
+ * @subpackage Modules
+ * @version    1.0.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @license    http://www.gnu.org/licenses/gpl-3.0.html
  */
 
 // If this file is called directly, abort.
@@ -66,6 +74,7 @@ if ( ! class_exists( 'Cherry_Google_Fonts_Loader' ) ) {
 
 		/**
 		 * Array of stored google fonts data
+		 *
 		 * @var array
 		 */
 		public $fonts_data = array();
@@ -133,7 +142,6 @@ if ( ! class_exists( 'Cherry_Google_Fonts_Loader' ) ) {
 				if ( ! isset( $wp_customize ) ) {
 					set_transient( 'cherry_google_fonts_url', $font_url, WEEK_IN_SECONDS );
 				}
-
 			}
 
 			return $font_url;
@@ -215,7 +223,7 @@ if ( ! class_exists( 'Cherry_Google_Fonts_Loader' ) ) {
 		 * Get single typography option value from database and store it in object property
 		 *
 		 * @since  1.0.0
-		 * @param  string $font option name to get from database
+		 * @param  [type] $font option name to get from database.
 		 */
 		public function add_font( $font ) {
 
@@ -236,13 +244,6 @@ if ( ! class_exists( 'Cherry_Google_Fonts_Loader' ) ) {
 
 			$load_style = $this->get_setting( $font['weight'] );
 			$font_style = $this->get_setting( $font['style'] );
-
-			// Fix text weight values
-			foreach ( array( 'normal' => '400', 'bold' => '600' ) as $text => $num ) {
-				if ( $text === $load_style ) {
-					$load_style = $num;
-				}
-			}
 
 			if ( 'italic' === $font_style ) {
 				$load_style .= $font_style;
@@ -276,7 +277,7 @@ if ( ! class_exists( 'Cherry_Google_Fonts_Loader' ) ) {
 		 * Add new font property to existaing properties array
 		 *
 		 * @since 1.0.0
-		 * @param string $new      property to add.
+		 * @param [type] $new      property to add.
 		 * @param array  $existing existing properties.
 		 */
 		public function add_font_prop( $new, $existing ) {
@@ -319,7 +320,6 @@ if ( ! class_exists( 'Cherry_Google_Fonts_Loader' ) ) {
 				if ( empty( $google_fonts ) ) {
 					return false;
 				}
-
 			}
 
 			$font_family = explode( ',', $font_family );

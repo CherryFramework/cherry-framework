@@ -11,16 +11,24 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 if ( ! class_exists( 'UI_Text' ) ) {
-	class UI_Text {
 
-		private $settings = array();
+	/**
+	 * Class for the building ui-text elements.
+	 */
+	class UI_Text extends UI_Element implements I_UI {
+
+		/**
+		 * Default settings
+		 *
+		 * @var array
+		 */
 		private $defaults_settings = array(
-			'type'			=> 'text',// text, email, password, search
+			'type'			=> 'text',
 			'id'			=> 'cherry-ui-input-id',
 			'name'			=> 'cherry-ui-input-name',
 			'value'			=> '',
@@ -28,6 +36,7 @@ if ( ! class_exists( 'UI_Text' ) ) {
 			'label'			=> '',
 			'class'			=> '',
 			'master'		=> '',
+			'required'      => false,
 		);
 
 		/**
@@ -43,6 +52,18 @@ if ( ! class_exists( 'UI_Text' ) ) {
 		}
 
 		/**
+		 * Get required attribute
+		 *
+		 * @return string required attribute
+		 */
+		public function get_required() {
+			if ( $this->settings['required'] ) {
+				return 'required="required"';
+			}
+			return '';
+		}
+
+		/**
 		 * Render html UI_Text.
 		 *
 		 * @since  4.0.0
@@ -53,33 +74,12 @@ if ( ! class_exists( 'UI_Text' ) ) {
 			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
 
 			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
-				if( '' !== $this->settings['label'] ){
+				if ( '' !== $this->settings['label'] ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
 				}
-				$html .= '<input type="' . esc_attr( $this->settings['type'] ) . '" id="' . esc_attr( $this->settings['id'] ) . '" class="widefat cherry-ui-text ' . esc_attr( $this->settings['class'] ) . '"  name="' . esc_attr( $this->settings['name'] ) . '"  value="' . esc_html( $this->settings['value'] ) . '" placeholder="' . esc_attr( $this->settings['placeholder'] ) . '">';
+				$html .= '<input type="' . esc_attr( $this->settings['type'] ) . '" id="' . esc_attr( $this->settings['id'] ) . '" class="widefat cherry-ui-text ' . esc_attr( $this->settings['class'] ) . '"  name="' . esc_attr( $this->settings['name'] ) . '"  value="' . esc_html( $this->settings['value'] ) . '" placeholder="' . esc_attr( $this->settings['placeholder'] ) . '" '.$this->get_required().'>';
 			$html .= '</div>';
 			return $html;
-		}
-
-		/**
-		 * Get current file URL
-		 *
-		 * @since  4.0.0
-		 */
-		public static function get_current_file_url() {
-			/*$abs_path = str_replace('/', '\\', ABSPATH);
-			$assets_url = dirname( __FILE__ );
-			$assets_url = str_replace( $abs_path, '', $assets_url );
-			$assets_url = site_url().'/'.$assets_url;
-			$assets_url = str_replace( '\\', '/', $assets_url );*/
-
-
-			$assets_url = dirname( __FILE__ );
-			$site_url = site_url();
-			$assets_url = str_replace( untrailingslashit( ABSPATH ), $site_url, $assets_url );
-			$assets_url = str_replace( '\\', '/', $assets_url );
-
-			return $assets_url;
 		}
 
 		/**
@@ -87,16 +87,15 @@ if ( ! class_exists( 'UI_Text' ) ) {
 		 *
 		 * @since  4.0.0
 		 */
-		public static function enqueue_assets(){
+		public static function enqueue_assets() {
 
 			wp_enqueue_style(
 				'ui-text',
-				self::get_current_file_url() . '/assets/min/ui-text.min.css',
+				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-text.min.css',
 				array(),
 				'1.0.0',
 				'all'
 			);
 		}
-
 	}
 }

@@ -1,6 +1,6 @@
-var CherryJsCore;
+var CherryJsCore = {};
 
-(function($){
+( function( $ ) {
 	'use strict';
 
 	CherryJsCore = {
@@ -13,18 +13,18 @@ var CherryJsCore;
 			$window : $( window ),
 			browser : $.browser,
 			browser_supported : true,
-			security : cherry_ajax,
+			security : window.cherry_ajax,
 			loaded_assets : {
-				script : wp_load_script,
-				style : wp_load_style
+				script : window.wp_load_script,
+				style : window.wp_load_style
 			},
-			ui_auto_init: ( 'true' == ui_init_object.auto_init ) ? true : false,
-			ui_auto_target: ui_init_object.targets
+			ui_auto_init: ( 'true' === window.ui_init_object.auto_init ) ? true : false,
+			ui_auto_target: window.ui_init_object.targets
 		},
 
-		status : {
-			on_load : false,
-			is_ready : false
+		status: {
+			on_load: false,
+			is_ready: false
 		},
 
 		init : function(){
@@ -43,17 +43,17 @@ var CherryJsCore;
 					not_supported = { 'msie' : [8] };
 
 				for ( var browser in not_supported ) {
-					if( uset_browser.browser  != 'undefined' ){
+					if( uset_browser.browser  !== 'undefined' ){
 						for ( var version in not_supported[ browser ] ) {
 							if( uset_browser.version <= not_supported [ browser ] [ version ] ){
 								return false;
 							}
 						}
 					}
-				};
+				}
 
 				return true;
-			}() )
+			}() );
 		},
 
 		ready : function(){
@@ -90,7 +90,7 @@ var CherryJsCore;
 				$( document ).on( 'widget-updated', function( event, data ){
 					$( window ).trigger( 'cherry-ui-elements-init', { 'target': data } );
 				} );
-			},
+			}
 		},
 
 		utilites : {
@@ -128,36 +128,36 @@ var CherryJsCore;
 						file_name = file_url.replace( reg_name, '' ),
 						file_type = file_url.match( reg_type )[ 0 ];
 
-					if( file_type === '.js' && $.inArray( file_name, CherryJsCore.variable.loaded_assets.script ) == -1 ){
+					if( '.js' === file_type && -1 === $.inArray( file_name, CherryJsCore.variable.loaded_assets.script ) ){
 						data.script.push( file_url );
 						CherryJsCore.variable.loaded_assets.script.push( file_name );
 					}
 
-					if( file_type === '.css' && $.inArray( file_name, CherryJsCore.variable.loaded_assets.style ) == -1 ){
+					if( '.css' === file_type && -1 === $.inArray( file_name, CherryJsCore.variable.loaded_assets.style ) ){
 						data.style.push( file_url );
 						CherryJsCore.variable.loaded_assets.style.push( file_name );
 					}
 				}
 
-				$.get(ajaxurl, data, function(response) {
+				$.get( window.ajaxurl, data, function( response ) {
 					var json = $.parseJSON(response),
-						compress_style = json.style,
-						compress_script = json.script;
+						compressStyle = json.style,
+						compressScript = json.script,
+						script = null;
 
-					if(compress_style){
-						var style = document.createElement('style'),
-							styleSheet;
+					if(compressStyle){
+						var style = document.createElement('style');
 
 						style.type = 'text/css';
 						style.media = 'all';
-						style.innerHTML = compress_style;
+						style.innerHTML = compressStyle;
 
 						$('body', document).append(style);
 
 					}
 
-					if(compress_script){
-						var script = new Function(compress_script)();
+					if ( compressScript ) {
+						script = new Function( compressScript ) ();
 					}
 
 					return callback_function();

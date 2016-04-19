@@ -1,3 +1,33 @@
+#########################
+# Files
+#########################
+.sass-cache
+package.json
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# OSX
+.DS_Store
+*.swp
+*~.nib
+
+#########################
+# Expansion
+#########################
+*.map
+*.log
+*.dll
+
+#########################
+# Folder
+#########################
+node_modules
+
+#########################
+# Travis-si files
+#########################
 .jscsrc
 .jshintignore
 .travis.yml

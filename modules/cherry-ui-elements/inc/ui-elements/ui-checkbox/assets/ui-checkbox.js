@@ -1,8 +1,8 @@
 /**
  * Checkbox
  */
-(function($){
-	"use strict";
+(function($, CherryJsCore){
+	'use strict';
 
 	CherryJsCore.utilites.namespace('ui_elements.checkbox');
 	CherryJsCore.ui_elements.checkbox = {
@@ -24,9 +24,9 @@
 				if ( ! state ) {
 					$( '.'+ this_slave, target ).stop().hide();
 				}
-			})
+			});
 
-			$( '.cherry-checkbox-item', target ).on( 'click', function( event ) {
+			$( '.cherry-checkbox-item', target ).on( 'click', function() {
 				var input = $( this ).siblings( '.cherry-checkbox-input[type="hidden"]' ),
 					slave = input.data( 'slave' ),
 					state = ( input.val() === 'true' );
@@ -48,7 +48,7 @@
 				input.trigger( 'change' );
 			} );
 
-			$( '.cherry-checkbox-label', target ).on( 'click', function( event ) {
+			$( '.cherry-checkbox-label', target ).on( 'click', function() {
 				var input = $( this ).siblings( '.cherry-checkbox-input[type="hidden"]' ),
 					item = $( this ).siblings( '.cherry-checkbox-item' ),
 					slave = input.data( 'slave' ),
@@ -71,10 +71,11 @@
 				input.trigger( 'change' );
 			} );
 		}
-	}
+	};
+
 	$( window ).on( 'cherry-ui-elements-init',
 		function( event, data ) {
 			CherryJsCore.ui_elements.checkbox.init( data.target );
 		}
 	);
-}(jQuery));
+}(jQuery, window.CherryJsCore));

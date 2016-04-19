@@ -1,13 +1,21 @@
 <?php
 /**
- * Class for the update theme.
  *
- * @package    Cherry Base Updater
- * @subpackage Themes Updater
+ * Module Name: Theme Updater
+ * Description: Provides functionality for updating themes
+ * Version: 1.0.0
+ * Author: Cherry Team
+ * Author URI: http://www.cherryframework.com/
+ * License: GPLv3
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ *
+ * @package    Cherry_Framework
+ * @subpackage Modules
+ * @version    1.0.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @license    http://www.gnu.org/licenses/gpl-3.0.html
  */
 
 // If this file is called directly, abort.
@@ -43,19 +51,19 @@ if ( ! class_exists( 'Cherry_Theme_Updater' ) ) {
 		 * Init class parameters.
 		 *
 		 * @since  1.0.0
-		 * @param  array $attr Input attributes array.
+		 * @param  object $core core.
+		 * @param  array  $args Input attributes array.
 		 * @return void
 		 */
-
 		public function __construct( $core, $args = array() ) {
 			/**
 			 * Set default settings
 			*/
 			$theme_headers = wp_get_theme();
 
-			$this->default_settings[ 'slug' ] = $theme_headers->get( 'Name' );
-			$this->default_settings[ 'repository_name' ] = $theme_headers->get( 'Name' );
-			$this->default_settings[ 'version' ] = $theme_headers->get( 'Version' );
+			$this->default_settings['slug'] = $theme_headers->get( 'Name' );
+			$this->default_settings['repository_name'] = $theme_headers->get( 'Name' );
+			$this->default_settings['version'] = $theme_headers->get( 'Version' );
 
 			$this->base_init( $args );
 
@@ -80,9 +88,9 @@ if ( ! class_exists( 'Cherry_Theme_Updater' ) ) {
 			if ( $new_update['version'] ) {
 
 				$update = array(
-					'theme'       => $this->settings[ 'slug' ],
+					'theme'       => $this->settings['slug'],
 					'new_version' => $new_update['version'],
-					'url'         => $this->settings[ 'details_url' ],
+					'url'         => $this->settings['details_url'],
 					'package'     => $new_update['package'],
 				);
 
@@ -95,8 +103,9 @@ if ( ! class_exists( 'Cherry_Theme_Updater' ) ) {
 		 * Change theme detail URL.
 		 *
 		 * @since  1.0.0
-		 * @param  array $prepared_themes
-		 * @return void
+		 * @param  array $prepared_themes array with update parametr.
+		 *
+		 * @return array
 		 */
 		public function change_details_url( $prepared_themes ) {
 
@@ -104,11 +113,11 @@ if ( ! class_exists( 'Cherry_Theme_Updater' ) ) {
 
 				foreach ( $prepared_themes as $theme_key => $theme_value ) {
 
-					if ( 'cherryframework4' === $theme_key || 'Cherry Framework' === $theme_value['parent'] ){
+					if ( 'cherryframework4' === $theme_key || 'Cherry Framework' === $theme_value['parent'] ) {
 
 						if ( $theme_value['hasUpdate'] ) {
 
-							$prepared_themes[$theme_key]['update'] = str_replace( 'class="thickbox"', 'target ="_blank"', $theme_value['update'] );
+							$prepared_themes[ $theme_key ]['update'] = str_replace( 'class="thickbox"', 'target ="_blank"', $theme_value['update'] );
 						}
 
 						remove_filter( 'wp_prepare_themes_for_js', array( $this, 'change_details_url' ) );
@@ -119,6 +128,12 @@ if ( ! class_exists( 'Cherry_Theme_Updater' ) ) {
 			return $prepared_themes;
 		}
 
+		/**
+		 * Returns the instance.
+		 *
+		 * @since  1.0.0
+		 * @return object
+		 */
 		public static function get_instance( $core, $args ) {
 			return new self( $core, $args );
 		}
