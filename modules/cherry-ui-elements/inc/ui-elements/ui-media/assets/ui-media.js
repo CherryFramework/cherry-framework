@@ -1,8 +1,8 @@
 /**
  * Media
  */
-(function($){
-	"use strict";
+(function( $, CherryJsCore){
+	'use strict';
 
 	CherryJsCore.utilites.namespace('ui_elements.media');
 	CherryJsCore.ui_elements.media = {
@@ -15,39 +15,35 @@
 			}
 		},
 		render: function ( target ) {
-			var cherry_uploader;
-
-			$('.upload-button', target).on('click', function () {
-				var button_parent = $(this).parents('.cherry-ui-media-wrap'),
-					input = $('.cherry-upload-input', button_parent),
-					img_holder = $('.cherry-upload-preview', button_parent),
-					title_text = $(this).data('title'),
-					multiple = $(this).data('multi-upload'),
-					library_type = $(this).data('library-type');
-
-				if ( undefined !== cherry_uploader ) {
-					cherry_uploader.open();
-					return;
-				}
-
+			var button = $('.upload-button', target),
+				button_parent = button.parents('.cherry-ui-media-wrap'),
+				settings = {
+					input: $('.cherry-upload-input', button_parent),
+					img_holder: $('.cherry-upload-preview', button_parent),
+					title_text: button.data('title'),
+					multiple: button.data('multi-upload'),
+					library_type: button.data('library-type'),
+				},
 				cherry_uploader = wp.media.frames.file_frame = wp.media({
-					title: title_text,
-					button: {text: title_text},
-					multiple: multiple,
-					library : { type : library_type }
+					title: settings.title_text,
+					button: {text: settings.title_text},
+					multiple: settings.multiple,
+					library : { type : settings.library_type }
 				});
 
+			button.on('click', function () {
 				cherry_uploader.on('select', function() {
 					var attachment = cherry_uploader.state().get('selection').toJSON(),
 						count = 0,
 						input_value = '',
+						new_img_object = $('.cherry-all-images-wrap', settings.img_holder),
 						new_img = '',
 						delimiter = '';
 
-					if ( multiple ) {
-						input_value = input.val();
+					if ( settings.multiple ) {
+						input_value = settings.input.val();
 						delimiter = ',';
-						new_img = $('.cherry-all-images-wrap', img_holder).html();
+						new_img = new_img_object.html();
 					}
 
 					while(attachment[count]){
@@ -61,7 +57,7 @@
 								case 'image/jpeg':
 								case 'image/png':
 								case 'image/gif':
-										if( img_data.sizes != undefined){
+										if( img_data.sizes !== undefined){
 											img_src = img_data.sizes.thumbnail ? img_data.sizes.thumbnail.url : img_data.sizes.full.url;
 										}
 										thumb = '<img  src="' + img_src + '" alt="" data-img-attr="'+return_data+'">';
@@ -95,13 +91,13 @@
 						count++;
 					}
 
-					input.val(input_value.replace(/(^,)/, '')).trigger( 'change' );
-					$('.cherry-all-images-wrap', img_holder).html(new_img);
+					settings.input.val(input_value.replace(/(^,)/, '')).trigger( 'change' );
+					new_img_object.html(new_img);
 
 					$('.cherry-remove-image').on('click', function () {
 						removeMediaPreview( $(this) );
 						return !1;
-					})
+					});
 				}).open();
 
 				return !1;
@@ -111,7 +107,7 @@
 			jQuery('.cherry-remove-image', target).on('click', function () {
 				removeMediaPreview( jQuery(this) );
 				return !1;
-			})
+			});
 			var removeMediaPreview = function( item ){
 				var button_parent = item.parents('.cherry-ui-media-wrap'),
 					input = jQuery('.cherry-upload-input', button_parent),
@@ -125,7 +121,7 @@
 					input.attr({'value':imput_value}).trigger( 'change' );
 					img_holder.remove();
 
-			}
+			};
 			// Upload End
 			// Image ordering
 			jQuery('.cherry-all-images-wrap', target).sortable({
@@ -137,9 +133,9 @@
 				helper: 'clone',
 				opacity: 0.65,
 				placeholder: 'cherry-media-thumb-sortable-placeholder',
-				start:function(event,ui){},
-				stop:function(event,ui){},
-				update: function(event, ui) {
+				start:function(){},
+				stop:function(){},
+				update: function() {
 					var attachment_ids = '';
 						jQuery('.cherry-image-wrap', this).each(
 							function() {
@@ -153,10 +149,10 @@
 			});
 			// End Image ordering
 		}
-	}
+	};
 	$( window ).on( 'cherry-ui-elements-init',
 		function( event, data ) {
 			CherryJsCore.ui_elements.media.init( data.target );
 		}
 	);
-}(jQuery));
+}(jQuery , window.CherryJsCore));

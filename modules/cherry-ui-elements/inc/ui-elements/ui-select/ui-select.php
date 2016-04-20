@@ -75,7 +75,6 @@ if ( ! class_exists( 'UI_Select' ) ) {
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
 
-			//self::enqueue_assets();
 		}
 
 		/**
@@ -103,9 +102,9 @@ if ( ! class_exists( 'UI_Select' ) ) {
 				$inline_style = $this->settings['inline_style'] ? 'style="' . esc_attr( $this->settings['inline_style'] ) . '"' : '' ;
 
 				$html .= '<select id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-select ' . esc_attr( $this->settings['class'] ) . '" name="' . esc_attr( $name ) . '" size="' . esc_attr( $this->settings['size'] ) . '" ' . $multi_state . ' ' . $filter_state . ' placeholder="' . $this->settings['placeholder'] . '" ' . $inline_style . ' >';
-				if( $this->settings['options'] && !empty( $this->settings['options'] ) && is_array( $this->settings['options'] ) ){
-					foreach ( $this->settings['options'] as $option => $option_value) {
-						if ( !is_array( $this->settings['value'] ) ) {
+				if ( $this->settings['options'] && ! empty( $this->settings['options'] ) && is_array( $this->settings['options'] ) ) {
+					foreach ( $this->settings['options'] as $option => $option_value ) {
+						if ( ! is_array( $this->settings['value'] ) ) {
 							$this->settings['value'] = array( $this->settings['value'] );
 						}
 						if ( false === strpos( $option, 'optgroup' ) ) {
