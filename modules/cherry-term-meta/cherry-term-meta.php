@@ -111,7 +111,7 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 
 			global $current_screen;
 
-			if ( empty( $current_screen ) || 'edit-tags' !== $current_screen->base ) {
+			if ( empty( $current_screen ) || ! in_array( $current_screen->base, array( 'edit-tags', 'term' ) ) ) {
 				return false;
 			}
 
