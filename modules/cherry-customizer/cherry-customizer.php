@@ -206,6 +206,10 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			// Clear fonts data.
 			add_action( 'switch_theme', array( $this, 'clear_fonts' ) );
 			add_action( 'upgrader_process_complete', array( $this, 'fire_clear_fonts' ), 10, 2 );
+
+			if ( ! class_exists( 'WP_Chooseicons' ) ) {
+				require_once( __DIR__ . '/inc/wp-chooseicons.php' );
+			}
 		}
 
 		/**
@@ -397,7 +401,9 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 				case 'file':
 						$control_class = 'WP_Customize_Upload_Control';
 					break;
-
+				case 'chooseicons':
+						$control_class = 'WP_Chooseicons';
+					break;
 				default:
 						/**
 						 * Filter arguments for a `$field_type` customize control.

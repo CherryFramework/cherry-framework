@@ -45,6 +45,11 @@
 			text-align: center;
 			line-height: 40px;
 			color: rgba( 0, 0, 0, 1 );
+			min-height: 40px;
+
+			i{
+				font-size: 10px;
+			}
 
 			&:hover{
 				color: rgba( 255, 255, 255, 1 );

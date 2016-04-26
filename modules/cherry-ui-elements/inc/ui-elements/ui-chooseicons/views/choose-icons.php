@@ -25,7 +25,7 @@
 					<?php echo $icon['html']; ?>
 				</a>
 			<?php endforeach; ?>
-			<span><?php echo $this->settings['end_text']; ?></span>
+			<span><?php echo $__data['end_text']; ?></span>
 		</div>
 	</div>
 	<?php endif; ?>
