@@ -61,6 +61,7 @@ declare var CherryJsCore: any;
 				$input = $(me).parents('.ui-choose-icons').find('input');
 
 			$input.val(me.getAttribute('href').replace('#', ''));
+			$input.trigger('change');
 			e.preventDefault();
 		}
 

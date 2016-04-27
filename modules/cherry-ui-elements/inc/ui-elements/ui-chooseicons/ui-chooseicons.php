@@ -48,6 +48,7 @@ if ( ! class_exists( 'UI_Choose_Icons' ) ) {
 					'label'			=> 'Choose your icon',
 					'end_text'		=> 'The end',
 					'class'			=> '',
+					'link'			=> '',
 					'required'		=> false,
 				)
 			);

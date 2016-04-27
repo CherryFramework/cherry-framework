@@ -15,7 +15,7 @@
 		<?php if ( '' != $__data['label'] ) : ?>
 			<label for="<?php echo $__data['id']; ?>"><?php echo $__data['label']; ?></label>
 		<?php endif; ?>
-		<input type="text" name="<?php echo $__data['name']; ?>" class="ui-choose-icons-input <?php echo $__data['class']; ?>" id="<?php echo $__data['id']; ?>" placeholder="<?php echo $__data['placeholder']; ?>" value="<?php echo $__data['value']; ?>" <?php echo $__data['required']; ?>>
+		<input type="text" name="<?php echo $__data['name']; ?>" class="ui-choose-icons-input <?php echo $__data['class']; ?>" id="<?php echo $__data['id']; ?>" placeholder="<?php echo $__data['placeholder']; ?>" value="<?php echo $__data['value']; ?>" <?php echo $__data['link']; ?> <?php echo $__data['required']; ?>>
 	</div>
 	<?php if ( count( $__data['icons'] ) ) : ?>
 	<div class="ui-choose-icons__content">
