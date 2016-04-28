@@ -61,8 +61,12 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 
 			$this->settings = array_merge( $default_settings, $settings );
 
-			$this->settings['base_dir'] = trailingslashit( get_template_directory() . '/' . $this->settings['framework_path'] . '/' );
-			$this->settings['base_url'] = trailingslashit( get_template_directory_uri() . '/' . $this->settings['framework_path'] . '/' );
+			$core_dir = __DIR__;
+			$this->settings['base_dir'] = trailingslashit( $core_dir );
+
+			$core_url = str_replace( untrailingslashit( ABSPATH ), site_url(), __DIR__ );
+			$core_url = str_replace( '\\', '/', $core_url );
+			$this->settings['base_url'] = trailingslashit( $core_url );
 
 			// Cherry_Toolkit module should be loaded by default
 			if ( ! isset( $this->settings['modules']['cherry-toolkit'] ) ) {
@@ -74,6 +78,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			$this->autoload_modules();
 
 		}
+
 
 		/**
 		 * Try automatically include and load modules with autoload seted up into true.
@@ -175,6 +180,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @return bool
 		 */
 		public function load_module( $module ) {
+
 			$class_name = $this->get_class_name( $module );
 
 			if ( class_exists( $class_name ) ) {
@@ -233,7 +239,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @return string
 		 */
 		public function get_module_path( $module ) {
-			return $this->settings['base_dir'] . '/modules/' . $module . '/' . $module . '.php';
+			return $this->settings['base_dir'] . 'modules/' . $module . '/' . $module . '.php';
 		}
 
 		/**
