@@ -91,11 +91,11 @@ if ( ! class_exists( 'Cherry_Toolkit' ) ) {
 		 * @throws InvalidArgumentException If class does not exists.
 		 */
 		public static function get_class_instance( $class_name = '', $core, $args ) {
-		  if ( ! class_exists( $class_name ) ) {
-		    throw new InvalidArgumentException( 'Class "' . $class_name . '" doesn\'t exists' );
-		  }
+			if ( ! class_exists( $class_name ) ) {
+				throw new InvalidArgumentException( 'Class "' . $class_name . '" doesn\'t exists' );
+			}
 
-		  return new $class_name( $core, $args );
+			return new $class_name( $core, $args );
 		}
 
 		/**
