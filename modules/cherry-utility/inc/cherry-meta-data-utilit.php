@@ -57,10 +57,8 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 					return '';
 				}
 
-				$html = $terms;
+				$html = $args['before'] . $terms . $args['after'];
 			}
-
-			$html = $args['before'] . $html . $args['after'];
 
 			return $this->output_method( $html, $args['echo'] );
 		}
