@@ -362,6 +362,11 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 * @return object
 		 */
 		public static function get_instance( $core, $args ) {
+
+			if ( ! is_admin() ) {
+				return;
+			}
+
 			return new self( $core, $args );
 		}
 	}
