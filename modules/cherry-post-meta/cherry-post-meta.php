@@ -276,6 +276,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 					) ),
 					'required'    => Cherry_Toolkit::get_arg( $field, 'required', false ),
 					'placeholder' => Cherry_Toolkit::get_arg( $field, 'placeholder' ),
+					'master'      => Cherry_Toolkit::get_arg( $field, 'master' ),
 				);
 
 				$current_element = $this->ui_builder->get_ui_element_instance( $args['type'], $args );
