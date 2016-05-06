@@ -274,7 +274,8 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 						'true_slave'   => '',
 						'false_slave'  => '',
 					) ),
-					'required'           => Cherry_Toolkit::get_arg( $field, 'required', false ),
+					'required'    => Cherry_Toolkit::get_arg( $field, 'required', false ),
+					'placeholder' => Cherry_Toolkit::get_arg( $field, 'placeholder' ),
 				);
 
 				$current_element = $this->ui_builder->get_ui_element_instance( $args['type'], $args );
