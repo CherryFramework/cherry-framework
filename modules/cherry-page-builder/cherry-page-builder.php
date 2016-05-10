@@ -375,7 +375,7 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 
 			wp_enqueue_script(
 				'cherry-settings-page',
-				$this->core->settings['base_dir'] . 'modules/' . $this->module_slug . '/assets/js/page-settings.min.js',
+				$this->core->settings['base_url'] . 'modules/' . $this->module_slug . '/assets/js/page-settings.min.js',
 				array( 'jquery' ),
 				'0.2.0',
 				true
@@ -383,7 +383,7 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 
 			wp_enqueue_style(
 				'cherry-settings-page',
-				$this->core->settings['base_dir'] . 'modules/' . $this->module_slug . '/assets/css/page-settings.min.css',
+				$this->core->settings['base_url'] . 'modules/' . $this->module_slug . '/assets/css/page-settings.min.css',
 				array(),
 				'0.1.0',
 				'all'
