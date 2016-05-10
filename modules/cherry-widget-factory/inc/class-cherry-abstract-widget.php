@@ -325,7 +325,11 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 			foreach ( $this->settings as $key => $setting ) {
 
 				if ( isset( $new_instance[ $key ] ) ) {
-					$instance[ $key ] = $this->sanitize_instance_item( $new_instance[ $key ] );
+
+					$instance[ $key ] = ! empty( $setting['sanitize_callback'] ) && is_callable( $setting['sanitize_callback'] )
+					? call_user_func( $setting['sanitize_callback'],$new_instance[ $key ] )
+					: $this->sanitize_instance_item( $new_instance[ $key ] );
+
 				} elseif ( 'checkbox' === $setting['type'] ) {
 					$instance[ $key ] = array();
 				} elseif ( isset( $old_instance[ $key ] ) && is_array( $old_instance[ $key ] ) ) {
@@ -420,25 +424,6 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 		}
 
 		/**
-		 * Safely get attribute from setting array.
-		 *
-		 * @since  1.0.0
-		 * @param  array  $setting arguments array.
-		 * @param  [type] $arg     argument key.
-		 * @param  mixed  $default default argument value.
-		 * @return mixed
-		 */
-		public function get_arg( $setting, $arg, $default = '' ) {
-
-			if ( isset( $setting[ $arg ] ) ) {
-				return $setting[ $arg ];
-			} else {
-				return $default;
-			}
-
-		}
-
-		/**
 		 * Show widget form
 		 *
 		 * @since  1.0.0
@@ -454,7 +439,7 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 
 			foreach ( $this->settings as $key => $setting ) {
 
-				$value = isset( $instance[ $key ] ) ? $instance[ $key ] : $this->get_arg( $setting, 'value', '' );
+				$value = isset( $instance[ $key ] ) ? $instance[ $key ] : Cherry_Toolkit::get_arg( $setting, 'value', '' );
 
 				if ( isset( $setting['options_callback'] ) ) {
 
@@ -462,35 +447,35 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 					$options  = call_user_func_array( $callback['callback'], $callback['args'] );
 
 				} else {
-					$options = $this->get_arg( $setting, 'options', array() );
+					$options = Cherry_Toolkit::get_arg( $setting, 'options', array() );
 				}
 
 				$args = array(
-					'type'               => $this->get_arg( $setting, 'type', 'text' ),
+					'type'               => Cherry_Toolkit::get_arg( $setting, 'type', 'text' ),
 					'id'                 => $this->get_field_id( $key ),
 					'name'               => $this->get_field_name( $key ),
 					'value'              => $value,
-					'label'              => $this->get_arg( $setting, 'label', '' ),
+					'label'              => Cherry_Toolkit::get_arg( $setting, 'label', '' ),
 					'options'            => $options,
-					'multiple'           => $this->get_arg( $setting, 'multiple', false ),
-					'filter'             => $this->get_arg( $setting, 'filter', false ),
-					'size'               => $this->get_arg( $setting, 'size', 1 ),
-					'null_option'        => $this->get_arg( $setting, 'null_option', 'None' ),
-					'multi_upload'       => $this->get_arg( $setting, 'multi_upload', true ),
-					'library_type'       => $this->get_arg( $setting, 'library_type', 'image' ),
-					'upload_button_text' => $this->get_arg( $setting, 'upload_button_text', 'Choose' ),
-					'max_value'          => $this->get_arg( $setting, 'max_value', '100' ),
-					'min_value'          => $this->get_arg( $setting, 'min_value', '0' ),
-					'step_value'         => $this->get_arg( $setting, 'step_value', '1' ),
-					'style'              => $this->get_arg( $setting, 'style', 'normal' ),
-					'placeholder'        => $this->get_arg( $setting, 'placeholder', '' ),
-					'toggle'             => $this->get_arg( $setting, 'toggle', array(
+					'multiple'           => Cherry_Toolkit::get_arg( $setting, 'multiple', false ),
+					'filter'             => Cherry_Toolkit::get_arg( $setting, 'filter', false ),
+					'size'               => Cherry_Toolkit::get_arg( $setting, 'size', 1 ),
+					'null_option'        => Cherry_Toolkit::get_arg( $setting, 'null_option', 'None' ),
+					'multi_upload'       => Cherry_Toolkit::get_arg( $setting, 'multi_upload', true ),
+					'library_type'       => Cherry_Toolkit::get_arg( $setting, 'library_type', 'image' ),
+					'upload_button_text' => Cherry_Toolkit::get_arg( $setting, 'upload_button_text', 'Choose' ),
+					'max_value'          => Cherry_Toolkit::get_arg( $setting, 'max_value', '100' ),
+					'min_value'          => Cherry_Toolkit::get_arg( $setting, 'min_value', '0' ),
+					'step_value'         => Cherry_Toolkit::get_arg( $setting, 'step_value', '1' ),
+					'style'              => Cherry_Toolkit::get_arg( $setting, 'style', 'normal' ),
+					'placeholder'        => Cherry_Toolkit::get_arg( $setting, 'placeholder', '' ),
+					'toggle'             => Cherry_Toolkit::get_arg( $setting, 'toggle', array(
 						'true_toggle'  => 'On',
 						'false_toggle' => 'Off',
 						'true_slave'   => '',
 						'false_slave'  => '',
 					) ),
-					'master'             => $this->get_arg( $setting, 'master', '' ),
+					'master'             => Cherry_Toolkit::get_arg( $setting, 'master', '' ),
 				);
 
 				$this->render_control( $args );

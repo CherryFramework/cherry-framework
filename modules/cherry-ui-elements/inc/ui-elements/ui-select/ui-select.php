@@ -32,6 +32,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 			'multiple'		=> false,
 			'filter'		=> false,
 			'size'			=> 1,
+			'inline_style'	=> 'width: 100%',
 			'value'			=> 'select-8',
 			'options'		=> array(
 				'select-1'	=> 'select 1',
@@ -70,10 +71,10 @@ if ( ! class_exists( 'UI_Select' ) ) {
 		function __construct( $args = array() ) {
 
 			$this->defaults_settings['id'] = 'cherry-ui-select-'.uniqid();
-
 			$this->settings = wp_parse_args( $args, $this->defaults_settings );
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
+
 		}
 
 		/**
@@ -98,7 +99,9 @@ if ( ! class_exists( 'UI_Select' ) ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . $this->settings['label'] . '</label> ';
 				}
 
-				$html .= '<select id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-select ' . esc_attr( $this->settings['class'] ) . '" name="' . esc_attr( $name ) . '" size="' . esc_attr( $this->settings['size'] ) . '" ' . $multi_state . ' ' . $filter_state . ' placeholder="' . $this->settings['placeholder'] . '" style="width: 100%">';
+				$inline_style = $this->settings['inline_style'] ? 'style="' . esc_attr( $this->settings['inline_style'] ) . '"' : '' ;
+
+				$html .= '<select id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-select ' . esc_attr( $this->settings['class'] ) . '" name="' . esc_attr( $name ) . '" size="' . esc_attr( $this->settings['size'] ) . '" ' . $multi_state . ' ' . $filter_state . ' placeholder="' . $this->settings['placeholder'] . '" ' . $inline_style . ' >';
 				if ( $this->settings['options'] && ! empty( $this->settings['options'] ) && is_array( $this->settings['options'] ) ) {
 					foreach ( $this->settings['options'] as $option => $option_value ) {
 						if ( ! is_array( $this->settings['value'] ) ) {

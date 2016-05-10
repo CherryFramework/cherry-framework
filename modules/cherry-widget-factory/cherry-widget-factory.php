@@ -108,7 +108,7 @@ if ( ! class_exists( 'Cherry_Widget_Factory' ) ) {
 		public function pass_core_to_widgets( $core, $path ) {
 
 			$path         = str_replace( '\\', '/', $path );
-			$current_core = str_replace( '\\', '/', $this->core->get_core_dir() );
+			$current_core = str_replace( '\\', '/', $this->core->settings['base_dir'] );
 
 			if ( false !== strpos( $path, $current_core ) ) {
 				return $this->core;
@@ -124,7 +124,7 @@ if ( ! class_exists( 'Cherry_Widget_Factory' ) ) {
 		 * @return void
 		 */
 		public function include_abstract_widget() {
-			$base_dir = $this->core->get_core_dir() . 'modules/' . $this->module_slug;
+			$base_dir = $this->core->settings['base_dir'] . 'modules/' . $this->module_slug;
 			require_once( $base_dir . '/inc/class-cherry-abstract-widget.php' );
 		}
 

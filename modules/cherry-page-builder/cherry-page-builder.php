@@ -114,7 +114,7 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 				)
 			);
 
-			$this->views = $this->core->get_core_dir() . 'modules/' . $this->module_slug . '/views/';
+			$this->views = $this->core->settings['base_dir'] . 'modules/' . $this->module_slug . '/views/';
 			add_action( 'admin_enqueue_scripts', array( $this, 'assets' ) );
 		}
 
@@ -211,7 +211,7 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 			$button_after	= ! empty( $this->args['button_after'] ) ? $this->args['button_after'] : '';
 			$sections		= ( ! empty( $this->sections ) && is_array( $this->sections ) ) ? $this->sections : array();
 
-			$html = Cherry_Core::render_view(
+			$html = Cherry_Toolkit::render_view(
 				$this->views . 'page.php',
 				array(
 					'title'			=> $title,
@@ -322,7 +322,7 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 				}
 			}
 
-			$html = Cherry_Core::render_view(
+			$html = Cherry_Toolkit::render_view(
 				$this->views . 'section.php',
 				array(
 					'description' => $description,
@@ -368,9 +368,9 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 		public function assets() {
 			wp_enqueue_script( 'jquery-form' );
 
-			wp_localize_script( 'cherry-settings-page', 'TMRealEstateMessage', array(
-				'success' => __( 'Successfully', 'tm-real-estate' ),
-				'failed' => __( 'Failed', 'tm-real-estate' ),
+			wp_localize_script( 'cherry-settings-page', 'CherryPageBuilderOptions', array(
+				'success' => 'Successfully',
+				'failed' => 'Failed',
 			) );
 
 			wp_enqueue_script(

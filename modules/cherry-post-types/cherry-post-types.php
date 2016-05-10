@@ -121,23 +121,23 @@ if ( ! class_exists( 'Cherry_Post_Types' ) ) {
 		 */
 		private function get_default_arguments( $plural, $singular ) {
 			$labels = array(
-				'name'               => __( $plural, 'cherry' ),
-				'singular_name'      => __( $singular, 'cherry' ),
-				'add_new'            => __( 'Add New', 'cherry' ),
-				'add_new_item'       => __( 'Add New '. $singular, 'cherry' ),
-				'edit_item'          => __( 'Edit '. $singular, 'cherry' ),
-				'new_item'           => __( 'New ' . $singular, 'cherry' ),
-				'all_items'          => __( 'All ' . $plural, 'cherry' ),
-				'view_item'          => __( 'View ' . $singular, 'cherry' ),
-				'search_items'       => __( 'Search ' . $singular, 'cherry' ),
-				'not_found'          => __( 'No '. $singular .' found', 'cherry' ),
-				'not_found_in_trash' => __( 'No '. $singular .' found in Trash', 'cherry' ),
+				'name'               => 'cherry',
+				'singular_name'      => $singular,
+				'add_new'            => 'Add New',
+				'add_new_item'       => 'Add New '. $singular,
+				'edit_item'          => 'Edit '. $singular,
+				'new_item'           => 'New ' . $singular,
+				'all_items'          => 'All ' . $plural,
+				'view_item'          => 'View ' . $singular,
+				'search_items'       => 'Search ' . $singular,
+				'not_found'          => 'No '. $singular .' found',
+				'not_found_in_trash' => 'No '. $singular .' found in Trash',
 				'parent_item_colon'  => '',
-				'menu_name'          => __( $plural, 'cherry' ),
+				'menu_name'          => $plural,
 			);
 
 			$defaults = array(
-				'label' 		=> __( $plural, 'cherry' ),
+				'label' 		=> $plural,
 				'labels' 		=> $labels,
 				'description'	=> '',
 				'public'		=> true,

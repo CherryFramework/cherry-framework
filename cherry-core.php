@@ -1,13 +1,14 @@
 <?php
 /**
  * Class Cherry Core
+ * Version: 1.0.0
  *
  * @package    Cherry_Framework
  * @subpackage Class
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-3.0.html
  */
 
 // If this file is called directly, abort.
@@ -31,13 +32,6 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		private static $instance = null;
 
 		/**
-		 * Core version.
-		 *
-		 * @var string
-		 */
-		public $core_version = '0.9.4';
-
-		/**
 		 * Core settings.
 		 *
 		 * @var array
@@ -59,12 +53,23 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		public function __construct( $settings = array() ) {
 
 			$default_settings = array(
-				'base_dir'	=> null,
-				'base_url'	=> null,
-				'modules'	=> array(),
+				'framework_path'	=> 'cherry-framework',
+				'modules'			=> array(),
+				'base_dir'			=> '',
+				'base_url'			=> '',
 			);
 
 			$this->settings = array_merge( $default_settings, $settings );
+
+			$this->settings['base_dir'] = trailingslashit( get_template_directory() . '/' . $this->settings['framework_path'] . '/' );
+			$this->settings['base_url'] = trailingslashit( get_template_directory_uri() . '/' . $this->settings['framework_path'] . '/' );
+
+			// Cherry_Toolkit module should be loaded by default
+			if ( ! isset( $this->settings['modules']['cherry-toolkit'] ) ) {
+				$this->settings['modules']['cherry-toolkit'] = array(
+					'autoload' => true,
+				);
+			}
 
 			$this->autoload_modules();
 
@@ -228,7 +233,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @return string
 		 */
 		public function get_module_path( $module ) {
-			return $this->get_core_dir() . '/modules/' . $module . '/' . $module . '.php';
+			return $this->settings['base_dir'] . '/modules/' . $module . '/' . $module . '.php';
 		}
 
 		/**
@@ -273,7 +278,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			}
 
 			// Convert version into integer
-			$parts = explode( '.', $version[0] );
+			$parts = explode( '.', $version );
 
 			// Calculate priority
 			foreach ( $parts as $index => $part ) {
@@ -281,60 +286,6 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			}
 
 			return (int) join( '', $parts );
-		}
-
-		/**
-		 * Get path to the core directory.
-		 *
-		 * @since  1.0.0
-		 * @return string
-		 */
-		public function get_core_dir() {
-			return trailingslashit( $this->settings['base_dir'] );
-		}
-
-		/**
-		 * Get path to the core URI.
-		 *
-		 * @since  1.0.0
-		 * @return string
-		 */
-		public function get_core_url() {
-			return trailingslashit( $this->settings['base_url'] );
-		}
-
-		/**
-		 * Render view
-		 *
-		 * @param type  $path view path.
-		 * @param  array $data include data.
-		 * @return rendered html
-		 */
-		public static function render_view( $path, array $data = array() ) {
-
-			// Add parameters to temporary query variable.
-			if ( array_key_exists( 'wp_query', $GLOBALS ) ) {
-				if ( is_array( $GLOBALS['wp_query']->query_vars ) ) {
-					$GLOBALS['wp_query']->query_vars['__data'] = $data;
-				}
-			}
-
-			ob_start();
-			load_template( $path, false );
-			$result = ltrim( ob_get_clean() );
-
-			/**
-			 * Remove temporary wp query variable
-			 * Yeah. I'm paranoic.
-			 */
-			if ( array_key_exists( 'wp_query', $GLOBALS ) ) {
-				if ( is_array( $GLOBALS['wp_query']->query_vars ) ) {
-					unset( $GLOBALS['wp_query']->query_vars['__data'] );
-				}
-			}
-
-			// Return the compiled view and terminate the output buffer.
-			return $result;
 		}
 
 		/**

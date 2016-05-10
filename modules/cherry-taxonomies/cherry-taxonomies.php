@@ -103,17 +103,17 @@ if ( ! class_exists( 'Cherry_Taxonomies' ) ) {
 		 */
 		public function get_default_arguments( $plural, $singular, $post_type_slug ) {
 			$labels = array(
-				'name'              => __( $plural, 'tm-real-estate' ),
-				'singular_name'     => __( $singular, 'tm-real-estate' ),
-				'search_items'      => __( 'Search ' . $plural, 'tm-real-estate' ),
-				'all_items'         => __( 'All ' . $plural, 'tm-real-estate' ),
-				'parent_item'       => __( 'Parent ' . $singular, 'tm-real-estate' ),
-				'parent_item_colon' => __( 'Parent ' . $singular . ' :', 'tm-real-estate' ),
-				'edit_item'         => __( 'Edit ' . $singular, 'tm-real-estate' ),
-				'update_item'       => __( 'Update ' . $singular, 'tm-real-estate' ),
-				'add_new_item'      => __( 'Add New ' . $singular, 'tm-real-estate' ),
-				'new_item_name'     => __( 'New ' . $singular . ' Name', 'tm-real-estate' ),
-				'menu_name'         => __( $plural, 'tm-real-estate' ),
+				'name'              => $plural,
+				'singular_name'     => $singular,
+				'search_items'      => 'Search ' . $plural,
+				'all_items'         => 'All ' . $plural,
+				'parent_item'       => 'Parent ' . $singular,
+				'parent_item_colon' => 'Parent ' . $singular . ' :',
+				'edit_item'         => 'Edit ' . $singular,
+				'update_item'       => 'Update ' . $singular,
+				'add_new_item'      => 'Add New ' . $singular,
+				'new_item_name'     => 'New ' . $singular . ' Name',
+				'menu_name'         => $plural,
 			);
 
 			return array(

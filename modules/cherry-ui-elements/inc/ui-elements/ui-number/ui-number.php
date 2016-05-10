@@ -28,13 +28,13 @@ if ( ! class_exists( 'UI_Number' ) ) {
 		 * @since  4.0.0
 		 */
 		public function render() {
-			return Cherry_Core::render_view(
+			return Cherry_Toolkit::render_view(
 				dirname( __FILE__ ) . '/views/number.php',
 				array(
 					'master'   => 'cherry-ui-container ' . Cherry_Array_Utilit::get( $this->settings, 'master', '' ),
 					'label'    => Cherry_Array_Utilit::get( $this->settings, 'label', '' ),
 					'atts'     => $this->get_input_attributes(),
-					'atts_str' => Cherry_Array_Utilit::join( $this->get_input_attributes() ),
+					'atts_str' => Cherry_Toolkit::join( $this->get_input_attributes() ),
 				)
 			);
 		}
@@ -45,7 +45,7 @@ if ( ! class_exists( 'UI_Number' ) ) {
 		 * @return [array] attributes.
 		 */
 		public function get_input_attributes() {
-			$settings = Cherry_Array_Utilit::leave_right_keys(
+			$settings = Cherry_Toolkit::leave_right_keys(
 				array(
 					'id',
 					'class',
@@ -59,7 +59,7 @@ if ( ! class_exists( 'UI_Number' ) ) {
 			);
 			$settings['type']  = 'number';
 			$settings['class'] = sprintf( 'widefat cherry-ui-text %s', Cherry_Array_Utilit::get( $settings, 'class' ) );
-			return Cherry_Array_Utilit::remove_empty( $settings );
+			return Cherry_Toolkit::remove_empty( $settings );
 		}
 	}
 }
