@@ -61,8 +61,12 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 
 			$this->settings = array_merge( $default_settings, $settings );
 
-			$this->settings['base_dir'] = trailingslashit( get_template_directory() . '/' . $this->settings['framework_path'] . '/' );
-			$this->settings['base_url'] = trailingslashit( get_template_directory_uri() . '/' . $this->settings['framework_path'] . '/' );
+			$core_dir = __DIR__;
+			$this->settings['base_dir'] = trailingslashit( $core_dir );
+
+			$core_url = str_replace( untrailingslashit( ABSPATH ), site_url(), __DIR__ );
+			$core_url = str_replace( '\\', '/', $core_url );
+			$this->settings['base_url'] = trailingslashit( $core_url );
 
 			// Cherry_Toolkit module should be loaded by default
 			if ( ! isset( $this->settings['modules']['cherry-toolkit'] ) ) {
