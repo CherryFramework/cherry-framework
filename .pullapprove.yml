@@ -3,11 +3,25 @@ approve_regex: ^Approved
 reject_regex: ^Rejected
 reset_on_push: false
 reviewers:
-	members:
-	- MakhonkoDenis
-	- cheh
-	- dkfiresky
-	- MjHead
-	- MaksimTS
-	name: templatemonster
-	required: 1
+	-
+		name: developers
+		required: 1
+		members:
+		- MakhonkoDenis
+		- cheh
+		- dkfiresky
+		- MjHead
+		- MaksimTS
+	-
+		name: QA
+		required: 1
+		members:
+		- Floydtm
+	-
+		name: Coders
+		required: 1
+		members:
+		- melena7
+		- SargasTM
+		- vytya
+		- alexey-svistunov
