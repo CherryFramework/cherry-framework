@@ -274,7 +274,9 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 						'true_slave'   => '',
 						'false_slave'  => '',
 					) ),
-					'required'           => Cherry_Toolkit::get_arg( $field, 'required', false ),
+					'required'    => Cherry_Toolkit::get_arg( $field, 'required', false ),
+					'placeholder' => Cherry_Toolkit::get_arg( $field, 'placeholder' ),
+					'master'      => Cherry_Toolkit::get_arg( $field, 'master' ),
 				);
 
 				$current_element = $this->ui_builder->get_ui_element_instance( $args['type'], $args );
@@ -360,6 +362,11 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 * @return object
 		 */
 		public static function get_instance( $core, $args ) {
+
+			if ( ! is_admin() ) {
+				return;
+			}
+
 			return new self( $core, $args );
 		}
 	}
