@@ -882,7 +882,9 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 					update_option( 'cherry_customiser_fonts_' . $type, $fonts );
 				}
 
-				$this->fonts = array_merge( $this->fonts, $this->satizite_font_family( $fonts ) );
+				if ( is_array( $fonts ) ) {
+					$this->fonts = array_merge( $this->fonts, $this->satizite_font_family( $fonts ) );
+				}
 			}
 		}
 
@@ -958,7 +960,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 
 			$content = json_decode( $json, true );
 
-			return $content['items'];
+			return is_array( $content ) ? $content['items'] : false;
 		}
 
 		/**
