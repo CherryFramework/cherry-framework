@@ -63,7 +63,7 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 				}
 
 				$size = wp_is_mobile() ? $args['mobile_size'] : $args['size'];
-				$size = in_array( $size, get_intermediate_image_sizes() ) ? $size : 'full';
+				$size = in_array( $size, get_intermediate_image_sizes() ) ? $size : 'post-thumbnail';
 
 				if ( $thumbnail_id ) {
 					$image_data = wp_get_attachment_image_src( $thumbnail_id, $size );
