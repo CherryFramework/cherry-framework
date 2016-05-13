@@ -62,7 +62,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			$this->settings = array_merge( $default_settings, $settings );
 
 			$this->settings['base_dir'] = trailingslashit( __DIR__ );
-			$this->settings['base_url'] = trailingslashit( $this->base_url( '', __FILE__ ) );
+			$this->settings['base_url'] = trailingslashit( self::base_url( '', __FILE__ ) );
 
 			// Cherry_Toolkit module should be loaded by default
 			if ( ! isset( $this->settings['modules']['cherry-toolkit'] ) ) {
@@ -72,7 +72,6 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			}
 
 			$this->autoload_modules();
-
 		}
 
 		/**
@@ -298,7 +297,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @param  string $module_path A full path to the core or module file.
 		 * @return string
 		 */
-		public function base_url( $file_path = '', $module_path = __FILE__ ) {
+		public static function base_url( $file_path = '', $module_path ) {
 			$module_path = wp_normalize_path( $module_path );
 			$module_dir  = dirname( $module_path );
 
