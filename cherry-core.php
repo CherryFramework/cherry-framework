@@ -1,7 +1,7 @@
 <?php
 /**
  * Class Cherry Core
- * Version: 1.0.0
+ * Version: 1.0.1
  *
  * @package    Cherry_Framework
  * @subpackage Class
@@ -51,18 +51,22 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @since 1.0.0
 		 */
 		public function __construct( $settings = array() ) {
+			$base_dir = trailingslashit( __DIR__ );
+			$base_url = trailingslashit( $this->base_url( '', __FILE__ ) );
 
-			$default_settings = array(
+			$defaults = array(
 				'framework_path' => 'cherry-framework',
 				'modules'        => array(),
-				'base_dir'       => '',
-				'base_url'       => '',
+				'base_dir'       => $base_dir,
+				'base_url'       => $base_url,
+				'extra_base_dir' => '',
 			);
 
-			$this->settings = array_merge( $default_settings, $settings );
+			$this->settings = array_merge( $defaults, $settings );
 
-			$this->settings['base_dir'] = trailingslashit( __DIR__ );
-			$this->settings['base_url'] = trailingslashit( self::base_url( '', __FILE__ ) );
+			$this->settings['extra_base_dir'] = trailingslashit( $this->settings['base_dir'] );
+			$this->settings['base_dir']       = $base_dir;
+			$this->settings['base_url']       = $base_url;
 
 			// Cherry_Toolkit module should be loaded by default
 			if ( ! isset( $this->settings['modules']['cherry-toolkit'] ) ) {
@@ -114,7 +118,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		}
 
 		/**
-		 * Init sinle module
+		 * Init single module
 		 *
 		 * @param  [type] $module module slug.
 		 * @param  array  $args   Module arguments array.
@@ -138,12 +142,13 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @return object|bool
 		 */
 		public function pre_load( $module_instance, $args = array(), $core_instance ) {
+
 			if ( $this !== $core_instance ) {
 				return $module_instance;
 			}
 
-			$hook	= current_filter();
-			$module	= str_replace( '-module', '', $hook );
+			$hook   = current_filter();
+			$module = str_replace( '-module', '', $hook );
 
 			$this->load_module( $module );
 
@@ -180,11 +185,13 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 				return true;
 			}
 
-			if ( ! file_exists( $this->get_module_path( $module ) ) ) {
+			$path = $this->get_module_path( $module );
+
+			if ( ! $path ) {
 				return false;
 			}
 
-			require_once( $this->get_module_path( $module ) );
+			require_once( $path );
 
 			return true;
 		}
@@ -232,7 +239,16 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @return string
 		 */
 		public function get_module_path( $module ) {
-			return $this->settings['base_dir'] . '/modules/' . $module . '/' . $module . '.php';
+			$abs_path = false;
+			$rel_path = 'modules/' . $module . '/' . $module . '.php';
+
+			if ( file_exists( $this->settings['base_dir'] . $rel_path ) ) {
+				$abs_path = $this->settings['base_dir'] . $rel_path;
+			} else if ( file_exists( $this->settings['extra_base_dir'] . $rel_path ) ) {
+				$abs_path = $this->settings['extra_base_dir'] . $rel_path;
+			}
+
+			return $abs_path ? $abs_path : false;
 		}
 
 		/**
@@ -265,8 +281,14 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 				$module = $this->get_module_path( $module );
 			}
 
-			$data    = get_file_data( $module , $default_headers );
 			$version = '1.0.0';
+
+			/* @TODO: Add smart check */
+			if ( ! $module ) {
+				return $version;
+			}
+
+			$data = get_file_data( $module , $default_headers );
 
 			// Check if version string has a valid value
 			if ( isset( $data['version'] ) &&

@@ -202,9 +202,7 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		 * @return void
 		 */
 		public function includes() {
-
-			$based_dir = $this->core->settings['base_dir'] . 'modules/' . $this->module_slug;
-			require_once $based_dir . '/inc/class-cherry-facebook-embed.php';
+			require_once __DIR__ . '/inc/class-cherry-facebook-embed.php';
 
 			// Register Facebook Embed.
 			if ( class_exists( 'Cherry_Facebook_Embed' ) ) {
@@ -219,16 +217,13 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		 * @return void
 		 */
 		public function assets() {
-
-			$base_url = $this->core->settings['base_url'] . 'modules/' . $this->module_slug;
-
 			wp_enqueue_script(
 				'cherry-post-formats',
-				$base_url . '/assets/js/min/cherry-post-formats.min.js', array( 'jquery', 'cherry-js-core' ),
+				Cherry_Core::base_url( 'assets/js/min/cherry-post-formats.min.js', __FILE__ ),
+				array( 'jquery', 'cherry-js-core' ),
 				$this->module_version,
 				true
 			);
-
 		}
 
 		/**
