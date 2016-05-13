@@ -31,7 +31,7 @@
 
 			target.on( 'click', '.cherry-ui-repeater-remove', function( event ) {
 				event.preventDefault();
-				$( this ).parents( '.cherry-ui-repeater-item' ).remove();
+				$( this ).closest( '.cherry-ui-repeater-item' ).remove();
 			});
 
 			$list.sortable({
