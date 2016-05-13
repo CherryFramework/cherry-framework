@@ -6,7 +6,7 @@
 
 	CherryJsCore.utilites.namespace( 'ui_elements.repeater' );
 	CherryJsCore.ui_elements.repeater = {
-		init: function ( target ) {
+		init: function( target ) {
 			var self = this;
 			if ( CherryJsCore.status.document_ready ) {
 				self.render( target );
