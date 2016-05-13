@@ -43,6 +43,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 
 		/**
 		 * Stored data to process it while renderinr row
+		 *
 		 * @var array
 		 */
 		public $data = array();

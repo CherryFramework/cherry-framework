@@ -325,7 +325,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 * Maybe add reapeater sub-fields to required elements list
 		 *
 		 * @since  1.0.1
-		 * @param  array  $field field data.
+		 * @param  array $field field data.
 		 * @return bool
 		 */
 		public function maybe_add_repeater_fields( $field ) {

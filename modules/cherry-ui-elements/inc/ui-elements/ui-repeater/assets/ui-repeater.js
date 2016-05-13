@@ -1,10 +1,10 @@
 /**
  * Media
  */
-(function( $, CherryJsCore){
+(function( $, CherryJsCore ) {
 	'use strict';
 
-	CherryJsCore.utilites.namespace('ui_elements.repeater');
+	CherryJsCore.utilites.namespace( 'ui_elements.repeater' );
 	CherryJsCore.ui_elements.repeater = {
 		init: function ( target ) {
 			var self = this;
@@ -14,7 +14,7 @@
 				CherryJsCore.variable.$document.on( 'ready', self.render( target ) );
 			}
 		},
-		render: function ( target ) {
+		render: function( target ) {
 
 			var $list       = $( '.cherry-ui-repeater-list', target ),
 				tmplName    = $list.data( 'name' ),
@@ -29,9 +29,9 @@
 				$list.data( 'index', index );
 			});
 
-			target.on( 'click', '.cherry-ui-repeater-remove', function(event) {
+			target.on( 'click', '.cherry-ui-repeater-remove', function( event ) {
 				event.preventDefault();
-				$(this).parents( '.cherry-ui-repeater-item' ).remove();
+				$( this ).parents( '.cherry-ui-repeater-item' ).remove();
 			});
 
 			$list.sortable({
@@ -42,7 +42,7 @@
 				forceHelperSize: false,
 				helper: 'clone',
 				opacity: 0.65,
-				placeholder: 'sortable-placeholder',
+				placeholder: 'sortable-placeholder'
 			});
 		}
 	};
@@ -53,4 +53,4 @@
 		}
 	);
 
-}( jQuery , window.CherryJsCore ));
+}( jQuery, window.CherryJsCore ) );
