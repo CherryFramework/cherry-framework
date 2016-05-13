@@ -1,0 +1,81 @@
+@import "ui-kit/variables";
+@import "ui-kit/mixins";
+
+.cherry-ui-repeater-container {
+	.cherry-ui-container{
+		margin: 5px 0 10px 0;
+	}
+	label.cherry-label{
+		margin: 0 0 5px 0;
+		display: block;
+	}
+}
+
+.cherry-ui-repeater {
+	&-add {
+		@include link();
+		@include link_icon_before( '\f132' );
+	}
+	&-item {
+		padding: 10px 10px 10px 30px;
+		position: relative;
+	}
+	&-remove {
+		position: absolute;
+		width: 20px;
+		height: 20px;
+		left: 0;
+		top: 18px;
+		border-radius: 50%;
+		border: 1px solid currentColor;
+		color: red;
+		font-size: 18px;
+		line-height: 20px;
+		text-align: center;
+		cursor: pointer;
+		&:before {
+			content: "\00D7";
+		}
+		&:hover {
+			color: black;
+		}
+	}
+}
+
+.cherry-ui-kit {
+	&.cherry-ui-repeater-container {
+		@include container();
+	}
+	> label.cherry-label {
+		@include container_heading();
+	}
+	.cherry-ui-repeater {
+		&-item {
+			@include box();
+		}
+		&-remove-box {
+			@include box_heading();
+			padding: 15px 20px;
+			text-align: left;
+		}
+		&-remove {
+			position: static;
+			border: none;
+			color: $grey_color_4;
+			font-size: 20px;
+			line-height: 20px;
+			width: 20px;
+			text-align: center;
+			vertical-align: middle;
+			&:before {
+				content: "\f158";
+				transition: all 200ms linear;
+				font-family: dashicons;
+				vertical-align: middle;
+			}
+			&:hover {
+				color: $dark_color_1;
+			}
+		}
+	}
+}
