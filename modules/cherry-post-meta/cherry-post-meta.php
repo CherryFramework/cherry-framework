@@ -3,7 +3,7 @@
  * Post meta management module
  * Module Name: Post Meta
  * Description: Manage post meta
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -35,7 +35,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 *
 		 * @var string
 		 */
-		public $module_version = '1.0.0';
+		public $module_version = '1.0.1';
 
 		/**
 		 * Module slug
@@ -259,6 +259,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 					'name'               => Cherry_Toolkit::get_arg( $field, 'name', $key ),
 					'value'              => $value,
 					'label'              => Cherry_Toolkit::get_arg( $field, 'label', '' ),
+					'add_label'          => Cherry_Toolkit::get_arg( $field, 'add_label', '' ),
 					'options'            => $options,
 					'multiple'           => Cherry_Toolkit::get_arg( $field, 'multiple', false ),
 					'filter'             => Cherry_Toolkit::get_arg( $field, 'filter', false ),
@@ -275,6 +276,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 					'style'              => Cherry_Toolkit::get_arg( $field, 'style', 'normal' ),
 					'display_input'      => Cherry_Toolkit::get_arg( $field, 'display_input', true ),
 					'controls'           => Cherry_Toolkit::get_arg( $field, 'controls', array() ),
+					'fields'             => Cherry_Toolkit::get_arg( $field, 'fields', array() ),
 					'toggle'             => Cherry_Toolkit::get_arg( $field, 'toggle', array(
 						'true_toggle'  => 'On',
 						'false_toggle' => 'Off',
@@ -318,6 +320,29 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 			if ( ! in_array( $field['type'], $this->field_types ) ) {
 				$this->field_types[] = $field['type'];
+			}
+
+			$this->maybe_add_repeater_fields( $field );
+
+			return true;
+
+		}
+
+		/**
+		 * Maybe add reapeater sub-fields to required elements list
+		 *
+		 * @since  1.0.1
+		 * @param  array $field field data.
+		 * @return bool
+		 */
+		public function maybe_add_repeater_fields( $field ) {
+
+			if ( 'repeater' !== $field['type'] || empty( $field['fields'] ) ) {
+				return false;
+			}
+
+			foreach ( $field['fields'] as $repeater_field ) {
+				$this->set_field_types( $repeater_field, null );
 			}
 
 			return true;
