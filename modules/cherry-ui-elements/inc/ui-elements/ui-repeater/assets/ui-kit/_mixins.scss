@@ -1,0 +1,166 @@
+@mixin button_base() {
+	display: inline-block;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 20px;
+	font-weight: bold;
+	padding: 15px 20px;
+	color: #fff;
+	text-transform: uppercase;
+	border-radius: $border_radius;
+	transition: all 200ms linear;
+	box-shadow: $box_shadow;
+	&:hover {
+		color: #fff;
+		box-shadow: none;
+	}
+	&:focus,
+	&:active {
+		outline: none;
+		box-shadow: none;
+		color: #fff;
+	}
+}
+
+@mixin button_normal() {
+	background: $dark_color_2;
+	&:hover {
+		background: $dark_color_2_h;
+	}
+}
+
+@mixin button_primary() {
+	background: $blue_color;
+	&:hover {
+		background: $blue_color_h;
+	}
+}
+
+@mixin button_success() {
+	background: $green_color;
+	&:hover {
+		background: $green_color_h;
+	}
+}
+
+@mixin button_danger() {
+	background: $red_color;
+	&:hover {
+		background: $red_color_h;
+	}
+}
+
+@mixin button_warning() {
+	background: $orange_color;
+	&:hover {
+		background: $orange_color_h;
+	}
+}
+
+@mixin button_icon( $icon ) {
+	content: $icon;
+	display: inline-block;
+	font-family: dashicons;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 400;
+	height: 18px;
+	line-height: 18px;
+	text-align: center;
+	text-decoration: inherit;
+	transition: all 200ms linear;
+	vertical-align: middle;
+}
+
+@mixin button_icon_before( $icon ) {
+	&:before {
+		@include button_icon( $icon );
+		padding: 0 5px 0 0;
+	}
+}
+
+@mixin button_icon_after( $icon ) {
+	&:after {
+		@include button_icon( $icon );
+		padding: 0 0 0 5px;
+	}
+}
+
+@mixin button_icon_middle( $icon ) {
+	&:before {
+		@include button_icon( $icon );
+		margin: 0 -5px;
+	}
+}
+
+@mixin link() {
+	display: inline-block;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 20px;
+	font-weight: bold;
+	color: $blue_color;
+	text-transform: uppercase;
+	transition: all 200ms linear;
+	&:hover {
+		color: $dark_color_1;
+		box-shadow: none;
+	}
+	&:focus,
+	&:active {
+		outline: none;
+		box-shadow: none;
+		color: $blue_color;
+	}
+}
+
+@mixin link_icon_before( $icon ) {
+	&:before {
+		@include button_icon( $icon );
+		padding: 0 5px 0 0;
+		color: $grey_color_4;
+	}
+	&:hover {
+		&:before {
+			color: $blue_color;
+		}
+	}
+}
+
+@mixin container() {
+	padding: 30px;
+	border: 2px solid $grey_color_2;
+	background: $grey_color_3;
+	border-radius: $border_radius_2x;
+}
+
+@mixin container_heading() {
+	margin: -30px -30px 30px -30px;
+	border-radius: $border_radius_2x $border_radius_2x 0 0;
+	border-bottom: 1px solid $grey_color_2;
+	padding: 20px 30px;
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 18px;
+	text-align: center;
+	background: #fff;
+}
+
+@mixin box() {
+	margin: 0 0 30px;
+	padding: 20px;
+	background: #fff;
+	box-shadow: $box_shadow_box;
+	border-radius: $border_radius;
+}
+
+@mixin box_heading() {
+	margin: -20px -20px 20px -20px;
+	border-radius: $border_radius $border_radius 0 0;
+	border-bottom: 1px solid $grey_color_2;
+	padding: 20px 30px;
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 18px;
+	background: #fff;
+}
