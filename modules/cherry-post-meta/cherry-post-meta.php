@@ -396,10 +396,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 			foreach ( $_POST[ $meta_key ] as $key => $value ) {
 
-				/**
-				 * @TODO - add sanitation by element type
-				 * & hook for custom sanitation method.
-				 */
+				// @TODO - add sanitation by element type & hook for custom sanitation method.
 				$new_meta_value[ $key ] = sanitize_text_field( $value );
 			}
 
@@ -429,10 +426,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 					continue;
 				}
 
-				/**
-				 * @TODO - add sanitation by element type
-				 * & hook for custom sanitation method.
-				 */
+				// @TODO - add sanitation by element type & hook for custom sanitation method.
 				update_post_meta( $post_id, $key, $_POST[ $key ] );
 			}
 		}
