@@ -86,21 +86,22 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * @return string
 		 */
 		public function cut_text( $text = '', $length = 0, $trimmed_type = 'word', $after ) {
-			$length = (int) $length;
+			$length			= (int) $length;
+			$output_text	= '';
 
 			if ( $length ) {
-				$text = strip_shortcodes( $text );
-				$text = apply_filters( 'the_content', $text );
-				$text = str_replace( ']]>', ']]&gt;', $text );
+				$output_text = strip_shortcodes( $text );
+				$output_text = apply_filters( 'the_content', $output_text );
+				$output_text = str_replace( ']]>', ']]&gt;', $output_text );
 
 				if ( 'word' === $trimmed_type ) {
-					$text = wp_trim_words( $text, $length, $after );
+					$output_text = wp_trim_words( $output_text, $length, $after );
 				} else {
-					$text = wp_html_excerpt( $text, $length, $after );
+					$output_text = wp_html_excerpt( $output_text, $length, $after );
 				}
 			}
 
-			return $text;
+			return $output_text;
 		}
 
 		/**
