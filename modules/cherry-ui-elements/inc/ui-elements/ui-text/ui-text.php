@@ -36,7 +36,7 @@ if ( ! class_exists( 'UI_Text' ) ) {
 			'label'			=> '',
 			'class'			=> '',
 			'master'		=> '',
-			'required'      => false,
+			'required'		=> false,
 		);
 
 		/**
@@ -71,9 +71,7 @@ if ( ! class_exists( 'UI_Text' ) ) {
 		public function render() {
 			$html = '';
 
-			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
-
-			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
+			$html .= '<div class="cherry-ui-container ' . esc_attr( $this->settings['master'] ) . '">';
 				if ( '' !== $this->settings['label'] ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
 				}

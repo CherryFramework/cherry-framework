@@ -53,20 +53,16 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		public function __construct( $settings = array() ) {
 
 			$default_settings = array(
-				'framework_path'	=> 'cherry-framework',
-				'modules'			=> array(),
-				'base_dir'			=> '',
-				'base_url'			=> '',
+				'framework_path' => 'cherry-framework',
+				'modules'        => array(),
+				'base_dir'       => '',
+				'base_url'       => '',
 			);
 
 			$this->settings = array_merge( $default_settings, $settings );
 
-			$core_dir = __DIR__;
-			$this->settings['base_dir'] = trailingslashit( $core_dir );
-
-			$core_url = str_replace( untrailingslashit( ABSPATH ), site_url(), __DIR__ );
-			$core_url = str_replace( '\\', '/', $core_url );
-			$this->settings['base_url'] = trailingslashit( $core_url );
+			$this->settings['base_dir'] = trailingslashit( __DIR__ );
+			$this->settings['base_url'] = trailingslashit( self::base_url( '', __FILE__ ) );
 
 			// Cherry_Toolkit module should be loaded by default
 			if ( ! isset( $this->settings['modules']['cherry-toolkit'] ) ) {
@@ -76,7 +72,6 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			}
 
 			$this->autoload_modules();
-
 		}
 
 		/**
@@ -275,10 +270,10 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 
 			// Check if version string has a valid value
 			if ( isset( $data['version'] ) &&
-			 		 false !== strpos( $data['version'], '.' ) ) {
+					 false !== strpos( $data['version'], '.' ) ) {
 				// Clean the version string
-	 			preg_match( '/[\d\.]+/', $data['version'], $version );
-	 			$version = $version[0];
+				preg_match( '/[\d\.]+/', $data['version'], $version );
+				$version = $version[0];
 			}
 
 			// Convert version into integer
@@ -290,6 +285,44 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			}
 
 			return (int) join( '', $parts );
+		}
+
+		/**
+		 * Retrieves the absolute URL to the current file.
+		 * Like a WordPress function `plugins_url`.
+		 *
+		 * @link   https://codex.wordpress.org/Function_Reference/plugins_url
+		 * @since  1.0.1
+		 * @param  string $file_path   Optional. Extra path appended to the end of the URL.
+		 * @param  string $module_path A full path to the core or module file.
+		 * @return string
+		 */
+		public static function base_url( $file_path = '', $module_path ) {
+			$module_path = wp_normalize_path( $module_path );
+			$module_dir  = dirname( $module_path );
+
+			$plugin_dir  = wp_normalize_path( WP_PLUGIN_DIR );
+			$stylesheet  = get_stylesheet();
+			$theme_root  = get_raw_theme_root( $stylesheet );
+			$theme_dir   = "$theme_root/$stylesheet";
+
+			if ( 0 === strpos( $module_path, $plugin_dir ) ) {
+				$url = plugin_dir_url( $module_path );
+			} else if ( false !== strpos( $module_path, $theme_dir ) ) {
+				$explode = explode( $theme_dir, $module_dir, 2 );
+				$url     = get_stylesheet_directory_uri() . $explode[1];
+			} else {
+				$site_url = site_url();
+				$abs_path = wp_normalize_path( ABSPATH );
+				$url      = str_replace( untrailingslashit( $abs_path ), $site_url, $module_dir );
+			}
+
+			if ( $file_path && is_string( $file_path ) ) {
+				$url = trailingslashit( $url );
+				$url .= ltrim( $file_path, '/' );
+			}
+
+			return apply_filters( 'cherry_core_base_url', $url, $file_path, $module_path );
 		}
 
 		/**
