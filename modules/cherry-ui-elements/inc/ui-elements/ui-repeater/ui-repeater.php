@@ -59,7 +59,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 			$this->settings = wp_parse_args( $args, $this->defaults_settings );
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
-			add_action( 'admin_footer', array( $this, 'print_js_template' ) );
+			add_action( 'admin_footer', array( $this, 'print_js_template' ), 0 );
 		}
 
 		/**

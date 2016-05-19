@@ -277,6 +277,8 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 					'display_input'      => Cherry_Toolkit::get_arg( $field, 'display_input', true ),
 					'controls'           => Cherry_Toolkit::get_arg( $field, 'controls', array() ),
 					'fields'             => Cherry_Toolkit::get_arg( $field, 'fields', array() ),
+					'auto_parse'         => Cherry_Toolkit::get_arg( $field, 'auto_parse', false ),
+					'icon_data'          => Cherry_Toolkit::get_arg( $field, 'icon_data', array() ),
 					'toggle'             => Cherry_Toolkit::get_arg( $field, 'toggle', array(
 						'true_toggle'  => 'On',
 						'false_toggle' => 'Off',

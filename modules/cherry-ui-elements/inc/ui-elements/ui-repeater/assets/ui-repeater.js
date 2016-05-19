@@ -36,6 +36,7 @@
 
 			$list.sortable({
 				items: '.cherry-ui-repeater-item',
+				handle: '.cherry-ui-repeater-remove-box',
 				cursor: 'move',
 				scrollSensitivity: 40,
 				forcePlaceholderSize: true,

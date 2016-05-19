@@ -57,6 +57,7 @@
 			@include box_heading();
 			padding: 15px 20px;
 			text-align: left;
+			cursor: move;
 		}
 		&-remove {
 			position: static;
