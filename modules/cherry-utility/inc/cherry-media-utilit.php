@@ -135,7 +135,7 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 			if ( ! $html ) {
 				$url_array = $this->sorted_array( $url_array );
 
-				if( empty( $url_array['video'] ) ) {
+				if ( empty( $url_array['video'] ) ) {
 					return '';
 				}
 
@@ -147,7 +147,7 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 				$shortcode_attr = array(
 					'width' => '100%',
 					'height' => '100%',
-					'poster' => $url_array['poster']
+					'poster' => $url_array['poster'],
 				);
 
 				$shortcode_attr = wp_parse_args( $url_array['video'], $shortcode_attr );
@@ -171,15 +171,15 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 			);
 
 			$default_types = wp_get_video_extensions();
-			$pattern = '/.(' . implode("|", $default_types) . ')/im';
+			$pattern = '/.(' . implode( '|', $default_types ) . ')/im';
 
-			foreach ($array as $url) {
-				foreach ($default_types as $type) {
-					if( strpos( $url, $type ) ){
+			foreach ( $array as $url ) {
+				foreach ( $default_types as $type ) {
+					if ( strpos( $url, $type ) ) {
 						$output_array['video'][$type] = $url;
 					}
 				}
-				if ( ! preg_match( $pattern, $url ) ){
+				if ( ! preg_match( $pattern, $url ) ) {
 					$output_array['poster'] = $url;
 				}
 			}
