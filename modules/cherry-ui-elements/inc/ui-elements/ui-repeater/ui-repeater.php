@@ -126,8 +126,8 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 
 			$html = '<div class="cherry-ui-repeater-item">';
 			$html .= '<div class="cherry-ui-repeater-actions-box">';
-				$html .= '<a hre="#" class="cherry-ui-repeater-remove"></a>';
-				$html .= '<a hre="#" class="cherry-ui-repeater-toggle"></a>';
+				$html .= '<a href="#" class="cherry-ui-repeater-remove"></a>';
+				$html .= '<a href="#" class="cherry-ui-repeater-toggle"></a>';
 			$html .= '</div>';
 			$html .= '<div class="cheryr-ui-repeater-content-box">';
 			foreach ( $this->settings['fields'] as $field ) {

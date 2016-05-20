@@ -1,5 +1,5 @@
 /**
- * iconpicker
+ * Iconpicker
  */
 (function( $, CherryJsCore ) {
 	'use strict';
@@ -29,7 +29,7 @@
 			}
 
 			if ( setData ) {
-				$('body').append('<link rel="stylesheet" type="text/css" href="' + setData.iconCSS + '"">');
+				$( 'body' ).append( '<link rel="stylesheet" type="text/css" href="' + setData.iconCSS + '"">' );
 			}
 		}
 
