@@ -15,7 +15,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'UI_Text' ) ) {
+if ( ! class_exists( 'UI_Iconpicker' ) ) {
 
 	/**
 	 * Class for the building ui-iconpicker elements.

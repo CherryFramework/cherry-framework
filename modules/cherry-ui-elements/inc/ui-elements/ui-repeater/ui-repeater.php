@@ -92,9 +92,10 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 				}
 
 				$html .= sprintf(
-					'<div class="cherry-ui-repeater-list" data-name="%1$s" data-index="%2$s">',
+					'<div class="cherry-ui-repeater-list" data-name="%1$s" data-index="%2$s" id="%3$s">',
 					esc_attr( $this->settings['name'] ),
-					( ! empty( $this->settings['value'] ) ) ? count( $this->settings['value'] ) : 0
+					( ! empty( $this->settings['value'] ) ) ? count( $this->settings['value'] ) : 0,
+					esc_attr( $this->settings['id'] )
 				);
 
 				if ( is_array( $this->settings['value'] ) ) {
@@ -131,7 +132,9 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 			$html .= '</div>';
 			$html .= '<div class="cheryr-ui-repeater-content-box">';
 			foreach ( $this->settings['fields'] as $field ) {
+				$html .= '<div class="' . $field['id'] . '-wrap">';
 				$html .= $this->render_field( $index, $field );
+				$html .= '</div>';
 			}
 			$html .= '</div>';
 			$html .= '</div>';
