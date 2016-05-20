@@ -34,9 +34,24 @@
 				$( this ).closest( '.cherry-ui-repeater-item' ).remove();
 			});
 
+			target.on( 'click', '.cherry-ui-repeater-toggle', function( event ) {
+
+				var $container = $( this ).closest( '.cherry-ui-repeater-item' ),
+					minClass   = 'cherry-ui-repeater-min';
+
+				event.preventDefault();
+
+				if ( $container.hasClass( minClass ) ) {
+					$container.removeClass( minClass );
+				} else {
+					$container.addClass( minClass );
+				}
+
+			});
+
 			$list.sortable({
 				items: '.cherry-ui-repeater-item',
-				handle: '.cherry-ui-repeater-remove-box',
+				handle: '.cherry-ui-repeater-actions-box',
 				cursor: 'move',
 				scrollSensitivity: 40,
 				forcePlaceholderSize: true,

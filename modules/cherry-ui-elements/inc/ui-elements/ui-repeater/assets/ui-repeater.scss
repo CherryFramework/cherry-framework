@@ -53,11 +53,36 @@
 		&-item {
 			@include box();
 		}
-		&-remove-box {
+		&-actions-box {
 			@include box_heading();
 			padding: 15px 20px;
-			text-align: left;
 			cursor: move;
+			&:after {
+				clear: both;
+				content: "";
+				width: 100%;
+				display: block;
+			}
+		}
+		&-toggle {
+			float: left;
+			color: $grey_color_4;
+			font-size: 22px;
+			height: 20px;
+			line-height: 20px;
+			width: 20px;
+			text-align: center;
+			vertical-align: middle;
+			cursor: pointer;
+			&:before {
+				content: "\f142";
+				transition: all 200ms linear;
+				font-family: dashicons;
+				vertical-align: middle;
+			}
+			&:hover {
+				color: $dark_color_1;
+			}
 		}
 		&-remove {
 			position: static;
@@ -68,6 +93,7 @@
 			width: 20px;
 			text-align: center;
 			vertical-align: middle;
+			float: right;
 			&:before {
 				content: "\f158";
 				transition: all 200ms linear;
@@ -76,6 +102,23 @@
 			}
 			&:hover {
 				color: $dark_color_1;
+			}
+		}
+	}
+
+	.cherry-ui-repeater-min {
+		padding-bottom: 0;
+		> .cheryr-ui-repeater-content-box {
+			display: none;
+		}
+		> .cherry-ui-repeater-actions-box {
+			margin-bottom: 0;
+			border-bottom: none;
+			background: none;
+			.cherry-ui-repeater-toggle {
+				&:before {
+					content: "\f140";
+				}
 			}
 		}
 	}
