@@ -59,7 +59,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 			$this->settings = wp_parse_args( $args, $this->defaults_settings );
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
-			add_action( 'admin_footer', array( $this, 'print_js_template' ) );
+			add_action( 'admin_footer', array( $this, 'print_js_template' ), 0 );
 		}
 
 		/**
@@ -125,10 +125,15 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 			$this->data = $data;
 
 			$html = '<div class="cherry-ui-repeater-item">';
-			$html .= '<div class="cherry-ui-repeater-remove-box"><a hre="#" class="cherry-ui-repeater-remove"></a></div>';
+			$html .= '<div class="cherry-ui-repeater-actions-box">';
+				$html .= '<a hre="#" class="cherry-ui-repeater-remove"></a>';
+				$html .= '<a hre="#" class="cherry-ui-repeater-toggle"></a>';
+			$html .= '</div>';
+			$html .= '<div class="cheryr-ui-repeater-content-box">';
 			foreach ( $this->settings['fields'] as $field ) {
 				$html .= $this->render_field( $index, $field );
 			}
+			$html .= '</div>';
 			$html .= '</div>';
 
 			$this->data = array();
