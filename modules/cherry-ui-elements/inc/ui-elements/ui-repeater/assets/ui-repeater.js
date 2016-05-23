@@ -16,50 +16,65 @@
 		},
 		render: function( target ) {
 
-			var $list       = $( '.cherry-ui-repeater-list', target ),
-				tmplName    = $list.data( 'name' ),
-				rowTemplate = wp.template( tmplName );
+			$('.cherry-ui-repeater-container', target ).each( function() {
+				var $this        = $( this ),
+					$list        = $( '.cherry-ui-repeater-list', $this ),
+					tmplName     = $list.data( 'name' ),
+					titleField   = $list.data( 'title-field' ),
+					rowTemplate  = wp.template( tmplName );
 
-			target.on( 'click', '.cherry-ui-repeater-add', function( event ) {
-				var index = $list.data( 'index' ),
-					$target = $list.append( rowTemplate( { index: index } ) ).find( '.cherry-ui-repeater-item:last' );
-				event.preventDefault();
-				CherryJsCore.variable.$window.trigger( 'cherry-ui-elements-init', { 'target': $target } );
-				index++;
-				$list.data( 'index', index );
-			});
+				$this.on( 'click', '.cherry-ui-repeater-add', function( event ) {
+					var index = $list.data( 'index' ),
+						$target = $list.append( rowTemplate( { index: index } ) ).find( '.cherry-ui-repeater-item:last' );
 
-			$( '.cherry-ui-repeater-remove', target ).on( 'click', function( event ) {
-				event.preventDefault();
-				$( this ).closest( '.cherry-ui-repeater-item' ).remove();
-			});
+					event.preventDefault();
 
-			$( '.cherry-ui-repeater-toggle', target ).on( 'click', function( event ) {
+					CherryJsCore.variable.$window.trigger( 'cherry-ui-elements-init', { 'target': $target } );
+					index++;
+					$list.data( 'index', index );
+				});
 
-				var $container = $( this ).closest( '.cherry-ui-repeater-item' ),
-					minClass   = 'cherry-ui-repeater-min';
+				$list.on( 'click', '.cherry-ui-repeater-remove', function( event ) {
+					event.preventDefault();
+					$( this ).closest( '.cherry-ui-repeater-item' ).remove();
+				});
 
-				event.preventDefault();
+				$list.on( 'click', '.cherry-ui-repeater-toggle', function( event ) {
+					var $container = $( this ).closest( '.cherry-ui-repeater-item' ),
+						minClass   = 'cherry-ui-repeater-min';
 
-				if ( $container.hasClass( minClass ) ) {
-					$container.removeClass( minClass );
-				} else {
-					$container.addClass( minClass );
-				}
+					event.preventDefault();
 
-			});
+					if ( $container.hasClass( minClass ) ) {
+						$container.removeClass( minClass );
+					} else {
+						$container.addClass( minClass );
+					}
 
-			$list.sortable({
-				items: '.cherry-ui-repeater-item',
-				handle: '.cherry-ui-repeater-actions-box',
-				cursor: 'move',
-				scrollSensitivity: 40,
-				forcePlaceholderSize: true,
-				forceHelperSize: false,
-				helper: 'clone',
-				opacity: 0.65,
-				placeholder: 'sortable-placeholder'
-			});
+				});
+
+				$list.on( 'change', '.' + titleField + '-wrap input, textarea, select', function( event ) {
+					var $this = $( this ),
+						value = $this.val(),
+						$actionsBox = $this.closest( '.cherry-ui-repeater-item' ),
+						$title = $( '.cherry-ui-repeater-title', $actionsBox );
+
+						$title.html( value );
+				});
+
+				$list.sortable({
+					items: '.cherry-ui-repeater-item',
+					handle: '.cherry-ui-repeater-actions-box',
+					cursor: 'move',
+					scrollSensitivity: 40,
+					forcePlaceholderSize: true,
+					forceHelperSize: false,
+					helper: 'clone',
+					opacity: 0.65,
+					placeholder: 'sortable-placeholder'
+				});
+			} );
+
 		}
 	};
 

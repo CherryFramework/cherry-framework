@@ -28,17 +28,18 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		 * @var array
 		 */
 		private $defaults_settings = array(
-			'type'      => 'repeater',
-			'id'        => 'cherry-ui-repeater-id',
-			'name'      => 'cherry-ui-repeater-name',
-			'value'     => array(),
-			'fields'    => array(),
-			'label'     => '',
-			'add_label' => 'Add Item',
-			'class'     => '',
-			'master'    => '',
-			'ui_kit'    => true,
-			'required'  => false,
+			'type'        => 'repeater',
+			'id'          => 'cherry-ui-repeater-id',
+			'name'        => 'cherry-ui-repeater-name',
+			'value'       => array(),
+			'fields'      => array(),
+			'label'       => '',
+			'add_label'   => 'Add Item',
+			'class'       => '',
+			'master'      => '',
+			'ui_kit'      => true,
+			'required'    => false,
+			'title_field' => '',
 		);
 
 		/**
@@ -84,17 +85,21 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 
 			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
 
-			$ui_kit = ! empty( $this->settings['ui_kit'] ) ? 'cherry-ui-kit ' : '';
+			$ui_kit = ! empty( $this->settings['ui_kit'] ) ? 'cherry-ui-kit' : '';
 
-			$html .= '<div class="cherry-ui-repeater-container cherry-ui-container ' . $ui_kit . $master_class . '">';
+			$html .= sprintf( '<div class="cherry-ui-repeater-container cherry-ui-container %1$s %2$s">',
+					$ui_kit,
+					$master_class
+				);
 				if ( '' !== $this->settings['label'] ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
 				}
 
 				$html .= sprintf(
-					'<div class="cherry-ui-repeater-list" data-name="%1$s" data-index="%2$s" id="%3$s">',
+					'<div class="cherry-ui-repeater-list" data-name="%1$s" data-index="%2$s" %3$s id="%4$s">',
 					esc_attr( $this->settings['name'] ),
 					( ! empty( $this->settings['value'] ) ) ? count( $this->settings['value'] ) : 0,
+					( ! empty( $this->settings['title_field'] ) ) ? 'data-title-field="' . $this->settings['title_field'] . '"': '',
 					esc_attr( $this->settings['id'] )
 				);
 
@@ -125,10 +130,13 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 
 			$this->data = $data;
 
-			$html = '<div class="cherry-ui-repeater-item">';
+			$html = '<div class="cherry-ui-repeater-item" >';
 			$html .= '<div class="cherry-ui-repeater-actions-box">';
-				$html .= '<a href="#" class="cherry-ui-repeater-remove"></a>';
-				$html .= '<a href="#" class="cherry-ui-repeater-toggle"></a>';
+
+			$html .= '<a href="#" class="cherry-ui-repeater-remove"></a>';
+			$html .= '<span class="cherry-ui-repeater-title">' . $this->get_row_title() . '</span>';
+			$html .= '<a href="#" class="cherry-ui-repeater-toggle"></a>';
+
 			$html .= '</div>';
 			$html .= '<div class="cheryr-ui-repeater-content-box">';
 			foreach ( $this->settings['fields'] as $field ) {
@@ -142,6 +150,22 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 			$this->data = array();
 
 			return $html;
+		}
+
+		/**
+		 *
+		 */
+		public function get_row_title() {
+
+			if ( empty( $this->settings['title_field'] ) ) {
+				return '';
+			}
+
+			if ( ! empty( $this->data[ $this->settings['title_field'] ] ) ) {
+				return  $this->data[ $this->settings['title_field'] ];
+			}
+
+			return '';
 		}
 
 		/**

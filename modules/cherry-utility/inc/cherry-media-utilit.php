@@ -51,24 +51,29 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 
 			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
 				if ( 'post' === $type ) {
-					$id = $object->ID;
+					$id           = $object->ID;
 					$thumbnail_id = get_post_thumbnail_id( $id );
-					$alt = esc_attr( $object->post_title );
-					$link = $this->get_post_permalink();
+					$alt          = esc_attr( $object->post_title );
+					$link         = $this->get_post_permalink();
 				} else {
-					$id = $object->term_id;
+					$id           = $object->term_id;
 					$thumbnail_id = get_term_meta( $id, $this->args['meta_key']['term_thumb'] , true );
-					$alt = esc_attr( $object->name );
-					$link = $this->get_term_permalink( $id );
+					$alt          = esc_attr( $object->name );
+					$link         = $this->get_term_permalink( $id );
 				}
 
-				$size		= wp_is_mobile() ? $args['mobile_size'] : $args['size'];
-				$size_array	= $this->get_thumbnail_size_array( $size );
+				$size = wp_is_mobile() ? $args['mobile_size'] : $args['size'];
+				$size = in_array( $size, get_intermediate_image_sizes() ) ? $size : 'post-thumbnail';
 
 				if ( $thumbnail_id ) {
-					$src = wp_get_attachment_image_url( $thumbnail_id, $size );
+					$image_data = wp_get_attachment_image_src( $thumbnail_id, $size );
+					$src = $image_data[0];
+					$size_array['width'] = $image_data[1];
+					$size_array['height'] = $image_data[2];
 				} elseif ( filter_var( $args['placeholder'], FILTER_VALIDATE_BOOLEAN ) ) {
 					// Place holder defaults attr
+					$size_array	= $this->get_thumbnail_size_array( $size );
+
 					$title = ( $args['placeholder_title'] ) ? $args['placeholder_title'] : $size_array['width'] . 'x' . $size_array['height'] ;
 					$attr = array(
 						'width'			=> $size_array['width'],
