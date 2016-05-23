@@ -1,5 +1,5 @@
 /**
- * Media
+ * Repeater
  */
 (function( $, CherryJsCore ) {
 	'use strict';
@@ -29,13 +29,29 @@
 				$list.data( 'index', index );
 			});
 
-			target.on( 'click', '.cherry-ui-repeater-remove', function( event ) {
+			$( '.cherry-ui-repeater-remove', target ).on( 'click', function( event ) {
 				event.preventDefault();
 				$( this ).closest( '.cherry-ui-repeater-item' ).remove();
 			});
 
+			$( '.cherry-ui-repeater-toggle', target ).on( 'click', function( event ) {
+
+				var $container = $( this ).closest( '.cherry-ui-repeater-item' ),
+					minClass   = 'cherry-ui-repeater-min';
+
+				event.preventDefault();
+
+				if ( $container.hasClass( minClass ) ) {
+					$container.removeClass( minClass );
+				} else {
+					$container.addClass( minClass );
+				}
+
+			});
+
 			$list.sortable({
 				items: '.cherry-ui-repeater-item',
+				handle: '.cherry-ui-repeater-actions-box',
 				cursor: 'move',
 				scrollSensitivity: 40,
 				forcePlaceholderSize: true,
