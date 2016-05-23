@@ -15,7 +15,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'UI_Text' ) ) {
+if ( ! class_exists( 'UI_Iconpicker' ) ) {
 
 	/**
 	 * Class for the building ui-iconpicker elements.
@@ -43,6 +43,7 @@ if ( ! class_exists( 'UI_Text' ) ) {
 
 		/**
 		 * Default icon data settings
+		 *
 		 * @var array
 		 */
 		private $default_icon_data = array(
@@ -149,7 +150,10 @@ if ( ! class_exists( 'UI_Text' ) ) {
 
 		/**
 		 * Return JS markup for icon set variable.
+		 *
 		 * @return string
+		 *
+		 * @return void
 		 */
 		private function prepare_icon_set() {
 
