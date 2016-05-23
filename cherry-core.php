@@ -1,7 +1,7 @@
 <?php
 /**
  * Class Cherry Core
- * Version: 1.0.0
+ * Version: 1.0.1
  *
  * @package    Cherry_Framework
  * @subpackage Class
@@ -51,18 +51,22 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @since 1.0.0
 		 */
 		public function __construct( $settings = array() ) {
+			$base_dir = trailingslashit( __DIR__ );
+			$base_url = trailingslashit( $this->base_url( '', __FILE__ ) );
 
-			$default_settings = array(
-				'framework_path'	=> 'cherry-framework',
-				'modules'			=> array(),
-				'base_dir'			=> '',
-				'base_url'			=> '',
+			$defaults = array(
+				'framework_path' => 'cherry-framework',
+				'modules'        => array(),
+				'base_dir'       => $base_dir,
+				'base_url'       => $base_url,
+				'extra_base_dir' => '',
 			);
 
-			$this->settings = array_merge( $default_settings, $settings );
+			$this->settings = array_merge( $defaults, $settings );
 
-			$this->settings['base_dir'] = trailingslashit( get_template_directory() . '/' . $this->settings['framework_path'] . '/' );
-			$this->settings['base_url'] = trailingslashit( get_template_directory_uri() . '/' . $this->settings['framework_path'] . '/' );
+			$this->settings['extra_base_dir'] = trailingslashit( $this->settings['base_dir'] );
+			$this->settings['base_dir']       = $base_dir;
+			$this->settings['base_url']       = $base_url;
 
 			// Cherry_Toolkit module should be loaded by default
 			if ( ! isset( $this->settings['modules']['cherry-toolkit'] ) ) {
@@ -72,7 +76,6 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			}
 
 			$this->autoload_modules();
-
 		}
 
 		/**
@@ -115,7 +118,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		}
 
 		/**
-		 * Init sinle module
+		 * Init single module
 		 *
 		 * @param  [type] $module module slug.
 		 * @param  array  $args   Module arguments array.
@@ -139,12 +142,13 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @return object|bool
 		 */
 		public function pre_load( $module_instance, $args = array(), $core_instance ) {
+
 			if ( $this !== $core_instance ) {
 				return $module_instance;
 			}
 
-			$hook	= current_filter();
-			$module	= str_replace( '-module', '', $hook );
+			$hook   = current_filter();
+			$module = str_replace( '-module', '', $hook );
 
 			$this->load_module( $module );
 
@@ -181,11 +185,13 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 				return true;
 			}
 
-			if ( ! file_exists( $this->get_module_path( $module ) ) ) {
+			$path = $this->get_module_path( $module );
+
+			if ( ! $path ) {
 				return false;
 			}
 
-			require_once( $this->get_module_path( $module ) );
+			require_once( $path );
 
 			return true;
 		}
@@ -233,7 +239,16 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @return string
 		 */
 		public function get_module_path( $module ) {
-			return $this->settings['base_dir'] . '/modules/' . $module . '/' . $module . '.php';
+			$abs_path = false;
+			$rel_path = 'modules/' . $module . '/' . $module . '.php';
+
+			if ( file_exists( $this->settings['base_dir'] . $rel_path ) ) {
+				$abs_path = $this->settings['base_dir'] . $rel_path;
+			} else if ( file_exists( $this->settings['extra_base_dir'] . $rel_path ) ) {
+				$abs_path = $this->settings['extra_base_dir'] . $rel_path;
+			}
+
+			return $abs_path ? $abs_path : false;
 		}
 
 		/**
@@ -266,15 +281,21 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 				$module = $this->get_module_path( $module );
 			}
 
-			$data    = get_file_data( $module , $default_headers );
 			$version = '1.0.0';
+
+			/* @TODO: Add smart check */
+			if ( ! $module ) {
+				return $version;
+			}
+
+			$data = get_file_data( $module , $default_headers );
 
 			// Check if version string has a valid value
 			if ( isset( $data['version'] ) &&
-			 		 false !== strpos( $data['version'], '.' ) ) {
+					 false !== strpos( $data['version'], '.' ) ) {
 				// Clean the version string
-	 			preg_match( '/[\d\.]+/', $data['version'], $version );
-	 			$version = $version[0];
+				preg_match( '/[\d\.]+/', $data['version'], $version );
+				$version = $version[0];
 			}
 
 			// Convert version into integer
@@ -286,6 +307,44 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			}
 
 			return (int) join( '', $parts );
+		}
+
+		/**
+		 * Retrieves the absolute URL to the current file.
+		 * Like a WordPress function `plugins_url`.
+		 *
+		 * @link   https://codex.wordpress.org/Function_Reference/plugins_url
+		 * @since  1.0.1
+		 * @param  string $file_path   Optional. Extra path appended to the end of the URL.
+		 * @param  string $module_path A full path to the core or module file.
+		 * @return string
+		 */
+		public static function base_url( $file_path = '', $module_path ) {
+			$module_path = wp_normalize_path( $module_path );
+			$module_dir  = dirname( $module_path );
+
+			$plugin_dir  = wp_normalize_path( WP_PLUGIN_DIR );
+			$stylesheet  = get_stylesheet();
+			$theme_root  = get_raw_theme_root( $stylesheet );
+			$theme_dir   = "$theme_root/$stylesheet";
+
+			if ( 0 === strpos( $module_path, $plugin_dir ) ) {
+				$url = plugin_dir_url( $module_path );
+			} else if ( false !== strpos( $module_path, $theme_dir ) ) {
+				$explode = explode( $theme_dir, $module_dir, 2 );
+				$url     = get_stylesheet_directory_uri() . $explode[1];
+			} else {
+				$site_url = site_url();
+				$abs_path = wp_normalize_path( ABSPATH );
+				$url      = str_replace( untrailingslashit( $abs_path ), $site_url, $module_dir );
+			}
+
+			if ( $file_path && is_string( $file_path ) ) {
+				$url = trailingslashit( $url );
+				$url .= ltrim( $file_path, '/' );
+			}
+
+			return apply_filters( 'cherry_core_base_url', $url, $file_path, $module_path );
 		}
 
 		/**

@@ -206,6 +206,10 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			// Clear fonts data.
 			add_action( 'switch_theme', array( $this, 'clear_fonts' ) );
 			add_action( 'upgrader_process_complete', array( $this, 'fire_clear_fonts' ), 10, 2 );
+
+			if ( ! class_exists( 'WP_Chooseicons' ) ) {
+				require_once( __DIR__ . '/inc/wp-chooseicons.php' );
+			}
 		}
 
 		/**
@@ -397,7 +401,9 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 				case 'file':
 						$control_class = 'WP_Customize_Upload_Control';
 					break;
-
+				case 'chooseicons':
+						$control_class = 'WP_Chooseicons';
+					break;
 				default:
 						/**
 						 * Filter arguments for a `$field_type` customize control.
@@ -876,7 +882,9 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 					update_option( 'cherry_customiser_fonts_' . $type, $fonts );
 				}
 
-				$this->fonts = array_merge( $this->fonts, $this->satizite_font_family( $fonts ) );
+				if ( is_array( $fonts ) ) {
+					$this->fonts = array_merge( $this->fonts, $this->satizite_font_family( $fonts ) );
+				}
 			}
 		}
 
@@ -952,7 +960,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 
 			$content = json_decode( $json, true );
 
-			return $content['items'];
+			return is_array( $content ) ? $content['items'] : false;
 		}
 
 		/**

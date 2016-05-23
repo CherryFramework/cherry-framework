@@ -57,10 +57,8 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 					return '';
 				}
 
-				$html = $terms;
+				$html = $args['before'] . $terms . $args['after'];
 			}
-
-			$html = $args['before'] . $html . $args['after'];
 
 			return $this->output_method( $html, $args['echo'] );
 		}
@@ -160,23 +158,25 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 			}
 
 			$default_args = array(
-				'visible'	=> true,
-				'icon'		=> '',
-				'prefix'	=> '',
-				'html'		=> '%1$s<a href="%2$s" %3$s %4$s ><time datetime="%5$s">%6$s%7$s</time></a>',
-				'title'		=> '',
-				'class'		=> 'post-date',
-				'echo'		=> false,
+				'visible'		=> true,
+				'icon'			=> '',
+				'prefix'		=> '',
+				'html'			=> '%1$s<a href="%2$s" %3$s %4$s ><time datetime="%5$s" title="%5$s">%6$s%7$s</time></a>',
+				'title'			=> '',
+				'class'			=> 'post-date',
+				'date_format'	=> '',
+				'human_time'	=> false,
+				'echo'			=> false,
 			);
 			$args = wp_parse_args( $args, $default_args );
 			$html = '' ;
 
 			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
-				$html_class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
-				$title = ( $args['title'] ) ? 'title="' . $args['title'] . '"' : '' ;
-				$post_format = get_option( 'date_format' );
-				$time = esc_attr( get_the_time( 'Y-m-d\TH:i:sP' ) );
-				$date = get_the_time( $post_format );
+				$html_class			= ( $args['class'] ) ? 'class="' . esc_attr( $args['class'] ) . '"' : '' ;
+				$title				= ( $args['title'] ) ? 'title="' . esc_attr( $args['title'] ) . '"' : '' ;
+				$date_post_format	= ( $args['date_format'] ) ? esc_attr( $args['date_format'] ) : get_option( 'date_format' );
+				$date				= ( $args['human_time'] ) ? human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) : get_the_date( $date_post_format );
+				$time				= get_the_time( 'Y-m-d\TH:i:sP' );
 
 				preg_match_all( '/(\d+)/mi', $time, $date_array );
 				$link = get_day_link( (int) $date_array[0][0], (int) $date_array[0][1], (int) $date_array[0][2] );

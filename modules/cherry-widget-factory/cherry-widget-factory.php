@@ -124,8 +124,7 @@ if ( ! class_exists( 'Cherry_Widget_Factory' ) ) {
 		 * @return void
 		 */
 		public function include_abstract_widget() {
-			$base_dir = $this->core->settings['base_dir'] . 'modules/' . $this->module_slug;
-			require_once( $base_dir . '/inc/class-cherry-abstract-widget.php' );
+			require_once( __DIR__ . '/inc/class-cherry-abstract-widget.php' );
 		}
 
 		/**

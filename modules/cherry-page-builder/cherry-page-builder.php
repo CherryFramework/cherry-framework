@@ -351,7 +351,10 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 			// Set the name attribute.
 			$setting['field']['name'] = $setting['section'] . '[' . $setting['slug'] . ']';
 
-			if ( class_exists( 'UI_' . ucfirst( $setting['type'] ) ) ) {
+			if ( isset( $setting['custom_callback'] ) && is_callable( $setting['custom_callback'] ) ) {
+				echo call_user_func( $setting['custom_callback'], $setting['field'] );
+
+			} else if ( class_exists( 'UI_' . ucfirst( $setting['type'] ) ) ) {
 				$ui_class = 'UI_' . ucfirst( $setting['type'] );
 				$ui_element = new $ui_class( $setting['field'] );
 

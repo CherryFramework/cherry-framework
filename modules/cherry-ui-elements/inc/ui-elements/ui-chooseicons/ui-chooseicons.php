@@ -48,6 +48,7 @@ if ( ! class_exists( 'UI_Choose_Icons' ) ) {
 					'label'			=> 'Choose your icon',
 					'end_text'		=> 'The end',
 					'class'			=> '',
+					'link'			=> '',
 					'required'		=> false,
 				)
 			);
@@ -175,6 +176,7 @@ if ( ! class_exists( 'UI_Choose_Icons' ) ) {
 			// Styles
 			wp_enqueue_style( 'ui-chooseicons', self::get_current_file_url( __FILE__ ) . '/assets/css/ui-chooseicons.css' );
 			wp_enqueue_style( 'material-icons', 'https://fonts.googleapis.com/icon?family=Material+Icons' );
+			wp_enqueue_style( 'font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css' );
 
 			// Scripts
 			wp_enqueue_script( 'ui-chooseicons', self::get_current_file_url( __FILE__ ) . '/assets/js/ui-chooseicons.min.js', array( 'cherry-js-core' ) );

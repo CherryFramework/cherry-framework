@@ -51,24 +51,29 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 
 			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
 				if ( 'post' === $type ) {
-					$id = $object->ID;
+					$id           = $object->ID;
 					$thumbnail_id = get_post_thumbnail_id( $id );
-					$alt = esc_attr( $object->post_title );
-					$link = $this->get_post_permalink();
+					$alt          = esc_attr( $object->post_title );
+					$link         = $this->get_post_permalink();
 				} else {
-					$id = $object->term_id;
+					$id           = $object->term_id;
 					$thumbnail_id = get_term_meta( $id, $this->args['meta_key']['term_thumb'] , true );
-					$alt = esc_attr( $object->name );
-					$link = $this->get_term_permalink( $id );
+					$alt          = esc_attr( $object->name );
+					$link         = $this->get_term_permalink( $id );
 				}
 
-				$size		= wp_is_mobile() ? $args['mobile_size'] : $args['size'];
-				$size_array	= $this->get_thumbnail_size_array( $size );
+				$size = wp_is_mobile() ? $args['mobile_size'] : $args['size'];
+				$size = in_array( $size, get_intermediate_image_sizes() ) ? $size : 'post-thumbnail';
 
 				if ( $thumbnail_id ) {
-					$src = wp_get_attachment_image_url( $thumbnail_id, $size );
+					$image_data = wp_get_attachment_image_src( $thumbnail_id, $size );
+					$src = $image_data[0];
+					$size_array['width'] = $image_data[1];
+					$size_array['height'] = $image_data[2];
 				} elseif ( filter_var( $args['placeholder'], FILTER_VALIDATE_BOOLEAN ) ) {
 					// Place holder defaults attr
+					$size_array	= $this->get_thumbnail_size_array( $size );
+
 					$title = ( $args['placeholder_title'] ) ? $args['placeholder_title'] : $size_array['width'] . 'x' . $size_array['height'] ;
 					$attr = array(
 						'width'			=> $size_array['width'],
@@ -118,26 +123,73 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 			$args = wp_parse_args( $args, $default_args );
 			$html = '';
 
-			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
-				$size = wp_is_mobile() ? $args['mobile_size'] : $args['size'];
-				$size_array = $this->get_thumbnail_size_array( $size );
-				$video_url = wp_extract_urls( $object->post_content );
+			if ( ! filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
+				return '';
+			}
 
-				if ( empty( $video_url ) || ! $video_url ) {
-					return;
+			$size = wp_is_mobile() ? $args['mobile_size'] : $args['size'];
+			$size_array = $this->get_thumbnail_size_array( $size );
+			$url_array = wp_extract_urls( $object->post_content );
+
+			if ( empty( $url_array ) || ! $url_array ) {
+				return '';
+			}
+
+			$html = wp_oembed_get( $url_array[0], array( 'width' => $size_array['width'] ) );
+
+			if ( ! $html ) {
+				$url_array = $this->sorted_array( $url_array );
+
+				if ( empty( $url_array['video'] ) ) {
+					return '';
 				}
 
-				$html = wp_oembed_get( $video_url[0], array( 'width' => $size_array['width'] ) );
-
-				if ( ! $html ) {
+				if ( empty( $url_array['poster'] ) ) {
 					$post_thumbnail_id = get_post_thumbnail_id( $object->ID );
-					$poster = wp_get_attachment_image_url( $post_thumbnail_id, $size );
-
-					$html = wp_video_shortcode( array( 'src' => $video_url[0], 'width' => '100%', 'height' => '100%', 'poster' => $poster ) );
+					$url_array['poster'] = wp_get_attachment_image_url( $post_thumbnail_id, $size );
 				}
+
+				$shortcode_attr = array(
+					'width' => '100%',
+					'height' => '100%',
+					'poster' => $url_array['poster'],
+				);
+
+				$shortcode_attr = wp_parse_args( $url_array['video'], $shortcode_attr );
+
+				$html = wp_video_shortcode( $shortcode_attr );
 			}
 
 			return $this->output_method( $html, $args['echo'] );
+		}
+
+		/**
+		 * Sorted video and poster url
+		 *
+		 * @since  1.0.0
+		 * @return array
+		 */
+		private function sorted_array( $array ) {
+			$output_array = array(
+				'video'		=> array(),
+				'poster'	=> '',
+			);
+
+			$default_types = wp_get_video_extensions();
+			$pattern = '/.(' . implode( '|', $default_types ) . ')/im';
+
+			foreach ( $array as $url ) {
+				foreach ( $default_types as $type ) {
+					if ( strpos( $url, $type ) ) {
+						$output_array['video'][$type] = $url;
+					}
+				}
+				if ( ! preg_match( $pattern, $url ) ) {
+					$output_array['poster'] = $url;
+				}
+			}
+
+			return $output_array;
 		}
 	}
 }

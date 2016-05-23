@@ -75,6 +75,8 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 				'slider',
 				'collection',
 				'chooseicons',
+				'repeater',
+				'iconpicker',
 			),
 		);
 
