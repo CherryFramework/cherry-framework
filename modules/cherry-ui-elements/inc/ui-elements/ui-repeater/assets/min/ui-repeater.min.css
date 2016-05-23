@@ -47,8 +47,8 @@
   position: absolute;
   width: 20px;
   height: 20px;
-  left: 0;
-  top: 18px;
+  right: 18px;
+  top: 13px;
   border-radius: 50%;
   border: 1px solid currentColor;
   color: red;
@@ -92,25 +92,25 @@
   line-height: 18px;
   background: #fff;
   padding: 15px 20px;
-  cursor: move; }
-  .cherry-ui-kit .cherry-ui-repeater-actions-box:after {
-    clear: both;
-    content: "";
-    width: 100%;
-    display: block; }
+  cursor: move;
+  position: relative;
+  text-align: center;
+  min-height: 18px; }
 .cherry-ui-kit .cherry-ui-repeater-toggle {
-  float: left;
+  position: absolute;
   color: #b4b7ba;
-  font-size: 22px;
-  height: 20px;
-  line-height: 20px;
   width: 20px;
+  height: 20px;
+  font-size: 22px;
+  line-height: 20px;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
   text-decoration: none;
   box-shadow: none;
-  outline: none; }
+  outline: none;
+  top: 13px;
+  left: 18px; }
   .cherry-ui-kit .cherry-ui-repeater-toggle:before {
     content: "\f142";
     -webkit-transition: all 200ms linear;
@@ -120,18 +120,20 @@
   .cherry-ui-kit .cherry-ui-repeater-toggle:hover {
     color: #23282d; }
 .cherry-ui-kit .cherry-ui-repeater-remove {
-  position: static;
+  position: absolute;
   border: none;
   color: #b4b7ba;
   font-size: 20px;
   line-height: 20px;
   width: 20px;
+  height: 20px;
   text-align: center;
   vertical-align: middle;
   text-decoration: none;
   box-shadow: none;
   outline: none;
-  float: right; }
+  top: 13px;
+  right: 18px; }
   .cherry-ui-kit .cherry-ui-repeater-remove:before {
     content: "\f158";
     -webkit-transition: all 200ms linear;
