@@ -24,8 +24,8 @@
 		position: absolute;
 		width: 20px;
 		height: 20px;
-		left: 0;
-		top: 18px;
+		right: 18px;
+		top: 13px;
 		border-radius: 50%;
 		border: 1px solid currentColor;
 		color: red;
@@ -40,6 +40,7 @@
 			color: black;
 		}
 	}
+
 }
 
 .cherry-ui-kit {
@@ -57,26 +58,25 @@
 			@include box_heading();
 			padding: 15px 20px;
 			cursor: move;
-			&:after {
-				clear: both;
-				content: "";
-				width: 100%;
-				display: block;
-			}
+			position: relative;
+			text-align: center;
+			min-height: 18px;
 		}
 		&-toggle {
-			float: left;
+			position: absolute;
 			color: $grey_color_4;
-			font-size: 22px;
-			height: 20px;
-			line-height: 20px;
 			width: 20px;
+			height: 20px;
+			font-size: 22px;
+			line-height: 20px;
 			text-align: center;
 			vertical-align: middle;
 			cursor: pointer;
 			text-decoration: none;
 			box-shadow: none;
 			outline: none;
+			top: 13px;
+			left: 18px;
 			&:before {
 				content: "\f142";
 				transition: all 200ms linear;
@@ -88,18 +88,20 @@
 			}
 		}
 		&-remove {
-			position: static;
+			position: absolute;
 			border: none;
 			color: $grey_color_4;
 			font-size: 20px;
 			line-height: 20px;
 			width: 20px;
+			height: 20px;
 			text-align: center;
 			vertical-align: middle;
 			text-decoration: none;
 			box-shadow: none;
 			outline: none;
-			float: right;
+			top: 13px;
+			right: 18px;
 			&:before {
 				content: "\f158";
 				transition: all 200ms linear;

@@ -151,6 +151,8 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 		/**
 		 * Return JS markup for icon set variable.
 		 *
+		 * @return string
+		 *
 		 * @return void
 		 */
 		private function prepare_icon_set() {
