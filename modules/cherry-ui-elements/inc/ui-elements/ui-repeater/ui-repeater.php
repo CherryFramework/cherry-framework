@@ -78,7 +78,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		/**
 		 * Render html UI_Repeater.
 		 *
-		 * @since  1.0.0
+		 * @since  1.0.1
 		 */
 		public function render() {
 			$html = '';
@@ -124,7 +124,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		 *
 		 * @param string $index Current row index.
 		 * @param array  $data  Values to paste.
-		 * @since 1.0.0
+		 * @since 1.0.1
 		 */
 		public function render_row( $index, $data ) {
 
@@ -153,7 +153,10 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		}
 
 		/**
+		 * Get repeater item title
 		 *
+		 * @return string
+		 * @since 1.0.1
 		 */
 		public function get_row_title() {
 

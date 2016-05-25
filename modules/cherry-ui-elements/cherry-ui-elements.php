@@ -3,7 +3,7 @@
  * Class for the building ui elements
  * Module Name: UI Elements
  * Description:
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -11,7 +11,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.0.0
+ * @version    1.0.1
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -29,14 +29,6 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 	 * Class for the building ui elements
 	 */
 	class Cherry_UI_Elements {
-
-		/**
-		 * Module version
-		 *
-		 * @since 1.0.0
-		 * @var string
-		 */
-		private $module_version = '1.0.0';
 
 		/**
 		 * Module directory
