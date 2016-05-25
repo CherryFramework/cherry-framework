@@ -53,7 +53,7 @@
 
 				});
 
-				$list.on( 'change', '.' + titleField + '-wrap input, textarea, select', function( event ) {
+				$list.on( 'change', '.' + titleField + '-wrap input, textarea, select', function() {
 					var $this = $( this ),
 						value = $this.val(),
 						$actionsBox = $this.closest( '.cherry-ui-repeater-item' ),
