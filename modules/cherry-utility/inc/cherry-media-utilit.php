@@ -65,15 +65,15 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 				$size = wp_is_mobile() ? $args['mobile_size'] : $args['size'];
 				$size = in_array( $size, get_intermediate_image_sizes() ) ? $size : 'post-thumbnail';
 
+				// Place holder defaults attr
+				$size_array	= $this->get_thumbnail_size_array( $size );
+
 				if ( $thumbnail_id ) {
 					$image_data = wp_get_attachment_image_src( $thumbnail_id, $size );
 					$src = $image_data[0];
 					$size_array['width'] = $image_data[1];
 					$size_array['height'] = $image_data[2];
 				} elseif ( filter_var( $args['placeholder'], FILTER_VALIDATE_BOOLEAN ) ) {
-					// Place holder defaults attr
-					$size_array	= $this->get_thumbnail_size_array( $size );
-
 					$title = ( $args['placeholder_title'] ) ? $args['placeholder_title'] : $size_array['width'] . 'x' . $size_array['height'] ;
 					$attr = array(
 						'width'			=> $size_array['width'],
@@ -84,7 +84,6 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 					);
 
 					$attr = array_map( 'esc_attr', $attr );
-
 					$src = 'http://fakeimg.pl/' . $attr['width'] . 'x' . $attr['height'] . '/'. $attr['background'] .'/'. $attr['foreground'] . '/?text=' . $attr['title'] . '';
 				}
 
@@ -181,7 +180,7 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 			foreach ( $array as $url ) {
 				foreach ( $default_types as $type ) {
 					if ( strpos( $url, $type ) ) {
-						$output_array['video'][$type] = $url;
+						$output_array['video'][ $type ] = $url;
 					}
 				}
 				if ( ! preg_match( $pattern, $url ) ) {

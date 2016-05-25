@@ -46,7 +46,6 @@
 							new_img_object = $('.cherry-all-images-wrap', settings.img_holder),
 							new_img = '',
 							delimiter = '';
-							console.log(attachment);
 
 						if ( settings.multiple ) {
 							input_value = settings.input.val();
@@ -113,12 +112,12 @@
 						input = jQuery('.cherry-upload-input', button_parent),
 						img_holder = item.parent().parent('.cherry-image-wrap'),
 						img_attr = jQuery('.preview-holder', img_holder).data('id-attr'),
-						imput_value = input.attr('value'),
+						input_value = input.attr('value'),
 						pattern = new RegExp(''+img_attr+'(,*)', 'i');
 
-						imput_value = imput_value.replace(pattern, '');
-						imput_value = imput_value.replace(/(,$)/, '');
-						input.attr({'value':imput_value}).trigger( 'change' );
+						input_value = input_value.replace(pattern, '');
+						input_value = input_value.replace(/(,$)/, '');
+						input.attr({'value':input_value}).trigger( 'change' );
 						img_holder.remove();
 
 				};
