@@ -377,8 +377,16 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 				return $result;
 			}
 
+			$post_content = get_the_content();
+
+			if ( has_shortcode( $post_content, 'video' ) ) {
+				$result_format = '%s';
+			} else {
+				$result_format = '<div class="entry-video embed-responsive embed-responsive-16by9">%s</div>';
+			}
+
 			/** This filter is documented in wp-includes/post-template.php */
-			$content = apply_filters( 'the_content', get_the_content() );
+			$content = apply_filters( 'the_content', $post_content );
 			$types   = array( 'video', 'object', 'embed', 'iframe' );
 			$embeds  = get_media_embedded_in_content( $content, $types );
 
@@ -408,7 +416,7 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 			);
 
 			$result = preg_replace( $regex, $replace, $result );
-			$result = sprintf( '<div class="entry-video embed-responsive embed-responsive-16by9">%s</div>', $result );
+			$result = sprintf( $result_format, $result );
 
 			/**
 			 * Filter a featured video.
