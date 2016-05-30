@@ -15,8 +15,8 @@
 			}
 		},
 		render: function ( target ) {
-			if($('.cherry-ui-colorpicker', target)[0]){
-				$('.cherry-ui-colorpicker', target).wpColorPicker();
+			if ( $( '.cherry-ui-colorpicker', target )[0] ) {
+				$( '.cherry-ui-colorpicker', target ).wpColorPicker();
 			}
 		}
 	};
