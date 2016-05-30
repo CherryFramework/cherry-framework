@@ -26,7 +26,7 @@
 				}
 			});
 
-			$( '.cherry-checkbox-item', target ).on( 'click', function() {
+			target.on( 'click', '.cherry-checkbox-item', function() {
 				var input = $( this ).siblings( '.cherry-checkbox-input[type="hidden"]' ),
 					slave = input.data( 'slave' ),
 					state = ( input.val() === 'true' );
@@ -44,11 +44,11 @@
 
 					$( '.' + slave, target ).show();
 				}
-				//input.trigger( 'checkbox_change_event', [slave, state] );
+
 				input.trigger( 'change' );
 			} );
 
-			$( '.cherry-checkbox-label', target ).on( 'click', function() {
+			target.on( 'click', '.cherry-checkbox-label', function() {
 				var input = $( this ).siblings( '.cherry-checkbox-input[type="hidden"]' ),
 					item = $( this ).siblings( '.cherry-checkbox-item' ),
 					slave = input.data( 'slave' ),
@@ -67,7 +67,7 @@
 
 					$( '.' + slave, target ).show();
 				}
-				//input.trigger( 'checkbox_change_event', [slave, state] );
+
 				input.trigger( 'change' );
 			} );
 		}

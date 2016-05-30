@@ -26,7 +26,7 @@
 				} );
 			} );
 
-			$('.cherry-radio-input[type="radio"]', target).on('change', function(){
+			target.on( 'change', '.cherry-radio-input[type="radio"]', function() {
 				var $this = $(this),
 					slave = $this.data('slave'),
 					radio_group = $this.parents('.cherry-radio-group'),

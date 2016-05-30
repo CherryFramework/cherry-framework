@@ -1,3 +1,6 @@
+@import "ui-kit/variables";
+@import "ui-kit/mixins";
+
 .cherry-ui-container{
 	margin: 10px 0 20px 0;
 }
@@ -20,12 +23,14 @@ label.cherry-label{
 				height: 110px;
 				margin: 3px;
 				position: relative;
-				border: 1px solid #bababa;
+				border: 2px solid $blue_color;
+				border-radius: $border_radius_extra_small;
+				overflow: hidden;
 				.preview-holder{
 					width: 100%;
 					height: 100%;
 					position: relative;
-					background: #eee;
+					background: $grey_color_3;
 					box-sizing: border-box;
 						.centered{
 							position: absolute;
@@ -33,23 +38,17 @@ label.cherry-label{
 							height: 100%;
 							top: 0;
 							left: 0;
-							-webkit-transform: translate(50%,50%);
-							-ms-transform: translate(50%,50%);
 							transform: translate(50%,50%);
 						}
 						img{
 							max-width: 100%;
 							height: auto;
-							-webkit-transform: translate(-50%,-50%);
-							-ms-transform: translate(-50%,-50%);
 							transform: translate(-50%,-50%);
 						}
 						span{
 							width: auto;
 							height: auto;
 							font-size: 60px;
-							-webkit-transform: translate(-50%,-50%);
-							-ms-transform: translate(-50%,-50%);
 							transform: translate(-50%,-50%);
 						}
 				}
@@ -59,11 +58,16 @@ label.cherry-label{
 					padding: 5px 0;
 					bottom: 0;
 					left: 0;
-					color: #464646;
-					background: rgba(255, 255, 255, 0.6);
+					color: #fff;
+					background: rgba(41, 143, 252, 0.8);
 					text-align: center;
-					font-size: 10px;
+					font-size: 11px;
 					overflow: hidden;
+				}
+			}
+			&:hover{
+				.cherry-remove-image{
+					display: block;
 				}
 			}
 		}
@@ -72,29 +76,34 @@ label.cherry-label{
 			height: 112px;
 			margin: 3px;
 			vertical-align: top;
-			border: 1px dotted #8bc735;
+			border: 1px dashed $grey_color_1;
 			display: inline-block;
-			background-color: rgba(139, 199, 53, 0.3);
+			background-color: $grey_color_3;
 		}
 	}
 	.upload-button{
 		float: left;
 	}
 	.cherry-remove-image{
-		width: 20px;
-		height: 20px;
-		color: #f62e46;
-		background-color: #fff;
-		background-position: -58px 2px;
+		width: 30px;
+		height: 30px;
+		color: $red_color;
 		display: block;
-		border-radius: 20px;
-		border: 2px solid #f62e46;
 		position: absolute;
-		top: 2px;
-		right: 2px;
+		top: 0;
+		right: 0;
 		cursor: pointer;
 		text-decoration: none;
 		outline: 0;
+		display: none;
+			i{
+				width: 30px;
+				height: 30px;
+				font-size: 30px;
+			}
+			&:hover{
+				color: $red_color_h;
+			}
 	}
 	.cherry-bgsetting{
 		float: left;
@@ -109,7 +118,12 @@ label.cherry-label{
 			}
 	}
 }
-.button_{
+
+.button-default_{
+	@include button_base();
+	@include button_normal();
+}
+/*.button_{
 	display: inline-block;
 	cursor: pointer;
 	white-space: nowrap;
@@ -141,4 +155,4 @@ label.cherry-label{
 	box-shadow: none;
 	color: #464646;
 	height: auto;
-}
+}*/

@@ -16,25 +16,18 @@
 			}
 		},
 		render: function ( target ) {
+			target.on( 'input change', '.cherry-slider-unit', function() {
+				var $this = $( this ),
+					$sliderWrapper = $this.closest('.cherry-slider-wrap');
 
-			var sliderSelector = $( '.cherry-slider-unit', target );
+				$( '.cherry-ui-stepper-input', $sliderWrapper ).val( $this.val() );
+			} );
+			target.on( 'change', '.cherry-ui-stepper-input', function() {
+				var $this = $( this ),
+					$sliderWrapper = $this.closest('.cherry-slider-wrap');
 
-			sliderSelector.slider({
-				range: 'min',
-				animate: true,
-				create: function() {
-					$( this ).slider( 'option', 'min', $( this ).data('left-limit') );
-					$( this ).slider( 'option', 'max', $( this ).data('right-limit') );
-					$( this ).slider( 'option', 'value', $( this ).data('value') );
-				},
-				slide: function( event, ui ) {
-					$( this ).parent().siblings('.cherry-slider-input').find('input').val(ui.value).trigger('change');
-				}
-			});
-			$('.cherry-ui-stepper-input', target).on('change', function(){
-				var $this = $( this );
-				$this.parent().parent().siblings('.cherry-slider-holder').find('.cherry-slider-unit').slider( 'option', 'value', $this.val() );
-			});
+				$( '.cherry-slider-unit', $sliderWrapper ).val( $this.val() );
+			} );
 		}
 	};
 	$( window ).on( 'cherry-ui-elements-init',
