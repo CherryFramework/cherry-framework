@@ -27,10 +27,13 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 		 * @return string
 		 */
 		public function get_image( $args = array(), $type = 'post', $id = 0 ) {
-			$object = call_user_func( array( $this, 'get_' . $type . '_object' ), $id );
 
-			if ( 'post' === $type && empty( $object->ID ) || 'term' === $type && empty( $object->term_id ) ) {
-				return '';
+			if ( is_callable( array( $this, 'get_' . $type . '_object' ) ) ) {
+				$object = call_user_func( array( $this, 'get_' . $type . '_object' ), $id );
+
+				if ( 'post' === $type && empty( $object->ID ) || 'term' === $type && empty( $object->term_id ) ) {
+					return '';
+				}
 			}
 
 			$default_args = array(
@@ -50,23 +53,34 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 			$html = '';
 
 			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
-				if ( 'post' === $type ) {
-					$id           = $object->ID;
-					$thumbnail_id = get_post_thumbnail_id( $id );
-					$alt          = esc_attr( $object->post_title );
-					$link         = $this->get_post_permalink();
-				} else {
-					$id           = $object->term_id;
-					$thumbnail_id = get_term_meta( $id, $this->args['meta_key']['term_thumb'] , true );
-					$alt          = esc_attr( $object->name );
-					$link         = $this->get_term_permalink( $id );
-				}
 
 				$size = wp_is_mobile() ? $args['mobile_size'] : $args['size'];
 				$size = in_array( $size, get_intermediate_image_sizes() ) ? $size : 'post-thumbnail';
 
 				// Place holder defaults attr
 				$size_array	= $this->get_thumbnail_size_array( $size );
+
+				switch ( $type ) {
+					case 'post':
+						$id           = $object->ID;
+						$thumbnail_id = get_post_thumbnail_id( $id );
+						$alt          = esc_attr( $object->post_title );
+						$link         = $this->get_post_permalink();
+					break;
+
+					case 'term':
+						$id           = $object->term_id;
+						$thumbnail_id = get_term_meta( $id, $this->args['meta_key']['term_thumb'] , true );
+						$alt          = esc_attr( $object->name );
+						$link         = $this->get_term_permalink( $id );
+					break;
+
+					case 'attachment':
+						$thumbnail_id = $id;
+						$alt = get_the_title( $thumbnail_id );
+						$link = wp_get_attachment_image_url( $thumbnail_id, $size );
+					break;
+				}
 
 				if ( $thumbnail_id ) {
 					$image_data = wp_get_attachment_image_src( $thumbnail_id, $size );
