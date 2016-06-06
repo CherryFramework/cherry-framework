@@ -34,8 +34,8 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 				if ( 'post' === $type && empty( $object->ID ) || 'term' === $type && empty( $object->term_id ) ) {
 					return '';
 				}
-
 			}
+
 			$default_args = array(
 				'visible'					=> true,
 				'size'						=> apply_filters( 'cherry_normal_image_size', 'post-thumbnail' ),
