@@ -75,8 +75,8 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 					case 'attachment':
 						$thumbnail_id = $id;
 						$alt = get_the_title( $thumbnail_id );
-						$link = wp_get_attachment_image_src( $thumbnail_id, $size )[0];
-						break;
+						$link = wp_get_attachment_image_url( $thumbnail_id, $size );
+					break;
 				}
 
 				if ( $thumbnail_id ) {
