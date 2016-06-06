@@ -27,12 +27,15 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 		 * @return string
 		 */
 		public function get_image( $args = array(), $type = 'post', $id = 0 ) {
-			$object = call_user_func( array( $this, 'get_' . $type . '_object' ), $id );
 
-			if ( 'post' === $type && empty( $object->ID ) || 'term' === $type && empty( $object->term_id ) ) {
-				return '';
+			if ( is_callable( array( $this, 'get_' . $type . '_object' ) ) ) {
+				$object = call_user_func( array( $this, 'get_' . $type . '_object' ), $id );
+
+				if ( 'post' === $type && empty( $object->ID ) || 'term' === $type && empty( $object->term_id ) ) {
+					return '';
+				}
+
 			}
-
 			$default_args = array(
 				'visible'					=> true,
 				'size'						=> apply_filters( 'cherry_normal_image_size', 'post-thumbnail' ),
