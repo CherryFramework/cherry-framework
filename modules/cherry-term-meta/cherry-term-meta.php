@@ -3,7 +3,7 @@
  * Term meta management module
  * Module Name: Term Meta
  * Description: Manage term metadata
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -11,7 +11,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.0.1
+ * @version    1.0.2
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -29,13 +29,6 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 	 * Term meta management module
 	 */
 	class Cherry_Term_Meta {
-
-		/**
-		 * Module version
-		 *
-		 * @var string
-		 */
-		public $module_version = '1.0.1';
 
 		/**
 		 * Module slug
@@ -64,6 +57,14 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 		 * @var object
 		 */
 		public $ui_builder = null;
+
+		/**
+		 * Already registered field.
+		 *
+		 * @since  1.0.2
+		 * @var array
+		 */
+		static public $register_fields = array();
 
 		/**
 		 * Core instance
@@ -181,6 +182,12 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 
 			foreach ( $this->args['fields'] as $key => $field ) {
 
+				if ( in_array( $key, Cherry_Term_Meta::$register_fields ) ) {
+					continue;
+				} else {
+					Cherry_Term_Meta::$register_fields[] = $key;
+				}
+
 				if ( false !== $term ) {
 					$value = get_term_meta( $term->term_id, $key, true );
 				} else {
@@ -224,6 +231,7 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 				$current_element = $this->ui_builder->get_ui_element_instance( $args['type'], $args );
 
 				$result .= sprintf( $format, $current_element->render() );
+
 
 			}
 
