@@ -98,7 +98,11 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 					);
 
 					$attr = array_map( 'esc_attr', $attr );
-					$src = 'http://fakeimg.pl/' . $attr['width'] . 'x' . $attr['height'] . '/'. $attr['background'] .'/'. $attr['foreground'] . '/?text=' . $attr['title'] . '';
+
+					$width  = ( 4000 < intval( $attr['width'] ) ) ? 4000 : intval( $attr['width'] );
+					$height = ( 4000 < intval( $attr['height'] ) ) ? 4000 : intval( $attr['height'] );
+
+					$src = 'http://fakeimg.pl/' . $width . 'x' . $height . '/'. $attr['background'] .'/'. $attr['foreground'] . '/?text=' . $attr['title'] . '';
 				}
 
 				$class			= ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;

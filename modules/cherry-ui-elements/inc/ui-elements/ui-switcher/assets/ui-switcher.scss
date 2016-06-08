@@ -36,11 +36,13 @@ label.cherry-label{
 		}
 	}
 	.sw-enable{
-		span{}
+		span{
+			opacity: 0;
+		}
 	}
 	.sw-disable{
 		span{
-			opacity: 0;
+			opacity: 1;
 		}
 	}
 	.state-marker{
@@ -51,8 +53,8 @@ label.cherry-label{
 		height: 41px;
 		margin: 4px;
 		top: 0;
-		left: 100%;
-		margin-left: -45px;
+		left: 0;
+		margin-left: 4px;
 		border-radius: 25px;
 		transition: all 0.2s ease-in-out;
 	}
@@ -60,18 +62,18 @@ label.cherry-label{
 		.sw-enable{
 			background-color: $green_color;
 				span{
-					opacity: 0;
+					opacity: 1;
 				}
 		}
 		.sw-disable{
 			background-color: $green_color;
 				span{
-					opacity: 1;
+					opacity: 0;
 				}
 		}
 		.state-marker{
-			left: 0;
-			margin-left: 4px;
+			left: 100%;
+			margin-left: -45px;
 		}
 	}
 	&.size-small{
