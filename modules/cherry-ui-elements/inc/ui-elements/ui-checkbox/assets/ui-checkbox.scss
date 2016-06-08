@@ -18,19 +18,28 @@ label.cherry-label{
 	cursor: pointer;
 	position: relative;
 	background-color: $grey_color_3;
+	user-select: none;
+	transition: all 0.2s ease-out;
+		.marker{
+			position: absolute;
+			width: 26px;
+			height: 26px;
+			top: 0px;
+			left: 0px;
+			color: #fff;
+			font-size: 28px;
+			transform: scale(0);
+			transition: all 0.3s cubic-bezier(.27,.63,.54,.96);
+				&:before{
+					position: relative;
+					left: -2px;
+				}
+		}
 		&.checked{
 			background-color: $green_color;
 			.marker{
-				display: block;
+				transform: scale(1);
 			}
-		}
-		.marker{
-			position: absolute;
-			top: 0px;
-			left: -2px;
-			display: none;
-			color: #fff;
-			font-size: 28px;
 		}
 }
 .cherry-checkbox-label{
@@ -39,4 +48,5 @@ label.cherry-label{
 	font-size: 14px;
 	line-height: 26px;
 	color: $dark_color_1;
+	user-select: none;
 }

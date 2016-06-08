@@ -38,7 +38,7 @@
 				}
 			});
 
-			target.on( 'click', '.cherry-switcher-wrap', function () {
+			$( '.cherry-switcher-wrap', target ).on( 'click', function () {
 				var $this = $( this ),
 					$input = $( '.cherry-input-switcher', $this ),
 					inputValue = ( $input.val() === 'true' ),

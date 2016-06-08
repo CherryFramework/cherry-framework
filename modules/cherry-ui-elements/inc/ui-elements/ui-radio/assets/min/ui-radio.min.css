@@ -33,10 +33,17 @@ input.cherry-radio-input {
       background-color: #298ffc;
       margin: 6px;
       border-radius: 20px;
-      display: none; }
+      display: inline-block;
+      -webkit-transform: scale(0);
+          -ms-transform: scale(0);
+              transform: scale(0);
+      -webkit-transition: all 0.3s cubic-bezier(0.27, 0.63, 0.54, 0.96);
+              transition: all 0.3s cubic-bezier(0.27, 0.63, 0.54, 0.96); }
 
 .cherry-radio-item.checked span i {
-  display: inline-block; }
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1); }
 
 .cherry-radio-img {
   float: left;
