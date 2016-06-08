@@ -38,14 +38,16 @@ input.cherry-radio-input{
 				background-color: $blue_color;
 				margin: 6px;
 				border-radius: 20px;
-				display: none;
+				display: inline-block;
+				transform: scale(0);
+				transition: all 0.3s cubic-bezier(.27,.63,.54,.96);
 			}
 	}
 }
 .cherry-radio-item.checked{
 	span{
 		i{
-			display: inline-block;
+			transform: scale(1);
 		}
 	}
 }
