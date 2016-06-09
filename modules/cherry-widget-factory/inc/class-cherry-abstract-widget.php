@@ -425,7 +425,23 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 		 */
 		public function render_control( $args ) {
 
-			$allowed_controls = array( 'text', 'textarea', 'checkbox', 'colorpicker', 'media', 'radio', 'select', 'slider', 'stepper', 'switcher', 'slider', 'collection', 'chooseicons', 'repeater', 'iconpicker', );
+			$allowed_controls = array(
+				'text',
+				'textarea',
+				'checkbox',
+				'colorpicker',
+				'media',
+				'radio',
+				'select',
+				'slider',
+				'stepper',
+				'switcher',
+				'slider',
+				'collection',
+				'chooseicons',
+				'repeater',
+				'iconpicker',
+			);
 
 			if ( ! in_array( $args['type'], $allowed_controls ) ) {
 				do_action( 'cherry_widget_factory_control', $args );

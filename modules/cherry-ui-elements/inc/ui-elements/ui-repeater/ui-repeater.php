@@ -64,6 +64,20 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		public $tmpl_name = '';
 
 		/**
+		 * Holder for templates to print it in bottom of customizer page
+		 *
+		 * @var string
+		 */
+		public static $customizer_tmpl_to_print = null;
+
+		/**
+		 * Is tmpl scripts already printed in customizer
+		 *
+		 * @var boolean
+		 */
+		public static $customizer_tmpl_printed = false;
+
+		/**
 		 * Constructor method for the UI_Text class.
 		 *
 		 * @since  1.0.0
@@ -73,8 +87,13 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 			$this->defaults_settings['id'] = 'cherry-ui-input-text-' . uniqid();
 			$this->settings = wp_parse_args( $args, $this->defaults_settings );
 
+			$this->set_tmpl_data();
+
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
 			add_action( 'admin_footer', array( $this, 'print_js_template' ), 0 );
+
+			add_action( 'customize_controls_print_footer_scripts', array( $this, 'fix_customizer_tmpl' ), 9999 );
+
 		}
 
 		/**
@@ -95,8 +114,6 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		 * @since  1.0.1
 		 */
 		public function render() {
-
-			$this->set_tmpl_data();
 
 			$html = '';
 
@@ -260,6 +277,12 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		public function set_tmpl_data() {
 			self::$instance_id++;
 			$this->tmpl_name = sprintf( 'repeater-template-%s', self::$instance_id );
+
+			global $wp_customize;
+			if ( isset( $wp_customize ) ) {
+				self::$customizer_tmpl_to_print .= $this->get_js_template();
+			}
+
 		}
 
 		/**
@@ -268,13 +291,35 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		 * @return void
 		 */
 		public function print_js_template() {
+			echo $this->get_js_template();
+		}
 
-			printf(
+		/**
+		 * Get JS template to print
+		 *
+		 * @return string
+		 */
+		public function get_js_template() {
+
+			return sprintf(
 				'<script type="text/html" id="tmpl-%1$s">%2$s</script>',
 				$this->get_tmpl_name(),
 				$this->render_row( '{{{data.index}}}', array() )
 			);
 
+		}
+
+		/**
+		 * Outputs JS templates on customizer page
+		 *
+		 * @return void
+		 */
+		public function fix_customizer_tmpl() {
+			if ( true === self::$customizer_tmpl_printed ) {
+				return;
+			}
+			self::$customizer_tmpl_printed = true;
+			echo self::$customizer_tmpl_to_print;
 		}
 	}
 }

@@ -32,11 +32,13 @@
 					CherryJsCore.variable.$window.trigger( 'cherry-ui-elements-init', { 'target': $target } );
 					index++;
 					$list.data( 'index', index );
+					$(this).trigger( 'change' );
 				});
 
 				$list.on( 'click', '.cherry-ui-repeater-remove', function( event ) {
 					event.preventDefault();
 					$( this ).closest( '.cherry-ui-repeater-item' ).remove();
+					$(this).trigger( 'change' );
 				});
 
 				$list.on( 'click', '.cherry-ui-repeater-toggle', function( event ) {
