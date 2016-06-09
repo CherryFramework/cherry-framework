@@ -3,7 +3,7 @@
  * Widget factory module main class
  * Module Name: Widget Factory
  * Description: Base widget class that simplifies creating of your own widgets.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3

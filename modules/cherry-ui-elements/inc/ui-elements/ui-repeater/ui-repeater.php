@@ -50,6 +50,20 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		public $data = array();
 
 		/**
+		 * Repeater instances counter
+		 *
+		 * @var integer
+		 */
+		public static $instance_id = 0;
+
+		/**
+		 * Current onstance TMPL name
+		 *
+		 * @var string
+		 */
+		public $tmpl_name = '';
+
+		/**
 		 * Constructor method for the UI_Text class.
 		 *
 		 * @since  1.0.0
@@ -81,6 +95,9 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		 * @since  1.0.1
 		 */
 		public function render() {
+
+			$this->set_tmpl_data();
+
 			$html = '';
 
 			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
@@ -97,7 +114,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 
 				$html .= sprintf(
 					'<div class="cherry-ui-repeater-list" data-name="%1$s" data-index="%2$s" %3$s id="%4$s">',
-					esc_attr( $this->settings['name'] ),
+					$this->get_tmpl_name(),
 					( ! empty( $this->settings['value'] ) ) ? count( $this->settings['value'] ) : 0,
 					( ! empty( $this->settings['title_field'] ) ) ? 'data-title-field="' . $this->settings['title_field'] . '"': '',
 					esc_attr( $this->settings['id'] )
@@ -227,6 +244,25 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		}
 
 		/**
+		 * Get TMPL name for current repeater instance.
+		 *
+		 * @return string
+		 */
+		public function get_tmpl_name() {
+			return $this->tmpl_name;
+		}
+
+		/**
+		 * Set current repeater instance ID
+		 *
+		 * @return void
+		 */
+		public function set_tmpl_data() {
+			self::$instance_id++;
+			$this->tmpl_name = sprintf( 'repeater-template-%s', self::$instance_id );
+		}
+
+		/**
 		 * Print JS template for current repeater instance
 		 *
 		 * @return void
@@ -235,7 +271,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 
 			printf(
 				'<script type="text/html" id="tmpl-%1$s">%2$s</script>',
-				esc_attr( $this->settings['name'] ),
+				$this->get_tmpl_name(),
 				$this->render_row( '{{{data.index}}}', array() )
 			);
 
