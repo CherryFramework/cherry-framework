@@ -27,7 +27,7 @@
 
 			var repeater = $( '.cherry-ui-repeater-container', target );
 
-			repeater.each( function( event ) {
+			repeater.each( function() {
 				var $this        = $( this ),
 					$list        = $( '.cherry-ui-repeater-list', $this ),
 					tmplName     = $list.data( 'name' ),
