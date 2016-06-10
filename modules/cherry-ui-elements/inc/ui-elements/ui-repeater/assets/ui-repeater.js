@@ -91,7 +91,7 @@
 					}
 				});
 			} );
-		},
+		}
 	};
 
 	$( window ).on( 'cherry-ui-elements-init',
