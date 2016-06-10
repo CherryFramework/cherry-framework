@@ -14,7 +14,7 @@
 			}
 		},
 
-		triggerChange: function ( $target ) {
+		triggerChange: function( $target ) {
 			var $input = $target.find( 'input[name]:first, select[name]:first' );
 			if ( undefined !== wp.customize ) {
 				$input.trigger( 'change' );
