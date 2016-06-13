@@ -11,7 +11,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.0.0
+ * @version    1.0.1
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -29,13 +29,6 @@ if ( ! class_exists( 'Cherry_Widget_Factory' ) ) {
 	 * Widget factory module main class
 	 */
 	class Cherry_Widget_Factory {
-
-		/**
-		 * Module version
-		 *
-		 * @var string
-		 */
-		public $module_version = '1.0.0';
 
 		/**
 		 * Module slug

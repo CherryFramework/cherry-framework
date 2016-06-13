@@ -108,7 +108,12 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 			add_action( 'deleted_post', array( $this, 'flush_cache' ) );
 			add_action( 'switch_theme', array( $this, 'flush_cache' ) );
 
-			add_action( 'admin_enqueue_scripts', array( $this, 'admin_init' ), 1 );
+			if ( $this->is_ajax() ) {
+				add_action( 'admin_init', array( $this, 'admin_init' ) );
+			} else {
+				add_action( 'admin_enqueue_scripts', array( $this, 'admin_init' ), 1 );
+			}
+
 			add_action( 'widgets.php', array( $this, 'ajax_init' ), 1 );
 
 			add_filter( 'widget_display_callback', array( $this, 'prepare_instance' ), 10, 2 );
@@ -148,6 +153,15 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 		}
 
 		/**
+		 * Check if is AJAX-request processing.
+		 *
+		 * @return boolean
+		 */
+		public function is_ajax() {
+			return ( is_admin() && defined( 'DOING_AJAX' ) && DOING_AJAX );
+		}
+
+		/**
 		 * Initalize UI elements in admin area widgets page
 		 *
 		 * @since  1.0.0
@@ -155,9 +169,17 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 		 */
 		public function admin_init() {
 
-			$current_screen = get_current_screen();
+			$current_screen  = get_current_screen();
+			$is_allowed_page = ( $current_screen && 'widgets' == $current_screen->id );
 
-			if ( ! $current_screen || 'widgets' !== $current_screen->id ) {
+			/**
+			 * Filter - is current admin page are allowed to apply UI elements for
+			 *
+			 * @var bool
+			 */
+			$is_allowed_page = apply_filters( 'cherry_widget_factory_allowed_ui_page', $is_allowed_page );
+
+			if ( ! $this->is_ajax() && ! $is_allowed_page ) {
 				return false;
 			}
 
