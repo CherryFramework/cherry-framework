@@ -14,7 +14,7 @@
 			}
 		},
 
-		triggerChange: function ( $target ) {
+		triggerChange: function( $target ) {
 			var $input = $target.find( 'input[name]:first, select[name]:first' );
 			if ( undefined !== wp.customize ) {
 				$input.trigger( 'change' );
@@ -27,7 +27,7 @@
 
 			var repeater = $( '.cherry-ui-repeater-container', target );
 
-			repeater.each( function( event ) {
+			repeater.each( function() {
 				var $this        = $( this ),
 					$list        = $( '.cherry-ui-repeater-list', $this ),
 					tmplName     = $list.data( 'name' ),
@@ -91,7 +91,7 @@
 					}
 				});
 			} );
-		},
+		}
 	};
 
 	$( window ).on( 'cherry-ui-elements-init',
