@@ -108,7 +108,12 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 			add_action( 'deleted_post', array( $this, 'flush_cache' ) );
 			add_action( 'switch_theme', array( $this, 'flush_cache' ) );
 
-			add_action( 'admin_enqueue_scripts', array( $this, 'admin_init' ), 1 );
+			if ( $this->is_ajax() ) {
+				add_action( 'admin_init', array( $this, 'admin_init' ) );
+			} else {
+				add_action( 'admin_enqueue_scripts', array( $this, 'admin_init' ), 1 );
+			}
+
 			add_action( 'widgets.php', array( $this, 'ajax_init' ), 1 );
 
 			add_filter( 'widget_display_callback', array( $this, 'prepare_instance' ), 10, 2 );
@@ -148,6 +153,15 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 		}
 
 		/**
+		 * Check if is AJAX-request processing.
+		 *
+		 * @return boolean
+		 */
+		public function is_ajax() {
+			return ( is_admin() && defined( 'DOING_AJAX' ) && DOING_AJAX );
+		}
+
+		/**
 		 * Initalize UI elements in admin area widgets page
 		 *
 		 * @since  1.0.0
@@ -155,9 +169,17 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 		 */
 		public function admin_init() {
 
-			$current_screen = get_current_screen();
+			$current_screen  = get_current_screen();
+			$is_allowed_page = ( $current_screen && 'widgets' == $current_screen->id );
 
-			if ( ! $current_screen || 'widgets' !== $current_screen->id ) {
+			/**
+			 * Filter - is current admin page are allowed to apply UI elements for
+			 *
+			 * @var bool
+			 */
+			$is_allowed_page = apply_filters( 'cherry_widget_factory_allowed_ui_page', $is_allowed_page );
+
+			if ( ! $this->is_ajax() && ! $is_allowed_page ) {
 				return false;
 			}
 
@@ -390,6 +412,29 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 				$this->field_types[] = $field['type'];
 			}
 
+			$this->maybe_add_repeater_fields( $field );
+
+			return true;
+
+		}
+
+		/**
+		 * Maybe add reapeater sub-fields to required elements list
+		 *
+		 * @since  1.0.1
+		 * @param  array $field field data.
+		 * @return bool
+		 */
+		public function maybe_add_repeater_fields( $field ) {
+
+			if ( 'repeater' !== $field['type'] || empty( $field['fields'] ) ) {
+				return false;
+			}
+
+			foreach ( $field['fields'] as $repeater_field ) {
+				$this->set_field_types( $repeater_field, null );
+			}
+
 			return true;
 
 		}
@@ -402,7 +447,23 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 		 */
 		public function render_control( $args ) {
 
-			$allowed_controls = array( 'text', 'textarea', 'checkbox', 'colorpicker', 'media', 'radio', 'select', 'slider', 'stepper', 'switcher' );
+			$allowed_controls = array(
+				'text',
+				'textarea',
+				'checkbox',
+				'colorpicker',
+				'media',
+				'radio',
+				'select',
+				'slider',
+				'stepper',
+				'switcher',
+				'slider',
+				'collection',
+				'chooseicons',
+				'repeater',
+				'iconpicker',
+			);
 
 			if ( ! in_array( $args['type'], $allowed_controls ) ) {
 				do_action( 'cherry_widget_factory_control', $args );
@@ -476,6 +537,10 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 						'false_slave'  => '',
 					) ),
 					'master'             => Cherry_Toolkit::get_arg( $setting, 'master', '' ),
+					'icon_data'          => Cherry_Toolkit::get_arg( $setting, 'icon_data', array() ),
+					'title_field'        => Cherry_Toolkit::get_arg( $setting, 'title_field' ),
+					'add_label'          => Cherry_Toolkit::get_arg( $setting, 'add_label', '' ),
+					'fields'             => Cherry_Toolkit::get_arg( $setting, 'fields', array() ),
 				);
 
 				$this->render_control( $args );
@@ -547,5 +612,4 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 			return ! empty( $this->instance[ $id ] ) ? apply_filters( 'wpml_translate_single_string', $this->instance[ $id ], 'Widgets', "{$this->widget_name} - {$id}" ) : '';
 		}
 	}
-
 }

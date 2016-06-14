@@ -79,6 +79,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
 			add_action( 'admin_footer', array( $this, 'print_icon_set' ), 1 );
+			add_action( 'customize_controls_print_footer_scripts', array( $this, 'print_icon_set' ), 9999 );
 		}
 
 		/**

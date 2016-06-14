@@ -7,16 +7,27 @@
 	CherryJsCore.utilites.namespace( 'ui_elements.repeater' );
 	CherryJsCore.ui_elements.repeater = {
 		init: function( target ) {
-			var self = this;
-			if ( CherryJsCore.status.document_ready ) {
-				self.render( target );
+			if ( CherryJsCore.status.is_ready ) {
+				this.render( target, this );
 			} else {
-				CherryJsCore.variable.$document.on( 'ready', self.render( target ) );
+				CherryJsCore.variable.$document.on( 'ready', this.render( target, this ) );
 			}
 		},
-		render: function( target ) {
 
-			$( '.cherry-ui-repeater-container', target ).each( function() {
+		triggerChange: function( $target ) {
+			var $input = $target.find( 'input[name]:first, select[name]:first' );
+			if ( undefined !== wp.customize ) {
+				$input.trigger( 'change' );
+				$input.trigger( 'keydown' );
+				$input.trigger( 'propertychange' );
+			}
+		},
+
+		render: function( target, parent ) {
+
+			var repeater = $( '.cherry-ui-repeater-container', target );
+
+			repeater.each( function() {
 				var $this        = $( this ),
 					$list        = $( '.cherry-ui-repeater-list', $this ),
 					tmplName     = $list.data( 'name' ),
@@ -32,11 +43,14 @@
 					CherryJsCore.variable.$window.trigger( 'cherry-ui-elements-init', { 'target': $target } );
 					index++;
 					$list.data( 'index', index );
+					parent.triggerChange( $target );
+
 				});
 
 				$list.on( 'click', '.cherry-ui-repeater-remove', function( event ) {
 					event.preventDefault();
 					$( this ).closest( '.cherry-ui-repeater-item' ).remove();
+					parent.triggerChange( $list );
 				});
 
 				$list.on( 'click', '.cherry-ui-repeater-toggle', function( event ) {
@@ -71,10 +85,12 @@
 					forceHelperSize: false,
 					helper: 'clone',
 					opacity: 0.65,
-					placeholder: 'sortable-placeholder'
+					placeholder: 'sortable-placeholder',
+					update: function() {
+						parent.triggerChange( $( this ) );
+					}
 				});
 			} );
-
 		}
 	};
 

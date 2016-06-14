@@ -25,6 +25,8 @@
 					icons: setData.icons,
 					iconBaseClass: setData.iconBase,
 					iconClassPrefix: setData.iconPrefix
+				}).on( 'iconpickerUpdated', function() {
+					$( this ).trigger( 'change' );
 				});
 			}
 
