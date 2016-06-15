@@ -1,6 +1,5 @@
 <?php
 /**
- * Term meta management module
  * Module Name: Term Meta
  * Description: Manage term metadata
  * Version: 1.0.2
@@ -99,7 +98,6 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 
 			add_action( "created_{$tax}", array( $this, 'save_meta' ) );
 			add_action( "edited_{$tax}", array( $this, 'save_meta' ) );
-
 		}
 
 		/**

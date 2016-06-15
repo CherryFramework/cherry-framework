@@ -201,7 +201,9 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 				return;
 			}
 
-			$loaded = self::load_module( $module );
+			$path = $this->get_module_path( $module );
+
+			$loaded = self::load_module( $module, $path );
 
 			if ( ! $loaded ) {
 				return;
@@ -263,7 +265,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			}
 
 			// return $this->modules[ $module ] = call_user_func( array( $class_name, 'get_instance' ), $this, $args );
-			return call_user_func( array( $class_name, 'get_instance' ), self );
+			return call_user_func( array( $class_name, 'get_instance' ), null, array() );
 		}
 
 		/**

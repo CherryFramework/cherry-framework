@@ -1,9 +1,8 @@
 <?php
 /**
- * Class for the building ui elements
  * Module Name: UI Elements
- * Description:
- * Version: 1.0.2
+ * Description: Class for the building ui elements
+ * Version: 1.0.3
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -11,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.0.2
+ * @version    1.0.3
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -26,34 +25,21 @@ if ( ! defined( 'WPINC' ) ) {
 if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 
 	/**
-	 * Class for the building ui elements
+	 * Class for the building ui elements.
+	 *
+	 * @since 1.0.0
+	 * @since 1.0.3 Removed `module_directory` and `module_directory_uri` properties.
 	 */
 	class Cherry_UI_Elements {
 
 		/**
-		 * Module directory
-		 *
-		 * @since 1.0.0
-		 * @var string
-		 */
-		private $module_directory = '';
-
-		/**
-		 * Module directory URL
-		 *
-		 * @since 1.0.0
-		 * @var string
-		 */
-		private $module_directory_uri = '';
-
-		/**
-		 * Default args
+		 * Default arguments.
 		 *
 		 * @since 1.0.0
 		 * @var array
 		 */
 		private $args = array(
-			'ui_elements'	=> array(
+			'ui_elements' => array(
 				'text',
 				'number',
 				'textarea',
@@ -73,20 +59,14 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		);
 
 		/**
-		 * Cherry_Test_Builder constructor
-		 *
-		 * @param object $core core.
-		 * @param array  $args arguments.
+		 * Constructor.
 		 *
 		 * @since 1.0.0
+		 * @param object $core Core.
+		 * @param array  $args Arguments.
 		 */
-		function __construct( $core, $args ) {
-
-			$this->module_directory = $core->settings['base_dir'] . '/modules/cherry-ui-elements';
-			$this->module_directory_uri = $core->settings['base_url'] . 'modules/cherry-ui-elements/';
-
+		public function __construct( $core, $args ) {
 			$this->args = array_merge( $this->args, $args );
-
 			$this->ui_elements_require();
 
 			// Load admin assets.
@@ -95,12 +75,11 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		}
 
 		/**
-		 * Get ui element instance.
-		 *
-		 * @param [type] $ui_slug ui element.
-		 * @param array  $args arguments.
+		 * Get UI-element instance.
 		 *
 		 * @since  1.0.0
+		 * @param [type] $ui_slug ui element.
+		 * @param  array  $args arguments.
 		 * @return object
 		 */
 		public function get_ui_element_instance( $ui_slug, $args ) {
@@ -125,11 +104,13 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		}
 
 		/**
-		 * Require ui elements
+		 * Require UI-elements.
 		 *
+		 * @since  1.0.0
 		 * @return void
 		 */
 		public function ui_elements_require() {
+
 			// Add I_UI interface.
 			if ( ! interface_exists( 'I_UI' ) ) {
 				require_once( __DIR__ . '/i-ui.php' );
@@ -173,4 +154,3 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		}
 	}
 }
-

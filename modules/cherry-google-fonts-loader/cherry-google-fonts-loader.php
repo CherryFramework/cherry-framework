@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Module Name: Google Fonts Loader
  * Description: Enqueue Google fonts
  * Version: 1.0.0
