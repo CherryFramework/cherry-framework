@@ -1,7 +1,7 @@
 <?php
 /**
  * Class Cherry Core
- * Version: 1.0.1
+ * Version: 1.1.0
  *
  * @package    Cherry_Framework
  * @subpackage Class
@@ -19,7 +19,7 @@ if ( ! defined( 'WPINC' ) ) {
 if ( ! class_exists( 'Cherry_Core' ) ) {
 
 	/**
-	 * Class Cherry Core
+	 * Class Cherry Core.
 	 */
 	class Cherry_Core {
 
@@ -34,6 +34,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		/**
 		 * Core settings.
 		 *
+		 * @since 1.0.0
 		 * @var array
 		 */
 		public $settings = array();
@@ -41,12 +42,21 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		/**
 		 * Holder for all registered modules for current core instance.
 		 *
+		 * @since 1.0.0
 		 * @var array
 		 */
 		public $modules = array();
 
 		/**
-		 * Cherry_Core constructor
+		 * Holder for all modules.
+		 *
+		 * @since 1.1.0
+		 * @var array
+		 */
+		public static $all_modules = array();
+
+		/**
+		 * Constructor.
 		 *
 		 * @since 1.0.0
 		 */
@@ -82,6 +92,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * Try automatically include and load modules with autoload seted up into true.
 		 * For other - only attach apropriate load actions and wait for handle calling.
 		 *
+		 * @since 1.0.0
 		 * @return bool
 		 */
 		private function autoload_modules() {
@@ -94,15 +105,27 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 
 				$hook = $module . '-module';
 
-				// Get module priority
 				$priority = $this->get_module_priority( $module );
+				$path     = $this->get_module_path( $module );
+
+				if ( ! array_key_exists( $module, self::$all_modules ) ) {
+
+					self::$all_modules[ $module ] = array(
+						$priority => $path
+					);
+
+				} else {
+					self::$all_modules[ $module ][ $priority ] = $path;
+				}
+
 
 				// Attach all modules to apropriate hooks.
-				add_filter( $hook, array( $this, 'pre_load' ), $priority, 3 );
+				// add_filter( $hook, array( $this, 'pre_auto_load' ), $priority, 3 );
+				// add_action( 'set_current_user', array( $this, '_pre_load' ), $priority );
 
 				// And immediately try to call hooks for autoloaded modules.
-				if ( $this->is_module_autoload( $module ) ) {
-					$arg = ! empty( $settings['args'] ) ? $settings['args'] : array();
+				// if ( $this->is_module_autoload( $module ) ) {
+					// $arg = ! empty( $settings['args'] ) ? $settings['args'] : array();
 
 					/**
 					 * Call autoloaded modules.
@@ -112,80 +135,106 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 					 * @param array       $args            Module rguments.
 					 * @param Cherry_Core $this            Current core object.
 					 */
-					$this->modules[ $module ] = apply_filters( $hook, false, $arg, $this );
+					// $this->modules[ $module ] = apply_filters( $hook, false, $arg, $this );
+					// add_action( 'set_current_user', array( $this, '_pre_load' ), $priority );
+					// $this->modules[ $module ] = $this->pre_auto_load( $module, false, $arg, $this );
+				// }
+			}
+		}
+
+		/**
+		 * [load_all_modules description]
+		 *
+		 * @since 1.1.0
+		 */
+		public static function load_all_modules() {
+
+			foreach ( self::$all_modules as $module => $data ) {
+				ksort( $data );
+				reset( $data );
+
+				$path = current( $data );
+
+				$loaded = self::load_module( $module, $path );
+
+				if ( ! $loaded ) {
+					continue;
 				}
+
+				self::get_module_instance( $module );
 			}
 		}
 
 		/**
 		 * Init single module
 		 *
-		 * @param  [type] $module module slug.
-		 * @param  array  $args   Module arguments array.
-		 *
 		 * @since  1.0.0
+		 * @param  string $module Module slug.
+		 * @param  array  $args   Module arguments array.
 		 * @return mixed
 		 */
 		public function init_module( $module, $args = array() ) {
-			$hook = $module . '-module';
-			return apply_filters( $hook, false, $args, $this );
+			// $hook = $module . '-module';
+			// return apply_filters( $hook, false, $args, $this );
 
+			$this->modules[ $module ] = $this->get_module_instance( $module, $args );
+
+			return $this->modules[ $module ];
 		}
 
 		/**
-		 * Module preload
+		 * Module preload.
 		 *
-		 * @since  1.0.0
-		 * @param bool|object $module_instance Module instnce to return, false at start.
-		 * @param array       $args            Module rguments.
-		 * @param Cherry_Core $core_instance            Current core object.
+		 * @since 1.0.0
+		 * @param bool|object $module_instance Module instance to return, false at start.
+		 * @param array       $args            Module arguments.
+		 * @param Cherry_Core $core_instance   Current core object.
 		 * @return object|bool
 		 */
-		public function pre_load( $module_instance, $args = array(), $core_instance ) {
+		public function pre_load( $module, $module_instance, $args = array(), $core_instance ) {
 
 			if ( $this !== $core_instance ) {
 				return $module_instance;
 			}
 
-			$hook   = current_filter();
-			$module = str_replace( '-module', '', $hook );
-
-			$this->load_module( $module );
-
-			return $this->get_module_instance( $module, $args );
-		}
-
-		/**
-		 * Check module autoload.
-		 *
-		 * @param  [type] $module module slug.
-		 * @return boolean
-		 */
-		public function is_module_autoload( $module ) {
-
-			if ( empty( $this->settings['modules'][ $module ]['autoload'] ) ) {
-				return false;
+			if ( ! empty( $this->modules[ $module ] ) ) {
+				return;
 			}
 
-			return $this->settings['modules'][ $module ]['autoload'];
+			$loaded = self::load_module( $module );
+
+			if ( ! $loaded ) {
+				return;
+			}
+
+			$this->modules[ $module ] = $this->get_module_instance( $module, $args );
+
+			return $this->modules[ $module ];
+		}
+
+		public function _pre_load() {
+
+			foreach ( $this->settings['modules'] as $module => $settings ) {
+				$arg = ! empty( $settings['args'] ) ? $settings['args'] : array();
+
+				$this->pre_load( $module, false, $arg, $this );
+			}
 		}
 
 		/**
 		 * Include module.
 		 *
-		 * @param  [type] $module module slug.
-		 *
 		 * @since  1.0.0
+		 * @param  string $module Module slug.
+		 * @param  string $path   Module path.
 		 * @return bool
 		 */
-		public function load_module( $module ) {
-			$class_name = $this->get_class_name( $module );
+		public static function load_module( $module, $path ) {
+			$class_name = self::get_class_name( $module );
 
 			if ( class_exists( $class_name ) ) {
 				return true;
 			}
-
-			$path = $this->get_module_path( $module );
 
 			if ( ! $path ) {
 				return false;
@@ -199,32 +248,32 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		/**
 		 * Get module instance.
 		 *
-		 * @param  [type] $module module slug.
-		 *
 		 * @since  1.0.0
+		 * @param  string $module Module slug.
+		 * @param  array  $args   Module arguments.
 		 * @return object
 		 */
-		public function get_module_instance( $module, $args ) {
+		public static function get_module_instance( $module, $args = array() ) {
 
-			$class_name = $this->get_class_name( $module );
+			$class_name = self::get_class_name( $module );
 
 			if ( ! class_exists( $class_name ) ) {
 				echo '<p>Class <b>' . $class_name . '</b> not exist!</p>';
 				return false;
 			}
 
-			return $this->modules[ $module ] = call_user_func( array( $class_name, 'get_instance' ), $this, $args );
+			// return $this->modules[ $module ] = call_user_func( array( $class_name, 'get_instance' ), $this, $args );
+			return call_user_func( array( $class_name, 'get_instance' ), self );
 		}
 
 		/**
 		 * Get class name by module slug.
 		 *
-		 * @param  [type] $slug Module slug.
-		 *
 		 * @since  1.0.0
-		 * @return string       Class name
+		 * @param  string $slug Module slug.
+		 * @return string
 		 */
-		public function get_class_name( $slug = '' ) {
+		public static function get_class_name( $slug = '' ) {
 			$slug  = str_replace( '-', ' ', $slug );
 			$class = str_replace( ' ', '_', ucwords( $slug ) );
 
@@ -232,23 +281,23 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		}
 
 		/**
-		 * Get path to main file for passed module
+		 * Get path to main file for passed module.
 		 *
-		 * @since  1.0.0
-		 * @param  [type] $module module slug.
+		 * @since  1.0.1
+		 * @param  string $module Module slug.
 		 * @return string
 		 */
 		public function get_module_path( $module ) {
 			$abs_path = false;
 			$rel_path = 'modules/' . $module . '/' . $module . '.php';
 
-			if ( file_exists( $this->settings['base_dir'] . $rel_path ) ) {
-				$abs_path = $this->settings['base_dir'] . $rel_path;
-			} else if ( file_exists( $this->settings['extra_base_dir'] . $rel_path ) ) {
+			if ( file_exists( $this->settings['extra_base_dir'] . $rel_path ) ) {
 				$abs_path = $this->settings['extra_base_dir'] . $rel_path;
+			} else if ( file_exists( $this->settings['base_dir'] . $rel_path ) ) {
+				$abs_path = $this->settings['base_dir'] . $rel_path;
 			}
 
-			return $abs_path ? $abs_path : false;
+			return $abs_path;
 		}
 
 		/**
@@ -256,13 +305,16 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * Version information should be provided as a value stored in the header notation.
 		 *
 		 * @link   https://developer.wordpress.org/reference/functions/get_file_data/
-		 *
 		 * @since  1.0.0
-		 * @param  [string]  $module   module slug or path.
-		 * @param  [boolean] $is_path  set this as true, if `$module` contains a path.
-		 * @return [integer]
+		 * @param  string $module   Module slug or path.
+		 * @param  bool   $is_path  Set this as true, if `$module` contains a path.
+		 * @return int
 		 */
 		public function get_module_priority( $module, $is_path = false ) {
+
+			if ( ! empty( $this->settings['modules'][ $module ]['priority'] ) ) {
+				return $this->settings['modules'][ $module ]['priority'];
+			}
 
 			// Default phpDoc headers
 			$default_headers = array(
