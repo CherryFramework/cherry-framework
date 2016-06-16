@@ -118,6 +118,10 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 					self::$all_modules[ $module ][ $priority ] = $path;
 				}
 
+				// echo "<pre>";
+				// var_dump( self::$all_modules );
+				// echo "</pre>";
+
 
 				// Attach all modules to apropriate hooks.
 				// add_filter( $hook, array( $this, 'pre_auto_load' ), $priority, 3 );
@@ -160,8 +164,6 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 				if ( ! $loaded ) {
 					continue;
 				}
-
-				self::get_module_instance( $module );
 			}
 		}
 
@@ -255,7 +257,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @param  array  $args   Module arguments.
 		 * @return object
 		 */
-		public static function get_module_instance( $module, $args = array() ) {
+		public function get_module_instance( $module, $args = array() ) {
 
 			$class_name = self::get_class_name( $module );
 
@@ -264,8 +266,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 				return false;
 			}
 
-			// return $this->modules[ $module ] = call_user_func( array( $class_name, 'get_instance' ), $this, $args );
-			return call_user_func( array( $class_name, 'get_instance' ), null, array() );
+			return $this->modules[ $module ] = call_user_func( array( $class_name, 'get_instance' ), $this, $args );
 		}
 
 		/**
