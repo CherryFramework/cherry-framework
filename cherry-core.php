@@ -78,71 +78,41 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			$this->settings['base_dir']       = $base_dir;
 			$this->settings['base_url']       = $base_url;
 
-			// Cherry_Toolkit module should be loaded by default
+			$this->run_collector();
+
+			add_action( 'after_setup_theme', array( 'Cherry_Core', 'load_all_modules' ),  2 );
+			add_action( 'after_setup_theme', array( $this, 'init_required_modules' ),     3 );
+			add_action( 'after_setup_theme', array( $this, 'init_autoload_modules' ),  9999 );
+		}
+
+		/**
+		 * Fire collector for modules.
+		 *
+		 * @since 1.0.0
+		 * @return bool
+		 */
+		private function run_collector() {
+
+			if ( ! is_array( $this->settings['modules'] ) || empty( $this->settings['modules'] ) ) {
+				return false;
+			}
+
+			// Cherry_Toolkit module should be loaded by default.
 			if ( ! isset( $this->settings['modules']['cherry-toolkit'] ) ) {
 				$this->settings['modules']['cherry-toolkit'] = array(
 					'autoload' => true,
 				);
 			}
 
-			$this->autoload_modules();
-		}
-
-		/**
-		 * Try automatically include and load modules with autoload seted up into true.
-		 * For other - only attach apropriate load actions and wait for handle calling.
-		 *
-		 * @since 1.0.0
-		 * @return bool
-		 */
-		private function autoload_modules() {
-
-			if ( ! is_array( $this->settings['modules'] ) || empty( $this->settings['modules'] ) ) {
-				return false;
-			}
-
 			foreach ( $this->settings['modules'] as $module => $settings ) {
-
-				$hook = $module . '-module';
-
 				$priority = $this->get_module_priority( $module );
 				$path     = $this->get_module_path( $module );
 
 				if ( ! array_key_exists( $module, self::$all_modules ) ) {
-
-					self::$all_modules[ $module ] = array(
-						$priority => $path
-					);
-
+					self::$all_modules[ $module ] = array( $priority => $path );
 				} else {
 					self::$all_modules[ $module ][ $priority ] = $path;
 				}
-
-				// echo "<pre>";
-				// var_dump( self::$all_modules );
-				// echo "</pre>";
-
-
-				// Attach all modules to apropriate hooks.
-				// add_filter( $hook, array( $this, 'pre_auto_load' ), $priority, 3 );
-				// add_action( 'set_current_user', array( $this, '_pre_load' ), $priority );
-
-				// And immediately try to call hooks for autoloaded modules.
-				// if ( $this->is_module_autoload( $module ) ) {
-					// $arg = ! empty( $settings['args'] ) ? $settings['args'] : array();
-
-					/**
-					 * Call autoloaded modules.
-					 *
-					 * @since 1.0.0
-					 * @param bool|object $module_instance Module instnce to return, false at start.
-					 * @param array       $args            Module rguments.
-					 * @param Cherry_Core $this            Current core object.
-					 */
-					// $this->modules[ $module ] = apply_filters( $hook, false, $arg, $this );
-					// add_action( 'set_current_user', array( $this, '_pre_load' ), $priority );
-					// $this->modules[ $module ] = $this->pre_auto_load( $module, false, $arg, $this );
-				// }
 			}
 		}
 
@@ -168,7 +138,59 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		}
 
 		/**
-		 * Init single module
+		 * [init_required_modules description]
+		 *
+		 * @since 1.1.0
+		 * @return [type] [description]
+		 */
+		public function init_required_modules() {
+
+			$required_modules = apply_filters( 'cherry_core_required_modules', array(
+				'cherry-toolkit', 'cherry-widget-factory'
+			), $this );
+
+			foreach ( $required_modules as $module ) {
+
+				if ( ! array_key_exists( $module, $this->settings['modules'] ) ) {
+					continue;
+				}
+
+				$settings = $this->settings['modules'][ $module ];
+				$args     = ! empty( $settings['args'] ) ? $settings['args'] : array();
+
+				$this->init_module( $module, $args );
+			}
+		}
+
+		/**
+		 * [init_autoload_modules description]
+		 *
+		 * @since 1.1.0
+		 * @return [type] [description]
+		 */
+		public function init_autoload_modules() {
+
+			if ( empty( $this->modules ) ) {
+				return;
+			}
+
+			foreach ( $this->settings['modules'] as $module => $settings ) {
+
+				if ( ! $this->is_module_autoload( $module ) ) {
+					continue;
+				}
+
+				if ( ! empty( $this->modules[ $module ] ) ) {
+					continue;
+				}
+
+				$args = ! empty( $settings['args'] ) ? $settings['args'] : array();
+				$this->init_module( $module, $args );
+			}
+		}
+
+		/**
+		 * Init single module.
 		 *
 		 * @since  1.0.0
 		 * @param  string $module Module slug.
@@ -176,53 +198,25 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @return mixed
 		 */
 		public function init_module( $module, $args = array() ) {
-			// $hook = $module . '-module';
-			// return apply_filters( $hook, false, $args, $this );
-
 			$this->modules[ $module ] = $this->get_module_instance( $module, $args );
 
 			return $this->modules[ $module ];
 		}
 
 		/**
-		 * Module preload.
+		 * Check module autoload.
 		 *
-		 * @since 1.0.0
-		 * @param bool|object $module_instance Module instance to return, false at start.
-		 * @param array       $args            Module arguments.
-		 * @param Cherry_Core $core_instance   Current core object.
-		 * @return object|bool
+		 * @since  1.0.0
+		 * @param  string  $module Module slug.
+		 * @return bool
 		 */
-		public function pre_load( $module, $module_instance, $args = array(), $core_instance ) {
+		public function is_module_autoload( $module ) {
 
-			if ( $this !== $core_instance ) {
-				return $module_instance;
+			if ( empty( $this->settings['modules'][ $module ]['autoload'] ) ) {
+				return false;
 			}
 
-			if ( ! empty( $this->modules[ $module ] ) ) {
-				return;
-			}
-
-			$path = $this->get_module_path( $module );
-
-			$loaded = self::load_module( $module, $path );
-
-			if ( ! $loaded ) {
-				return;
-			}
-
-			$this->modules[ $module ] = $this->get_module_instance( $module, $args );
-
-			return $this->modules[ $module ];
-		}
-
-		public function _pre_load() {
-
-			foreach ( $this->settings['modules'] as $module => $settings ) {
-				$arg = ! empty( $settings['args'] ) ? $settings['args'] : array();
-
-				$this->pre_load( $module, false, $arg, $this );
-			}
+			return $this->settings['modules'][ $module ]['autoload'];
 		}
 
 		/**
@@ -258,7 +252,6 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @return object
 		 */
 		public function get_module_instance( $module, $args = array() ) {
-
 			$class_name = self::get_class_name( $module );
 
 			if ( ! class_exists( $class_name ) ) {
