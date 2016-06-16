@@ -314,10 +314,6 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 */
 		public function get_module_priority( $module, $is_path = false ) {
 
-			if ( ! empty( $this->settings['modules'][ $module ]['priority'] ) ) {
-				return $this->settings['modules'][ $module ]['priority'];
-			}
-
 			// Default phpDoc headers
 			$default_headers = array(
 				'version' => 'Version',
