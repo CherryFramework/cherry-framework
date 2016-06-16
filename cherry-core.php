@@ -80,9 +80,37 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 
 			$this->run_collector();
 
-			add_action( 'after_setup_theme', array( 'Cherry_Core', 'load_all_modules' ),  2 );
-			add_action( 'after_setup_theme', array( $this, 'init_required_modules' ),     3 );
-			add_action( 'after_setup_theme', array( $this, 'init_autoload_modules' ),  9999 );
+			/**
+			 * In this hooks priority parameter are very important.
+			 */
+			add_action( 'after_setup_theme', array( 'Cherry_Core', 'load_all_modules' ), 2 );
+			add_action( 'after_setup_theme', array( $this, 'init_required_modules' ),    3 );
+
+			// Init modules with autoload seted up into true.
+			add_action( 'after_setup_theme', array( $this, 'init_autoload_modules' ), 9999 );
+
+			// Backward compatibility for `cherry-widget-factory` module.
+			remove_all_filters( 'cherry_widget_factory_core', 10 );
+			add_filter( 'cherry_widget_factory_core', array( $this, 'pass_core_to_widgets' ), 11, 2 );
+		}
+
+		/**
+		 * Pass core instance into widget.
+		 *
+		 * @since  1.1.0
+		 * @param  mixed  $core Current core object.
+		 * @param  string $path Abstract widget file path.
+		 * @return mixed
+		 */
+		public function pass_core_to_widgets( $core, $path ) {
+			$path         = str_replace( '\\', '/', $path );
+			$current_core = str_replace( '\\', '/', $this->settings['extra_base_dir'] );
+
+			if ( false !== strpos( $path, $current_core ) ) {
+				return self::get_instance();
+			}
+
+			return $core;
 		}
 
 		/**
@@ -117,7 +145,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		}
 
 		/**
-		 * [load_all_modules description]
+		 * Loaded all modules.
 		 *
 		 * @since 1.1.0
 		 */
@@ -127,8 +155,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 				ksort( $data );
 				reset( $data );
 
-				$path = current( $data );
-
+				$path   = current( $data );
 				$loaded = self::load_module( $module, $path );
 
 				if ( ! $loaded ) {
@@ -138,10 +165,9 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		}
 
 		/**
-		 * [init_required_modules description]
+		 * Init a required modules.
 		 *
 		 * @since 1.1.0
-		 * @return [type] [description]
 		 */
 		public function init_required_modules() {
 
@@ -163,10 +189,9 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		}
 
 		/**
-		 * [init_autoload_modules description]
+		 * Init autoload modules.
 		 *
 		 * @since 1.1.0
-		 * @return [type] [description]
 		 */
 		public function init_autoload_modules() {
 
