@@ -153,7 +153,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 		 *
 		 * @return void
 		 */
-		private function prepare_icon_set() {
+		public function prepare_icon_set() {
 
 			if ( ! array_key_exists( $this->settings['icon_data']['icon_set'], self::$sets ) ) {
 				self::$sets[ $this->settings['icon_data']['icon_set'] ] = array(

@@ -6,17 +6,14 @@
 
 	CherryJsCore.utilites.namespace( 'ui_elements.iconpicker' );
 	CherryJsCore.ui_elements.iconpicker = {
-		init: function( target ) {
-			var self = this;
-			if ( CherryJsCore.status.document_ready ) {
-				self.render( target );
-			} else {
-				CherryJsCore.variable.$document.on( 'ready', self.render( target ) );
-			}
+		init: function () {
+			$( document ).on( 'ready', this.render.bind( this, { target: $( 'body' ) } ) );
+			$( window ).on( 'cherry-ui-elements-init', this.render.bind( this ) );
 		},
-		render: function( target ) {
+		render: function ( event, data ) {
 
-			var $picker = $( '.cherry-ui-iconpicker', target ),
+			var target = data.target,
+				$picker = $( '.cherry-ui-iconpicker', target ),
 				set     = $picker.data( 'set' ),
 				setData = window[set];
 
@@ -25,6 +22,8 @@
 					icons: setData.icons,
 					iconBaseClass: setData.iconBase,
 					iconClassPrefix: setData.iconPrefix
+				}).on( 'iconpickerUpdated', function() {
+					$( this ).trigger( 'change' );
 				});
 			}
 
@@ -35,10 +34,6 @@
 
 	};
 
-	$( window ).on( 'cherry-ui-elements-init',
-		function( event, data ) {
-			CherryJsCore.ui_elements.iconpicker.init( data.target );
-		}
-	);
+	CherryJsCore.ui_elements.iconpicker.init();
 
 }( jQuery, window.CherryJsCore ) );

@@ -3,7 +3,7 @@
  *
  * Module Name: Customizer
  * Description: Customizer functionality.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -11,7 +11,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.0.0
+ * @version    1.1.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -207,9 +207,33 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			add_action( 'switch_theme', array( $this, 'clear_fonts' ) );
 			add_action( 'upgrader_process_complete', array( $this, 'fire_clear_fonts' ), 10, 2 );
 
-			if ( ! class_exists( 'WP_Chooseicons' ) ) {
-				require_once( __DIR__ . '/inc/wp-chooseicons.php' );
+			add_filter( 'cherry_customizer_get_core', array( $this, 'pass_core_into_control' ) );
+
+			$this->include_custom_controls();
+
+		}
+
+		/**
+		 * Pass current core instance into custom controls
+		 *
+		 * @param  mixed $core Default core instance (false) or core instance if its not first callback.
+		 * @return Cherry_Core
+		 */
+		public function pass_core_into_control( $core = false ) {
+			return $this->core;
+		}
+
+		/**
+		 * Include advanced customizer controls classes
+		 *
+		 * @since 1.1.0
+		 */
+		private function include_custom_controls() {
+
+			if ( ! class_exists( 'Cherry_WP_Customize_Iconpicker' ) ) {
+				require_once( trailingslashit( __DIR__ ) . '/inc/class-cherry-wp-customize-iconpicker.php' );
 			}
+
 		}
 
 		/**
@@ -401,8 +425,10 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 				case 'file':
 						$control_class = 'WP_Customize_Upload_Control';
 					break;
-				case 'chooseicons':
-						$control_class = 'WP_Chooseicons';
+				case 'iconpicker':
+						$control_class = 'Cherry_WP_Customize_Iconpicker';
+						$icon_data     = ( isset( $args['icon_data'] ) ) ? $args['icon_data'] : array();
+						$control_args  = wp_parse_args( array( 'icon_data' => $icon_data ), $control_args );
 					break;
 				default:
 						/**
