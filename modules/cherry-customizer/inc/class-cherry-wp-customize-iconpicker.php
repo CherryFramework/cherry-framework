@@ -12,6 +12,9 @@
 
 if ( class_exists( 'WP_Customize_Control' ) ) {
 
+	/**
+	 * Iconpicker control for customizer
+	 */
 	class Cherry_WP_Customize_Iconpicker extends WP_Customize_Control {
 
 		/**
@@ -72,11 +75,15 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 			$this->iconpicker->enqueue_assets();
 		}
 
+		/**
+		 * Print JS var with sets data
+		 *
+		 * @return void
+		 */
 		public function print_sets() {
 			$this->iconpicker->prepare_icon_set();
 			$this->iconpicker->print_icon_set();
 		}
-
 	}
 
 }
