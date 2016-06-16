@@ -392,6 +392,28 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		}
 
 		/**
+		 * Get path to the core directory.
+		 *
+		 * @since 1.0.0
+		 * @deprecated 1.1.0 Use constant __DIR__
+		 * @return string
+		 */
+		public function get_core_dir() {
+			return trailingslashit( $this->settings['base_dir'] );
+		}
+
+		/**
+		 * Get URI to the core directory.
+		 *
+		 * @since 1.0.0
+		 * @deprecated 1.1.0 Use base_url()
+		 * @return string
+		 */
+		public function get_core_url() {
+			return trailingslashit( $this->settings['base_url'] );
+		}
+
+		/**
 		 * Returns the instance.
 		 *
 		 * @since  1.0.0
