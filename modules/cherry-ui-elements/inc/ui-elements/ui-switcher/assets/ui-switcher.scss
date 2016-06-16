@@ -89,12 +89,12 @@ label.cherry-label{
 			.state-marker{
 				width: 17px;
 				height: 17px;
-				margin-left: -21px;
+				margin-left: 4px;
 			}
 			&.selected{
 				.state-marker{
 					left: 0;
-					margin-left: 4px;
+					margin-left: 33px;
 				}
 			}
 	}
