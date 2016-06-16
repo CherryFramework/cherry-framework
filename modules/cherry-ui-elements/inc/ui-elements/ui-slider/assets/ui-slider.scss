@@ -13,6 +13,7 @@ label.cherry-label{
 }
 .cherry-slider-wrap{
 	display: flex;
+	flex-wrap: wrap;
 	.cherry-slider-input{
 		flex: 0 1 10%;
 		min-width: 100px;
