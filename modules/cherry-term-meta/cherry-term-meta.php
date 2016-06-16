@@ -232,7 +232,6 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 
 				$result .= sprintf( $format, $current_element->render() );
 
-
 			}
 
 			return $result;
