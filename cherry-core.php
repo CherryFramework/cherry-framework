@@ -84,7 +84,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			 * In this hooks priority parameter are very important.
 			 */
 			add_action( 'after_setup_theme', array( 'Cherry_Core', 'load_all_modules' ), 2 );
-			add_action( 'after_setup_theme', array( $this, 'init_required_modules' ),    3 );
+			add_action( 'after_setup_theme', array( $this, 'init_required_modules' ),    2 );
 
 			// Init modules with autoload seted up into true.
 			add_action( 'after_setup_theme', array( $this, 'init_autoload_modules' ), 9999 );
@@ -146,8 +146,6 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		public static function load_all_modules() {
 
 			foreach ( self::$all_modules as $module => $data ) {
-				ksort( $data );
-				reset( $data );
 
 				$path   = current( $data );
 				$loaded = self::load_module( $module, $path );
@@ -164,7 +162,6 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @since 1.1.0
 		 */
 		public function init_required_modules() {
-
 			$required_modules = apply_filters( 'cherry_core_required_modules', array(
 				'cherry-toolkit', 'cherry-widget-factory'
 			), $this );
@@ -327,19 +324,19 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 */
 		public function get_module_priority( $module, $is_path = false ) {
 
-			// Default phpDoc headers
+			// Default phpDoc headers.
 			$default_headers = array(
 				'version' => 'Version',
 			);
 
-			// Maximum version number (major, minor, patch)
+			// Maximum version number (major, minor, patch).
 			$max_version = array(
 				99,
 				99,
 				999,
 			);
 
-			// If `$module` is a slug, get module path
+			// If `$module` is a slug, get module path.
 			if ( ! $is_path ) {
 				$module = $this->get_module_path( $module );
 			}
@@ -353,18 +350,18 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 
 			$data = get_file_data( $module , $default_headers );
 
-			// Check if version string has a valid value
-			if ( isset( $data['version'] ) &&
-					 false !== strpos( $data['version'], '.' ) ) {
-				// Clean the version string
+			// Check if version string has a valid value.
+			if ( isset( $data['version'] ) && false !== strpos( $data['version'], '.' ) ) {
+
+				// Clean the version string.
 				preg_match( '/[\d\.]+/', $data['version'], $version );
 				$version = $version[0];
 			}
 
-			// Convert version into integer
+			// Convert version into integer.
 			$parts = explode( '.', $version );
 
-			// Calculate priority
+			// Calculate priority.
 			foreach ( $parts as $index => $part ) {
 				$parts[ $index ] = $max_version[ $index ] - (int) $part;
 			}
@@ -433,7 +430,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * Get path to the core directory.
 		 *
 		 * @since 1.0.0
-		 * @deprecated 1.1.0 Use constant __DIR__
+		 * @deprecated 1.1.0 Use constant `__DIR__`
 		 * @return string
 		 */
 		public function get_core_dir() {
@@ -444,7 +441,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * Get URI to the core directory.
 		 *
 		 * @since 1.0.0
-		 * @deprecated 1.1.0 Use base_url()
+		 * @deprecated 1.1.0 Use `base_url()` method
 		 * @return string
 		 */
 		public function get_core_url() {
