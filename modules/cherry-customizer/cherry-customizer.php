@@ -79,6 +79,15 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		protected $options;
 
 		/**
+		 * Core instance.
+		 *
+		 * @since 1.0.0
+		 * @access protected
+		 * @var object
+		 */
+		protected $core;
+
+		/**
 		 * WP_Customize_Manager instance.
 		 *
 		 * @since 1.0.0
@@ -164,6 +173,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			$this->type       = ! empty( $args['type'] ) && $this->sanitize_type( $args['type'] )
 								? $args['type'] : 'theme_mod';
 			$this->options    = $args['options'];
+			$this->core       = $core;
 			$this->fonts      = array();
 			$this->version    = '1.0.1';
 
