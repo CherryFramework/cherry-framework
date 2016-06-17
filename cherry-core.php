@@ -95,25 +95,6 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		}
 
 		/**
-		 * Pass core instance into widget.
-		 *
-		 * @since  1.1.0
-		 * @param  mixed  $core Current core object.
-		 * @param  string $path Abstract widget file path.
-		 * @return mixed
-		 */
-		public function pass_core_to_widgets( $core, $path ) {
-			$path         = str_replace( '\\', '/', $path );
-			$current_core = str_replace( '\\', '/', $this->settings['extra_base_dir'] );
-
-			if ( false !== strpos( $path, $current_core ) ) {
-				return self::get_instance();
-			}
-
-			return $core;
-		}
-
-		/**
 		 * Fire collector for modules.
 		 *
 		 * @since 1.0.0
@@ -139,7 +120,20 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 				if ( ! array_key_exists( $module, self::$all_modules ) ) {
 					self::$all_modules[ $module ] = array( $priority => $path );
 				} else {
-					self::$all_modules[ $module ][ $priority ] = $path;
+
+					$old_priority = array_keys( self::$all_modules[ $module ] );
+
+					if ( ! is_array( $old_priority ) || ! isset( $old_priority[0] ) ) {
+						continue;
+					}
+
+					$compare = version_compare( $old_priority[0], $priority, '<' );
+
+					if ( $compare ) {
+						continue;
+					}
+
+					self::$all_modules[ $module ] = array( $priority => $path );
 				}
 			}
 		}
@@ -414,6 +408,25 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			}
 
 			return apply_filters( 'cherry_core_base_url', $url, $file_path, $module_path );
+		}
+
+		/**
+		 * Pass core instance into widget.
+		 *
+		 * @since  1.1.0
+		 * @param  mixed  $core Current core object.
+		 * @param  string $path Abstract widget file path.
+		 * @return mixed
+		 */
+		public function pass_core_to_widgets( $core, $path ) {
+			$path         = str_replace( '\\', '/', $path );
+			$current_core = str_replace( '\\', '/', $this->settings['extra_base_dir'] );
+
+			if ( false !== strpos( $path, $current_core ) ) {
+				return self::get_instance();
+			}
+
+			return $core;
 		}
 
 		/**
