@@ -175,8 +175,8 @@ if ( ! class_exists( 'UI_Choose_Icons' ) ) {
 		public static function enqueue_assets() {
 			// Styles
 			wp_enqueue_style( 'ui-chooseicons', esc_url( Cherry_Core::base_url( 'assets/css/ui-chooseicons.css', __FILE__ ) ) );
-			wp_enqueue_style( 'material-icons', 'https://fonts.googleapis.com/icon?family=Material+Icons' );
-			wp_enqueue_style( 'font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css' );
+			wp_enqueue_style( 'material-icons', '//fonts.googleapis.com/icon?family=Material+Icons' );
+			wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css' );
 
 			// Scripts
 			wp_enqueue_script( 'ui-chooseicons', esc_url( Cherry_Core::base_url( 'assets/js/ui-chooseicons.min.js', __FILE__ ) ), array( 'cherry-js-core' ) );
