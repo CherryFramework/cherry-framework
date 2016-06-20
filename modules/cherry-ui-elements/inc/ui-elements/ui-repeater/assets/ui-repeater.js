@@ -80,7 +80,6 @@
 			var self  = event.data.self,
 				$list = $( this ).closest( self.repeaterListClass );
 
-
 			self.applayChenges( $list );
 
 			$( this ).closest( self.repeaterItemClass ).remove();
@@ -150,15 +149,12 @@
 				$( self.repeaterTitleClass, parentItem ).html( value );
 			}
 
-
 			self.stopDefaultEvent();
 		},
 
 		applayChenges: function( target ) {
 			if ( undefined !== wp.customize ) {
-				var input = $( 'input[name]:first, select[name]:first', target );
-
-				input.change();
+				$( 'input[name]:first, select[name]:first', target ).change();
 			}
 
 			return this;

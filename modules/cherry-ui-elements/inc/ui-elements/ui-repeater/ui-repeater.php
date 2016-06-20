@@ -157,7 +157,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		 * Render single row for repeater
 		 *
 		 * @param string $index        Current row index.
-		 * @param number Samsung  It contains widget index.
+		 * @param number $widget_index It contains widget index.
 		 * @param array  $data         Values to paste.
 		 * @since 1.0.1
 		 */
@@ -209,11 +209,11 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		 * Render single repeater field
 		 *
 		 * @param  string $index        Current row index.
-		 * @param  number $widget_index  It contains widget index.
+		 * @param  number $widget_index It contains widget index.
 		 * @param  array  $field        Values to paste.
 		 * @return string
 		 */
-		public function render_field( $index, Samsung, $field ) {
+		public function render_field( $index, $widget_index, $field ) {
 
 			if ( empty( $field['type'] ) || empty( $field['name'] ) ) {
 				return '"type" and "name" are required fields for UI_Repeater items';
