@@ -229,8 +229,6 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 				$current_element = $this->ui_builder->get_ui_element_instance( $args['type'], $args );
 
 				$result .= sprintf( $format, $current_element->render() );
-
-
 			}
 
 			return $result;

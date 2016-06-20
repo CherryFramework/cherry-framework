@@ -171,7 +171,8 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 */
 		public function init_required_modules() {
 			$required_modules = apply_filters( 'cherry_core_required_modules', array(
-				'cherry-toolkit', 'cherry-widget-factory',
+				'cherry-toolkit',
+				'cherry-widget-factory',
 			), $this );
 
 			foreach ( $required_modules as $module ) {
