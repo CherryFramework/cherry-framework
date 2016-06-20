@@ -130,7 +130,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 				}
 
 				$html .= sprintf(
-					'<div class="cherry-ui-repeater-list" data-name="%1$s" data-index="%2$s" %3$s id="%4$s">',
+					'<div class="cherry-ui-repeater-list" data-name="%1$s" data-index="%2$s" data-widget-id="__i__" %3$s id="%4$s">',
 					$this->get_tmpl_name(),
 					( ! empty( $this->settings['value'] ) ) ? count( $this->settings['value'] ) : 0,
 					( ! empty( $this->settings['title_field'] ) ) ? 'data-title-field="' . $this->settings['title_field'] . '"': '',
@@ -140,7 +140,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 				if ( is_array( $this->settings['value'] ) ) {
 					$index = 0;
 					foreach ( $this->settings['value'] as $data ) {
-						$html .= $this->render_row( $index, $data );
+						$html .= $this->render_row( $index, false, $data );
 						$index++;
 					}
 				}
@@ -160,8 +160,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		 * @param array  $data  Values to paste.
 		 * @since 1.0.1
 		 */
-		public function render_row( $index, $data ) {
-
+		public function render_row( $index, $widgetIndex, $data ) {
 			$this->data = $data;
 
 			$html = '<div class="cherry-ui-repeater-item" >';
@@ -175,7 +174,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 			$html .= '<div class="cheryr-ui-repeater-content-box">';
 			foreach ( $this->settings['fields'] as $field ) {
 				$html .= '<div class="' . $field['id'] . '-wrap">';
-				$html .= $this->render_field( $index, $field );
+				$html .= $this->render_field( $index, $widgetIndex, $field );
 				$html .= '</div>';
 			}
 			$html .= '</div>';
@@ -212,17 +211,18 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		 * @param  array  $field Values to paste.
 		 * @return string
 		 */
-		public function render_field( $index, $field ) {
+		public function render_field( $index, $widgetIndex, $field ) {
 
 			if ( empty( $field['type'] ) || empty( $field['name'] ) ) {
 				return '"type" and "name" are required fields for UI_Repeater items';
 			}
 
 			$field = wp_parse_args( $field, array( 'value' => '' ) );
+			$parent_name = str_replace('__i__', $widgetIndex, $this->settings['name']);
 
 			$field['id']    = sprintf( '%s-%s', $field['id'], $index );
 			$field['value'] = isset( $this->data[ $field['name'] ] ) ? $this->data[ $field['name'] ] : $field['value'];
-			$field['name']  = sprintf( '%1$s[item-%2$s][%3$s]', $this->settings['name'], $index, $field['name'] );
+			$field['name']  = sprintf( '%1$s[item-%2$s][%3$s]', $parent_name, $index, $field['name'] );
 
 			$ui_class_name = 'UI_' . ucwords( $field['type'] );
 
@@ -304,7 +304,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 			return sprintf(
 				'<script type="text/html" id="tmpl-%1$s">%2$s</script>',
 				$this->get_tmpl_name(),
-				$this->render_row( '{{{data.index}}}', array() )
+				$this->render_row( '{{{data.index}}}', '{{{data.widgetId}}}', array() )
 			);
 
 		}

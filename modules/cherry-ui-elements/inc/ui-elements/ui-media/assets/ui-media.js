@@ -6,16 +6,13 @@
 
 	CherryJsCore.utilites.namespace('ui_elements.media');
 	CherryJsCore.ui_elements.media = {
-		init: function ( target ) {
-			var self = this;
-			if( CherryJsCore.status.document_ready ){
-				self.render( target );
-			}else{
-				CherryJsCore.variable.$document.on('ready', self.render( target ) );
-			}
+		init: function () {
+			$( document ).on('ready', this.render.bind( this, { target: $( 'body' ) } ) );
+			$( window ).on( 'cherry-ui-elements-init', this.render.bind( this ) );
 		},
-		render: function ( target ) {
-			var buttons = $('.upload-button', target);
+		render: function ( event, data ) {
+			var target = data.target,
+				buttons = $('.upload-button', target);
 
 			buttons.each( function() {
 				var button = $( this ),
@@ -156,9 +153,7 @@
 			// End Image ordering
 		}
 	};
-	$( window ).on( 'cherry-ui-elements-init',
-		function( event, data ) {
-			CherryJsCore.ui_elements.media.init( data.target );
-		}
-	);
+
+	CherryJsCore.ui_elements.media.init();
+
 }(jQuery , window.CherryJsCore));

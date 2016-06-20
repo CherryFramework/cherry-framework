@@ -5,99 +5,169 @@
 	'use strict';
 
 	CherryJsCore.utilites.namespace( 'ui_elements.repeater' );
+
 	CherryJsCore.ui_elements.repeater = {
-		init: function( target ) {
-			if ( CherryJsCore.status.is_ready ) {
-				this.render( target, this );
-			} else {
-				CherryJsCore.variable.$document.on( 'ready', this.render( target, this ) );
-			}
+
+		repeaterContainerClass: '.cherry-ui-repeater-container',
+		repeaterListClass: '.cherry-ui-repeater-list',
+		repeaterItemClass: '.cherry-ui-repeater-item',
+		repeaterItemHandleClass: '.cherry-ui-repeater-actions-box',
+		repeaterTitleClass: '.cherry-ui-repeater-title',
+
+		addItemButtonClass: '.cherry-ui-repeater-add',
+		removeItemButtonClass: '.cherry-ui-repeater-remove',
+		toggleItemButtonClass: '.cherry-ui-repeater-toggle',
+
+		minItemClass: 'cherry-ui-repeater-min',
+		sortablePlaceholderClass: 'sortable-placeholder',
+
+		init: function () {
+			$( document ).on('ready', this.addEvents.bind( this ) );
 		},
 
-		triggerChange: function( $target ) {
-			var $input = $target.find( 'input[name]:first, select[name]:first' );
-			if ( undefined !== wp.customize ) {
-				$input.trigger( 'change' );
-				$input.trigger( 'keydown' );
-				$input.trigger( 'propertychange' );
-			}
+		addEvents: function() {
+			$( 'body' )
+			// Delegate events
+				.on( 'click', this.addItemButtonClass, { 'self' : this }, this.addItem )
+				.on( 'click', this.removeItemButtonClass, { 'self' : this }, this.removeItem )
+				.on( 'click', this.toggleItemButtonClass, { 'self' : this }, this.toggleItem )
+				.on( 'change', this.repeaterListClass + ' input, ' + this.repeaterListClass + ' textarea, ' + this.repeaterListClass + ' select', { 'self' : this }, this.changeWrapperLable )
+
+			// Custom events
+				.on( 'sortable-init', { 'self' : this }, this.sortableItem );
+
+			$( window )
+				.on( 'cherry-ui-elements-init', { 'self' : this }, this.sortableItem );
+
+			this.triggers();
 		},
 
-		render: function( target, parent ) {
+		triggers: function( $target ){
+			$( 'body' ).trigger('sortable-init');
 
-			var repeater = $( '.cherry-ui-repeater-container', target );
+			if ( $target ) {
+				$( window ).trigger( 'cherry-ui-elements-init', { 'target': $target } );
+			}
 
-			repeater.each( function() {
-				var $this        = $( this ),
-					$list        = $( '.cherry-ui-repeater-list', $this ),
-					tmplName     = $list.data( 'name' ),
-					titleField   = $list.data( 'title-field' ),
-					rowTemplate  = wp.template( tmplName );
+			return this;
+		},
 
-				$this.on( 'click', '.cherry-ui-repeater-add', function( event ) {
-					var index = $list.data( 'index' ),
-						$target = $list.append( rowTemplate( { index: index } ) ).find( '.cherry-ui-repeater-item:last' );
+		addItem: function( event ) {
+			var self          = event['data'].self,
+				$list         = $( this ).prev( self.repeaterListClass ),
+				index         = $list.data( 'index' ),
+				tmplName      = $list.data( 'name' ),
+				rowTemplate   = wp.template( tmplName ),
+				widgetId = $list.data( 'widget-id' ),
+				data = { index: index };
 
-					event.preventDefault();
+			if( widgetId ){
+				data.widgetId = widgetId;
+			}
 
-					CherryJsCore.variable.$window.trigger( 'cherry-ui-elements-init', { 'target': $target } );
-					index++;
-					$list.data( 'index', index );
-					parent.triggerChange( $target );
+			$list.append( rowTemplate( data ) );
 
-				});
+			index++;
+			$list.data( 'index', index );
 
-				$list.on( 'click', '.cherry-ui-repeater-remove', function( event ) {
-					event.preventDefault();
-					$( this ).closest( '.cherry-ui-repeater-item' ).remove();
-					parent.triggerChange( $list );
-				});
+			self
+				.triggers( $( self.repeaterItemClass, $list ) )
+				.stopDefaultEvent();
+		},
 
-				$list.on( 'click', '.cherry-ui-repeater-toggle', function( event ) {
-					var $container = $( this ).closest( '.cherry-ui-repeater-item' ),
-						minClass   = 'cherry-ui-repeater-min';
+		removeItem: function( event ) {
+			var self     = event['data'].self,
+				$list    = $( this ).closest( self.repeaterListClass );
 
-					event.preventDefault();
 
-					if ( $container.hasClass( minClass ) ) {
-						$container.removeClass( minClass );
-					} else {
-						$container.addClass( minClass );
-					}
+			self.applayChenges( $list );
 
-				});
+			$( this ).closest( self.repeaterItemClass ).remove();
 
-				$list.on( 'change', '.' + titleField + '-wrap input, textarea, select', function() {
-					var $this = $( this ),
-						value = $this.val(),
-						$actionsBox = $this.closest( '.cherry-ui-repeater-item' ),
-						$title = $( '.cherry-ui-repeater-title', $actionsBox );
+			self
+				.triggers()
+				.stopDefaultEvent();
+		},
 
-						$title.html( value );
-				});
+		toggleItem: function( event ) {
+			var self = event['data'].self,
+				$container = $( this ).closest( self.repeaterItemClass );
 
-				$list.sortable({
-					items: '.cherry-ui-repeater-item',
-					handle: '.cherry-ui-repeater-actions-box',
-					cursor: 'move',
-					scrollSensitivity: 40,
-					forcePlaceholderSize: true,
-					forceHelperSize: false,
-					helper: 'clone',
-					opacity: 0.65,
-					placeholder: 'sortable-placeholder',
-					update: function() {
-						parent.triggerChange( $( this ) );
-					}
-				});
+			$container.toggleClass( self.minItemClass );
+
+			self.stopDefaultEvent();
+		},
+
+		sortableItem: function( event ) {
+			var self     = event['data'].self,
+				$list    = $( self.repeaterListClass );
+
+			$list.each( function( indx, element ) {
+				var $this    = $( element ),
+					initFlag = $( element ).data('sortable-init');
+
+				if( ! initFlag ){
+					$this.sortable({
+						items: self.repeaterItemClass ,
+						handle: self.repeaterItemHandleClass,
+						cursor: 'move',
+						scrollSensitivity: 40,
+						forcePlaceholderSize: true,
+						forceHelperSize: false,
+						helper: 'clone',
+						opacity: 0.65,
+						placeholder: self.sortablePlaceholderClass,
+						create: function() {
+							$this.data('sortable-init', true);
+						},
+						update: function( event ) {
+							var target = $( event.target );
+
+							self.applayChenges( target );
+						}
+					});
+				}else{
+					$this.sortable( "refresh" );
+				}
 			} );
+		},
+
+		changeWrapperLable: function( event ) {
+			var self        = event['data'].self,
+				$list       = $( self.repeaterListClass ),
+				titleFilds  = $list.data('title-field'),
+				$this       = $( this );
+
+			if ( titleFilds && $this.closest( '.' + titleFilds + '-wrap' )[0] ) {
+				var value       = $this.val(),
+					parentItem  = $this.closest( self.repeaterItemClass );
+
+				$( self.repeaterTitleClass, parentItem ).html( value );
+			}
+
+
+			self.stopDefaultEvent();
+		},
+
+		applayChenges: function ( target ){
+			if ( undefined !== wp.customize ) {
+				var input = $( 'input[name]:first, select[name]:first', target );
+
+				input.change();
+			}
+
+			return this;
+		},
+
+		stopDefaultEvent: function(){
+			event.preventDefault();
+			event.stopImmediatePropagation();
+			event.stopPropagation();
+
+			return this;
 		}
 	};
 
-	$( window ).on( 'cherry-ui-elements-init',
-		function( event, data ) {
-			CherryJsCore.ui_elements.repeater.init( data.target );
-		}
-	);
+	CherryJsCore.ui_elements.repeater.init();
 
 }( jQuery, window.CherryJsCore ) );
