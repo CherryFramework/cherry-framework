@@ -163,7 +163,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 */
 		public function init_required_modules() {
 			$required_modules = apply_filters( 'cherry_core_required_modules', array(
-				'cherry-toolkit', 'cherry-widget-factory'
+				'cherry-toolkit', 'cherry-widget-factory',
 			), $this );
 
 			foreach ( $required_modules as $module ) {
@@ -223,7 +223,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * Check module autoload.
 		 *
 		 * @since  1.0.0
-		 * @param  string  $module Module slug.
+		 * @param  string $module Module slug.
 		 * @return bool
 		 */
 		public function is_module_autoload( $module ) {
