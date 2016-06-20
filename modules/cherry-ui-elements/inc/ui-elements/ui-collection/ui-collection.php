@@ -154,17 +154,17 @@ if ( ! class_exists( 'UI_Collection' ) ) {
 			wp_enqueue_script( 'jquery-ui-sortable' );
 			wp_enqueue_script(
 				'collection',
-				self::get_current_file_url( __FILE__ ) . '/assets/js/min/jquery.collection.min.js',
+				esc_url( Cherry_Core::base_url( 'assets/js/min/jquery.collection.min.js', __FILE__ ) ),
 				array( 'jquery', 'jquery-ui-sortable' )
 			);
 			wp_enqueue_script(
 				'ui-collection',
-				self::get_current_file_url( __FILE__ ) . '/assets/js/min/ui-collection.min.js',
+				esc_url( Cherry_Core::base_url( 'assets/js/min/ui-collection.min.js', __FILE__ ) ),
 				array( 'jquery', 'jquery-ui-sortable', 'collection' )
 			);
 			wp_enqueue_style(
 				'ui-collection',
-				self::get_current_file_url( __FILE__ ) . '/assets/css/ui-collection.css',
+				esc_url( Cherry_Core::base_url( 'assets/css/ui-collection.css', __FILE__ ) ),
 				array(),
 				'1.0.0',
 				'all'

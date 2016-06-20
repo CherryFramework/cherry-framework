@@ -210,7 +210,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 
 			wp_enqueue_style(
 				'ui-repeater',
-				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-repeater.min.css',
+				esc_url( Cherry_Core::base_url( 'assets/min/ui-repeater.min.css', __FILE__ ) ),
 				array(),
 				'1.0.0',
 				'all'
@@ -218,7 +218,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 
 			wp_enqueue_script(
 				'ui-repeater',
-				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-repeater.min.js',
+				esc_url( Cherry_Core::base_url( 'assets/min/ui-repeater.min.js', __FILE__ ) ),
 				array( 'wp-util', 'jquery-ui-sortable' ),
 				'1.0.0',
 				true
