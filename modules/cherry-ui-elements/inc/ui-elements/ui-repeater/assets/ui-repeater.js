@@ -21,29 +21,29 @@
 		minItemClass: 'cherry-ui-repeater-min',
 		sortablePlaceholderClass: 'sortable-placeholder',
 
-		init: function () {
-			$( document ).on('ready', this.addEvents.bind( this ) );
+		init: function() {
+			$( document ).on( 'ready', this.addEvents.bind( this ) );
 		},
 
 		addEvents: function() {
 			$( 'body' )
 			// Delegate events
-				.on( 'click', this.addItemButtonClass, { 'self' : this }, this.addItem )
-				.on( 'click', this.removeItemButtonClass, { 'self' : this }, this.removeItem )
-				.on( 'click', this.toggleItemButtonClass, { 'self' : this }, this.toggleItem )
-				.on( 'change', this.repeaterListClass + ' input, ' + this.repeaterListClass + ' textarea, ' + this.repeaterListClass + ' select', { 'self' : this }, this.changeWrapperLable )
+				.on( 'click', this.addItemButtonClass, { 'self': this }, this.addItem )
+				.on( 'click', this.removeItemButtonClass, { 'self': this }, this.removeItem )
+				.on( 'click', this.toggleItemButtonClass, { 'self': this }, this.toggleItem )
+				.on( 'change', this.repeaterListClass + ' input, ' + this.repeaterListClass + ' textarea, ' + this.repeaterListClass + ' select', { 'self': this }, this.changeWrapperLable )
 
 			// Custom events
-				.on( 'sortable-init', { 'self' : this }, this.sortableItem );
+				.on( 'sortable-init', { 'self': this }, this.sortableItem );
 
 			$( window )
-				.on( 'cherry-ui-elements-init', { 'self' : this }, this.sortableItem );
+				.on( 'cherry-ui-elements-init', { 'self': this }, this.sortableItem );
 
 			this.triggers();
 		},
 
-		triggers: function( $target ){
-			$( 'body' ).trigger('sortable-init');
+		triggers: function( $target ) {
+			$( 'body' ).trigger( 'sortable-init' );
 
 			if ( $target ) {
 				$( window ).trigger( 'cherry-ui-elements-init', { 'target': $target } );
@@ -53,7 +53,11 @@
 		},
 
 		addItem: function( event ) {
-			var self          = event['data'].self,
+			console.log(event);
+			console.log(event.data);
+			console.log(event.data.self);
+
+			var self          = event.data.self,
 				$list         = $( this ).prev( self.repeaterListClass ),
 				index         = $list.data( 'index' ),
 				tmplName      = $list.data( 'name' ),
@@ -76,7 +80,7 @@
 		},
 
 		removeItem: function( event ) {
-			var self     = event['data'].self,
+			var self     = event.data.self,
 				$list    = $( this ).closest( self.repeaterListClass );
 
 
@@ -90,7 +94,7 @@
 		},
 
 		toggleItem: function( event ) {
-			var self = event['data'].self,
+			var self = event.data.self,
 				$container = $( this ).closest( self.repeaterItemClass );
 
 			$container.toggleClass( self.minItemClass );
@@ -99,15 +103,15 @@
 		},
 
 		sortableItem: function( event ) {
-			var self     = event['data'].self,
+			var self     = event.data.self,
 				$list    = $( self.repeaterListClass );
 
 			$list.each( function( indx, element ) {
 				var $this    = $( element ),
-					initFlag = $( element ).data('sortable-init');
+					initFlag = $( element ).data( 'sortable-init' );
 
-				if( ! initFlag ){
-					$this.sortable({
+				if ( ! initFlag ) {
+					$this.sortable( {
 						items: self.repeaterItemClass ,
 						handle: self.repeaterItemHandleClass,
 						cursor: 'move',
@@ -118,24 +122,24 @@
 						opacity: 0.65,
 						placeholder: self.sortablePlaceholderClass,
 						create: function() {
-							$this.data('sortable-init', true);
+							$this.data( 'sortable-init', true );
 						},
 						update: function( event ) {
 							var target = $( event.target );
 
 							self.applayChenges( target );
 						}
-					});
-				}else{
-					$this.sortable( "refresh" );
+					} );
+				} else {
+					$this.sortable( 'refresh' );
 				}
 			} );
 		},
 
 		changeWrapperLable: function( event ) {
-			var self        = event['data'].self,
+			var self        = event.data.self,
 				$list       = $( self.repeaterListClass ),
-				titleFilds  = $list.data('title-field'),
+				titleFilds  = $list.data( 'title-field' ),
 				$this       = $( this );
 
 			if ( titleFilds && $this.closest( '.' + titleFilds + '-wrap' )[0] ) {
@@ -149,7 +153,7 @@
 			self.stopDefaultEvent();
 		},
 
-		applayChenges: function ( target ){
+		applayChenges: function( target ) {
 			if ( undefined !== wp.customize ) {
 				var input = $( 'input[name]:first, select[name]:first', target );
 
@@ -159,7 +163,7 @@
 			return this;
 		},
 
-		stopDefaultEvent: function(){
+		stopDefaultEvent: function() {
 			event.preventDefault();
 			event.stopImmediatePropagation();
 			event.stopPropagation();

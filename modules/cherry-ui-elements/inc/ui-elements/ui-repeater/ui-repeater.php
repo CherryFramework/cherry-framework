@@ -156,8 +156,9 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		/**
 		 * Render single row for repeater
 		 *
-		 * @param string $index Current row index.
-		 * @param array  $data  Values to paste.
+		 * @param string $index        Current row index.
+		 * @param number $widgetIndex  It contains widget index.
+		 * @param array  $data         Values to paste.
 		 * @since 1.0.1
 		 */
 		public function render_row( $index, $widgetIndex, $data ) {
@@ -207,8 +208,9 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		/**
 		 * Render single repeater field
 		 *
-		 * @param  string $index Current row index.
-		 * @param  array  $field Values to paste.
+		 * @param  string $index        Current row index.
+		 * @param  number $widgetIndex  It contains widget index.
+		 * @param  array  $field        Values to paste.
 		 * @return string
 		 */
 		public function render_field( $index, $widgetIndex, $field ) {
@@ -218,7 +220,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 			}
 
 			$field = wp_parse_args( $field, array( 'value' => '' ) );
-			$parent_name = str_replace('__i__', $widgetIndex, $this->settings['name']);
+			$parent_name = str_replace( '__i__', $widgetIndex, $this->settings['name'] );
 
 			$field['id']    = sprintf( '%s-%s', $field['id'], $index );
 			$field['value'] = isset( $this->data[ $field['name'] ] ) ? $this->data[ $field['name'] ] : $field['value'];
