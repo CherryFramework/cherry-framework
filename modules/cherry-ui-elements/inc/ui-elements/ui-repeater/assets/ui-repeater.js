@@ -27,6 +27,7 @@
 
 		addEvents: function() {
 			$( 'body' )
+
 			// Delegate events
 				.on( 'click', this.addItemButtonClass, { 'self': this }, this.addItem )
 				.on( 'click', this.removeItemButtonClass, { 'self': this }, this.removeItem )
@@ -53,19 +54,15 @@
 		},
 
 		addItem: function( event ) {
-			console.log(event);
-			console.log(event.data);
-			console.log(event.data.self);
+			var self        = event.data.self,
+				$list       = $( this ).prev( self.repeaterListClass ),
+				index       = $list.data( 'index' ),
+				tmplName    = $list.data( 'name' ),
+				rowTemplate = wp.template( tmplName ),
+				widgetId    = $list.data( 'widget-id' ),
+				data        = { index: index };
 
-			var self          = event.data.self,
-				$list         = $( this ).prev( self.repeaterListClass ),
-				index         = $list.data( 'index' ),
-				tmplName      = $list.data( 'name' ),
-				rowTemplate   = wp.template( tmplName ),
-				widgetId = $list.data( 'widget-id' ),
-				data = { index: index };
-
-			if( widgetId ){
+			if ( widgetId ) {
 				data.widgetId = widgetId;
 			}
 
@@ -80,8 +77,8 @@
 		},
 
 		removeItem: function( event ) {
-			var self     = event.data.self,
-				$list    = $( this ).closest( self.repeaterListClass );
+			var self  = event.data.self,
+				$list = $( this ).closest( self.repeaterListClass );
 
 
 			self.applayChenges( $list );
@@ -103,16 +100,18 @@
 		},
 
 		sortableItem: function( event ) {
-			var self     = event.data.self,
-				$list    = $( self.repeaterListClass );
+			var self  = event.data.self,
+				$list = $( self.repeaterListClass ),
+				$this,
+				initFlag;
 
 			$list.each( function( indx, element ) {
-				var $this    = $( element ),
-					initFlag = $( element ).data( 'sortable-init' );
+				$this    = $( element );
+				initFlag = $( element ).data( 'sortable-init' );
 
 				if ( ! initFlag ) {
 					$this.sortable( {
-						items: self.repeaterItemClass ,
+						items: self.repeaterItemClass,
 						handle: self.repeaterItemHandleClass,
 						cursor: 'move',
 						scrollSensitivity: 40,
@@ -140,11 +139,13 @@
 			var self        = event.data.self,
 				$list       = $( self.repeaterListClass ),
 				titleFilds  = $list.data( 'title-field' ),
-				$this       = $( this );
+				$this       = $( this ),
+				value,
+				parentItem;
 
 			if ( titleFilds && $this.closest( '.' + titleFilds + '-wrap' )[0] ) {
-				var value       = $this.val(),
-					parentItem  = $this.closest( self.repeaterItemClass );
+				value       = $this.val(),
+				parentItem  = $this.closest( self.repeaterItemClass );
 
 				$( self.repeaterTitleClass, parentItem ).html( value );
 			}
