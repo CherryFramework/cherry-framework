@@ -136,6 +136,14 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 					self::$all_modules[ $module ] = array( $priority => $path );
 				}
 			}
+
+			/**
+			 * Filter a holder for all modules.
+			 *
+			 * @since 1.1.0
+			 * @var array
+			 */
+			self::$all_modules = apply_filters( 'cherry_core_all_modules', self::$all_modules, $this );
 		}
 
 		/**
@@ -216,7 +224,12 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		public function init_module( $module, $args = array() ) {
 			$this->modules[ $module ] = $this->get_module_instance( $module, $args );
 
-			return $this->modules[ $module ];
+			/**
+			 * Filter a single module after initialization.
+			 *
+			 * @since 1.1.0
+			 */
+			return apply_filters( 'cherry_core_init_module', $this->modules[ $module ], $module, $args, $this );
 		}
 
 		/**
