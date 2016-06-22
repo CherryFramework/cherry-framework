@@ -83,7 +83,7 @@ if ( ! class_exists( 'UI_Stepper' ) ) {
 		public static function enqueue_assets() {
 			wp_enqueue_style(
 				'ui-stepper-min',
-				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-stepper.min.css',
+				esc_url( Cherry_Core::base_url( 'assets/min/ui-stepper.min.css', __FILE__ ) ),
 				array(),
 				'1.0.0',
 				'all'

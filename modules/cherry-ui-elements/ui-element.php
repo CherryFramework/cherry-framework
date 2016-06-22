@@ -17,12 +17,15 @@ if ( ! class_exists( 'UI_Element' ) ) {
 
 	/**
 	 * UI_Element Abstract Class
+	 *
+	 * @since 1.0.0
 	 */
 	abstract class UI_Element {
 
 		/**
 		 * Settings list
 		 *
+		 * @since 1.0.0
 		 * @var array
 		 */
 		protected $settings = array();
@@ -30,7 +33,8 @@ if ( ! class_exists( 'UI_Element' ) ) {
 		/**
 		 * Get current file URL
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
+		 * @deprecated 1.0.3 Use `Cherry_Core::base_url()` method
 		 */
 		public static function get_current_file_url( $file ) {
 			$assets_url = dirname( $file );
@@ -44,6 +48,7 @@ if ( ! class_exists( 'UI_Element' ) ) {
 		/**
 		 * Get control value
 		 *
+		 * @since 1.0.0
 		 * @return string control value.
 		 */
 		public function get_value() {
@@ -53,6 +58,7 @@ if ( ! class_exists( 'UI_Element' ) ) {
 		/**
 		 * Set control value
 		 *
+		 * @since 1.0.0
 		 * @param [type] $value new.
 		 */
 		public function set_value( $value ) {
@@ -62,6 +68,7 @@ if ( ! class_exists( 'UI_Element' ) ) {
 		/**
 		 * Get control name
 		 *
+		 * @since 1.0.0
 		 * @return string control name.
 		 */
 		public function get_name() {
@@ -71,6 +78,7 @@ if ( ! class_exists( 'UI_Element' ) ) {
 		/**
 		 * Set control name
 		 *
+		 * @since 1.0.0
 		 * @param [type] $name new control name.
 		 * @throws Exception Invalid control name.
 		 */

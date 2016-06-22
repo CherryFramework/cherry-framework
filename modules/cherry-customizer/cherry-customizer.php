@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Module Name: Customizer
  * Description: Customizer functionality.
  * Version: 1.1.0
@@ -29,6 +28,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 	 * Contains methods for customizing the theme customization screen.
 	 *
 	 * @since 1.0.0
+	 * @since 1.0.1 Removed `module_dir` and `module_uri` properties.
 	 */
 	class Cherry_Customizer {
 
@@ -95,24 +95,6 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * @var object.
 		 */
 		protected $customize;
-
-		/**
-		 * Module directory path.
-		 *
-		 * @since 1.0.0
-		 * @access protected
-		 * @var array.
-		 */
-		protected $module_dir;
-
-		/**
-		 * Module directory.
-		 *
-		 * @since 1.0.0
-		 * @access protected
-		 * @var array.
-		 */
-		protected $module_uri;
 
 		/**
 		 * Module directory URI.
@@ -192,10 +174,8 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 								? $args['type'] : 'theme_mod';
 			$this->options    = $args['options'];
 			$this->core       = $core;
-			$this->module_dir = trailingslashit( $core->settings['base_dir'] ) . 'modules/cherry-customizer/';
-			$this->module_uri = trailingslashit( $core->settings['base_url'] ) . 'modules/cherry-customizer/';
 			$this->fonts      = array();
-			$this->version    = '1.0.0';
+			$this->version    = '1.0.1';
 
 			add_action( 'customize_register', array( $this, 'register' ) );
 
@@ -929,8 +909,8 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			 * @param object $this Cherry_Customiser instance.
 			 */
 			return apply_filters( 'cherry_customizer_get_fonts_data', array(
-				'standard' => $this->module_dir . 'assets/fonts/standard.json',
-				'google'   => $this->module_dir . 'assets/fonts/google.json',
+				'standard' => __DIR__ . '/assets/fonts/standard.json',
+				'google'   => __DIR__ . '/assets/fonts/google.json',
 			), $this );
 		}
 

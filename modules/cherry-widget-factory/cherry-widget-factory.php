@@ -1,6 +1,5 @@
 <?php
 /**
- * Widget factory module main class
  * Module Name: Widget Factory
  * Description: Base widget class that simplifies creating of your own widgets.
  * Version: 1.0.1
@@ -69,7 +68,6 @@ if ( ! class_exists( 'Cherry_Widget_Factory' ) ) {
 			$this->include_abstract_widget();
 			add_filter( 'cherry_widget_factory_core', array( $this, 'pass_core_to_widgets' ), 10, 2 );
 			add_filter( 'cherry_core_js_ui_init_settings', array( $this, 'init_ui_js' ), 10 );
-
 		}
 
 		/**
@@ -101,7 +99,7 @@ if ( ! class_exists( 'Cherry_Widget_Factory' ) ) {
 		public function pass_core_to_widgets( $core, $path ) {
 
 			$path         = str_replace( '\\', '/', $path );
-			$current_core = str_replace( '\\', '/', $this->core->settings['base_dir'] );
+			$current_core = str_replace( '\\', '/', $this->core->settings['extra_base_dir'] );
 
 			if ( false !== strpos( $path, $current_core ) ) {
 				return $this->core;

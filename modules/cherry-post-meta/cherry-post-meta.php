@@ -1,9 +1,8 @@
 <?php
 /**
- * Post meta management module
  * Module Name: Post Meta
  * Description: Manage post meta
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -11,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.0.0
+ * @version    1.0.2
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -26,7 +25,10 @@ if ( ! defined( 'WPINC' ) ) {
 if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 	/**
-	 * Post meta management module
+	 * Post meta management module.
+	 *
+	 * @since 1.0.0
+	 * @since 1.0.2 Removed `module_directory` property.
 	 */
 	class Cherry_Post_Meta {
 
@@ -35,7 +37,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 *
 		 * @var string
 		 */
-		public $module_version = '1.0.1';
+		public $module_version = '1.0.2';
 
 		/**
 		 * Module slug
@@ -88,18 +90,11 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		public $meta_values = array();
 
 		/**
-		 * Module directory
+		 * Constructor for the module.
 		 *
 		 * @since 1.0.0
-		 * @var string
 		 */
-		private $module_directory = '';
-
-		/**
-		 * Constructor for the module
-		 */
-		function __construct( $core, $args ) {
-			$this->module_directory = $core->settings['base_dir'] . '/modules/' . $this->module_slug;
+		public function __construct( $core, $args ) {
 			$this->core = $core;
 			$this->args = wp_parse_args(
 				$args,
@@ -122,7 +117,6 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'init_ui' ), 1 );
 			add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ), 10, 2 );
 			add_action( 'save_post', array( $this, 'save_meta' ), 10, 2 );
-
 		}
 
 		/**
@@ -147,10 +141,9 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		}
 
 		/**
-		 * Init UI elements JS
+		 * Init UI elements JS.
 		 *
 		 * @since  1.0.0
-		 *
 		 * @return array
 		 */
 		public function init_ui_js() {
@@ -200,6 +193,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 			if ( ! $this->is_allowed_page() ) {
 				return;
 			}
+
 			add_meta_box(
 				$this->args['id'],
 				$this->args['title'],
@@ -209,7 +203,6 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 				$this->args['priority'],
 				$this->args['callback_args']
 			);
-
 		}
 
 		/**
@@ -224,7 +217,6 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 			wp_nonce_field( $this->nonce, $this->nonce );
 			echo $this->get_fields( $post, '<div style="padding:10px 0">%s</div>' );
-
 		}
 
 		/**
@@ -300,7 +292,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 			}
 			return Cherry_Toolkit::render_view(
-				$this->module_directory . '/views/meta.php',
+				__DIR__ . '/views/meta.php',
 				array(
 					'elements' => $elements,
 				)

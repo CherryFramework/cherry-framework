@@ -89,7 +89,7 @@ if ( ! class_exists( 'UI_Text' ) ) {
 
 			wp_enqueue_style(
 				'ui-text',
-				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-text.min.css',
+				esc_url( Cherry_Core::base_url( 'assets/min/ui-text.min.css', __FILE__ ) ),
 				array(),
 				'1.0.0',
 				'all'

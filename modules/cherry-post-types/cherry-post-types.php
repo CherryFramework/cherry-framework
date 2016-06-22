@@ -3,7 +3,7 @@
  * Create custom post type
  * Module Name: Post Types
  * Description: Provides functionality for creating custom post types
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -11,7 +11,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.0.0
+ * @version    1.0.1
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -27,6 +27,9 @@ if ( ! class_exists( 'Cherry_Post_Types' ) ) {
 
 	/**
 	 * Cherry Post Types.
+	 *
+	 * @since 1.0.0
+	 * @since 1.0.1 Removed `module_directory` property.
 	 */
 	class Cherry_Post_Types {
 		/**
@@ -34,7 +37,7 @@ if ( ! class_exists( 'Cherry_Post_Types' ) ) {
 		 *
 		 * @var string
 		 */
-		public $module_version = '1.0.0';
+		public $module_version = '1.0.1';
 
 		/**
 		 * Module slug
@@ -58,22 +61,13 @@ if ( ! class_exists( 'Cherry_Post_Types' ) ) {
 		public static $created_post_types = array();
 
 		/**
-		 * Module directory
-		 *
-		 * @since 1.0.0
-		 * @var string
-		 */
-		private $module_directory = '';
-
-		/**
 		 * Cherry_Post_Type class constructor
 		 */
 		public function __construct( $core, $args = array() ) {
 			$this->defaults = $args;
-			$this->module_directory = $core->settings['base_dir'] . '/modules/cherry-post-types';
 
 			if ( ! class_exists( 'Cherry_Post_Type' ) ) {
-				require_once( $this->module_directory . '/inc/cherry-post-type.php' );
+				require_once( __DIR__ . '/inc/cherry-post-type.php' );
 			}
 		}
 

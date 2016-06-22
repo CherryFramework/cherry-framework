@@ -254,7 +254,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 
 			wp_enqueue_style(
 				'ui-iconpicker',
-				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-iconpicker.min.css',
+				esc_url( Cherry_Core::base_url( 'assets/min/ui-iconpicker.min.css', __FILE__ ) ),
 				array(),
 				'1.0.0',
 				'all'
@@ -262,14 +262,14 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 
 			wp_enqueue_script(
 				'jquery-iconpicker',
-				self::get_current_file_url( __FILE__ ) . '/assets/min/jquery-iconpicker.min.js',
+				esc_url( Cherry_Core::base_url( 'assets/min/jquery-iconpicker.min.js', __FILE__ ) ),
 				array( 'jquery' ),
 				'1.0.0',
 				true
 			);
 			wp_enqueue_script(
 				'ui-iconpicker',
-				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-iconpicker.min.js',
+				esc_url( Cherry_Core::base_url( 'assets/min/ui-iconpicker.min.js', __FILE__ ) ),
 				array( 'jquery' ),
 				'1.0.0',
 				true
