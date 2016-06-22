@@ -3,7 +3,7 @@
  * Class for the building ui elements
  * Module Name: UI Elements
  * Description:
- * Version: 1.0.4
+ * Version: 1.0.3
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
