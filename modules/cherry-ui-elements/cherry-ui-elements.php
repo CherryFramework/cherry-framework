@@ -55,7 +55,6 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		private $args = array(
 			'ui_elements'	=> array(
 				'text',
-				'number',
 				'textarea',
 				'select',
 				'checkbox',
@@ -65,8 +64,6 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 				'stepper',
 				'switcher',
 				'slider',
-				'collection',
-				'chooseicons',
 				'repeater',
 				'iconpicker',
 			),
