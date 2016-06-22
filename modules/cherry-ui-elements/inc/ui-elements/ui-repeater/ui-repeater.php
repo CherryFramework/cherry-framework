@@ -50,6 +50,34 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		public $data = array();
 
 		/**
+		 * Repeater instances counter
+		 *
+		 * @var integer
+		 */
+		public static $instance_id = 0;
+
+		/**
+		 * Current onstance TMPL name
+		 *
+		 * @var string
+		 */
+		public $tmpl_name = '';
+
+		/**
+		 * Holder for templates to print it in bottom of customizer page
+		 *
+		 * @var string
+		 */
+		public static $customizer_tmpl_to_print = null;
+
+		/**
+		 * Is tmpl scripts already printed in customizer
+		 *
+		 * @var boolean
+		 */
+		public static $customizer_tmpl_printed = false;
+
+		/**
 		 * Constructor method for the UI_Text class.
 		 *
 		 * @since  1.0.0
@@ -59,8 +87,13 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 			$this->defaults_settings['id'] = 'cherry-ui-input-text-' . uniqid();
 			$this->settings = wp_parse_args( $args, $this->defaults_settings );
 
+			$this->set_tmpl_data();
+
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
 			add_action( 'admin_footer', array( $this, 'print_js_template' ), 0 );
+
+			add_action( 'customize_controls_print_footer_scripts', array( $this, 'fix_customizer_tmpl' ), 9999 );
+
 		}
 
 		/**
@@ -81,6 +114,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		 * @since  1.0.1
 		 */
 		public function render() {
+
 			$html = '';
 
 			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
@@ -96,8 +130,8 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 				}
 
 				$html .= sprintf(
-					'<div class="cherry-ui-repeater-list" data-name="%1$s" data-index="%2$s" %3$s id="%4$s">',
-					esc_attr( $this->settings['name'] ),
+					'<div class="cherry-ui-repeater-list" data-name="%1$s" data-index="%2$s" data-widget-id="__i__" %3$s id="%4$s">',
+					$this->get_tmpl_name(),
 					( ! empty( $this->settings['value'] ) ) ? count( $this->settings['value'] ) : 0,
 					( ! empty( $this->settings['title_field'] ) ) ? 'data-title-field="' . $this->settings['title_field'] . '"': '',
 					esc_attr( $this->settings['id'] )
@@ -106,7 +140,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 				if ( is_array( $this->settings['value'] ) ) {
 					$index = 0;
 					foreach ( $this->settings['value'] as $data ) {
-						$html .= $this->render_row( $index, $data );
+						$html .= $this->render_row( $index, false, $data );
 						$index++;
 					}
 				}
@@ -122,12 +156,12 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		/**
 		 * Render single row for repeater
 		 *
-		 * @param string $index Current row index.
-		 * @param array  $data  Values to paste.
+		 * @param string $index        Current row index.
+		 * @param number $widget_index It contains widget index.
+		 * @param array  $data         Values to paste.
 		 * @since 1.0.1
 		 */
-		public function render_row( $index, $data ) {
-
+		public function render_row( $index, $widget_index, $data ) {
 			$this->data = $data;
 
 			$html = '<div class="cherry-ui-repeater-item" >';
@@ -141,7 +175,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 			$html .= '<div class="cheryr-ui-repeater-content-box">';
 			foreach ( $this->settings['fields'] as $field ) {
 				$html .= '<div class="' . $field['id'] . '-wrap">';
-				$html .= $this->render_field( $index, $field );
+				$html .= $this->render_field( $index, $widget_index, $field );
 				$html .= '</div>';
 			}
 			$html .= '</div>';
@@ -174,21 +208,23 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		/**
 		 * Render single repeater field
 		 *
-		 * @param  string $index Current row index.
-		 * @param  array  $field Values to paste.
+		 * @param  string $index        Current row index.
+		 * @param  number $widget_index It contains widget index.
+		 * @param  array  $field        Values to paste.
 		 * @return string
 		 */
-		public function render_field( $index, $field ) {
+		public function render_field( $index, $widget_index, $field ) {
 
 			if ( empty( $field['type'] ) || empty( $field['name'] ) ) {
 				return '"type" and "name" are required fields for UI_Repeater items';
 			}
 
 			$field = wp_parse_args( $field, array( 'value' => '' ) );
+			$parent_name = str_replace( '__i__', $widget_index, $this->settings['name'] );
 
 			$field['id']    = sprintf( '%s-%s', $field['id'], $index );
 			$field['value'] = isset( $this->data[ $field['name'] ] ) ? $this->data[ $field['name'] ] : $field['value'];
-			$field['name']  = sprintf( '%1$s[item-%2$s][%3$s]', $this->settings['name'], $index, $field['name'] );
+			$field['name']  = sprintf( '%1$s[item-%2$s][%3$s]', $parent_name, $index, $field['name'] );
 
 			$ui_class_name = 'UI_' . ucwords( $field['type'] );
 
@@ -227,18 +263,65 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		}
 
 		/**
+		 * Get TMPL name for current repeater instance.
+		 *
+		 * @return string
+		 */
+		public function get_tmpl_name() {
+			return $this->tmpl_name;
+		}
+
+		/**
+		 * Set current repeater instance ID
+		 *
+		 * @return void
+		 */
+		public function set_tmpl_data() {
+			self::$instance_id++;
+			$this->tmpl_name = sprintf( 'repeater-template-%s', self::$instance_id );
+
+			global $wp_customize;
+			if ( isset( $wp_customize ) ) {
+				self::$customizer_tmpl_to_print .= $this->get_js_template();
+			}
+
+		}
+
+		/**
 		 * Print JS template for current repeater instance
 		 *
 		 * @return void
 		 */
 		public function print_js_template() {
+			echo $this->get_js_template();
+		}
 
-			printf(
+		/**
+		 * Get JS template to print
+		 *
+		 * @return string
+		 */
+		public function get_js_template() {
+
+			return sprintf(
 				'<script type="text/html" id="tmpl-%1$s">%2$s</script>',
-				esc_attr( $this->settings['name'] ),
-				$this->render_row( '{{{data.index}}}', array() )
+				$this->get_tmpl_name(),
+				$this->render_row( '{{{data.index}}}', '{{{data.widgetId}}}', array() )
 			);
 
+		}
+
+		/**
+		 * Outputs JS templates on customizer page
+		 *
+		 * @return void
+		 */
+		public function fix_customizer_tmpl() {
+			if ( true === self::$customizer_tmpl_printed ) {
+				return;
+			}
+			self::$customizer_tmpl_printed = true;
+			echo self::$customizer_tmpl_to_print;
 		}
 	}
 }

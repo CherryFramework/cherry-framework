@@ -5,83 +5,170 @@
 	'use strict';
 
 	CherryJsCore.utilites.namespace( 'ui_elements.repeater' );
+
 	CherryJsCore.ui_elements.repeater = {
-		init: function( target ) {
-			var self = this;
-			if ( CherryJsCore.status.document_ready ) {
-				self.render( target );
-			} else {
-				CherryJsCore.variable.$document.on( 'ready', self.render( target ) );
-			}
+
+		repeaterContainerClass: '.cherry-ui-repeater-container',
+		repeaterListClass: '.cherry-ui-repeater-list',
+		repeaterItemClass: '.cherry-ui-repeater-item',
+		repeaterItemHandleClass: '.cherry-ui-repeater-actions-box',
+		repeaterTitleClass: '.cherry-ui-repeater-title',
+
+		addItemButtonClass: '.cherry-ui-repeater-add',
+		removeItemButtonClass: '.cherry-ui-repeater-remove',
+		toggleItemButtonClass: '.cherry-ui-repeater-toggle',
+
+		minItemClass: 'cherry-ui-repeater-min',
+		sortablePlaceholderClass: 'sortable-placeholder',
+
+		init: function() {
+			$( document ).on( 'ready', this.addEvents.bind( this ) );
 		},
-		render: function( target ) {
 
-			$( '.cherry-ui-repeater-container', target ).each( function() {
-				var $this        = $( this ),
-					$list        = $( '.cherry-ui-repeater-list', $this ),
-					tmplName     = $list.data( 'name' ),
-					titleField   = $list.data( 'title-field' ),
-					rowTemplate  = wp.template( tmplName );
+		addEvents: function() {
+			$( 'body' )
 
-				$this.on( 'click', '.cherry-ui-repeater-add', function( event ) {
-					var index = $list.data( 'index' ),
-						$target = $list.append( rowTemplate( { index: index } ) ).find( '.cherry-ui-repeater-item:last' );
+			// Delegate events
+				.on( 'click', this.addItemButtonClass, { 'self': this }, this.addItem )
+				.on( 'click', this.removeItemButtonClass, { 'self': this }, this.removeItem )
+				.on( 'click', this.toggleItemButtonClass, { 'self': this }, this.toggleItem )
+				.on( 'change', this.repeaterListClass + ' input, ' + this.repeaterListClass + ' textarea, ' + this.repeaterListClass + ' select', { 'self': this }, this.changeWrapperLable )
 
-					event.preventDefault();
+			// Custom events
+				.on( 'sortable-init', { 'self': this }, this.sortableItem );
 
-					CherryJsCore.variable.$window.trigger( 'cherry-ui-elements-init', { 'target': $target } );
-					index++;
-					$list.data( 'index', index );
-				});
+			$( window )
+				.on( 'cherry-ui-elements-init', { 'self': this }, this.sortableItem );
 
-				$list.on( 'click', '.cherry-ui-repeater-remove', function( event ) {
-					event.preventDefault();
-					$( this ).closest( '.cherry-ui-repeater-item' ).remove();
-				});
+			this.triggers();
+		},
 
-				$list.on( 'click', '.cherry-ui-repeater-toggle', function( event ) {
-					var $container = $( this ).closest( '.cherry-ui-repeater-item' ),
-						minClass   = 'cherry-ui-repeater-min';
+		triggers: function( $target ) {
+			$( 'body' ).trigger( 'sortable-init' );
 
-					event.preventDefault();
+			if ( $target ) {
+				$( window ).trigger( 'cherry-ui-elements-init', { 'target': $target } );
+			}
 
-					if ( $container.hasClass( minClass ) ) {
-						$container.removeClass( minClass );
-					} else {
-						$container.addClass( minClass );
-					}
+			return this;
+		},
 
-				});
+		addItem: function( event ) {
+			var self        = event.data.self,
+				$list       = $( this ).prev( self.repeaterListClass ),
+				index       = $list.data( 'index' ),
+				tmplName    = $list.data( 'name' ),
+				rowTemplate = wp.template( tmplName ),
+				widgetId    = $list.data( 'widget-id' ),
+				data        = { index: index };
 
-				$list.on( 'change', '.' + titleField + '-wrap input, textarea, select', function() {
-					var $this = $( this ),
-						value = $this.val(),
-						$actionsBox = $this.closest( '.cherry-ui-repeater-item' ),
-						$title = $( '.cherry-ui-repeater-title', $actionsBox );
+			if ( widgetId ) {
+				data.widgetId = widgetId;
+			}
 
-						$title.html( value );
-				});
+			$list.append( rowTemplate( data ) );
 
-				$list.sortable({
-					items: '.cherry-ui-repeater-item',
-					handle: '.cherry-ui-repeater-actions-box',
-					cursor: 'move',
-					scrollSensitivity: 40,
-					forcePlaceholderSize: true,
-					forceHelperSize: false,
-					helper: 'clone',
-					opacity: 0.65,
-					placeholder: 'sortable-placeholder'
-				});
+			index++;
+			$list.data( 'index', index );
+
+			self
+				.triggers( $( self.repeaterItemClass, $list ) )
+				.stopDefaultEvent();
+		},
+
+		removeItem: function( event ) {
+			var self  = event.data.self,
+				$list = $( this ).closest( self.repeaterListClass );
+
+			self.applayChenges( $list );
+
+			$( this ).closest( self.repeaterItemClass ).remove();
+
+			self
+				.triggers()
+				.stopDefaultEvent();
+		},
+
+		toggleItem: function( event ) {
+			var self = event.data.self,
+				$container = $( this ).closest( self.repeaterItemClass );
+
+			$container.toggleClass( self.minItemClass );
+
+			self.stopDefaultEvent();
+		},
+
+		sortableItem: function( event ) {
+			var self  = event.data.self,
+				$list = $( self.repeaterListClass ),
+				$this,
+				initFlag;
+
+			$list.each( function( indx, element ) {
+				$this    = $( element );
+				initFlag = $( element ).data( 'sortable-init' );
+
+				if ( ! initFlag ) {
+					$this.sortable( {
+						items: self.repeaterItemClass,
+						handle: self.repeaterItemHandleClass,
+						cursor: 'move',
+						scrollSensitivity: 40,
+						forcePlaceholderSize: true,
+						forceHelperSize: false,
+						helper: 'clone',
+						opacity: 0.65,
+						placeholder: self.sortablePlaceholderClass,
+						create: function() {
+							$this.data( 'sortable-init', true );
+						},
+						update: function( event ) {
+							var target = $( event.target );
+
+							self.applayChenges( target );
+						}
+					} );
+				} else {
+					$this.sortable( 'refresh' );
+				}
 			} );
+		},
 
+		changeWrapperLable: function( event ) {
+			var self        = event.data.self,
+				$list       = $( self.repeaterListClass ),
+				titleFilds  = $list.data( 'title-field' ),
+				$this       = $( this ),
+				value,
+				parentItem;
+
+			if ( titleFilds && $this.closest( '.' + titleFilds + '-wrap' )[0] ) {
+				value       = $this.val(),
+				parentItem  = $this.closest( self.repeaterItemClass );
+
+				$( self.repeaterTitleClass, parentItem ).html( value );
+			}
+
+			self.stopDefaultEvent();
+		},
+
+		applayChenges: function( target ) {
+			if ( undefined !== wp.customize ) {
+				$( 'input[name]:first, select[name]:first', target ).change();
+			}
+
+			return this;
+		},
+
+		stopDefaultEvent: function() {
+			event.preventDefault();
+			event.stopImmediatePropagation();
+			event.stopPropagation();
+
+			return this;
 		}
 	};
 
-	$( window ).on( 'cherry-ui-elements-init',
-		function( event, data ) {
-			CherryJsCore.ui_elements.repeater.init( data.target );
-		}
-	);
+	CherryJsCore.ui_elements.repeater.init();
 
 }( jQuery, window.CherryJsCore ) );
