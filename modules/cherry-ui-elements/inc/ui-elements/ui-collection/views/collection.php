@@ -40,6 +40,6 @@
 		</div>
 	<?php endif; ?>
 	<div class="cherry-infinite-add-field-container">
-		<button type="button" class="button-primary cherry-infinite-main-add"><?php echo $this->settings['button_label'] ?></button>
+		<button type="button" class="button-primary cherry-infinite-main-add"><?php _e( 'Add' ); ?></button>
 	</div>
 </div>

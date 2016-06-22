@@ -40,10 +40,10 @@
 				var $this = jQuery( this );
 				$this.ajaxSubmit({
 					success: function() {
-						self.noticeCreate( 'success', window.TMRealEstateMessage.success );
+						self.noticeCreate( 'success', window.CherryPageBuilderOptions.success );
 					},
 					error: function() {
-						self.noticeCreate( 'failed', window.TMRealEstateMessage.failed );
+						self.noticeCreate( 'failed', window.CherryPageBuilderOptions.failed );
 					},
 					timeout: 5000
 				});
