@@ -6,15 +6,12 @@
 
 	CherryJsCore.utilites.namespace('ui_elements.switcher');
 	CherryJsCore.ui_elements.switcher = {
-		init: function ( target ) {
-			var self = this;
-			if( CherryJsCore.status.document_ready ){
-				self.render( target );
-			}else{
-				CherryJsCore.variable.$document.on('ready', self.render( target ) );
-			}
+		init: function () {
+			$( document ).on('ready', this.render.bind( this, { target: $( 'body' ) } ) );
+			$( window ).on( 'cherry-ui-elements-init', this.render.bind( this ) );
 		},
-		render: function ( target ) {
+		render: function ( event, data ) {
+			var target = data.target;
 
 			$( '.cherry-switcher-wrap', target ).each( function() {
 				var $this = $( this ),
@@ -38,46 +35,27 @@
 				}
 			});
 
-			$( '.cherry-switcher-wrap', target ).on( 'click', function () {
-				var $this = $( this ),
-					$input = $( '.cherry-input-switcher', $this ),
-					inputValue = ( $input.val() === 'true' ),
-					true_slave = ( typeof $input.data('true-slave') !== 'undefined' ) ? $input.data('true-slave') : null,
-					false_slave = ( typeof $input.data('false-slave') !== 'undefined' ) ? $input.data('false-slave') : null;
+			$( '.cherry-switcher-wrap', target ).on( 'click', { target: target }, this.swiperHandler );
+		},
+		swiperHandler: function ( event ) {
+			var $this = $( this ),
+				$input = $( '.cherry-input-switcher', $this ),
+				true_slave = $input.data('true-slave'),
+				false_slave = $input.data('false-slave'),
+				target = event.data.target;
 
-				if ( ! inputValue ) {
-					$this.addClass('selected');
-					$input.attr('value', true ).trigger('change');
-					$input.trigger('change');
+			$this.toggleClass('selected');
 
-					if ( $( '.' + true_slave, target )[ 0 ] ) {
-						$( '.' + true_slave , target ).show();
-					}
-					if ( $( '.' + false_slave, target )[ 0 ] ){
-						$( '.' + false_slave, target ).hide();
-					}
+			$input
+				.attr( 'value', ( $input.val() === 'true' ) ? false : true )
+				.trigger( 'change' )
+				.trigger( 'switcher_disabled_event', [ true_slave, false_slave ] );
 
-					$input.trigger( 'switcher_enabled_event', [ true_slave, false_slave ] );
-				} else {
-					$this.removeClass('selected');
-					$input.attr('value', false ).trigger('change');
 
-					if ( $( '.' + true_slave, target)[0] ) {
-						$( '.' + true_slave, target).hide();
-					}
-					if ( $( '.' + false_slave, target )[0] ) {
-						$( '.' + false_slave, target ).show();
-					}
-
-					$input.trigger('switcher_disabled_event', [true_slave, false_slave]);
-				}
-			});
+			$( '.' + true_slave , target ).toggle();
+			$( '.' + false_slave, target ).toggle();
 		}
 	};
 
-	$( window ).on( 'cherry-ui-elements-init',
-		function( event, data ) {
-			CherryJsCore.ui_elements.switcher.init( data.target );
-		}
-	);
+	CherryJsCore.ui_elements.switcher.init();
 }( jQuery, window.CherryJsCore ) );

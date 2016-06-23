@@ -60,9 +60,9 @@ var CherryJsCore = {};
 			CherryJsCore.status.is_ready = true;
 
 			// Auto ui init if `ui_auto_init` is true
-			if ( CherryJsCore.variable.ui_auto_init ) {
+			/*if ( CherryJsCore.variable.ui_auto_init ) {
 				CherryJsCore.expressions.ui_init();
-			}
+			}*/
 
 			// UI init after widget adding to sidebar
 			CherryJsCore.expressions.widget_added_ui_init();
