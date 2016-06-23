@@ -66,6 +66,15 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 		public $utility = null;
 
 		/**
+		 * Default static args.
+		 *
+		 * @since 1.0.0
+		 * @deprecated 1.0.1 Don't use this property
+		 * @var array
+		 */
+		private static $static_args = array();
+
+		/**
 		 * Cherry_Utility constructor.
 		 *
 		 * @since 1.0.0
@@ -73,6 +82,10 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 		public function __construct( $core, $args = array() ) {
 			$this->args = array_merge( $this->args, $args );
 			$this->utility_require( $core );
+
+			// Backward compatibility.
+			array_unshift( $this->args['utility'], 'satellite' );
+			self::$static_args = $this->args;
 		}
 
 		/**
@@ -87,7 +100,10 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 
 				$this->utility = new stdClass();
 				$utility = $this->args['utility'];
-				array_unshift( $utility, 'satellite' );
+
+				if ( ! in_array( 'satellite', $utility ) ) {
+					array_unshift( $utility, 'satellite' );
+				}
 
 				foreach ( $utility as $utilit ) {
 
@@ -100,6 +116,30 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 					$class_name = 'Cherry_' . $class_name . '_Utilit';
 
 					$this->utility->$utilit = new $class_name( $this );
+				}
+			}
+		}
+
+		/**
+		 * Require utility.
+		 *
+		 * @since 1.0.0
+		 * @deprecated 1.0.1 Don't use this method
+		 * @return void
+		 */
+		public static function utility_composition( $self ) {
+			$utility = self::$static_args['utility'];
+
+			if ( ! empty( $utility ) ) {
+				$self->{'utility'} = new stdClass();
+
+				foreach ( $utility as $utilit ) {
+					$sud_module = str_replace('-', '_', $utilit );
+					$class_name = str_replace('-', ' ', $utilit );
+					$class_name = str_replace(' ', '_', ucwords( $class_name ) );
+					$class_name = 'Cherry_' . $class_name . '_Utilit';
+
+					$self->utility->$sud_module = new $class_name();
 				}
 			}
 		}
