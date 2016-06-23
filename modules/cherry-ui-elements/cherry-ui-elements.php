@@ -133,9 +133,8 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 			if ( ! empty( $this->args['ui_elements'] ) ) {
 				foreach ( $this->args['ui_elements'] as $ui_element ) {
 					$ui_class_name = 'UI_' . ucwords( $ui_element );
-					if ( in_array( 'I_UI', class_implements( $ui_class_name ) ) ) {
-						call_user_func( array( $ui_class_name, 'enqueue_assets' ) );
-					}
+					call_user_func( array( $ui_class_name, 'enqueue_assets' ) );
+
 				}
 			}
 		}
