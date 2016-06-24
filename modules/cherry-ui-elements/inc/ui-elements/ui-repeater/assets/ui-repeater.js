@@ -80,7 +80,7 @@
 			var self  = event.data.self,
 				$list = $( this ).closest( self.repeaterListClass );
 
-			self.applayChenges( $list );
+			self.applyChanges( $list );
 
 			$( this ).closest( self.repeaterItemClass ).remove();
 
@@ -125,7 +125,7 @@
 						update: function( event ) {
 							var target = $( event.target );
 
-							self.applayChenges( target );
+							self.applyChanges( target );
 						}
 					} );
 				} else {
@@ -152,7 +152,7 @@
 			self.stopDefaultEvent();
 		},
 
-		applayChenges: function( target ) {
+		applyChanges: function( target ) {
 			if ( undefined !== wp.customize ) {
 				$( 'input[name]:first, select[name]:first', target ).change();
 			}
