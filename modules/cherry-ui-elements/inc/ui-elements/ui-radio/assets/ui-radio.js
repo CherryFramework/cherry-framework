@@ -6,15 +6,13 @@
 
 	CherryJsCore.utilites.namespace('ui_elements.radio');
 	CherryJsCore.ui_elements.radio = {
-		init: function ( target ) {
-			var self = this;
-			if( CherryJsCore.status.document_ready ){
-				self.render( target );
-			}else{
-				CherryJsCore.variable.$document.on('ready', self.render( target ) );
-			}
+		init: function () {
+			$( document ).on('ready', this.render.bind( this, { target: $( 'body' ) } ) );
+			$( window ).on( 'cherry-ui-elements-init', this.render.bind( this ) );
 		},
-		render: function ( target ) {
+		render: function ( event, data ) {
+			var target = data.target;
+
 			$( '.cherry-radio-group', target ).each( function() {
 				$( '.cherry-radio-input[type="radio"]', this ).each( function() {
 					var $this = $(this),
@@ -50,10 +48,6 @@
 		}
 	};
 
-	$( window ).on( 'cherry-ui-elements-init',
-		function( event, data ) {
-			CherryJsCore.ui_elements.radio.init( data.target );
-		}
-	);
+	CherryJsCore.ui_elements.radio.init();
 
 }( jQuery, window.CherryJsCore ) );

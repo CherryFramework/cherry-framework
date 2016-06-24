@@ -11,7 +11,6 @@
 			$( window ).on( 'cherry-ui-elements-init', this.render.bind( this ) );
 		},
 		render: function( event, data ) {
-
 			var target = data.target,
 				$picker = $( '.cherry-ui-iconpicker', target ),
 				set     = $picker.data( 'set' ),
