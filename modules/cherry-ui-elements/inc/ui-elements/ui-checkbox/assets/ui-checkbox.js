@@ -6,16 +6,13 @@
 
 	CherryJsCore.utilites.namespace('ui_elements.checkbox');
 	CherryJsCore.ui_elements.checkbox = {
-		init: function ( target ) {
-			var self = this;
-
-			if ( CherryJsCore.status.document_ready ) {
-				self.render( target );
-			} else {
-				CherryJsCore.variable.$document.on(' ready', self.render( target ) );
-			}
+		init: function () {
+			$( document ).on('ready', this.render.bind( this, { target: $( 'body' ) } ) );
+			$( window ).on( 'cherry-ui-elements-init', this.render.bind( this ) );
 		},
-		render: function ( target ) {
+		render: function ( event, data ) {
+			var target = data.target;
+
 			$( '.cherry-checkbox-input[type="hidden"]', target ).each( function() {
 				var $this = $( this ),
 					this_slave = $this.data( 'slave' ),
@@ -74,9 +71,5 @@
 		}
 	};
 
-	$( window ).on( 'cherry-ui-elements-init',
-		function( event, data ) {
-			CherryJsCore.ui_elements.checkbox.init( data.target );
-		}
-	);
+	CherryJsCore.ui_elements.checkbox.init();
 }(jQuery, window.CherryJsCore));

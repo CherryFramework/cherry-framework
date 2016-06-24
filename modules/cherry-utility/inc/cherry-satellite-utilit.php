@@ -35,8 +35,10 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 *
 		 * @since 1.0.0
 		 */
-		function __construct( $module ) {
-			$this->args = $module->args;
+		function __construct( $module = null ) {
+			if ( null !== $module ) {
+				$this->args = $module->args;
+			}
 		}
 
 		/**
