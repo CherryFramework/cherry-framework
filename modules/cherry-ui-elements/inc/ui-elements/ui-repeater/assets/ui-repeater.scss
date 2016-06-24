@@ -58,6 +58,10 @@
 			position: relative;
 			text-align: center;
 			min-height: 18px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			width: 70%;
+			display: inline-block;
 		}
 		&-toggle {
 			position: absolute;
