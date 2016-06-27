@@ -58,10 +58,6 @@
 			position: relative;
 			text-align: center;
 			min-height: 18px;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			width: 70%;
-			display: inline-block;
 		}
 		&-toggle {
 			position: absolute;
@@ -112,6 +108,12 @@
 			&:hover {
 				color: $dark_color_1;
 			}
+		}
+		&-title{
+			width: 70%;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: inline-block;
 		}
 	}
 

@@ -73,7 +73,7 @@
 
 			self
 				.triggers( $( self.repeaterItemClass, $list ) )
-				.stopDefaultEvent();
+				.stopDefaultEvent( event );
 		},
 
 		removeItem: function( event ) {
@@ -86,7 +86,7 @@
 
 			self
 				.triggers()
-				.stopDefaultEvent();
+				.stopDefaultEvent( event );
 		},
 
 		toggleItem: function( event ) {
@@ -95,7 +95,7 @@
 
 			$container.toggleClass( self.minItemClass );
 
-			self.stopDefaultEvent();
+			self.stopDefaultEvent( event );
 		},
 
 		sortableItem: function( event ) {
@@ -149,7 +149,7 @@
 				$( self.repeaterTitleClass, parentItem ).html( value );
 			}
 
-			self.stopDefaultEvent();
+			self.stopDefaultEvent( event );
 		},
 
 		applyChanges: function( target ) {
@@ -160,7 +160,7 @@
 			return this;
 		},
 
-		stopDefaultEvent: function() {
+		stopDefaultEvent: function( event ) {
 			event.preventDefault();
 			event.stopImmediatePropagation();
 			event.stopPropagation();
