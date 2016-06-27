@@ -1,10 +1,8 @@
 @charset "UTF-8";
-/* line 5, ../ui-repeater.scss */
 .cherry-ui-repeater-container label.cherry-label {
   margin: 0 0 5px 0;
   display: block; }
 
-/* line 12, ../ui-repeater.scss */
 .cherry-ui-repeater-add {
   display: inline-block;
   text-decoration: none;
@@ -15,16 +13,13 @@
   text-transform: uppercase;
   -webkit-transition: all 200ms linear;
           transition: all 200ms linear; }
-  /* line 105, ../ui-kit/_mixins.scss */
   .cherry-ui-repeater-add:hover {
     color: #23282d;
     box-shadow: none; }
-  /* line 109, ../ui-kit/_mixins.scss */
   .cherry-ui-repeater-add:focus, .cherry-ui-repeater-add:active {
     outline: none;
     box-shadow: none;
     color: #298ffc; }
-  /* line 118, ../ui-kit/_mixins.scss */
   .cherry-ui-repeater-add:before {
     content: "";
     display: inline-block;
@@ -41,14 +36,11 @@
     vertical-align: middle;
     padding: 0 5px 0 0;
     color: #b4b7ba; }
-  /* line 124, ../ui-kit/_mixins.scss */
   .cherry-ui-repeater-add:hover:before {
     color: #298ffc; }
-/* line 16, ../ui-repeater.scss */
 .cherry-ui-repeater-item {
   padding: 10px 10px 10px 30px;
   position: relative; }
-/* line 20, ../ui-repeater.scss */
 .cherry-ui-repeater-remove {
   position: absolute;
   width: 20px;
@@ -62,20 +54,16 @@
   line-height: 20px;
   text-align: center;
   cursor: pointer; }
-  /* line 33, ../ui-repeater.scss */
   .cherry-ui-repeater-remove:before {
     content: "\00D7"; }
-  /* line 36, ../ui-repeater.scss */
   .cherry-ui-repeater-remove:hover {
     color: black; }
 
-/* line 44, ../ui-repeater.scss */
 .cherry-ui-kit.cherry-ui-repeater-container {
   padding: 30px;
   border: 2px solid #e5e5e5;
   background: #f1f1f1;
   border-radius: 8px; }
-/* line 47, ../ui-repeater.scss */
 .cherry-ui-kit > label.cherry-label {
   margin: -30px -30px 30px -30px;
   border-radius: 8px 8px 0 0;
@@ -86,14 +74,12 @@
   line-height: 18px;
   text-align: center;
   background: #fff; }
-/* line 51, ../ui-repeater.scss */
 .cherry-ui-kit .cherry-ui-repeater-item {
   margin: 0 0 30px;
   padding: 20px;
   background: #fff;
   box-shadow: 0 8px 21px rgba(0, 0, 0, 0.1);
   border-radius: 4px; }
-/* line 54, ../ui-repeater.scss */
 .cherry-ui-kit .cherry-ui-repeater-actions-box {
   margin: -20px -20px 20px -20px;
   border-radius: 4px 4px 0 0;
@@ -107,12 +93,7 @@
   cursor: move;
   position: relative;
   text-align: center;
-  min-height: 18px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 70%;
-  display: inline-block; }
-/* line 66, ../ui-repeater.scss */
+  min-height: 18px; }
 .cherry-ui-kit .cherry-ui-repeater-toggle {
   position: absolute;
   color: #b4b7ba;
@@ -128,17 +109,14 @@
   outline: none;
   top: 13px;
   left: 18px; }
-  /* line 81, ../ui-repeater.scss */
   .cherry-ui-kit .cherry-ui-repeater-toggle:before {
     content: "\f142";
     -webkit-transition: all 200ms linear;
             transition: all 200ms linear;
     font-family: dashicons;
     vertical-align: middle; }
-  /* line 87, ../ui-repeater.scss */
   .cherry-ui-kit .cherry-ui-repeater-toggle:hover {
     color: #23282d; }
-/* line 91, ../ui-repeater.scss */
 .cherry-ui-kit .cherry-ui-repeater-remove {
   position: absolute;
   border: none;
@@ -154,27 +132,26 @@
   outline: none;
   top: 13px;
   right: 18px; }
-  /* line 106, ../ui-repeater.scss */
   .cherry-ui-kit .cherry-ui-repeater-remove:before {
     content: "\f158";
     -webkit-transition: all 200ms linear;
             transition: all 200ms linear;
     font-family: dashicons;
     vertical-align: middle; }
-  /* line 112, ../ui-repeater.scss */
   .cherry-ui-kit .cherry-ui-repeater-remove:hover {
     color: #23282d; }
-/* line 118, ../ui-repeater.scss */
+.cherry-ui-kit .cherry-ui-repeater-title {
+  width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block; }
 .cherry-ui-kit .cherry-ui-repeater-min {
   padding-bottom: 0; }
-  /* line 120, ../ui-repeater.scss */
   .cherry-ui-kit .cherry-ui-repeater-min > .cheryr-ui-repeater-content-box {
     display: none; }
-  /* line 123, ../ui-repeater.scss */
   .cherry-ui-kit .cherry-ui-repeater-min > .cherry-ui-repeater-actions-box {
     margin-bottom: 0;
     border-bottom: none;
     background: none; }
-    /* line 128, ../ui-repeater.scss */
     .cherry-ui-kit .cherry-ui-repeater-min > .cherry-ui-repeater-actions-box .cherry-ui-repeater-toggle:before {
       content: "\f140"; }
