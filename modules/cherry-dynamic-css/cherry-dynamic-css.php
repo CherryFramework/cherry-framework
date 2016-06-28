@@ -2,7 +2,7 @@
 /**
  * Module Name: Dynamic CSS
  * Description: CSS parser which uses variables & functions for CSS code optimization
- * Version: 1.0.1
+ * Version: 1.1.0
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.0.1
+ * @version    1.1.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -34,7 +34,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 *
 		 * @var string
 		 */
-		public $module_version = '1.0.1';
+		public $module_version = '1.1.0';
 
 		/**
 		 * Module arguments

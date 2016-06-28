@@ -175,7 +175,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			$this->options    = $args['options'];
 			$this->core       = $core;
 			$this->fonts      = array();
-			$this->version    = '1.0.1';
+			$this->version    = '1.1.0';
 
 			add_action( 'customize_register', array( $this, 'register' ) );
 
