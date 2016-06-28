@@ -8,7 +8,6 @@
 	CherryJsCore.ui_elements.select = {
 		init: function () {
 			$( document ).on('ready', this.ready );
-			//$( document ).on('ready', this.render.bind( this, { target: $( 'body' ) } ) );
 			$( window ).on( 'cherry-ui-elements-init', this.render.bind( this ) );
 		},
 		ready: function ( event, data ) {
