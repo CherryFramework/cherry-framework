@@ -148,7 +148,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 		public static function enqueue_assets() {
 			wp_enqueue_script(
 				'ui-select-select2',
-				esc_url( Cherry_Core::base_url( 'assets/select2.js', __FILE__ ) ),
+				esc_url( Cherry_Core::base_url( 'assets/min/select2.min.js', __FILE__ ) ),
 				array( 'jquery' ),
 				'4.0.3',
 				true
@@ -162,7 +162,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 			);
 			wp_enqueue_style(
 				'ui-select-select2',
-				esc_url( Cherry_Core::base_url( 'assets/select2.css', __FILE__ ) ),
+				esc_url( Cherry_Core::base_url( 'assets/min/select2.min.css', __FILE__ ) ),
 				array(),
 				'4.0.3',
 				'all'
