@@ -155,8 +155,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 			);
 			wp_enqueue_script(
 				'ui-select-min',
-				//esc_url( Cherry_Core::base_url( 'assets/min/ui-select.min.js', __FILE__ ) ),
-				esc_url( Cherry_Core::base_url( 'assets/ui-select.js', __FILE__ ) ),
+				esc_url( Cherry_Core::base_url( 'assets/min/ui-select.min.js', __FILE__ ) ),
 				array( 'jquery' ),
 				'1.0.0',
 				true
