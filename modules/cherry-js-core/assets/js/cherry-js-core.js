@@ -72,12 +72,12 @@ var CherryJsCore = {};
 
 		expressions: {
 			widget_added_ui_init: function() {
-				$( document ).on( 'widget-added', function( event, data ){
+				$( document ).on( 'widget-added', function( event, data ) {
 					$( window ).trigger( 'cherry-ui-elements-init', { 'target': data } );
 				} );
 			},
 			widget_updated_ui_init: function() {
-				$( document ).on( 'widget-updated', function( event, data ){
+				$( document ).on( 'widget-updated', function( event, data ) {
 					$( window ).trigger( 'cherry-ui-elements-init', { 'target': data } );
 				} );
 			}

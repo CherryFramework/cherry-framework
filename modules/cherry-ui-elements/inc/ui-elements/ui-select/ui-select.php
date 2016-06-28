@@ -150,12 +150,13 @@ if ( ! class_exists( 'UI_Select' ) ) {
 				'ui-select-select2',
 				esc_url( Cherry_Core::base_url( 'assets/select2.js', __FILE__ ) ),
 				array( 'jquery' ),
-				'0.2.9',
+				'4.0.3',
 				true
 			);
 			wp_enqueue_script(
 				'ui-select-min',
-				esc_url( Cherry_Core::base_url( 'assets/min/ui-select.min.js', __FILE__ ) ),
+				//esc_url( Cherry_Core::base_url( 'assets/min/ui-select.min.js', __FILE__ ) ),
+				esc_url( Cherry_Core::base_url( 'assets/ui-select.js', __FILE__ ) ),
 				array( 'jquery' ),
 				'1.0.0',
 				true
@@ -164,7 +165,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 				'ui-select-select2',
 				esc_url( Cherry_Core::base_url( 'assets/select2.css', __FILE__ ) ),
 				array(),
-				'0.2.9',
+				'4.0.3',
 				'all'
 			);
 			wp_enqueue_style(
