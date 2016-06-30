@@ -37,7 +37,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 *
 		 * @var string
 		 */
-		public $module_version = '1.0.3';
+		public $module_version = '1.1.1';
 
 		/**
 		 * Module slug
