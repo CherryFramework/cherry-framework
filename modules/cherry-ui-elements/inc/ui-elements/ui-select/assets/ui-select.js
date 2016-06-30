@@ -7,15 +7,7 @@
 	CherryJsCore.utilites.namespace('ui_elements.select');
 	CherryJsCore.ui_elements.select = {
 		init: function () {
-			$( document ).on('ready', this.ready );
 			$( window ).on( 'cherry-ui-elements-init', this.render.bind( this ) );
-		},
-		ready: function () {
-			if ( CherryJsCore.variable.ui_auto_init ) {
-				CherryJsCore.variable.ui_auto_target.forEach( function( target ) {
-					CherryJsCore.variable.$window.trigger( 'cherry-ui-elements-init', { 'target': $( target ) } );
-				});
-			}
 		},
 		render: function ( event, data ) {
 			var target = data.target;
