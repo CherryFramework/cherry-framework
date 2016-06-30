@@ -59,6 +59,9 @@ var CherryJsCore = {};
 		ready: function() {
 			CherryJsCore.status.is_ready = true;
 
+			// UI target init
+			CherryJsCore.expressions.ui_init();
+
 			// UI init after widget adding to sidebar
 			CherryJsCore.expressions.widget_added_ui_init();
 
@@ -71,6 +74,13 @@ var CherryJsCore = {};
 		},
 
 		expressions: {
+			ui_init: function() {
+				if ( CherryJsCore.variable.ui_auto_init ) {
+					CherryJsCore.variable.ui_auto_target.forEach( function( target ) {
+						CherryJsCore.variable.$window.trigger( 'cherry-ui-elements-init', { 'target': $( target ) } );
+					});
+				}
+			},
 			widget_added_ui_init: function() {
 				$( document ).on( 'widget-added', function( event, data ) {
 					$( window ).trigger( 'cherry-ui-elements-init', { 'target': data } );

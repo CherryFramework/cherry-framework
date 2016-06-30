@@ -30,6 +30,13 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 	class Cherry_Term_Meta {
 
 		/**
+		 * Module version
+		 *
+		 * @var string
+		 */
+		public $module_version = '1.1.0';
+
+		/**
 		 * Module slug
 		 *
 		 * @var string

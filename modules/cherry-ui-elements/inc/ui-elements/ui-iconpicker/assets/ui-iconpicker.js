@@ -7,7 +7,6 @@
 	CherryJsCore.utilites.namespace( 'ui_elements.iconpicker' );
 	CherryJsCore.ui_elements.iconpicker = {
 		init: function() {
-			$( document ).on( 'ready', this.render.bind( this, { target: $( 'body' ) } ) );
 			$( window ).on( 'cherry-ui-elements-init', this.render.bind( this ) );
 		},
 		render: function( event, data ) {
