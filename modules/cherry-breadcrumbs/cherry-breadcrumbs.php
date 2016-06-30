@@ -2,7 +2,7 @@
 /**
  * Module Name: Breadcrumb Trail
  * Description: A breadcrumb menu script for WordPress
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -45,7 +45,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		 * @since 1.0.0
 		 * @var   string
 		 */
-		public $module_version = '1.0.0';
+		public $module_version = '1.1.0';
 
 		/**
 		 * A reference to an instance of this class.

@@ -2,7 +2,7 @@
 /**
  * Module Name: Framework Toolkit
  * Description: Framework Toolkit contains various PHP utilities
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -33,7 +33,7 @@ if ( ! class_exists( 'Cherry_Toolkit' ) ) {
 		 *
 		 * @var string Module version
 		 */
-		public $module_version = '1.0.0';
+		public $module_version = '1.1.0';
 
 		/**
 		 * Module slug
