@@ -1,9 +1,8 @@
 <?php
 /**
- * Dynamic CSS parser
  * Module Name: Dynamic CSS
  * Description: CSS parser which uses variables & functions for CSS code optimization
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -11,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.0.0
+ * @version    1.1.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -35,7 +34,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 *
 		 * @var string
 		 */
-		public $module_version = '1.0.0';
+		public $module_version = '1.1.0';
 
 		/**
 		 * Module arguments
@@ -87,7 +86,6 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 			) );
 
 			add_action( 'wp_head', array( $this, 'print_inline_css' ), 99 );
-
 		}
 
 		/**
@@ -203,7 +201,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 */
 		public function get_path( $path = null ) {
 
-			$result = trailingslashit( dirname( __FILE__ ) );
+			$result = trailingslashit( __DIR__ );
 
 			if ( null !== $path ) {
 				$result .= $path;

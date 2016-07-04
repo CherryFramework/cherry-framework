@@ -1,3 +1,6 @@
+@import "ui-kit/variables";
+@import "ui-kit/mixins";
+
 .cherry-ui-container{
 	margin: 10px 0 20px 0;
 }
@@ -7,7 +10,6 @@ label.cherry-label{
 }
 textarea.cherry-ui-textarea{
 	width: 100%;
-	border-radius: 3px;
-	padding: 6px;
-	box-shadow: none;
+	@include input();
+	height: 200px;
 }

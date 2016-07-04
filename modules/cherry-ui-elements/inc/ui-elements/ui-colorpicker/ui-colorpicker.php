@@ -80,7 +80,7 @@ if ( ! class_exists( 'UI_Colorpicker' ) ) {
 
 			wp_enqueue_script(
 				'ui-colorpicker-min',
-				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-colorpicker.min.js',
+				esc_url( Cherry_Core::base_url( 'assets/min/ui-colorpicker.min.js', __FILE__ ) ),
 				array( 'jquery', 'wp-color-picker' ),
 				'1.0.0',
 				true
@@ -88,7 +88,7 @@ if ( ! class_exists( 'UI_Colorpicker' ) ) {
 
 			wp_enqueue_style(
 				'ui-colorpicker-min',
-				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-colorpicker.min.css',
+				esc_url( Cherry_Core::base_url( 'assets/min/ui-colorpicker.min.css', __FILE__ ) ),
 				array( 'wp-color-picker' ),
 				'1.0.0',
 				'all'

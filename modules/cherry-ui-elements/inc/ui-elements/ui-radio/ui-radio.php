@@ -86,13 +86,12 @@ if ( ! class_exists( 'UI_Radio' ) ) {
 						foreach ( $this->settings['options'] as $option => $option_value ) {
 							$checked = $option == $this->settings['value'] ? ' checked' : '';
 							$radio_id = $this->settings['id'] . '-' . $option;
-							$img = isset( $option_value['img_src'] ) && ! empty( $option_value['img_src'] ) ? '<img src="' . esc_url( $option_value['img_src'] ) . '" alt="' . esc_html( $option_value['label'] ) . '"><span class="check"><i class="dashicons dashicons-yes"></i></span>' : '<span class="cherry-radio-item"><i></i></span>';
+							$img = isset( $option_value['img_src'] ) && ! empty( $option_value['img_src'] ) ? '<img src="' . esc_url( $option_value['img_src'] ) . '" alt="' . esc_html( $option_value['label'] ) . '">' : '<span class="cherry-radio-item"><i></i></span>';
 							$data_slave = isset( $option_value['slave'] ) && ! empty( $option_value['slave'] ) ? ' data-slave="' . $option_value['slave'] . '"' : '';
 							$class_box = isset( $option_value['img_src'] ) && ! empty( $option_value['img_src'] ) ? ' cherry-radio-img' . $checked : ' cherry-radio-item' . $checked;
 
 							$html .= '<div class="' . $class_box . '">';
 							$html .= '<input type="radio" id="' . esc_attr( $radio_id ) . '" class="cherry-radio-input ' . sanitize_html_class( $this->settings['class'] ) . '" name="' . esc_attr( $this->settings['name'] ) . '" ' . checked( $option, $this->settings['value'], false ) . ' value="' . esc_attr( $option ) . '"' . $data_slave . '>';
-
 								$label_content = $img . $option_value['label'];
 							$html .= '<label for="' . esc_attr( $radio_id ) . '">' . $label_content . '</label> ';
 							$html .= '</div>';
@@ -113,7 +112,7 @@ if ( ! class_exists( 'UI_Radio' ) ) {
 		public static function enqueue_assets() {
 			wp_enqueue_script(
 				'ui-radio-min',
-				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-radio.min.js',
+				esc_url( Cherry_Core::base_url( 'assets/min/ui-radio.min.js', __FILE__ ) ),
 				array( 'jquery' ),
 				'1.0.0',
 				true
@@ -121,7 +120,7 @@ if ( ! class_exists( 'UI_Radio' ) ) {
 
 			wp_enqueue_style(
 				'ui-radio-min',
-				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-radio.min.css',
+				esc_url( Cherry_Core::base_url( 'assets/min/ui-radio.min.css', __FILE__ ) ),
 				array(),
 				'1.0.0',
 				'all'

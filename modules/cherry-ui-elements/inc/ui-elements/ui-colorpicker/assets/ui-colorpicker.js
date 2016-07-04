@@ -6,24 +6,19 @@
 
 	CherryJsCore.utilites.namespace('ui_elements.colorpicker');
 	CherryJsCore.ui_elements.colorpicker = {
-		init: function ( target ) {
-			var self = this;
-			if( CherryJsCore.status.document_ready ){
-				self.render( target );
-			}else{
-				CherryJsCore.variable.$document.on('ready', self.render( target ) );
-			}
+		init: function () {
+			$( window ).on( 'cherry-ui-elements-init', this.render.bind( this ) );
 		},
-		render: function ( target ) {
-			if($('.cherry-ui-colorpicker', target)[0]){
-				$('.cherry-ui-colorpicker', target).wpColorPicker();
+		render: function ( event, data ) {
+			var target = data.target,
+				input = $( 'input.cherry-ui-colorpicker:not([name*="__i__"])', target );
+
+			if ( input[0] ) {
+				input.wpColorPicker();
 			}
 		}
 	};
 
-	$( window ).on( 'cherry-ui-elements-init',
-		function( event, data ) {
-			CherryJsCore.ui_elements.colorpicker.init( data.target );
-		}
-	);
-}(jQuery, window.CherryJsCore));
+	CherryJsCore.ui_elements.colorpicker.init();
+
+}( jQuery, window.CherryJsCore ));

@@ -3,7 +3,7 @@
  * API functions for post formats specific content
  * Module Name: Post Formats API
  * Description: API for post formats specific content
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -11,7 +11,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.0.0
+ * @version    1.1.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -35,7 +35,7 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		 *
 		 * @var string
 		 */
-		public $module_version = '1.0.0';
+		public $module_version = '1.1.0';
 
 		/**
 		 * Module slug
@@ -202,9 +202,7 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		 * @return void
 		 */
 		public function includes() {
-
-			$based_dir = $this->core->settings['base_dir'] . 'modules/' . $this->module_slug;
-			require_once $based_dir . '/inc/class-cherry-facebook-embed.php';
+			require_once __DIR__ . '/inc/class-cherry-facebook-embed.php';
 
 			// Register Facebook Embed.
 			if ( class_exists( 'Cherry_Facebook_Embed' ) ) {
@@ -219,16 +217,13 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		 * @return void
 		 */
 		public function assets() {
-
-			$base_url = $this->core->settings['base_url'] . 'modules/' . $this->module_slug;
-
 			wp_enqueue_script(
 				'cherry-post-formats',
-				$base_url . '/assets/js/min/cherry-post-formats.min.js', array( 'jquery', 'cherry-js-core' ),
+				Cherry_Core::base_url( 'assets/js/min/cherry-post-formats.min.js', __FILE__ ),
+				array( 'jquery', 'cherry-js-core' ),
 				$this->module_version,
 				true
 			);
-
 		}
 
 		/**
@@ -382,8 +377,16 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 				return $result;
 			}
 
+			$post_content = get_the_content();
+
+			if ( has_shortcode( $post_content, 'video' ) ) {
+				$result_format = '%s';
+			} else {
+				$result_format = '<div class="entry-video embed-responsive embed-responsive-16by9">%s</div>';
+			}
+
 			/** This filter is documented in wp-includes/post-template.php */
-			$content = apply_filters( 'the_content', get_the_content() );
+			$content = apply_filters( 'the_content', $post_content );
 			$types   = array( 'video', 'object', 'embed', 'iframe' );
 			$embeds  = get_media_embedded_in_content( $content, $types );
 
@@ -413,7 +416,7 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 			);
 
 			$result = preg_replace( $regex, $replace, $result );
-			$result = sprintf( '<div class="entry-video embed-responsive embed-responsive-16by9">%s</div>', $result );
+			$result = sprintf( $result_format, $result );
 
 			/**
 			 * Filter a featured video.

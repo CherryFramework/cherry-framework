@@ -1,9 +1,8 @@
 <?php
 /**
- * Framework Toolkit contains various PHP utilities
  * Module Name: Framework Toolkit
- * Description: Various PHP utilities
- * Version: 1.0.0
+ * Description: Framework Toolkit contains various PHP utilities
+ * Version: 1.1.0
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -34,7 +33,7 @@ if ( ! class_exists( 'Cherry_Toolkit' ) ) {
 		 *
 		 * @var string Module version
 		 */
-		public $module_version = '1.0.0';
+		public $module_version = '1.1.0';
 
 		/**
 		 * Module slug
@@ -49,9 +48,7 @@ if ( ! class_exists( 'Cherry_Toolkit' ) ) {
 		 * @param Cherry_Core $core Core instance.
 		 * @param array       $args Module arguments.
 		 */
-		function __construct( $core, $args ) {
-		  // void
-		}
+		public function __construct( $core, $args ) {}
 
 		/**
 		 * Returns the instance.
@@ -91,11 +88,11 @@ if ( ! class_exists( 'Cherry_Toolkit' ) ) {
 		 * @throws InvalidArgumentException If class does not exists.
 		 */
 		public static function get_class_instance( $class_name = '', $core, $args ) {
-		  if ( ! class_exists( $class_name ) ) {
-		    throw new InvalidArgumentException( 'Class "' . $class_name . '" doesn\'t exists' );
-		  }
+			if ( ! class_exists( $class_name ) ) {
+				throw new InvalidArgumentException( 'Class "' . $class_name . '" doesn\'t exists' );
+			}
 
-		  return new $class_name( $core, $args );
+			return new $class_name( $core, $args );
 		}
 
 		/**

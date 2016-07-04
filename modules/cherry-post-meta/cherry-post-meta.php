@@ -1,9 +1,8 @@
 <?php
 /**
- * Post meta management module
  * Module Name: Post Meta
  * Description: Manage post meta
- * Version: 1.0.0
+ * Version: 1.1.1
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -11,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.0.0
+ * @version    1.1.1
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -26,7 +25,10 @@ if ( ! defined( 'WPINC' ) ) {
 if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 	/**
-	 * Post meta management module
+	 * Post meta management module.
+	 *
+	 * @since 1.0.0
+	 * @since 1.0.2 Removed `module_directory` property.
 	 */
 	class Cherry_Post_Meta {
 
@@ -35,7 +37,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 *
 		 * @var string
 		 */
-		public $module_version = '1.0.0';
+		public $module_version = '1.1.1';
 
 		/**
 		 * Module slug
@@ -80,18 +82,19 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		public $nonce = 'cherry-meta-nonce';
 
 		/**
-		 * Module directory
+		 * Storage of meta values.
 		 *
 		 * @since 1.0.0
-		 * @var string
+		 * @var   array
 		 */
-		private $module_directory = '';
+		public $meta_values = array();
 
 		/**
-		 * Constructor for the module
+		 * Constructor for the module.
+		 *
+		 * @since 1.0.0
 		 */
-		function __construct( $core, $args ) {
-			$this->module_directory = $core->settings['base_dir'] . '/modules/' . $this->module_slug;
+		public function __construct( $core, $args ) {
 			$this->core = $core;
 			$this->args = wp_parse_args(
 				$args,
@@ -101,6 +104,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 					'page'          => array( 'post' ),
 					'context'       => 'normal',
 					'priority'      => 'high',
+					'single'        => false,
 					'callback_args' => false,
 					'fields'        => array(),
 				)
@@ -113,7 +117,6 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'init_ui' ), 1 );
 			add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ), 10, 2 );
 			add_action( 'save_post', array( $this, 'save_meta' ), 10, 2 );
-
 		}
 
 		/**
@@ -138,16 +141,15 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		}
 
 		/**
-		 * Init UI elements JS
+		 * Init UI elements JS.
 		 *
 		 * @since  1.0.0
-		 *
 		 * @return array
 		 */
 		public function init_ui_js() {
 
 			$settings['auto_init'] = true;
-			$settings['targets']   = array( 'body' );
+			$settings['targets']   = array( '.metabox-holder' );
 
 			return $settings;
 
@@ -191,6 +193,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 			if ( ! $this->is_allowed_page() ) {
 				return;
 			}
+
 			add_meta_box(
 				$this->args['id'],
 				$this->args['title'],
@@ -200,7 +203,6 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 				$this->args['priority'],
 				$this->args['callback_args']
 			);
-
 		}
 
 		/**
@@ -215,29 +217,26 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 			wp_nonce_field( $this->nonce, $this->nonce );
 			echo $this->get_fields( $post, '<div style="padding:10px 0">%s</div>' );
-
 		}
 
 		/**
 		 * Get registered control fields
 		 *
 		 * @since  1.0.0
-		 * @param  mixed  $post     current post object.
-		 * @param  [type] $format current format name.
+		 * @param  mixed  $post   Current post object.
+		 * @param  [type] $format Current format name.
 		 * @return string
 		 */
 		public function get_fields( $post, $format = '%s' ) {
 
 			$elements = array();
 
+			if ( is_array( $this->args['single'] ) && isset( $this->args['single']['key'] ) ) {
+				$this->meta_values = get_post_meta( $post->ID, $this->args['single']['key'], true );
+			}
+
 			foreach ( $this->args['fields'] as $key => $field ) {
-
-				if ( is_object( $post ) ) {
-					$value = get_post_meta( $post->ID, $key, true );
-				} else {
-					$value = '';
-				}
-
+				$value = $this->get_meta( $post, $key );
 				$value = ( false !== $value ) ? $value : Cherry_Toolkit::get_arg( $field, 'value', '' );
 
 				if ( isset( $field['options_callback'] ) ) {
@@ -248,10 +247,11 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 				$args = array(
 					'type'               => Cherry_Toolkit::get_arg( $field, 'type', 'text' ),
-					'id'                 => $key,
-					'name'               => $key,
+					'id'                 => Cherry_Toolkit::get_arg( $field, 'id', $key ),
+					'name'               => Cherry_Toolkit::get_arg( $field, 'name', $key ),
 					'value'              => $value,
 					'label'              => Cherry_Toolkit::get_arg( $field, 'label', '' ),
+					'add_label'          => Cherry_Toolkit::get_arg( $field, 'add_label', '' ),
 					'options'            => $options,
 					'multiple'           => Cherry_Toolkit::get_arg( $field, 'multiple', false ),
 					'filter'             => Cherry_Toolkit::get_arg( $field, 'filter', false ),
@@ -268,6 +268,9 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 					'style'              => Cherry_Toolkit::get_arg( $field, 'style', 'normal' ),
 					'display_input'      => Cherry_Toolkit::get_arg( $field, 'display_input', true ),
 					'controls'           => Cherry_Toolkit::get_arg( $field, 'controls', array() ),
+					'fields'             => Cherry_Toolkit::get_arg( $field, 'fields', array() ),
+					'auto_parse'         => Cherry_Toolkit::get_arg( $field, 'auto_parse', false ),
+					'icon_data'          => Cherry_Toolkit::get_arg( $field, 'icon_data', array() ),
 					'toggle'             => Cherry_Toolkit::get_arg( $field, 'toggle', array(
 						'true_toggle'  => 'On',
 						'false_toggle' => 'Off',
@@ -277,6 +280,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 					'required'    => Cherry_Toolkit::get_arg( $field, 'required', false ),
 					'placeholder' => Cherry_Toolkit::get_arg( $field, 'placeholder' ),
 					'master'      => Cherry_Toolkit::get_arg( $field, 'master' ),
+					'title_field' => Cherry_Toolkit::get_arg( $field, 'title_field' ),
 				);
 
 				$current_element = $this->ui_builder->get_ui_element_instance( $args['type'], $args );
@@ -288,7 +292,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 			}
 			return Cherry_Toolkit::render_view(
-				$this->module_directory . '/views/meta.php',
+				__DIR__ . '/views/meta.php',
 				array(
 					'elements' => $elements,
 				)
@@ -311,6 +315,29 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 			if ( ! in_array( $field['type'], $this->field_types ) ) {
 				$this->field_types[] = $field['type'];
+			}
+
+			$this->maybe_add_repeater_fields( $field );
+
+			return true;
+
+		}
+
+		/**
+		 * Maybe add reapeater sub-fields to required elements list
+		 *
+		 * @since  1.0.1
+		 * @param  array $field field data.
+		 * @return bool
+		 */
+		public function maybe_add_repeater_fields( $field ) {
+
+			if ( 'repeater' !== $field['type'] || empty( $field['fields'] ) ) {
+				return false;
+			}
+
+			foreach ( $field['fields'] as $repeater_field ) {
+				$this->set_field_types( $repeater_field, null );
 			}
 
 			return true;
@@ -343,6 +370,50 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 				$post = get_post();
 			}
 
+			if ( is_array( $this->args['single'] ) && isset( $this->args['single']['key'] ) ) {
+				$this->save_meta_mod( $post_id );
+			} else {
+				$this->save_meta_option( $post_id );
+			}
+		}
+
+		/**
+		 * Save all meta values as a one array value in `wp_postmeta` table.
+		 *
+		 * @since 1.1.0
+		 * @param int $post_id Post ID.
+		 */
+		public function save_meta_mod( $post_id ) {
+			$meta_key = $this->args['single']['key'];
+
+			// Array of new post meta value.
+			$new_meta_value = array();
+
+			foreach ( $_POST[ $meta_key ] as $key => $value ) {
+
+				// @TODO - add sanitation by element type & hook for custom sanitation method.
+				$new_meta_value[ $key ] = sanitize_text_field( $value );
+			}
+
+			// Get current post meta data.
+			$meta_value = get_post_meta( $post_id, $meta_key, true );
+
+			if ( $new_meta_value && '' == $meta_value ) {
+				add_post_meta( $post_id, $meta_key, $new_meta_value, true );
+			} elseif ( $new_meta_value && $new_meta_value != $meta_value ) {
+				update_post_meta( $post_id, $meta_key, $new_meta_value );
+			} elseif ( '' == $new_meta_value && $meta_value ) {
+				delete_post_meta( $post_id, $meta_key, $meta_value );
+			}
+		}
+
+		/**
+		 * Save each meta value as a single value in `wp_postmeta` table.
+		 *
+		 * @since 1.1.0
+		 * @param int $post_id Post ID.
+		 */
+		public function save_meta_option( $post_id ) {
 			foreach ( $this->args['fields'] as $key => $field ) {
 
 				if ( empty( $_POST[ $key ] ) ) {
@@ -350,9 +421,32 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 					continue;
 				}
 
+				// @TODO - add sanitation by element type & hook for custom sanitation method.
 				update_post_meta( $post_id, $key, $_POST[ $key ] );
-
 			}
+		}
+
+		/**
+		 * Retrieve post meta field.
+		 *
+		 * @since  1.1.0
+		 * @param  object $post Current post object.
+		 * @param  string $key  The meta key to retrieve.
+		 * @return string
+		 */
+		public function get_meta( $post, $key ) {
+
+			if ( ! is_object( $post ) ) {
+				return '';
+			}
+
+			if ( is_array( $this->args['single'] ) && isset( $this->args['single']['key'] ) ) {
+				$meta = isset( $this->meta_values[ $key ] ) ? $this->meta_values[ $key ] : '';
+			} else {
+				$meta = get_post_meta( $post->ID, $key, true );
+			}
+
+			return $meta;
 		}
 
 		/**

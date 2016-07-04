@@ -35,8 +35,10 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 *
 		 * @since 1.0.0
 		 */
-		function __construct( $module ) {
-			$this->args = $module->args;
+		function __construct( $module = null ) {
+			if ( null !== $module ) {
+				$this->args = $module->args;
+			}
 		}
 
 		/**
@@ -146,6 +148,7 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * @return array
 		 */
 		public function get_terms_array( $tax = 'category', $key = 'slug' ) {
+			$terms = array();
 			$all_terms = (array) get_terms( $tax, array( 'hide_empty' => 0, 'hierarchical' => 0 ) );
 
 			foreach ( $all_terms as $term ) {

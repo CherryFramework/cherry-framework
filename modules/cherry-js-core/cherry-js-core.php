@@ -1,9 +1,8 @@
 <?php
 /**
- * Module for js files upload
  * Module Name: JS Core
  * Description: Initializes global JS object which provides additional plugin functionality
- * Version: 1.0.0
+ * Version: 1.1.1
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -11,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.0.0
+ * @version    1.1.1
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -26,7 +25,10 @@ if ( ! defined( 'WPINC' ) ) {
 if ( ! class_exists( 'Cherry_Js_Core' ) ) {
 
 	/**
-	 * Module for js files upload
+	 * JS-core class.
+	 *
+	 * @since 1.0.0
+	 * @since 1.0.1 Removed `module_directory` and `module_directory_uri` properties.
 	 */
 	class Cherry_Js_Core {
 
@@ -34,77 +36,57 @@ if ( ! class_exists( 'Cherry_Js_Core' ) ) {
 		 * A reference to an instance of this class.
 		 *
 		 * @since 1.0.0
-		 * @var   object
+		 * @var object
 		 */
 		private static $instance = null;
 
 		/**
-		 * Module version
+		 * Module version.
 		 *
 		 * @since 1.0.0
 		 * @var string
 		 */
-		private $module_version = '1.0.0';
+		private $module_version = '1.1.0';
 
 		/**
-		 * Module directory
-		 *
-		 * @since 1.0.0
-		 * @var string
-		 */
-		private $module_directory = '';
-
-		/**
-		 * Module directory URL
-		 *
-		 * @since 1.0.0
-		 * @var string
-		 */
-		private $module_directory_uri = '';
-
-		/**
-		 * Default options
+		 * Default options.
 		 *
 		 * @since 1.0.0
 		 * @var array
 		 */
 		private $options = array(
-			'product_type'	=> 'framework',
-			'src'			=> false,
-			'version'		=> false,
+			'product_type' => 'framework',
+			'src'          => false,
+			'version'      => false,
 		);
 
 		/**
-		 * Class constructor
+		 * Class constructor.
 		 *
+		 * @since 1.0.0
 		 * @param object $core Core instance.
 		 * @param array  $args Class args.
 		 */
-		function __construct( $core, $args = array() ) {
-
-			$this->module_directory = $core->settings['base_dir'] . '/modules/cherry-js-core/';
-			$this->module_directory_uri = $core->settings['base_url'] . '/modules/cherry-js-core/';
-
+		public function __construct( $core, $args = array() ) {
 			$this->options = array_merge( $this->options, $args );
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_cherry_scripts' ), 0 );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_cherry_scripts' ), 0 );
 			add_action( 'wp_print_scripts', array( $this, 'localize_script' ) );
-
 		}
 
 		/**
-		 * Register and enqueue cherry js core.
+		 * Register and enqueue JS-core.
 		 *
-		 * @since 4.0.0
+		 * @since 1.0.0
 		 */
 		public function enqueue_cherry_scripts() {
 
 			if ( 'framework' === $this->options['product_type'] ) {
-				$src = esc_url( $this->module_directory_uri . 'assets/js/min/cherry-js-core.min.js' );
+				$src     = esc_url( Cherry_Core::base_url( 'assets/js/min/cherry-js-core.min.js', __FILE__ ) );
 				$version = $this->module_version;
 			} else {
-				$src = ( ! empty( $this->options['src'] ) ? esc_url( $this->options['src'] ) : false );
+				$src     = ( ! empty( $this->options['src'] ) ? esc_url( $this->options['src'] ) : false );
 				$version = ( ! empty( $this->options['version'] ) ? absint( $this->options['src'] ) : false );
 			}
 
@@ -132,7 +114,7 @@ if ( ! class_exists( 'Cherry_Js_Core' ) ) {
 		}
 
 		/**
-		 * Retrieve a styles list.
+		 * [get_ui_init_settings]
 		 *
 		 * @since 1.0.0
 		 * @return $array
@@ -141,8 +123,8 @@ if ( ! class_exists( 'Cherry_Js_Core' ) ) {
 
 			// Default auto ui init settings.
 			$ui_init_settings = array(
-				'auto_init'		=> false,
-				'targets'		=> array(),
+				'auto_init' => false,
+				'targets'   => array(),
 			);
 
 			/**

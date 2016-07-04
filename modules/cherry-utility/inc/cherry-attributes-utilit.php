@@ -40,7 +40,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 
 			$default_args = array(
 				'visible'		=> true,
-				'length'		=> 0,
+				'length'		=> 9999,
 				'trimmed_type'	=> 'word',
 				'ending'		=> '&hellip;',
 				'html'			=> '<h3 %1$s><a href="%2$s" %3$s rel="bookmark">%4$s</a></h3>',
@@ -51,7 +51,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			$args = wp_parse_args( $args, $default_args );
 			$html = '' ;
 
-			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
+			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) && 0 !== $args['length'] ) {
 				$title = $title_cut = ( 'post' === $type ) ? $object->post_title : $object->name ;
 				$title = ( $args['title'] ) ? 'title="' . $args['title'] . '"' : 'title="' . $title . '"' ;
 

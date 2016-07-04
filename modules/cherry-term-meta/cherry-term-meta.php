@@ -1,9 +1,8 @@
 <?php
 /**
- * Term meta management module
  * Module Name: Term Meta
  * Description: Manage term metadata
- * Version: 1.0.1
+ * Version: 1.1.0
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -11,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.0.1
+ * @version    1.1.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -35,7 +34,7 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 		 *
 		 * @var string
 		 */
-		public $module_version = '1.0.1';
+		public $module_version = '1.1.0';
 
 		/**
 		 * Module slug
@@ -64,6 +63,14 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 		 * @var object
 		 */
 		public $ui_builder = null;
+
+		/**
+		 * Already registered field.
+		 *
+		 * @since  1.0.2
+		 * @var array
+		 */
+		static public $register_fields = array();
 
 		/**
 		 * Core instance
@@ -98,7 +105,6 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 
 			add_action( "created_{$tax}", array( $this, 'save_meta' ) );
 			add_action( "edited_{$tax}", array( $this, 'save_meta' ) );
-
 		}
 
 		/**
@@ -180,6 +186,12 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 			$result = '';
 
 			foreach ( $this->args['fields'] as $key => $field ) {
+
+				if ( in_array( $key, Cherry_Term_Meta::$register_fields ) ) {
+					continue;
+				} else {
+					Cherry_Term_Meta::$register_fields[] = $key;
+				}
 
 				if ( false !== $term ) {
 					$value = get_term_meta( $term->term_id, $key, true );

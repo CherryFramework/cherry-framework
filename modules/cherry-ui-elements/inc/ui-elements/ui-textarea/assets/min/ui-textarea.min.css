@@ -1,8 +1,22 @@
-/* line 1, ../ui-textarea.scss */
-.cherry-ui-container { margin: 10px 0 20px 0; }
+.cherry-ui-container {
+  margin: 10px 0 20px 0; }
 
-/* line 4, ../ui-textarea.scss */
-label.cherry-label { margin: 0 0 5px 0; display: block; }
+label.cherry-label {
+  margin: 0 0 5px 0;
+  display: block; }
 
-/* line 8, ../ui-textarea.scss */
-textarea.cherry-ui-textarea { width: 100%; border-radius: 3px; padding: 6px; box-shadow: none; }
+textarea.cherry-ui-textarea {
+  width: 100%;
+  font-size: 14px;
+  line-height: 20px;
+  color: #23282d;
+  background-color: #f1f1f1;
+  border-radius: 2px;
+  padding: 10px 20px;
+  min-height: 50px;
+  border: 1px solid #f1f1f1;
+  box-shadow: none;
+  height: 200px; }
+  textarea.cherry-ui-textarea:focus {
+    border-color: rgba(72, 197, 105, 0.6);
+    box-shadow: 0 0 2px rgba(72, 197, 105, 0.6); }

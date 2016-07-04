@@ -78,7 +78,7 @@ if ( ! class_exists( 'UI_Textarea' ) ) {
 		public static function enqueue_assets() {
 			wp_enqueue_style(
 				'ui-textarea',
-				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-textarea.min.css',
+				esc_url( Cherry_Core::base_url( 'assets/min/ui-textarea.min.css', __FILE__ ) ),
 				array(),
 				'1.0.0',
 				'all'

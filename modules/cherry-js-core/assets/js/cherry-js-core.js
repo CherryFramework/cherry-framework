@@ -59,10 +59,8 @@ var CherryJsCore = {};
 		ready: function() {
 			CherryJsCore.status.is_ready = true;
 
-			// Auto ui init if `ui_auto_init` is true
-			if ( CherryJsCore.variable.ui_auto_init ) {
-				CherryJsCore.expressions.ui_init();
-			}
+			// UI target init
+			CherryJsCore.expressions.ui_init();
 
 			// UI init after widget adding to sidebar
 			CherryJsCore.expressions.widget_added_ui_init();
@@ -77,17 +75,19 @@ var CherryJsCore = {};
 
 		expressions: {
 			ui_init: function() {
-				CherryJsCore.variable.ui_auto_target.forEach( function( target ) {
-					CherryJsCore.variable.$window.trigger( 'cherry-ui-elements-init', { 'target': $( target ) } );
-				});
+				if ( CherryJsCore.variable.ui_auto_init ) {
+					CherryJsCore.variable.ui_auto_target.forEach( function( target ) {
+						CherryJsCore.variable.$window.trigger( 'cherry-ui-elements-init', { 'target': $( target ) } );
+					});
+				}
 			},
 			widget_added_ui_init: function() {
-				$( document ).on( 'widget-added', function( event, data ){
+				$( document ).on( 'widget-added', function( event, data ) {
 					$( window ).trigger( 'cherry-ui-elements-init', { 'target': data } );
 				} );
 			},
 			widget_updated_ui_init: function() {
-				$( document ).on( 'widget-updated', function( event, data ){
+				$( document ).on( 'widget-updated', function( event, data ) {
 					$( window ).trigger( 'cherry-ui-elements-init', { 'target': data } );
 				} );
 			}

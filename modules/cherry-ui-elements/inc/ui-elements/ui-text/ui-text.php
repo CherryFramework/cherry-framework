@@ -36,7 +36,7 @@ if ( ! class_exists( 'UI_Text' ) ) {
 			'label'			=> '',
 			'class'			=> '',
 			'master'		=> '',
-			'required'      => false,
+			'required'		=> false,
 		);
 
 		/**
@@ -71,9 +71,7 @@ if ( ! class_exists( 'UI_Text' ) ) {
 		public function render() {
 			$html = '';
 
-			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
-
-			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
+			$html .= '<div class="cherry-ui-container ' . esc_attr( $this->settings['master'] ) . '">';
 				if ( '' !== $this->settings['label'] ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
 				}
@@ -91,7 +89,7 @@ if ( ! class_exists( 'UI_Text' ) ) {
 
 			wp_enqueue_style(
 				'ui-text',
-				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-text.min.css',
+				esc_url( Cherry_Core::base_url( 'assets/min/ui-text.min.css', __FILE__ ) ),
 				array(),
 				'1.0.0',
 				'all'

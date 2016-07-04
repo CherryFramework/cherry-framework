@@ -1,3 +1,6 @@
+@import "ui-kit/variables";
+@import "ui-kit/mixins";
+
 .cherry-ui-container{
 	margin: 10px 0 20px 0;
 }
@@ -7,23 +10,26 @@ label.cherry-label{
 }
 .wp-picker-container{
 	display: block;
-	background-color: #ffffff;
-	border: 1px solid #dddcdc;
-	border-radius: 3px;
+	background-color: $grey_color_3;
+	border-radius: $border_radius_extra_small;
 	display: inline-block;
-	padding: 4px;
-
+	padding: 8px;
+	max-width: 380px;
 	a.wp-color-result{
 		border: medium none;
 		box-shadow: none;
-		height: 32px;
+		height: 36px;
 		margin: 0;
-
+		border-radius: 0;
+		padding-left: 36px;
 		&:after{
-			background-color: #ffffff;
+			background-color: $grey_color_3;
 			border: medium none;
 			border-radius: 0;
-			line-height: 32px;
+			line-height: 36px;
+			font-size: 14px;
+			color: $dark_color_1;
+			padding: 0 80px 0 20px;
 		}
 		@media screen and (max-width: 782px){
 			height: 36px;

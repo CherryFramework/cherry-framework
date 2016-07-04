@@ -1,0 +1,137 @@
+@import "ui-kit/variables";
+@import "ui-kit/mixins";
+
+.cherry-ui-repeater-container {
+	label.cherry-label{
+		margin: 0 0 5px 0;
+		display: block;
+	}
+}
+
+.cherry-ui-repeater {
+	&-add {
+		@include link();
+		@include link_icon_before( '\f132' );
+	}
+	&-item {
+		padding: 10px 10px 10px 30px;
+		position: relative;
+	}
+	&-remove {
+		position: absolute;
+		width: 20px;
+		height: 20px;
+		right: 18px;
+		top: 13px;
+		border-radius: 50%;
+		border: 1px solid currentColor;
+		color: red;
+		font-size: 18px;
+		line-height: 20px;
+		text-align: center;
+		cursor: pointer;
+		&:before {
+			content: "\00D7";
+		}
+		&:hover {
+			color: black;
+		}
+	}
+
+}
+
+.cherry-ui-kit {
+	&.cherry-ui-repeater-container {
+		@include container();
+	}
+	> label.cherry-label {
+		@include container_heading();
+	}
+	.cherry-ui-repeater {
+		&-item {
+			@include box();
+		}
+		&-actions-box {
+			@include box_heading();
+			padding: 15px 20px;
+			cursor: move;
+			position: relative;
+			text-align: center;
+			min-height: 18px;
+		}
+		&-toggle {
+			position: absolute;
+			color: $grey_color_4;
+			width: 20px;
+			height: 20px;
+			font-size: 22px;
+			line-height: 20px;
+			text-align: center;
+			vertical-align: middle;
+			cursor: pointer;
+			text-decoration: none;
+			box-shadow: none;
+			outline: none;
+			top: 13px;
+			left: 18px;
+			&:before {
+				content: "\f142";
+				transition: all 200ms linear;
+				font-family: dashicons;
+				vertical-align: middle;
+			}
+			&:hover {
+				color: $dark_color_1;
+			}
+		}
+		&-remove {
+			position: absolute;
+			border: none;
+			color: $grey_color_4;
+			font-size: 20px;
+			line-height: 20px;
+			width: 20px;
+			height: 20px;
+			text-align: center;
+			vertical-align: middle;
+			text-decoration: none;
+			box-shadow: none;
+			outline: none;
+			top: 13px;
+			right: 18px;
+			&:before {
+				content: "\f158";
+				transition: all 200ms linear;
+				font-family: dashicons;
+				vertical-align: middle;
+			}
+			&:hover {
+				color: $dark_color_1;
+			}
+		}
+		&-title{
+			width: 70%;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: inline-block;
+			font-size: 14px;
+		}
+	}
+
+	.cherry-ui-repeater-min {
+		padding-bottom: 0;
+		> .cheryr-ui-repeater-content-box {
+			display: none;
+		}
+		> .cherry-ui-repeater-actions-box {
+			margin-bottom: 0;
+			border-bottom: none;
+			background: none;
+			.cherry-ui-repeater-toggle {
+				&:before {
+					content: "\f140";
+				}
+			}
+		}
+	}
+}

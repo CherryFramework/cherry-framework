@@ -27,15 +27,15 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 		 * @var array
 		 */
 		private $defaults_settings = array(
-			'id'			=> 'cherry-ui-slider-id',
-			'name'			=> 'cherry-ui-slider-name',
-			'max_value'		=> 100,
-			'min_value'		=> 0,
-			'value'			=> 50,
-			'step_value'	=> 1,
-			'label'			=> '',
-			'class'			=> '',
-			'master'		=> '',
+			'id'         => 'cherry-ui-slider-id',
+			'name'       => 'cherry-ui-slider-name',
+			'max_value'  => 100,
+			'min_value'  => 0,
+			'value'      => 50,
+			'step_value' => 1,
+			'label'      => '',
+			'class'      => '',
+			'master'     => '',
 		);
 
 		/**
@@ -64,11 +64,11 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 
 			$ui_stepper = new UI_Stepper(
 				array(
-					'id' => $this->settings['id'] . '-stepper',
-					'name' => $this->settings['name'],
-					'max_value' => $this->settings['max_value'],
-					'min_value' => $this->settings['min_value'],
-					'value' => $this->settings['value'],
+					'id'         => $this->settings['id'] . '-stepper',
+					'name'       => $this->settings['name'],
+					'max_value'  => $this->settings['max_value'],
+					'min_value'  => $this->settings['min_value'],
+					'value'      => $this->settings['value'],
 					'step_value' => $this->settings['step_value'],
 				)
 			);
@@ -78,13 +78,12 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
 				}
 				$html .= '<div class="cherry-slider-wrap">';
+					$html .= '<div class="cherry-slider-holder">';
+						$html .= '<input type="range" class="cherry-slider-unit" step="' .  esc_attr( $this->settings['step_value'] ) . '" min="' . esc_attr( $this->settings['min_value'] ) . '" max="' . esc_attr( $this->settings['max_value'] ) . '" value="' . esc_attr( $this->settings['value'] ) . '">';
+					$html .= '</div>';
 					$html .= '<div class="cherry-slider-input">';
 						$html .= $ui_stepper_html;
 					$html .= '</div>';
-					$html .= '<div class="cherry-slider-holder">';
-						$html .= '<div class="cherry-slider-unit" data-left-limit="' . esc_attr( $this->settings['min_value'] ) . '" data-right-limit="' . esc_attr( $this->settings['max_value'] ) . '" data-value="' . esc_attr( $this->settings['value'] ) . '"></div>';
-					$html .= '</div>';
-					$html .= '<div class="clear"></div>';
 				$html .= '</div>';
 			$html .= '</div>';
 
@@ -100,23 +99,15 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 
 			wp_enqueue_script(
 				'ui-slider-min',
-				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-slider.min.js',
-				array( 'jquery', 'jquery-ui-slider' ),
+				esc_url( Cherry_Core::base_url( 'assets/min/ui-slider.min.js', __FILE__ ) ),
+				array( 'jquery' ),
 				'1.0.0',
 				true
 			);
 
 			wp_enqueue_style(
-				'jquery-ui',
-				self::get_current_file_url( __FILE__ ) . '/assets/jquery-ui.css',
-				array(),
-				'1.0.0',
-				'all'
-			);
-
-			wp_enqueue_style(
 				'ui-slider-min',
-				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-slider.min.css',
+				esc_url( Cherry_Core::base_url( 'assets/min/ui-slider.min.css', __FILE__ ) ),
 				array(),
 				'1.0.0',
 				'all'

@@ -1,9 +1,8 @@
 <?php
 /**
- * Create options page
  * Module Name: Page Builder
  * Description: Provides functionality for building custom options pages
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -11,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.0.0
+ * @version    1.1.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -35,7 +34,7 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 		 *
 		 * @var string
 		 */
-		public $module_version = '1.0.0';
+		public $module_version = '1.1.0';
 
 		/**
 		 * Module slug
@@ -102,19 +101,19 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 			$this->args = wp_parse_args(
 				$args,
 				array(
-					'capability'	=> 'manage_options',
+					'capability'    => 'manage_options',
 					'position'      => 20,
-					'icon'			=> 'dashicons-admin-site',
+					'icon'          => 'dashicons-admin-site',
 					'sections'      => array(),
 					'settings'      => array(),
 					'before'        => '',
-					'after'			=> '',
-					'before_button'	=> '',
-					'after_button'	=> '',
+					'after'         => '',
+					'before_button' => '',
+					'after_button'  => '',
 				)
 			);
 
-			$this->views = $this->core->settings['base_dir'] . 'modules/' . $this->module_slug . '/views/';
+			$this->views = __DIR__ . '/views/';
 			add_action( 'admin_enqueue_scripts', array( $this, 'assets' ) );
 		}
 
@@ -146,18 +145,18 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 		 * @return object
 		 */
 		public function make( $slug, $title, $parent = null ) {
-			$page	= new Cherry_Page_Builder( $this->core, $this->args );
+			$page = new Cherry_Page_Builder( $this->core, $this->args );
 
 			// Set the page properties.
-			$page->data['slug']		= $slug;
-			$page->data['title']	= $title;
-			$page->data['parent']	= $parent;
-			$page->data['args'] = array(
-				'capability'    => 'manage_options',
-				'icon'          => '',
-				'position'      => null,
-				'tabs'          => true,
-				'menu'          => $title,
+			$page->data['slug']   = $slug;
+			$page->data['title']  = $title;
+			$page->data['parent'] = $parent;
+			$page->data['args']   = array(
+				'capability' => 'manage_options',
+				'icon'       => '',
+				'position'   => null,
+				'tabs'       => true,
+				'menu'       => $title,
 			);
 			$page->data['rules'] = array();
 
@@ -170,7 +169,7 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 		 * properties.
 		 *
 		 * @param array $params      Base parameter.
-		 * @return \Themosis\Page\PageBuilder
+		 * @return object
 		 */
 		public function set( array $params = array() ) {
 			$this->args = $params;
@@ -203,26 +202,27 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 		 * @return void
 		 */
 		public function render() {
-			$title			= ! empty( $this->data['title'] ) ? $this->data['title'] : '';
-			$page_slug		= ! empty( $this->data['slug'] ) ? $this->data['slug'] : '';
-			$page_before	= ! empty( $this->args['before'] ) ? $this->args['before'] : '';
-			$page_after		= ! empty( $this->args['after'] ) ? $this->args['after'] : '';
-			$button_before	= ! empty( $this->args['button_before'] ) ? $this->args['button_before'] : '';
-			$button_after	= ! empty( $this->args['button_after'] ) ? $this->args['button_after'] : '';
-			$sections		= ( ! empty( $this->sections ) && is_array( $this->sections ) ) ? $this->sections : array();
+			$title         = ! empty( $this->data['title'] ) ? $this->data['title'] : '';
+			$page_slug     = ! empty( $this->data['slug'] ) ? $this->data['slug'] : '';
+			$page_before   = ! empty( $this->args['before'] ) ? $this->args['before'] : '';
+			$page_after    = ! empty( $this->args['after'] ) ? $this->args['after'] : '';
+			$button_before = ! empty( $this->args['button_before'] ) ? $this->args['button_before'] : '';
+			$button_after  = ! empty( $this->args['button_after'] ) ? $this->args['button_after'] : '';
+			$sections      = ( ! empty( $this->sections ) && is_array( $this->sections ) ) ? $this->sections : array();
 
 			$html = Cherry_Toolkit::render_view(
 				$this->views . 'page.php',
 				array(
-					'title'			=> $title,
-					'page_slug'		=> $page_slug,
-					'page_before'	=> $page_before,
-					'page_after'	=> $page_after,
-					'button_before'	=> $button_before,
-					'button_after'	=> $button_after,
-					'sections'		=> $sections,
+					'title'         => $title,
+					'page_slug'     => $page_slug,
+					'page_before'   => $page_before,
+					'page_after'    => $page_after,
+					'button_before' => $button_before,
+					'button_after'  => $button_after,
+					'sections'      => $sections,
 				)
 			);
+
 			echo $html;
 		}
 
@@ -260,7 +260,7 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 		 * pass it an array of 'settings' fields.
 		 *
 		 * @param array $settings The page settings.
-		 * @return \Themosis\Page\PageBuilder
+		 * @return object
 		 */
 		public function add_settings( array $settings = array() ) {
 			$this->settings = $settings;
@@ -351,7 +351,10 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 			// Set the name attribute.
 			$setting['field']['name'] = $setting['section'] . '[' . $setting['slug'] . ']';
 
-			if ( class_exists( 'UI_' . ucfirst( $setting['type'] ) ) ) {
+			if ( isset( $setting['custom_callback'] ) && is_callable( $setting['custom_callback'] ) ) {
+				echo call_user_func( $setting['custom_callback'], $setting['field'] );
+
+			} else if ( class_exists( 'UI_' . ucfirst( $setting['type'] ) ) ) {
 				$ui_class = 'UI_' . ucfirst( $setting['type'] );
 				$ui_element = new $ui_class( $setting['field'] );
 
@@ -375,7 +378,7 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 
 			wp_enqueue_script(
 				'cherry-settings-page',
-				$this->core->settings['base_url'] . 'modules/' . $this->module_slug . '/assets/js/min/page-settings.min.js',
+				Cherry_Core::base_url( 'assets/js/min/page-settings.min.js', __FILE__ ),
 				array( 'jquery' ),
 				'0.2.0',
 				true
@@ -383,7 +386,7 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 
 			wp_enqueue_style(
 				'cherry-settings-page',
-				$this->core->settings['base_url'] . 'modules/' . $this->module_slug . '/assets/css/min/page-settings.min.css',
+				Cherry_Core::base_url( 'assets/css/min/page-settings.min.css', __FILE__ ),
 				array(),
 				'0.1.0',
 				'all'

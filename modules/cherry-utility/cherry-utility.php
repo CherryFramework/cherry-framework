@@ -1,9 +1,8 @@
 <?php
 /**
- * Class Cherry Utility
  * Module Name: Utility
  * Description: Multiple utility functions
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -11,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.0.0
+ * @version    1.1.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -26,7 +25,10 @@ if ( ! defined( 'WPINC' ) ) {
 if ( ! class_exists( 'Cherry_Utility' ) ) {
 
 	/**
-	 * Class Cherry Utility
+	 * Class Cherry Utility.
+	 *
+	 * @since 1.0.0
+	 * @since 1.0.3 Removed `module_directory` and `module_directory_uri` properties.
 	 */
 	class Cherry_Utility {
 
@@ -34,53 +36,29 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 		 * A reference to an instance of this class.
 		 *
 		 * @since 1.0.0
-		 * @var   object
+		 * @var object
 		 */
 		private static $instance = null;
 
 		/**
-		 * Module version
-		 *
-		 * @since 1.0.0
-		 * @var string
-		 */
-		private $module_version = '1.0.0';
-
-		/**
-		 * Module directory
-		 *
-		 * @since 1.0.0
-		 * @var string
-		 */
-		private $module_directory = '';
-
-		/**
-		 * Module directory URL
-		 *
-		 * @since 1.0.0
-		 * @var string
-		 */
-		private $module_directory_uri = '';
-
-		/**
-		 * Default args
+		 * Default arguments.
 		 *
 		 * @since 1.0.0
 		 * @var array
 		 */
 		public $args = array(
-			'utility'	=> array(
+			'utility' => array(
 				'media',
 				'attributes',
 				'meta-data',
 			),
-			'meta_key'	=> array(
-				'term_thumb'	=> 'cherry_thumb',
+			'meta_key' => array(
+				'term_thumb' => 'cherry_thumb',
 			),
 		);
 
 		/**
-		 * Utilit class
+		 * Utilit class.
 		 *
 		 * @since 1.0.0
 		 * @var string
@@ -88,24 +66,19 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 		public $utility = null;
 
 		/**
-		 * Cherry_Utility constructor
+		 * Cherry_Utility constructor.
 		 *
 		 * @since 1.0.0
 		 */
-		function __construct( $core, $args = array() ) {
-
-			$this->module_directory = $core->settings['base_dir'] . '/modules/cherry-utility';
-			$this->module_directory_uri = $core->settings['base_url'] . 'modules/cherry-utility/';
-
+		public function __construct( $core, $args = array() ) {
 			$this->args = array_merge( $this->args, $args );
-
 			$this->utility_require( $core );
-
 		}
 
 		/**
-		 * Require utility
+		 * Require utility.
 		 *
+		 * @since 1.0.0
 		 * @return void
 		 */
 		public function utility_require() {
@@ -117,13 +90,13 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 				array_unshift( $utility, 'satellite' );
 
 				foreach ( $utility as $utilit ) {
-					require_once( $this->module_directory . '/inc/cherry-' . $utilit . '-utilit.php' );
 
-					$utilit = str_replace( '-', ' ', $utilit );
+					require_once( __DIR__ . '/inc/cherry-' . $utilit . '-utilit.php' );
+
+					$utilit     = str_replace( '-', ' ', $utilit );
 					$class_name = ucwords( $utilit );
 					$class_name = str_replace( ' ', '_', $class_name );
-					$utilit = str_replace( ' ', '_', $utilit );
-
+					$utilit     = str_replace( ' ', '_', $utilit );
 					$class_name = 'Cherry_' . $class_name . '_Utilit';
 
 					$this->utility->$utilit = new $class_name( $this );

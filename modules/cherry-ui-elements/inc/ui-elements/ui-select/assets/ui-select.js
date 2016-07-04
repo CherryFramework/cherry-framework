@@ -6,40 +6,23 @@
 
 	CherryJsCore.utilites.namespace('ui_elements.select');
 	CherryJsCore.ui_elements.select = {
-		init: function ( target ) {
-			var self = this;
-			if ( CherryJsCore.status.document_ready ) {
-				self.render( target );
-			} else {
-				CherryJsCore.variable.$document.on('ready', self.render( target ) );
-			}
+		init: function () {
+			$( window ).on( 'cherry-ui-elements-init', this.render.bind( this ) );
 		},
-		render: function ( target ) {
+		render: function ( event, data ) {
+			var target = data.target;
+
 			// init filter-select
-			$( '.cherry-ui-select[data-filter="true"]', target ).each(function(){
-				var $this = $(this),
-					placeholder = $this.attr('placeholder');
+			$( '.cherry-ui-select[data-filter="true"], .cherry-ui-select[multiple]', target ).each( function() {
+				var $this = $( this );
 
-				$this.select2({
-					placeholder: placeholder
-				});
-			});
-			// init multi-select
-			$( '.cherry-ui-select[multiple="multiple"]', target ).each(function(){
-				var $this = $(this),
-					placeholder = $this.attr('placeholder');
-
-				$this.select2({
-					placeholder: placeholder
-				});
-			});
+				$this.select2( {
+					placeholder: $this.attr('placeholder')
+				} );
+			} );
 		}
 	};
 
-	$( window ).on( 'cherry-ui-elements-init',
-		function( event, data ) {
-			CherryJsCore.ui_elements.select.init( data.target );
-		}
-	);
+	CherryJsCore.ui_elements.select.init();
 
 }( jQuery, window.CherryJsCore ) );

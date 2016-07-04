@@ -74,6 +74,7 @@ if ( ! class_exists( 'UI_Switcher' ) ) {
 				$html .= '<div class="cherry-switcher-wrap size-' . esc_attr( $this->settings['style'] ) . ' ' . esc_attr( $this->settings['class'] ) . '">';
 					$html .= '<label class="sw-enable"><span>' . esc_html( $this->settings['toggle']['true_toggle'] ) . '</span></label>';
 					$html .= '<label class="sw-disable"><span>' . esc_html( $this->settings['toggle']['false_toggle'] ) . '</span></label>';
+					$html .= '<span class="state-marker"></span>';
 					$html .= '<input id="' . esc_attr( $this->settings['id'] ) . '" type="hidden" class="cherry-input-switcher" name="' . esc_attr( $this->settings['name'] ) . '" ' . checked( 'true', $this->settings['value'], false ) . ' value="' . esc_html( $this->settings['value'] ) . '" ' . $data_attr_line . '>';
 				$html .= '</div>';
 			$html .= '</div>';
@@ -89,14 +90,14 @@ if ( ! class_exists( 'UI_Switcher' ) ) {
 		public static function enqueue_assets() {
 			wp_enqueue_script(
 				'ui-switcher-min',
-				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-switcher.min.js',
+				esc_url( Cherry_Core::base_url( 'assets/min/ui-switcher.min.js', __FILE__ ) ),
 				array( 'jquery' ),
 				'1.0.0',
 				true
 			);
 			wp_enqueue_style(
 				'ui-switcher-min',
-				self::get_current_file_url( __FILE__ ) . '/assets/min/ui-switcher.min.css',
+				esc_url( Cherry_Core::base_url( 'assets/min/ui-switcher.min.css', __FILE__ ) ),
 				array(),
 				'1.0.0',
 				'all'

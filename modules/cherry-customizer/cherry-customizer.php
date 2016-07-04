@@ -1,9 +1,8 @@
 <?php
 /**
- *
  * Module Name: Customizer
  * Description: Customizer functionality.
- * Version: 1.0.0
+ * Version: 1.1.1
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -11,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.0.0
+ * @version    1.1.1
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -29,6 +28,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 	 * Contains methods for customizing the theme customization screen.
 	 *
 	 * @since 1.0.0
+	 * @since 1.0.1 Removed `module_dir` and `module_uri` properties.
 	 */
 	class Cherry_Customizer {
 
@@ -95,24 +95,6 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * @var object.
 		 */
 		protected $customize;
-
-		/**
-		 * Module directory path.
-		 *
-		 * @since 1.0.0
-		 * @access protected
-		 * @var array.
-		 */
-		protected $module_dir;
-
-		/**
-		 * Module directory.
-		 *
-		 * @since 1.0.0
-		 * @access protected
-		 * @var array.
-		 */
-		protected $module_uri;
 
 		/**
 		 * Module directory URI.
@@ -192,10 +174,8 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 								? $args['type'] : 'theme_mod';
 			$this->options    = $args['options'];
 			$this->core       = $core;
-			$this->module_dir = trailingslashit( $core->settings['base_dir'] ) . 'modules/cherry-customizer/';
-			$this->module_uri = trailingslashit( $core->settings['base_url'] ) . 'modules/cherry-customizer/';
 			$this->fonts      = array();
-			$this->version    = '1.0.0';
+			$this->version    = '1.1.0';
 
 			add_action( 'customize_register', array( $this, 'register' ) );
 
@@ -206,6 +186,54 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			// Clear fonts data.
 			add_action( 'switch_theme', array( $this, 'clear_fonts' ) );
 			add_action( 'upgrader_process_complete', array( $this, 'fire_clear_fonts' ), 10, 2 );
+
+			add_filter( 'cherry_customizer_get_core', array( $this, 'pass_core_into_control' ) );
+
+			// Init UI elements
+			add_filter( 'cherry_core_js_ui_init_settings', array( $this, 'init_ui_js' ) );
+
+			$this->include_custom_controls();
+
+		}
+
+		/**
+		 * Init UI elements JS
+		 *
+		 * @since  1.1.1
+		 * @param  array $settings UI elements init.
+		 * @return array
+		 */
+		public function init_ui_js( $settings ) {
+			global $wp_customize;
+
+			if ( $wp_customize ) {
+				$settings['auto_init'] = true;
+				$settings['targets']   = array( '#widgets-right' );
+			}
+			return $settings;
+		}
+
+		/**
+		 * Pass current core instance into custom controls
+		 *
+		 * @param  mixed $core Default core instance (false) or core instance if its not first callback.
+		 * @return Cherry_Core
+		 */
+		public function pass_core_into_control( $core = false ) {
+			return $this->core;
+		}
+
+		/**
+		 * Include advanced customizer controls classes
+		 *
+		 * @since 1.1.0
+		 */
+		private function include_custom_controls() {
+
+			if ( ! class_exists( 'Cherry_WP_Customize_Iconpicker' ) ) {
+				require_once( trailingslashit( __DIR__ ) . '/inc/class-cherry-wp-customize-iconpicker.php' );
+			}
+
 		}
 
 		/**
@@ -397,7 +425,11 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 				case 'file':
 						$control_class = 'WP_Customize_Upload_Control';
 					break;
-
+				case 'iconpicker':
+						$control_class = 'Cherry_WP_Customize_Iconpicker';
+						$icon_data     = ( isset( $args['icon_data'] ) ) ? $args['icon_data'] : array();
+						$control_args  = wp_parse_args( array( 'icon_data' => $icon_data ), $control_args );
+					break;
 				default:
 						/**
 						 * Filter arguments for a `$field_type` customize control.
@@ -876,7 +908,9 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 					update_option( 'cherry_customiser_fonts_' . $type, $fonts );
 				}
 
-				$this->fonts = array_merge( $this->fonts, $this->satizite_font_family( $fonts ) );
+				if ( is_array( $fonts ) ) {
+					$this->fonts = array_merge( $this->fonts, $this->satizite_font_family( $fonts ) );
+				}
 			}
 		}
 
@@ -895,8 +929,8 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			 * @param object $this Cherry_Customiser instance.
 			 */
 			return apply_filters( 'cherry_customizer_get_fonts_data', array(
-				'standard' => $this->module_dir . 'assets/fonts/standard.json',
-				'google'   => $this->module_dir . 'assets/fonts/google.json',
+				'standard' => __DIR__ . '/assets/fonts/standard.json',
+				'google'   => __DIR__ . '/assets/fonts/google.json',
 			), $this );
 		}
 
@@ -952,7 +986,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 
 			$content = json_decode( $json, true );
 
-			return $content['items'];
+			return is_array( $content ) ? $content['items'] : false;
 		}
 
 		/**

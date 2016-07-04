@@ -1,3 +1,6 @@
+@import "ui-kit/variables";
+@import "ui-kit/mixins";
+
 .cherry-ui-container{
 	margin: 10px 0 20px 0;
 }
@@ -8,61 +11,14 @@ label.cherry-label{
 .cherry-ui-stepper{
 	position: relative;
 	max-width: 100px;
+	input[type=number]{
+		@include input();
+		padding: 10px 10px 10px 20px;
+	}
+
 }
 .cherry-ui-stepper-input{
-	max-width: 100px;
-	border: 1px solid #dddcdc;
-	border-radius: 3px;
-	margin: 0;
-	padding: 6px;
-	background-color: #fff;
-	transition: border-color 0.05s ease-in-out 0s;
-	outline: 0 none;
-	color: #333;
-}
-.cherry-stepper-controls{
-	display: inline-block;
-	vertical-align: top;
-	position: absolute;
-	right: 2px;
-	top: 2px;
-	.step-up{
-		border-radius: 0 3px 0 0;
-		border-bottom: 0;
-		height: 13px;
-		@media screen and (max-width: 782px){
-			border-bottom: 1px solid #CCC;
-		}
-	}
-	.step-down{
-		border-radius: 0 0 3px 0;
-	}
-	em{
-		background-color: #eeeded;
-		border: 1px solid #cccccc;
-		color: #444444;
-		cursor: pointer;
-		display: block;
-		font-size: 16px;
-		height: 13px;
-		line-height: 12px;
-		margin: 0 0 0 -1px;
-		position: relative;
-		text-align: center;
-		text-decoration: none;
-		width: 20px;
-		-webkit-user-select: none;
-			-moz-user-select: none;
-			-ms-user-select: none;
-			 -o-user-select: none;
-				user-select: none;
-		@media screen and (max-width: 782px){
-			line-height: 16px;
-			height: 16px;
-		}
-	}
-}
-
-.customize-control input[type=text]{
-	width: 100%;
+	min-width: 90px;
+	max-width: 90px;
+	text-align: center;
 }

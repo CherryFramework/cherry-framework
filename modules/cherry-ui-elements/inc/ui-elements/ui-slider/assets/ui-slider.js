@@ -6,40 +6,20 @@
 
 	CherryJsCore.utilites.namespace('ui_elements.slider');
 	CherryJsCore.ui_elements.slider = {
-		init: function ( target ) {
-			var self = this;
-
-			if( CherryJsCore.status.document_ready ){
-				self.render( target );
-			}else{
-				CherryJsCore.variable.$document.on('ready', self.render( target ) );
-			}
+		init: function () {
+			$( document ).on('ready', this.render.bind( this, { target: $( 'body' ) } ) );
 		},
-		render: function ( target ) {
+		render: function ( event, data ) {
+			$( data.target ).on( 'input change', '.cherry-slider-unit, .cherry-ui-stepper-input', this.changeHandler );
+		},
+		changeHandler: function () {
+			var $this = $( this ),
+				targetClass = ( ! $this.hasClass('cherry-slider-unit') ) ? '.cherry-slider-unit' : '.cherry-ui-stepper-input' ,
+				$sliderWrapper = $this.closest('.cherry-slider-wrap');
 
-			var sliderSelector = $( '.cherry-slider-unit', target );
-
-			sliderSelector.slider({
-				range: 'min',
-				animate: true,
-				create: function() {
-					$( this ).slider( 'option', 'min', $( this ).data('left-limit') );
-					$( this ).slider( 'option', 'max', $( this ).data('right-limit') );
-					$( this ).slider( 'option', 'value', $( this ).data('value') );
-				},
-				slide: function( event, ui ) {
-					$( this ).parent().siblings('.cherry-slider-input').find('input').val(ui.value).trigger('change');
-				}
-			});
-			$('.cherry-ui-stepper-input', target).on('change', function(){
-				var $this = $( this );
-				$this.parent().parent().siblings('.cherry-slider-holder').find('.cherry-slider-unit').slider( 'option', 'value', $this.val() );
-			});
+			$( targetClass, $sliderWrapper ).val( $this.val() );
 		}
 	};
-	$( window ).on( 'cherry-ui-elements-init',
-		function( event, data ) {
-			CherryJsCore.ui_elements.slider.init( data.target );
-		}
-	);
+
+	CherryJsCore.ui_elements.slider.init();
 }( jQuery, window.CherryJsCore ) );

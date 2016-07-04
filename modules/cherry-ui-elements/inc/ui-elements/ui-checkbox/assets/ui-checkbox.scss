@@ -1,3 +1,6 @@
+@import "ui-kit/variables";
+@import "ui-kit/mixins";
+
 .cherry-ui-container{
 	margin: 10px 0 20px 0;
 }
@@ -6,29 +9,44 @@ label.cherry-label{
 	display: block;
 }
 .cherry-checkbox-item{
-	width: 21px;
-	height: 21px;
+	width: 26px;
+	height: 26px;
 	display: inline-block;
-	border-radius: 3px;
-	margin-right: 5px;
+	border-radius: $border_radius_extra_small;
+	margin-right: 10px;
+	margin-bottom: 6px;
 	cursor: pointer;
 	position: relative;
-	background-color: #fff;
-	border: 1px solid #dddcdc;
-		&.checked{
-			.marker{
-				display: block;
-			}
-		}
+	background-color: $grey_color_3;
+	user-select: none;
+	transition: all 0.2s ease-out;
 		.marker{
 			position: absolute;
-			top: 0;
-			left: 0;
-			display: none;
+			width: 26px;
+			height: 26px;
+			top: 0px;
+			left: 0px;
+			color: #fff;
+			font-size: 28px;
+			transform: scale(0);
+			transition: all 0.3s cubic-bezier(.27,.63,.54,.96);
+				&:before{
+					position: relative;
+					left: -2px;
+				}
+		}
+		&.checked{
+			background-color: $green_color;
+			.marker{
+				transform: scale(1);
+			}
 		}
 }
 .cherry-checkbox-label{
 	display: inline-block;
 	vertical-align: top;
-	margin: 1px 0 5px 0;
+	font-size: 14px;
+	line-height: 26px;
+	color: $dark_color_1;
+	user-select: none;
 }
