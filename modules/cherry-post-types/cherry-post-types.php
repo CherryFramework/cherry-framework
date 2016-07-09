@@ -65,10 +65,8 @@ if ( ! class_exists( 'Cherry_Post_Types' ) ) {
 		 * Create new Post Type.
 		 *
 		 * @since  1.0.0
-		 * @param  string $slug     The post type slug name.
-		 * @param  string $plural   The post type plural name for display.
-		 * @param  string $singular The post type singular name for display.
-		 * @param  array  $args     The custom post type arguments.
+		 * @param  string $slug The post type slug name.
+		 * @param  array  $args The custom post type arguments.
 		 * @return object
 		 */
 		public function create( $slug, $args = array() ) {
