@@ -78,44 +78,6 @@ if ( ! class_exists( 'Cherry_Post_Types' ) ) {
 		}
 
 		/**
-		 * Get the custom post type default arguments.
-		 *
-		 * @since  1.0.0
-		 * @param  string $plural   The post type plural display name.
-		 * @param  string $singular The post type singular display name.
-		 * @return array
-		 */
-		private function get_default_arguments( $plural, $singular ) {
-			$labels = array(
-				'name'               => $plural,
-				'archives'           => $plural,
-				'menu_name'          => $plural,
-				'all_items'          => 'All ' . $plural,
-				'singular_name'      => $singular,
-				'add_new'            => 'Add New',
-				'add_new_item'       => 'Add New '. $singular,
-				'edit_item'          => 'Edit '. $singular,
-				'new_item'           => 'New ' . $singular,
-				'view_item'          => 'View ' . $singular,
-				'search_items'       => 'Search ' . $singular,
-				'not_found'          => 'No '. $singular .' found',
-				'not_found_in_trash' => 'No '. $singular .' found in Trash',
-				'parent_item_colon'  => '',
-			);
-
-			$defaults = array(
-				'label'         => $plural,
-				'labels'        => $labels,
-				'description'   => '',
-				'public'        => true,
-				'menu_position' => 20,
-				'has_archive'   => true,
-			);
-
-			return $defaults;
-		}
-
-		/**
 		 * Returns the instance.
 		 *
 		 * @since  1.0.0
