@@ -149,7 +149,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		public function init_ui_js() {
 
 			$settings['auto_init'] = true;
-			$settings['targets']   = array( '.metabox-holder' );
+			$settings['targets'][] = '.metabox-holder';
 
 			return $settings;
 
