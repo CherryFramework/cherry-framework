@@ -83,7 +83,7 @@ if ( ! class_exists( 'Cherry_Widget_Factory' ) ) {
 
 			if ( $current_screen && 'widgets' == $current_screen->id ) {
 				$settings['auto_init'] = true;
-				$settings['targets']   = array( '#widgets-right' );
+				$settings['targets'][] = '#widgets-right';
 			}
 
 			return $settings;
