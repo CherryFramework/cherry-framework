@@ -7,6 +7,7 @@
 	CherryJsCore.utilites.namespace('ui_elements.colorpicker');
 	CherryJsCore.ui_elements.colorpicker = {
 		init: function () {
+			$( document ).on('ready', this.render.bind( this, { target: $( 'body' ) } ) );
 			$( window ).on( 'cherry-ui-elements-init', this.render.bind( this ) );
 		},
 		render: function ( event, data ) {

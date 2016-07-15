@@ -2,7 +2,7 @@
 /**
  * Module Name: Customizer
  * Description: Customizer functionality.
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.1
+ * @version    1.1.2
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -189,28 +189,8 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 
 			add_filter( 'cherry_customizer_get_core', array( $this, 'pass_core_into_control' ) );
 
-			// Init UI elements
-			add_filter( 'cherry_core_js_ui_init_settings', array( $this, 'init_ui_js' ) );
-
 			$this->include_custom_controls();
 
-		}
-
-		/**
-		 * Init UI elements JS
-		 *
-		 * @since  1.1.1
-		 * @param  array $settings UI elements init.
-		 * @return array
-		 */
-		public function init_ui_js( $settings ) {
-			global $wp_customize;
-
-			if ( $wp_customize ) {
-				$settings['auto_init'] = true;
-				$settings['targets']   = array( '#widgets-right' );
-			}
-			return $settings;
 		}
 
 		/**
