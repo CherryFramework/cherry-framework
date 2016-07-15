@@ -7,11 +7,11 @@
 	CherryJsCore.utilites.namespace('ui_elements.checkbox');
 	CherryJsCore.ui_elements.checkbox = {
 		init: function () {
-			$( document ).on('ready', this.render.bind( this, { target: $( 'body' ) } ) );
-			$( window ).on( 'cherry-ui-elements-init', this.render.bind( this ) );
+			$( document ).on( 'ready', this.render );
+			$( window ).on( 'cherry-ui-elements-init', this.render );
 		},
-		render: function ( event, data ) {
-			var target = data.target;
+		render: function ( event ) {
+			var target = ( event._target ) ? event._target : $( 'body' );
 
 			$( '.cherry-checkbox-input[type="hidden"]', target ).each( function() {
 				var $this = $( this ),

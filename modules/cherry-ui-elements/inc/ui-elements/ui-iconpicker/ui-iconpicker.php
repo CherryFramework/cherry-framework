@@ -74,7 +74,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 		 * @since  4.0.0
 		 */
 		function __construct( $args = array() ) {
-			$this->defaults_settings['id'] = 'cherry-ui-input-icon-' . uniqid();
+			$this->defaults_settings['id'] = 'cherry-ui-input-icon-'.uniqid();
 			$this->settings = wp_parse_args( $args, $this->defaults_settings );
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
@@ -101,8 +101,6 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 		 */
 		public function render() {
 			$html = '';
-
-			var_dump("expression");
 
 			$html .= '<div class="cherry-ui-container ' . esc_attr( $this->settings['master'] ) . '">';
 				if ( '' !== $this->settings['label'] ) {
@@ -157,7 +155,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 		 * @return void
 		 */
 		public function prepare_icon_set() {
-			var_dump($this->settings['icon_data']['icon_set']);
+
 			if ( ! array_key_exists( $this->settings['icon_data']['icon_set'], self::$sets ) ) {
 				self::$sets[ $this->settings['icon_data']['icon_set'] ] = array(
 					'iconCSS'    => $this->settings['icon_data']['icon_css'],
@@ -262,7 +260,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 				'all'
 			);
 
-			wp_enqueue_script(
+			/*wp_enqueue_script(
 				'jquery-iconpicker',
 				esc_url( Cherry_Core::base_url( 'assets/min/jquery-iconpicker.min.js', __FILE__ ) ),
 				array( 'jquery' ),
@@ -275,7 +273,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 				array( 'jquery' ),
 				'1.0.0',
 				true
-			);
+			);*/
 		}
 	}
 }

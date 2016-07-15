@@ -7,11 +7,11 @@
 	CherryJsCore.utilites.namespace('ui_elements.select');
 	CherryJsCore.ui_elements.select = {
 		init: function () {
-			$( document ).on('ready', this.render.bind( this, { target: $( 'body' ) } ) );
-			$( window ).on( 'cherry-ui-elements-init', this.render.bind( this ) );
+			$( document ).on( 'ready', this.render );
+			$( window ).on( 'cherry-ui-elements-init', this.render );
 		},
 		render: function ( event, data ) {
-			var target = data.target;
+			var target = ( event._target ) ? event._target : $( 'body' );
 
 			// init filter-select
 			$( '.cherry-ui-select[data-filter="true"]:not([name*="__i__"]), .cherry-ui-select[multiple]:not([name*="__i__"])', target ).each( function() {

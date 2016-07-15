@@ -7,11 +7,12 @@
 	CherryJsCore.utilites.namespace( 'ui_elements.iconpicker' );
 	CherryJsCore.ui_elements.iconpicker = {
 		init: function() {
-			$( document ).on('ready', { target: $( 'body' ) }, this.render );
+			$( document ).on( 'ready', this.render );
 			$( window ).on( 'cherry-ui-elements-init', this.render );
 		},
 		render: function( event ) {
-			var target = event.data.target,
+
+			var target = ( event._target ) ? event._target : $( 'body' ),
 				$picker = $( '.cherry-ui-iconpicker', target ),
 				$this,
 				set,
@@ -21,9 +22,8 @@
 					$this   = $( this );
 					set     = $this.data( 'set' );
 					setData = window[set];
-					console.log(set);
-					if ( $this.length ) {
 
+					if ( $this.length && setData.icons ) {
 						$this.iconpicker({
 							icons: setData.icons,
 							iconBaseClass: setData.iconBase,

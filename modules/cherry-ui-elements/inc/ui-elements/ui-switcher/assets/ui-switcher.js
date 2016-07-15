@@ -7,10 +7,11 @@
 	CherryJsCore.utilites.namespace('ui_elements.switcher');
 	CherryJsCore.ui_elements.switcher = {
 		init: function () {
-			$( window ).on( 'cherry-ui-elements-init', this.render.bind( this ) );
+			$( document ).on( 'ready', this.render );
+			$( window ).on( 'cherry-ui-elements-init', this.render );
 		},
 		render: function ( event, data ) {
-			var target = data.target;
+			var target = ( event._target ) ? event._target : $( 'body' );
 
 			$( '.cherry-switcher-wrap', target ).each( function() {
 				var $this = $( this ),

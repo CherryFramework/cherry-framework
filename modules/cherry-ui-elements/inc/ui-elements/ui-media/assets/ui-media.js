@@ -7,11 +7,11 @@
 	CherryJsCore.utilites.namespace('ui_elements.media');
 	CherryJsCore.ui_elements.media = {
 		init: function () {
-			$( document ).on('ready', this.render.bind( this, { target: $( 'body' ) } ) );
-			$( window ).on( 'cherry-ui-elements-init', this.render.bind( this ) );
+			$( document ).on( 'ready', this.render );
+			$( window ).on( 'cherry-ui-elements-init', this.render );
 		},
-		render: function ( event, data ) {
-			var target = data.target,
+		render: function ( event ) {
+			var target = ( event._target ) ? event._target : $( 'body' ),
 				buttons = $('.upload-button', target);
 
 			buttons.each( function() {
