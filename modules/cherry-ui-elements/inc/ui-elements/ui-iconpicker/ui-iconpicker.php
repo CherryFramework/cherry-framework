@@ -260,7 +260,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 				'all'
 			);
 
-			/*wp_enqueue_script(
+			wp_enqueue_script(
 				'jquery-iconpicker',
 				esc_url( Cherry_Core::base_url( 'assets/min/jquery-iconpicker.min.js', __FILE__ ) ),
 				array( 'jquery' ),
@@ -273,7 +273,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 				array( 'jquery' ),
 				'1.0.0',
 				true
-			);*/
+			);
 		}
 	}
 }
