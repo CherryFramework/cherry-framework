@@ -31,9 +31,9 @@ var CherryJsCore = {};
 
 			CherryJsCore.set_variable();
 
-			$( document ).ready( CherryJsCore.ready );
+			$( document ).on( 'ready', CherryJsCore.ready );
 
-			$( window ).load( CherryJsCore.load );
+			$( window ).on( 'load', CherryJsCore.load );
 		},
 
 		set_variable: function() {

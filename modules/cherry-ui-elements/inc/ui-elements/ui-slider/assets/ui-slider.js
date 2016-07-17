@@ -7,7 +7,7 @@
 	CherryJsCore.utilites.namespace('ui_elements.slider');
 	CherryJsCore.ui_elements.slider = {
 		init: function () {
-			$( document ).on( 'ready', this.render );
+			$( document ).on( 'ready', this.render.bind( this ) );
 		},
 		render: function ( event, data ) {
 			$( 'body' ).on( 'input change', '.cherry-slider-unit, .cherry-ui-stepper-input', this.changeHandler );
