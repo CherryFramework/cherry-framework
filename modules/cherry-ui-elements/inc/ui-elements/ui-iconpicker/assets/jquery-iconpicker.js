@@ -340,7 +340,7 @@
 
                 if (!_self.isInline()) {
                     $doc.on('mouseup' + _eventNs, function(e) {
-                        if ( _self._isEventInsideIconpicker(e) && !_self.isInline()) {
+                        if ( !_self._isEventInsideIconpicker(e) && !_self.isInline()) {
                             _self.hide();
                         }
                     });
