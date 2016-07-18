@@ -7,10 +7,11 @@
 	CherryJsCore.utilites.namespace('ui_elements.colorpicker');
 	CherryJsCore.ui_elements.colorpicker = {
 		init: function () {
-			$( window ).on( 'cherry-ui-elements-init', this.render.bind( this ) );
+			$( document ).on( 'ready', this.render );
+			$( window ).on( 'cherry-ui-elements-init', this.render );
 		},
-		render: function ( event, data ) {
-			var target = data.target,
+		render: function ( event ) {
+			var target = ( event._target ) ? event._target : $( 'body' ),
 				input = $( 'input.cherry-ui-colorpicker:not([name*="__i__"])', target );
 
 			if ( input[0] ) {

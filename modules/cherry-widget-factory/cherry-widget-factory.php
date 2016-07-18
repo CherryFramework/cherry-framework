@@ -2,7 +2,7 @@
 /**
  * Module Name: Widget Factory
  * Description: Base widget class that simplifies creating of your own widgets.
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.0
+ * @version    1.1.1
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -67,26 +67,6 @@ if ( ! class_exists( 'Cherry_Widget_Factory' ) ) {
 			$this->args = $args;
 			$this->include_abstract_widget();
 			add_filter( 'cherry_widget_factory_core', array( $this, 'pass_core_to_widgets' ), 10, 2 );
-			add_filter( 'cherry_core_js_ui_init_settings', array( $this, 'init_ui_js' ), 10 );
-		}
-
-		/**
-		 * Init UI elements JS
-		 *
-		 * @since  1.0.0
-		 * @param  array $settings UI elements init.
-		 * @return array
-		 */
-		public function init_ui_js( $settings ) {
-
-			global $current_screen;
-
-			if ( $current_screen && 'widgets' == $current_screen->id ) {
-				$settings['auto_init'] = true;
-				$settings['targets'][] = '#widgets-right';
-			}
-
-			return $settings;
 		}
 
 		/**

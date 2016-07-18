@@ -2,7 +2,7 @@
 /**
  * Module Name: Term Meta
  * Description: Manage term metadata
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.0
+ * @version    1.1.1
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -34,7 +34,7 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 		 *
 		 * @var string
 		 */
-		public $module_version = '1.1.0';
+		public $module_version = '1.1.1';
 
 		/**
 		 * Module slug
@@ -121,29 +121,11 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 				return false;
 			}
 
-			add_filter( 'cherry_core_js_ui_init_settings', array( $this, 'init_ui_js' ), 10 );
-
 			array_walk( $this->args['fields'], array( $this, 'set_field_types' ) );
 
 			$this->ui_builder = $this->core->init_module( 'cherry-ui-elements', $this->field_types );
 
 			return true;
-		}
-
-		/**
-		 * Init UI elements JS
-		 *
-		 * @since  1.0.0
-		 * @param  array $settings UI elements init.
-		 * @return array
-		 */
-		public function init_ui_js( $settings ) {
-
-			$settings['auto_init'] = true;
-			$settings['targets']   = array( 'body' );
-
-			return $settings;
-
 		}
 
 		/**
