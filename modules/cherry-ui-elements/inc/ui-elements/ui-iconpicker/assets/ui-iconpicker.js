@@ -18,7 +18,7 @@
 				set,
 				setData;
 
-				$picker.each( function(){
+				$picker.each( function() {
 					$this   = $( this );
 					set     = $this.data( 'set' );
 					setData = window[set];
