@@ -72,7 +72,7 @@
 			$list.data( 'index', index );
 
 			self
-				.triggers( $( self.repeaterItemClass, $list ) )
+				.triggers( $( self.repeaterItemClass + ':last', $list ) )
 				.stopDefaultEvent( event );
 		},
 

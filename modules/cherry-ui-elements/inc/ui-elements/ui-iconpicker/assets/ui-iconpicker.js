@@ -11,9 +11,8 @@
 			$( window ).on( 'cherry-ui-elements-init', this.render );
 		},
 		render: function( event ) {
-
 			var target = ( event._target ) ? event._target : $( 'body' ),
-				$picker = $( '.cherry-ui-iconpicker', target ),
+				$picker = $( '.cherry-ui-iconpicker:not([name*="__i__"])', target ),
 				$this,
 				set,
 				setData;
@@ -27,7 +26,10 @@
 						$this.iconpicker({
 							icons: setData.icons,
 							iconBaseClass: setData.iconBase,
-							iconClassPrefix: setData.iconPrefix
+							iconClassPrefix: setData.iconPrefix,
+							fullClassFormatter: function( val ) {
+								return setData.iconBase + ' ' + setData.iconPrefix + val;
+							}
 						}).on( 'iconpickerUpdated', function() {
 							$( this ).trigger( 'change' );
 						});
