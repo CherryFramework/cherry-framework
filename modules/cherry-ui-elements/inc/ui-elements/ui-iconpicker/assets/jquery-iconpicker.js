@@ -257,6 +257,8 @@
 
                 this.popover.find('.popover-content').append(this.iconpicker);
 
+                this.component.append( '<i class="' + this.options.iconBaseClass + ' ' + this.input.val() + '"></i>' );
+
                 return this.iconpicker;
             },
             _isEventInsideIconpicker: function(e) {
