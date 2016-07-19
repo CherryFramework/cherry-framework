@@ -2,7 +2,7 @@
 /**
  * Module Name: Post Meta
  * Description: Manage post meta
- * Version: 1.1.2
+ * Version: 1.1.3
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.2
+ * @version    1.1.3
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -37,7 +37,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 *
 		 * @var string
 		 */
-		public $module_version = '1.1.1';
+		public $module_version = '1.1.3';
 
 		/**
 		 * Module slug
@@ -346,6 +346,10 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 			}
 
 			if ( ! current_user_can( 'edit_posts' ) ) {
+				return;
+			}
+
+			if ( ! $this->is_allowed_page() ) {
 				return;
 			}
 
