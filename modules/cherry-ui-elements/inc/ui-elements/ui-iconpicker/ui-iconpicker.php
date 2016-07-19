@@ -69,6 +69,13 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 		public static $printed = false;
 
 		/**
+		 * Array of already printed sets to check it before printing current
+		 *
+		 * @var array
+		 */
+		public static $printed_sets = array();
+
+		/**
 		 * Constructor method for the UI_Text class.
 		 *
 		 * @since  4.0.0
@@ -239,7 +246,14 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 			self::$printed = true;
 
 			foreach ( self::$sets as $set => $data ) {
+
+				if ( in_array( $set, self::$printed_sets ) ) {
+					continue;
+				}
+
+				self::$printed_sets[] = $set;
 				$json = json_encode( $data );
+
 				printf( '<script>window.%1$s = %2$s</script>', $set, $json );
 			}
 

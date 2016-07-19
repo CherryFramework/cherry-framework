@@ -7,29 +7,39 @@
 	CherryJsCore.utilites.namespace( 'ui_elements.iconpicker' );
 	CherryJsCore.ui_elements.iconpicker = {
 		init: function() {
-			$( window ).on( 'cherry-ui-elements-init', this.render.bind( this ) );
+			$( document ).on( 'ready', this.render );
+			$( window ).on( 'cherry-ui-elements-init', this.render );
 		},
-		render: function( event, data ) {
-			var target = data.target,
-				$picker = $( '.cherry-ui-iconpicker', target ),
-				set     = $picker.data( 'set' ),
-				setData = window[set];
+		render: function( event ) {
+			var target = ( event._target ) ? event._target : $( 'body' ),
+				$picker = $( '.cherry-ui-iconpicker:not([name*="__i__"])', target ),
+				$this,
+				set,
+				setData;
 
-			if ( $picker.length ) {
-				$picker.iconpicker({
-					icons: setData.icons,
-					iconBaseClass: setData.iconBase,
-					iconClassPrefix: setData.iconPrefix
-				}).on( 'iconpickerUpdated', function() {
-					$( this ).trigger( 'change' );
-				});
-			}
+				$picker.each( function() {
+					$this   = $( this );
+					set     = $this.data( 'set' );
+					setData = window[set];
 
-			if ( setData ) {
-				$( 'body' ).append( '<link rel="stylesheet" type="text/css" href="' + setData.iconCSS + '"">' );
-			}
+					if ( $this.length && setData.icons ) {
+						$this.iconpicker({
+							icons: setData.icons,
+							iconBaseClass: setData.iconBase,
+							iconClassPrefix: setData.iconPrefix,
+							fullClassFormatter: function( val ) {
+								return setData.iconBase + ' ' + setData.iconPrefix + val;
+							}
+						}).on( 'iconpickerUpdated', function() {
+							$( this ).trigger( 'change' );
+						});
+					}
+
+					if ( setData ) {
+						$( 'body' ).append( '<link rel="stylesheet" type="text/css" href="' + setData.iconCSS + '"">' );
+					}
+				} );
 		}
-
 	};
 
 	CherryJsCore.ui_elements.iconpicker.init();

@@ -2,7 +2,7 @@
 /**
  * Module Name: JS Core
  * Description: Initializes global JS object which provides additional plugin functionality
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.1
+ * @version    1.1.2
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/

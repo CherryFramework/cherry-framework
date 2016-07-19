@@ -82,6 +82,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 		 */
 		public function print_sets() {
 			$this->iconpicker->prepare_icon_set();
+			UI_Iconpicker::$printed = false;
 			$this->iconpicker->print_icon_set();
 		}
 	}

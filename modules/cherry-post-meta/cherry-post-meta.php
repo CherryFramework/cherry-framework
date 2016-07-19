@@ -2,7 +2,7 @@
 /**
  * Module Name: Post Meta
  * Description: Manage post meta
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.1
+ * @version    1.1.2
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -131,28 +131,11 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 				return;
 			}
 
-			add_filter( 'cherry_core_js_ui_init_settings', array( $this, 'init_ui_js' ), 10 );
-
 			array_walk( $this->args['fields'], array( $this, 'set_field_types' ) );
 
 			$this->ui_builder = $this->core->init_module( 'cherry-ui-elements', array( 'ui_elements' => $this->field_types ) );
 
 			return true;
-		}
-
-		/**
-		 * Init UI elements JS.
-		 *
-		 * @since  1.0.0
-		 * @return array
-		 */
-		public function init_ui_js() {
-
-			$settings['auto_init'] = true;
-			$settings['targets'][] = '.metabox-holder';
-
-			return $settings;
-
 		}
 
 		/**
