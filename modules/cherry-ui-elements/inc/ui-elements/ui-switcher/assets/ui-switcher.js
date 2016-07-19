@@ -24,14 +24,10 @@
 					false_slave = ( typeof $input.data('false-slave') !== 'undefined' ) ? $input.data( 'false-slave' ) : null;
 
 				if ( ! inputValue ) {
-					$this.removeClass('selected');
-
 					if ( $( '.' + true_slave, target )[0] ) {
 						$( '.' + true_slave, target ).hide();
 					}
 				} else {
-					$this.addClass('selected');
-
 					if ( $( '.' + false_slave, target )[0] ) {
 						$( '.' + false_slave, target ).hide();
 					}
