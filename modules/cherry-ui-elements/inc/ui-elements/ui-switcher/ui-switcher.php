@@ -71,7 +71,10 @@ if ( ! class_exists( 'UI_Switcher' ) ) {
 				if ( '' !== $this->settings['label'] ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
 				}
-				$html .= '<div class="cherry-switcher-wrap size-' . esc_attr( $this->settings['style'] ) . ' ' . esc_attr( $this->settings['class'] ) . '">';
+
+				$selected_class = filter_var( $this->settings['value'], FILTER_VALIDATE_BOOLEAN ) ? 'selected' : '';
+
+				$html .= '<div class="cherry-switcher-wrap size-' . esc_attr( $this->settings['style'] ) . ' ' . esc_attr( $this->settings['class'] ) . ' ' . $selected_class .'">';
 					$html .= '<label class="sw-enable"><span>' . esc_html( $this->settings['toggle']['true_toggle'] ) . '</span></label>';
 					$html .= '<label class="sw-disable"><span>' . esc_html( $this->settings['toggle']['false_toggle'] ) . '</span></label>';
 					$html .= '<span class="state-marker"></span>';
