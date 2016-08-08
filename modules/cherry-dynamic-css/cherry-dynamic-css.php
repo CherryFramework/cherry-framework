@@ -2,7 +2,7 @@
 /**
  * Module Name: Dynamic CSS
  * Description: CSS parser which uses variables & functions for CSS code optimization
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.0
+ * @version    1.1.1
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -28,13 +28,6 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 	 * Dynamic CSS parser
 	 */
 	class Cherry_Dynamic_Css {
-
-		/**
-		 * Module version
-		 *
-		 * @var string
-		 */
-		public $module_version = '1.1.0';
 
 		/**
 		 * Module arguments
@@ -196,12 +189,13 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 * Get path inside of current module
 		 *
 		 * @since  1.0.0
-		 * @param  [type] $path file inside module directory to get path for.
+		 * @since  1.1.1 Using dirname( __FILE__ ) instead of __DIR__.
+		 * @param  string $path file inside module directory to get path for.
 		 * @return string
 		 */
 		public function get_path( $path = null ) {
 
-			$result = trailingslashit( __DIR__ );
+			$result = trailingslashit( dirname( __FILE__ ) );
 
 			if ( null !== $path ) {
 				$result .= $path;

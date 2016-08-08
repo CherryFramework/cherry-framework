@@ -2,7 +2,7 @@
 /**
  * Module Name: Utility
  * Description: Multiple utility functions
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.0
+ * @version    1.1.1
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -79,6 +79,7 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 		 * Require utility.
 		 *
 		 * @since 1.0.0
+		 * @since 1.1.1 Using dirname( __FILE__ ) instead of __DIR__.
 		 * @return void
 		 */
 		public function utility_require() {
@@ -91,7 +92,7 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 
 				foreach ( $utility as $utilit ) {
 
-					require_once( __DIR__ . '/inc/cherry-' . $utilit . '-utilit.php' );
+					require_once( dirname( __FILE__ ) . '/inc/cherry-' . $utilit . '-utilit.php' );
 
 					$utilit     = str_replace( '-', ' ', $utilit );
 					$class_name = ucwords( $utilit );
