@@ -50,7 +50,6 @@ if ( ! class_exists( 'Cherry_Taxonomies' ) ) {
 		 * Cherry_Post_Type class constructor
 		 *
 		 * @since  1.1.1 Using dirname( __FILE__ ) instead of __DIR__.
-		 *
 		 */
 		public function __construct( $core, $args = array() ) {
 			$this->defaults = $args;
