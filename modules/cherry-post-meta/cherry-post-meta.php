@@ -33,13 +33,6 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 	class Cherry_Post_Meta {
 
 		/**
-		 * Module version
-		 *
-		 * @var string
-		 */
-		public $module_version = '1.1.1';
-
-		/**
 		 * Module slug
 		 *
 		 * @var string
@@ -117,6 +110,97 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'init_ui' ), 1 );
 			add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ), 10, 2 );
 			add_action( 'save_post', array( $this, 'save_meta' ), 10, 2 );
+
+			$this->init_columns_actions();
+
+
+
+		}
+
+		/**
+		 * Initalize admin columns
+		 *
+		 * @return void
+		 */
+		public function init_columns_actions() {
+
+			if ( empty( $this->args['admin_columns'] ) ) {
+				return;
+			}
+
+			if ( ! is_array( $this->args['page'] ) ) {
+				$pages = array( $this->args['page'] );
+			} else {
+				$pages = $this->args['page'];
+			}
+
+			foreach ( $pages as $page ) {
+				add_filter( 'manage_edit-' . $page . '_columns', array( $this, 'edit_columns' ) );
+				add_action( 'manage_' . $page . '_posts_custom_column', array( $this, 'manage_columns' ), 10, 2 );
+			}
+
+		}
+
+		/**
+		 * Edit admin columns
+		 *
+		 * @since  1.1.3
+		 * @param  array $post_columns current post table columns.
+		 * @return array
+		 */
+		public function edit_columns( $columns ) {
+
+			foreach ( $this->args['admin_columns'] as $column_key => $column_data ) {
+
+				if ( empty( $column_data['label'] ) ) {
+					continue;
+				}
+
+				if ( ! empty( $column_data['position'] ) && 0 !== (int) $column_data['position'] ) {
+
+					$length = count( $columns );
+
+					if ( (int) $column_data['position'] > $length ) {
+						$columns[ $column_key ] = $column_data['label'];
+					}
+
+					$columns_before = array_slice( $columns, 0, (int) $column_data['position'] );
+					$columns_after  = array_slice( $columns, (int) $column_data['position'], $length - (int) $column_data['position'] );
+
+					$columns = array_merge(
+						$columns_before,
+						array( $column_key => $column_data['label'] ),
+						$columns_after
+					);
+				} else {
+					$columns[ $column_key ] = $column_data['label'];
+				}
+			}
+
+			return $columns;
+
+		}
+
+		/**
+		 * Add output for custom columns.
+		 *
+		 * @since  1.1.3
+		 * @param  string $column  current post list categories.
+		 * @param  int    $post_id current post ID.
+		 * @return void
+	 	*/
+		public function manage_columns( $column, $post_id ) {
+
+			if ( empty( $this->args['admin_columns'][ $column ] ) ) {
+				return;
+			}
+
+			if ( ! empty( $this->args['admin_columns'][ $column ]['callback'] ) && is_callable( $this->args['admin_columns'][ $column ]['callback'] ) ) {
+				call_user_func( $this->args['admin_columns'][ $column ]['callback'], $column, $post_id );
+			} else {
+				echo get_post_meta( $post_id, $column, true );
+			}
+
 		}
 
 		/**
