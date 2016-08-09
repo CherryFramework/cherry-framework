@@ -10,10 +10,10 @@
 			$( document ).on( 'ready', this.render.bind( this ) );
 			$( window ).on( 'cherry-ui-elements-init', this.master_slave_init );
 		},
-		render: function ( event, data ) {
+		render: function () {
 			$( 'body' ).on( 'click', '.cherry-switcher-wrap', this.swiperHandler );
 		},
-		master_slave_init: function ( event, data ) {
+		master_slave_init: function ( event ) {
 			var target = ( event._target ) ? event._target : $( 'body' );
 
 			$( '.cherry-switcher-wrap', target ).each( function() {
@@ -34,7 +34,7 @@
 				}
 			});
 		},
-		swiperHandler: function ( event ) {
+		swiperHandler: function () {
 			var $this = $( this ),
 				$input = $( '.cherry-input-switcher', $this ),
 				true_slave = $input.data('true-slave'),
