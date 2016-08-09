@@ -9,7 +9,7 @@
 		init: function () {
 			$( document ).on( 'ready', this.render.bind( this ) );
 		},
-		render: function ( event, data ) {
+		render: function () {
 			$( 'body' ).on( 'input change', '.cherry-slider-unit, .cherry-ui-stepper-input', this.changeHandler );
 		},
 		changeHandler: function () {

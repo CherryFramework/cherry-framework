@@ -10,7 +10,7 @@
 			$( document ).on( 'ready', this.render );
 			$( window ).on( 'cherry-ui-elements-init', this.render );
 		},
-		render: function ( event, data ) {
+		render: function ( event ) {
 			var target = ( event._target ) ? event._target : $( 'body' );
 
 			// init filter-select
