@@ -443,6 +443,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 			} else {
 				$this->save_meta_option( $post_id );
 			}
+
 		}
 
 		/**
@@ -459,8 +460,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 			foreach ( $_POST[ $meta_key ] as $key => $value ) {
 
-				// @TODO - add sanitation by element type & hook for custom sanitation method.
-				$new_meta_value[ $key ] = sanitize_text_field( $value );
+				$new_meta_value[ $key ] = $this->sanitize_meta( $key, $value );
 			}
 
 			// Get current post meta data.
@@ -470,7 +470,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 				add_post_meta( $post_id, $meta_key, $new_meta_value, true );
 			} elseif ( $new_meta_value && $new_meta_value != $meta_value ) {
 				update_post_meta( $post_id, $meta_key, $new_meta_value );
-			} elseif ( '' == $new_meta_value && $meta_value ) {
+			} elseif ( empty( $new_meta_value ) && $meta_value ) {
 				delete_post_meta( $post_id, $meta_key, $meta_value );
 			}
 		}
@@ -482,6 +482,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 * @param int $post_id Post ID.
 		 */
 		public function save_meta_option( $post_id ) {
+
 			foreach ( $this->args['fields'] as $key => $field ) {
 
 				if ( empty( $_POST[ $key ] ) ) {
@@ -489,9 +490,48 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 					continue;
 				}
 
-				// @TODO - add sanitation by element type & hook for custom sanitation method.
-				update_post_meta( $post_id, $key, $_POST[ $key ] );
+				$value = $this->sanitize_meta( $key, $_POST[ $key ] );
+				update_post_meta( $post_id, $key, $value );
 			}
+
+		}
+
+		/**
+		 * Sanitize passed meta value
+		 *
+		 * @since  1.1.3
+		 * @param  string $key   Meta key to sanitize.
+		 * @param  mixed  $value Meta value
+		 * @return mixed
+		 */
+		public function sanitize_meta( $key, $value ) {
+
+			if ( empty( $this->args['fields'][ $key ]['sanitize_callback'] ) ) {
+				return $this->sanitize_deafult( $value );
+			}
+
+			if ( ! is_callable( $this->args['fields'][ $key ]['sanitize_callback'] ) ) {
+				return $this->sanitize_deafult( $value );
+			}
+
+			return call_user_func(
+				$this->args['fields'][ $key ]['sanitize_callback'],
+				$value,
+				$key,
+				$this->args['fields'][ $key ]
+			);
+
+		}
+
+		/**
+		 * Cleare value with sanitize_text_field if not is array
+		 *
+		 * @since  1.1.3
+		 * @param  mixed $value Passed value.
+		 * @return mixed
+		 */
+		public function sanitize_deafult( $value ) {
+			return is_array( $value ) ? $value : sanitize_text_field( $value );
 		}
 
 		/**
