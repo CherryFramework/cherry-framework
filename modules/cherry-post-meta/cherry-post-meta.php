@@ -112,9 +112,6 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 			add_action( 'save_post', array( $this, 'save_meta' ), 10, 2 );
 
 			$this->init_columns_actions();
-
-
-
 		}
 
 		/**
@@ -145,7 +142,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 * Edit admin columns
 		 *
 		 * @since  1.1.3
-		 * @param  array $post_columns current post table columns.
+		 * @param  array $columns current post table columns.
 		 * @return array
 		 */
 		public function edit_columns( $columns ) {
@@ -188,7 +185,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 * @param  string $column  current post list categories.
 		 * @param  int    $post_id current post ID.
 		 * @return void
-	 	*/
+		 */
 		public function manage_columns( $column, $post_id ) {
 
 			if ( empty( $this->args['admin_columns'][ $column ] ) ) {
@@ -501,7 +498,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 *
 		 * @since  1.1.3
 		 * @param  string $key   Meta key to sanitize.
-		 * @param  mixed  $value Meta value
+		 * @param  mixed  $value Meta value.
 		 * @return mixed
 		 */
 		public function sanitize_meta( $key, $value ) {
