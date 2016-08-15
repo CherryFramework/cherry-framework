@@ -279,8 +279,32 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 */
 		public function render_metabox( $post, $metabox ) {
 
+			/**
+			 * Filter custom metabox output. Prevent from showing main box, if user output passed
+			 *
+			 * @var string
+			 */
+			$custom_box = apply_filters( 'cherry_post_meta_custom_box', false, $post, $metabox );
+
+			if ( false !== $custom_box ) {
+				echo $custom_box;
+				return;
+			}
+
 			wp_nonce_field( $this->nonce, $this->nonce );
+
+			/**
+			 * Hook fires before metabox output started.
+			 */
+			do_action( 'cherry_post_meta_box_before' );
+
 			echo $this->get_fields( $post, '<div style="padding:10px 0">%s</div>' );
+
+			/**
+			 * Hook fires after metabox output finished.
+			 */
+			do_action( 'cherry_post_meta_box_after' );
+
 		}
 
 		/**
