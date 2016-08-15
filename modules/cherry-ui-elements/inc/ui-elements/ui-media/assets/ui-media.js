@@ -12,7 +12,7 @@
 		},
 		render: function ( event ) {
 			var target = ( event._target ) ? event._target : $( 'body' ),
-				buttons = $('.upload-button', target);
+				buttons = $('.cherry-upload-button', target);
 
 			buttons.each( function() {
 				var button = $( this ),
