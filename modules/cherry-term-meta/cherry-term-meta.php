@@ -2,7 +2,7 @@
 /**
  * Module Name: Term Meta
  * Description: Manage term metadata
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.1
+ * @version    1.1.2
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -28,13 +28,6 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 	 * Term meta management module
 	 */
 	class Cherry_Term_Meta {
-
-		/**
-		 * Module version
-		 *
-		 * @var string
-		 */
-		public $module_version = '1.1.1';
 
 		/**
 		 * Module slug
@@ -205,14 +198,26 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 					'upload_button_text' => Cherry_Toolkit::get_arg( $field, 'upload_button_text', 'Choose' ),
 					'max_value'          => Cherry_Toolkit::get_arg( $field, 'max_value', '100' ),
 					'min_value'          => Cherry_Toolkit::get_arg( $field, 'min_value', '0' ),
+					'max'                => Cherry_Toolkit::get_arg( $field, 'max', '100' ),
+					'min'                => Cherry_Toolkit::get_arg( $field, 'min', '0' ),
 					'step_value'         => Cherry_Toolkit::get_arg( $field, 'step_value', '1' ),
 					'style'              => Cherry_Toolkit::get_arg( $field, 'style', 'normal' ),
+					'display_input'      => Cherry_Toolkit::get_arg( $field, 'display_input', true ),
+					'controls'           => Cherry_Toolkit::get_arg( $field, 'controls', array() ),
+					'fields'             => Cherry_Toolkit::get_arg( $field, 'fields', array() ),
+					'auto_parse'         => Cherry_Toolkit::get_arg( $field, 'auto_parse', false ),
+					'icon_data'          => Cherry_Toolkit::get_arg( $field, 'icon_data', array() ),
 					'toggle'             => Cherry_Toolkit::get_arg( $field, 'toggle', array(
 						'true_toggle'  => 'On',
 						'false_toggle' => 'Off',
 						'true_slave'   => '',
 						'false_slave'  => '',
 					) ),
+					'class'       => Cherry_Toolkit::get_arg( $field, 'class' ),
+					'required'    => Cherry_Toolkit::get_arg( $field, 'required', false ),
+					'placeholder' => Cherry_Toolkit::get_arg( $field, 'placeholder' ),
+					'master'      => Cherry_Toolkit::get_arg( $field, 'master' ),
+					'title_field' => Cherry_Toolkit::get_arg( $field, 'title_field' ),
 				);
 
 				$current_element = $this->ui_builder->get_ui_element_instance( $args['type'], $args );

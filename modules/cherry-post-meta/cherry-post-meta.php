@@ -366,6 +366,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 						'true_slave'   => '',
 						'false_slave'  => '',
 					) ),
+					'class'       => Cherry_Toolkit::get_arg( $field, 'class' ),
 					'required'    => Cherry_Toolkit::get_arg( $field, 'required', false ),
 					'placeholder' => Cherry_Toolkit::get_arg( $field, 'placeholder' ),
 					'master'      => Cherry_Toolkit::get_arg( $field, 'master' ),
