@@ -59,9 +59,10 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * Constructor.
 		 *
 		 * @since 1.0.0
+		 * @since 1.1.1 Using dirname( __FILE__ ) instead of __DIR__.
 		 */
 		public function __construct( $settings = array() ) {
-			$base_dir = trailingslashit( __DIR__ );
+			$base_dir = trailingslashit( dirname( __FILE__ ) );
 			$base_url = trailingslashit( $this->base_url( '', __FILE__ ) );
 
 			$defaults = array(
@@ -444,7 +445,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * Get path to the core directory.
 		 *
 		 * @since 1.0.0
-		 * @deprecated 1.1.0 Use constant `__DIR__`
+		 * @deprecated 1.1.0 Use constant `dirname( __FILE__ )`
 		 * @return string
 		 */
 		public function get_core_dir() {

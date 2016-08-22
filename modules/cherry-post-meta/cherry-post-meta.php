@@ -2,7 +2,7 @@
 /**
  * Module Name: Post Meta
  * Description: Manage post meta
- * Version: 1.1.2
+ * Version: 1.1.4
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.2
+ * @version    1.1.4
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -31,13 +31,6 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 	 * @since 1.0.2 Removed `module_directory` property.
 	 */
 	class Cherry_Post_Meta {
-
-		/**
-		 * Module version
-		 *
-		 * @var string
-		 */
-		public $module_version = '1.1.1';
 
 		/**
 		 * Module slug
@@ -117,6 +110,94 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'init_ui' ), 1 );
 			add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ), 10, 2 );
 			add_action( 'save_post', array( $this, 'save_meta' ), 10, 2 );
+
+			$this->init_columns_actions();
+		}
+
+		/**
+		 * Initalize admin columns
+		 *
+		 * @return void
+		 */
+		public function init_columns_actions() {
+
+			if ( empty( $this->args['admin_columns'] ) ) {
+				return;
+			}
+
+			if ( ! is_array( $this->args['page'] ) ) {
+				$pages = array( $this->args['page'] );
+			} else {
+				$pages = $this->args['page'];
+			}
+
+			foreach ( $pages as $page ) {
+				add_filter( 'manage_edit-' . $page . '_columns', array( $this, 'edit_columns' ) );
+				add_action( 'manage_' . $page . '_posts_custom_column', array( $this, 'manage_columns' ), 10, 2 );
+			}
+
+		}
+
+		/**
+		 * Edit admin columns
+		 *
+		 * @since  1.1.3
+		 * @param  array $columns current post table columns.
+		 * @return array
+		 */
+		public function edit_columns( $columns ) {
+
+			foreach ( $this->args['admin_columns'] as $column_key => $column_data ) {
+
+				if ( empty( $column_data['label'] ) ) {
+					continue;
+				}
+
+				if ( ! empty( $column_data['position'] ) && 0 !== (int) $column_data['position'] ) {
+
+					$length = count( $columns );
+
+					if ( (int) $column_data['position'] > $length ) {
+						$columns[ $column_key ] = $column_data['label'];
+					}
+
+					$columns_before = array_slice( $columns, 0, (int) $column_data['position'] );
+					$columns_after  = array_slice( $columns, (int) $column_data['position'], $length - (int) $column_data['position'] );
+
+					$columns = array_merge(
+						$columns_before,
+						array( $column_key => $column_data['label'] ),
+						$columns_after
+					);
+				} else {
+					$columns[ $column_key ] = $column_data['label'];
+				}
+			}
+
+			return $columns;
+
+		}
+
+		/**
+		 * Add output for custom columns.
+		 *
+		 * @since  1.1.3
+		 * @param  string $column  current post list categories.
+		 * @param  int    $post_id current post ID.
+		 * @return void
+		 */
+		public function manage_columns( $column, $post_id ) {
+
+			if ( empty( $this->args['admin_columns'][ $column ] ) ) {
+				return;
+			}
+
+			if ( ! empty( $this->args['admin_columns'][ $column ]['callback'] ) && is_callable( $this->args['admin_columns'][ $column ]['callback'] ) ) {
+				call_user_func( $this->args['admin_columns'][ $column ]['callback'], $column, $post_id );
+			} else {
+				echo get_post_meta( $post_id, $column, true );
+			}
+
 		}
 
 		/**
@@ -132,6 +213,10 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 			}
 
 			array_walk( $this->args['fields'], array( $this, 'set_field_types' ) );
+
+			if ( in_array( 'slider', $this->field_types ) ) {
+				$this->field_types[] = 'stepper';
+			}
 
 			$this->ui_builder = $this->core->init_module( 'cherry-ui-elements', array( 'ui_elements' => $this->field_types ) );
 
@@ -198,14 +283,39 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 */
 		public function render_metabox( $post, $metabox ) {
 
+			/**
+			 * Filter custom metabox output. Prevent from showing main box, if user output passed
+			 *
+			 * @var string
+			 */
+			$custom_box = apply_filters( 'cherry_post_meta_custom_box', false, $post, $metabox );
+
+			if ( false !== $custom_box ) {
+				echo $custom_box;
+				return;
+			}
+
 			wp_nonce_field( $this->nonce, $this->nonce );
+
+			/**
+			 * Hook fires before metabox output started.
+			 */
+			do_action( 'cherry_post_meta_box_before' );
+
 			echo $this->get_fields( $post, '<div style="padding:10px 0">%s</div>' );
+
+			/**
+			 * Hook fires after metabox output finished.
+			 */
+			do_action( 'cherry_post_meta_box_after' );
+
 		}
 
 		/**
 		 * Get registered control fields
 		 *
 		 * @since  1.0.0
+		 * @since  1.1.3 Using dirname( __FILE__ ) instead of __DIR__.
 		 * @param  mixed  $post   Current post object.
 		 * @param  [type] $format Current format name.
 		 * @return string
@@ -260,6 +370,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 						'true_slave'   => '',
 						'false_slave'  => '',
 					) ),
+					'class'       => Cherry_Toolkit::get_arg( $field, 'class' ),
 					'required'    => Cherry_Toolkit::get_arg( $field, 'required', false ),
 					'placeholder' => Cherry_Toolkit::get_arg( $field, 'placeholder' ),
 					'master'      => Cherry_Toolkit::get_arg( $field, 'master' ),
@@ -275,7 +386,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 			}
 			return Cherry_Toolkit::render_view(
-				__DIR__ . '/views/meta.php',
+				dirname( __FILE__ ) . '/views/meta.php',
 				array(
 					'elements' => $elements,
 				)
@@ -345,8 +456,20 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 				return;
 			}
 
-			if ( ! current_user_can( 'edit_posts' ) ) {
-				return;
+			$posts = ! empty( $this->args['page'] ) ? $this->args['page'] : array( 'post' );
+			$posts = is_array( $posts ) ? $posts : array( $posts );
+
+			foreach ( $posts as $post_type ) {
+
+				if ( $post_type !== get_post_type( $post_id ) ) {
+					return;
+				}
+
+				$obj = get_post_type_object( $post_type );
+
+				if ( ! isset( $obj->cap->edit_post ) || ! current_user_can( $obj->cap->edit_post ) ) {
+					return;
+				}
 			}
 
 			if ( ! is_object( $post ) ) {
@@ -358,6 +481,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 			} else {
 				$this->save_meta_option( $post_id );
 			}
+
 		}
 
 		/**
@@ -374,8 +498,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 			foreach ( $_POST[ $meta_key ] as $key => $value ) {
 
-				// @TODO - add sanitation by element type & hook for custom sanitation method.
-				$new_meta_value[ $key ] = sanitize_text_field( $value );
+				$new_meta_value[ $key ] = $this->sanitize_meta( $key, $value );
 			}
 
 			// Get current post meta data.
@@ -385,7 +508,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 				add_post_meta( $post_id, $meta_key, $new_meta_value, true );
 			} elseif ( $new_meta_value && $new_meta_value != $meta_value ) {
 				update_post_meta( $post_id, $meta_key, $new_meta_value );
-			} elseif ( '' == $new_meta_value && $meta_value ) {
+			} elseif ( empty( $new_meta_value ) && $meta_value ) {
 				delete_post_meta( $post_id, $meta_key, $meta_value );
 			}
 		}
@@ -397,6 +520,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 * @param int $post_id Post ID.
 		 */
 		public function save_meta_option( $post_id ) {
+
 			foreach ( $this->args['fields'] as $key => $field ) {
 
 				if ( empty( $_POST[ $key ] ) ) {
@@ -404,9 +528,48 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 					continue;
 				}
 
-				// @TODO - add sanitation by element type & hook for custom sanitation method.
-				update_post_meta( $post_id, $key, $_POST[ $key ] );
+				$value = $this->sanitize_meta( $key, $_POST[ $key ] );
+				update_post_meta( $post_id, $key, $value );
 			}
+
+		}
+
+		/**
+		 * Sanitize passed meta value
+		 *
+		 * @since  1.1.3
+		 * @param  string $key   Meta key to sanitize.
+		 * @param  mixed  $value Meta value.
+		 * @return mixed
+		 */
+		public function sanitize_meta( $key, $value ) {
+
+			if ( empty( $this->args['fields'][ $key ]['sanitize_callback'] ) ) {
+				return $this->sanitize_deafult( $value );
+			}
+
+			if ( ! is_callable( $this->args['fields'][ $key ]['sanitize_callback'] ) ) {
+				return $this->sanitize_deafult( $value );
+			}
+
+			return call_user_func(
+				$this->args['fields'][ $key ]['sanitize_callback'],
+				$value,
+				$key,
+				$this->args['fields'][ $key ]
+			);
+
+		}
+
+		/**
+		 * Cleare value with sanitize_text_field if not is array
+		 *
+		 * @since  1.1.3
+		 * @param  mixed $value Passed value.
+		 * @return mixed
+		 */
+		public function sanitize_deafult( $value ) {
+			return is_array( $value ) ? $value : sanitize_text_field( $value );
 		}
 
 		/**
