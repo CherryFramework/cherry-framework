@@ -2,7 +2,7 @@
 /**
  * Module Name: Post Meta
  * Description: Manage post meta
- * Version: 1.1.3
+ * Version: 1.1.4
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.3
+ * @version    1.1.4
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -213,6 +213,10 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 			}
 
 			array_walk( $this->args['fields'], array( $this, 'set_field_types' ) );
+
+			if ( in_array( 'slider', $this->field_types ) ) {
+				$this->field_types[] = 'stepper';
+			}
 
 			$this->ui_builder = $this->core->init_module( 'cherry-ui-elements', array( 'ui_elements' => $this->field_types ) );
 
@@ -452,8 +456,20 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 				return;
 			}
 
-			if ( ! current_user_can( 'edit_posts' ) ) {
-				return;
+			$posts = ! empty( $this->args['page'] ) ? $this->args['page'] : array( 'post' );
+			$posts = is_array( $posts ) ? $posts : array( $posts );
+
+			foreach ( $posts as $post_type ) {
+
+				if ( $post_type !== get_post_type( $post_id ) ) {
+					return;
+				}
+
+				$obj = get_post_type_object( $post_type );
+
+				if ( ! isset( $obj->cap->edit_post ) || ! current_user_can( $obj->cap->edit_post ) ) {
+					return;
+				}
 			}
 
 			if ( ! is_object( $post ) ) {

@@ -210,6 +210,10 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 
 			array_walk( $this->settings, array( $this, 'set_field_types' ) );
 
+			if ( in_array( 'slider', $this->field_types ) ) {
+				$this->field_types[] = 'stepper';
+			}
+
 			$core = $this->get_core();
 
 			if ( ! $core ) {
