@@ -461,7 +461,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 			foreach ( $posts as $post_type ) {
 
-				if ( $post_type !== get_post_type( $post_id ) ) {
+				if ( get_post_type( $post_id ) !== $post_type ) {
 					return;
 				}
 

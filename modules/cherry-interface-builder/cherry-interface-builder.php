@@ -1,4 +1,3 @@
-
 <?php
 /**
  * Module Name: Interface Builder
@@ -186,7 +185,7 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 			} else {
 				foreach ( $args as $key => $value ) {
 
-					if ( $type !== 'control' ) {
+					if ( 'control' !== $type ) {
 						$value['type'] = $type;
 					}
 
@@ -200,7 +199,7 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 		 *
 		 * @since  1.0.0
 		 * @access protected
-		 * @param  array $structure  The original structure of the elements.
+		 * @param  array  $structure  The original structure of the elements.
 		 * @param  string $parent_key The key of the parent element.
 		 * @return array
 		 */
@@ -224,7 +223,7 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 
 					$children = $this->sort_structure( $structure, $key );
 					if ( ! empty( $children ) ) {
-						$new_array[ $key ][ 'children' ] = $children;
+						$new_array[ $key ]['children'] = $children;
 					}
 				}
 			}
