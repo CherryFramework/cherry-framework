@@ -1,8 +1,8 @@
+[![AUR](https://img.shields.io/aur/license/yaourt.svg?maxAge=2592000?style=plastic)](https://github.com/CherryFramework/cherry-framework/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/CherryFramework/cherry-framework.svg?branch=master)](https://travis-ci.org/CherryFramework/cherry-framework)
+
 # cherry-framework
 Module system.
-
-## Travis-ci status
-[![Build Status](https://travis-ci.org/CherryFramework/cherry-framework.svg?branch=master)](https://travis-ci.org/CherryFramework/cherry-framework)
 
 ## Authors
 
