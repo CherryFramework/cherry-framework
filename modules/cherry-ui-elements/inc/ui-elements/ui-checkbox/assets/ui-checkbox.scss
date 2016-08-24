@@ -8,6 +8,9 @@ label.cherry-label{
 	margin: 0 0 5px 0;
 	display: block;
 }
+.hide{
+	display: none !important;
+}
 .cherry-checkbox-item{
 	width: 26px;
 	height: 26px;
@@ -29,18 +32,20 @@ label.cherry-label{
 			color: #fff;
 			font-size: 28px;
 			transform: scale(0);
-			transition: all 0.3s cubic-bezier(.27,.63,.54,.96);
+			transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 				&:before{
 					position: relative;
 					left: -2px;
 				}
 		}
-		&.checked{
-			background-color: $green_color;
-			.marker{
-				transform: scale(1);
-			}
+}
+.cherry-checkbox-input[checked]{
+	&+.cherry-checkbox-item{
+		background-color: $green_color;
+		.marker{
+			transform: scale(1);
 		}
+	}
 }
 .cherry-checkbox-label{
 	display: inline-block;

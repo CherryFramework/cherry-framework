@@ -44,19 +44,26 @@ label.cherry-label{
 			input[type=range]::-webkit-slider-thumb {
 				box-shadow: 5px 5px 13px rgba(0, 0, 0, 0.18);
 				border: 5px solid $green_color;
-				height: 28px;
-				width: 28px;
+				height: 20px;
+				width: 20px;
+				margin-top: -7px;
 				border-radius: 15px;
 				background: $green_color;
 				cursor: pointer;
 				-webkit-appearance: none;
-				margin-top: -11.5px;
+				transition: all 250ms cubic-bezier(0.645, 0.045, 0.355, 1);
 			}
 			input[type=range]:focus::-webkit-slider-thumb {
 				background: $grey_color_3;
+				height: 28px;
+				width: 28px;
+				margin-top: -11.5px;
 			}
 			input[type=range]:hover::-webkit-slider-thumb {
 				background: $grey_color_3;
+				height: 28px;
+				width: 28px;
+				margin-top: -11.5px;
 			}
 			input[type=range]:focus::-webkit-slider-runnable-track {
 				background: $green_color;
@@ -113,10 +120,6 @@ label.cherry-label{
 			}
 			input[type=range]:focus::-ms-fill-upper {
 				background: $green_color;
-			}
-
-			.cherry-slider-unit{
-
 			}
 	}
 	.cherry-input{

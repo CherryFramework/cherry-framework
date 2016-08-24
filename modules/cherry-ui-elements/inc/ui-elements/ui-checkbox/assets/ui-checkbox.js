@@ -6,67 +6,45 @@
 
 	CherryJsCore.utilites.namespace('ui_elements.checkbox');
 	CherryJsCore.ui_elements.checkbox = {
+		inputClass: '.cherry-checkbox-input[type="hidden"]',
+		labelClass: '.cherry-checkbox-label, .cherry-checkbox-item',
+
 		init: function () {
-			$( document ).on( 'ready', this.render );
-			$( window ).on( 'cherry-ui-elements-init', this.render );
+			$( document ).on( 'ready.cherry-ui-elements-init', this.addEvent.bind( this ) );
 		},
-		render: function ( event ) {
-			var target = ( event._target ) ? event._target : $( 'body' );
+		addEvent: function ( event ) {
+			$( 'body' ).on( 'click.masterSlave', this.labelClass, this.switchState.bind( this ) );
+			this.initState();
+		},
+		initState: function(){
+			var $_input = $( this.inputClass ),
+				i       = $_input.length - 1,
+				$_target,
+				data;
 
-			$( '.cherry-checkbox-input[type="hidden"]', target ).each( function() {
-				var $this = $( this ),
-					this_slave = $this.data( 'slave' ),
-					state = ( $this.val() === 'true' );
+			for (; i >= 0; i--) {
+				$_target = $( $_input[ i ] );
+				data     = $_target.data();
 
-				if ( ! state ) {
-					$( '.'+ this_slave, target ).stop().hide();
-				}
-			});
-
-			$( '.cherry-checkbox-item', target ).on( 'click', function() {
-				var input = $( this ).siblings( '.cherry-checkbox-input[type="hidden"]' ),
-					slave = input.data( 'slave' ),
-					state = ( input.val() === 'true' );
-
-				if ( $( this ).hasClass( 'checked' ) ) {
-					$( this ).removeClass( 'checked' );
-					input.val( 'false' );
-					state = false;
-
-					$( '.' + slave, target ).hide();
+				if ( jQuery.isEmptyObject( data ) ) {
+					continue;
 				} else {
-					$( this ).addClass( 'checked' );
-					input.val( 'true' );
-					state = true;
-
-					$( '.' + slave, target ).show();
+					$( '.' + data.slave )[ ( $_target[ 0 ].checked ) ? 'removeClass' : 'addClass' ]( 'hide' );
 				}
+			}
+		},
+		switchState: function ( event ) {
+			var $_input = $( event.currentTarget ).siblings( this.inputClass ),
+				data    = $_input.data(),
+				flag    = $_input[0].checked;
 
-				input.trigger( 'change' );
-			} );
+			$_input
+				.val( ( flag ) ? 'false' : 'true' )
+				.attr( 'checked', ( flag ) ? false : true );
 
-			$( '.cherry-checkbox-label', target ).on( 'click', function() {
-				var input = $( this ).siblings( '.cherry-checkbox-input[type="hidden"]' ),
-					item = $( this ).siblings( '.cherry-checkbox-item' ),
-					slave = input.data( 'slave' ),
-					state = ( input.val() === 'true' );
-
-				if ( item.hasClass( 'checked' ) ) {
-					item.removeClass( 'checked' );
-					input.val( 'false' );
-					state = false;
-
-					$( '.' + slave, target ).hide();
-				} else {
-					item.addClass( 'checked' );
-					input.val( 'true' );
-					state = true;
-
-					$( '.' + slave, target ).show();
-				}
-
-				input.trigger( 'change' );
-			} );
+			if ( ! jQuery.isEmptyObject( data ) ) {
+				$( '.' + data.slave )[ ( flag ) ? 'addClass' : 'removeClass' ]( 'hide' );
+			}
 		}
 	};
 
