@@ -14,9 +14,5 @@ Module system.
 * [@Sargas](https://github.com/SargasTM) - **Developer**
 * [@Shin](https://github.com/shinTM) - **Developer**
 
-## Manager
-
-
-
 ## Help
 Found a bug? Feature requests? [Create an issue - Thanks!](https://github.com/CherryFramework/cherry-framework/issues/new)
