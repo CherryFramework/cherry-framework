@@ -2,7 +2,7 @@
 /**
  * Module Name: Customizer
  * Description: Customizer functionality.
- * Version: 1.1.3
+ * Version: 1.1.4
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.3
+ * @version    1.1.4
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -207,11 +207,12 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * Include advanced customizer controls classes
 		 *
 		 * @since 1.1.0
+		 * @since 1.1.4 Using dirname( __FILE__ ) instead of __DIR__.
 		 */
 		private function include_custom_controls() {
 
 			if ( ! class_exists( 'Cherry_WP_Customize_Iconpicker' ) ) {
-				require_once( trailingslashit( __DIR__ ) . '/inc/class-cherry-wp-customize-iconpicker.php' );
+				require_once( trailingslashit( dirname( __FILE__ ) ) . '/inc/class-cherry-wp-customize-iconpicker.php' );
 			}
 
 		}
@@ -909,8 +910,8 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			 * @param object $this Cherry_Customiser instance.
 			 */
 			return apply_filters( 'cherry_customizer_get_fonts_data', array(
-				'standard' => __DIR__ . '/assets/fonts/standard.json',
-				'google'   => __DIR__ . '/assets/fonts/google.json',
+				'standard' => dirname( __FILE__ ) . '/assets/fonts/standard.json',
+				'google'   => dirname( __FILE__ ) . '/assets/fonts/google.json',
 			), $this );
 		}
 

@@ -2,7 +2,7 @@
 /**
  * Module Name: Page Builder
  * Description: Provides functionality for building custom options pages
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.0
+ * @version    1.1.1
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -28,13 +28,6 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 	 * Create options page
 	 */
 	class Cherry_Page_Builder {
-
-		/**
-		 * Module version
-		 *
-		 * @var string
-		 */
-		public $module_version = '1.1.0';
 
 		/**
 		 * Module slug
@@ -94,6 +87,8 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 
 		/**
 		 * Constructor for the module
+		 *
+		 * @since  1.1.1 Using dirname( __FILE__ ) instead of __DIR__.
 		 */
 		function __construct( $core, $args = array() ) {
 
@@ -113,7 +108,7 @@ if ( ! class_exists( 'Cherry_Page_Builder' ) ) {
 				)
 			);
 
-			$this->views = __DIR__ . '/views/';
+			$this->views = dirname( __FILE__ ) . '/views/';
 			add_action( 'admin_enqueue_scripts', array( $this, 'assets' ) );
 		}
 

@@ -14,7 +14,7 @@
 return create_function( '', '
 	global $chery_core_version;
 
-	$path = trailingslashit( __DIR__ ) . \'cherry-core.php\';
+	$path = trailingslashit( dirname( __FILE__ ) ) . \'cherry-core.php\';
 
 	$data = get_file_data( $path, array(
 		\'version\' => \'Version\'
