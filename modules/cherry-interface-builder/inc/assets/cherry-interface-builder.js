@@ -1,13 +1,13 @@
 /**
- * Radio
+ * Interface Builder
  */
-;( function( $, CherryJsCore ){
+;( function( $, CherryJsCore ) {
 	'use strict';
 
-	CherryJsCore.utilites.namespace('interfaceBuilder');
+	CherryJsCore.utilites.namespace( 'interfaceBuilder' );
 
 	CherryJsCore.interfaceBuilder = {
-		init: function () {
+		init: function() {
 			this.component.init();
 		},
 		component: {
@@ -33,7 +33,7 @@
 				this.addEvent();
 			},
 
-			addEvent: function () {
+			addEvent: function() {
 				$( 'body' )
 					.on( 'click',
 						this.tabClass + ' ' + this.buttonClass + ', ' +
@@ -41,10 +41,10 @@
 						this.accordionClass + ' ' + this.buttonClass,
 
 						this.componentClick.bind( this )
-					)
+					);
 			},
 
-			componentInit: function ( componentClass ) {
+			componentInit: function( componentClass ) {
 				var _this = this,
 					components = $( componentClass ),
 					componentId = null,
@@ -53,14 +53,13 @@
 					notShow = '';
 
 				components.each( function( index, component ) {
-					component = $( component );
-					componentId = component.data('compotent-id');
-
+					component   = $( component );
+					componentId = component.data( 'compotent-id' );
 
 					switch ( componentClass ) {
 						case _this.toggleClass:
 							if ( _this.localStorage[ componentId ] && _this.localStorage[ componentId ].length ) {
-								notShow = _this.localStorage[ componentId ].join(', ');
+								notShow = _this.localStorage[ componentId ].join( ', ' );
 							}
 
 							$( _this.contentClass, component )
@@ -72,10 +71,10 @@
 
 						case _this.tabClass:
 						case _this.accordionClass:
-							if( _this.localStorage[ componentId ] ){
+							if ( _this.localStorage[ componentId ] ) {
 								contentId = _this.localStorage[ componentId ][ 0 ];
 								button = $( '[data-content-id="' + contentId + '"]', component );
-							}else{
+							} else {
 								button = $( _this.buttonClass, component ).eq( 0 );
 								contentId = button.data( 'content-id' );
 							}
@@ -86,42 +85,42 @@
 				} );
 			},
 
-			componentClick: function ( event ) {
-				var $_target      = $( event.target ),
-					$_parent      = $_target.closest( this.tabClass + ', ' + this.accordionClass + ', ' + this.toggleClass ),
+			componentClick: function( event ) {
+				var $target      = $( event.target ),
+					$parent      = $target.closest( this.tabClass + ', ' + this.accordionClass + ', ' + this.toggleClass ),
 					expr          = new RegExp( this.tabClass + '|' + this.accordionClass + '|' + this.toggleClass ),
-					componentName = $_parent[0].className.match( expr )[ 0 ].replace( ' ', '.' ),
-					contentId     = $_target.data( 'content-id' ),
-					componentId   = $_parent.data( 'compotent-id' ),
-					activeFlag    = $_target.hasClass( this.buttonActiveClass ),
+					componentName = $parent[0].className.match( expr )[ 0 ].replace( ' ', '.' ),
+					contentId     = $target.data( 'content-id' ),
+					componentId   = $parent.data( 'compotent-id' ),
+					activeFlag    = $target.hasClass( this.buttonActiveClass ),
 					itemClosed;
 
 				switch ( componentName ) {
 					case this.tabClass:
 						if ( ! activeFlag ) {
-							this.hideElement( $_parent );
-							this.showElement( $_target, $_parent, contentId );
+							this.hideElement( $parent );
+							this.showElement( $target, $parent, contentId );
 
-							this.localStorage[ componentId ] = new Array ( contentId );
+							this.localStorage[ componentId ] = new Array( contentId );
 							this.setState();
 						}
 					break;
 
 					case this.accordionClass:
-						this.hideElement( $_parent );
+						this.hideElement( $parent );
 
-						if( ! activeFlag ){
-							this.showElement( $_target, $_parent, contentId );
+						if ( ! activeFlag ) {
+							this.showElement( $target, $parent, contentId );
 
-							this.localStorage[ componentId ] = new Array ( contentId );
-						}else{
+							this.localStorage[ componentId ] = new Array( contentId );
+						} else {
 							this.localStorage[ componentId ] = {};
 						}
 						this.setState();
 					break;
 
 					case this.toggleClass:
-						$_target
+						$target
 							.toggleClass( this.buttonActiveClass )
 							.nextAll( contentId )
 							.toggleClass( this.showClass );
@@ -131,25 +130,26 @@
 
 							if ( -1 !== itemClosed ) {
 								this.localStorage[ componentId ].splice( itemClosed, 1 );
-							}else{
+							} else {
 								this.localStorage[ componentId ].push( contentId );
 							}
 
-						}else{
-							this.localStorage[ componentId ] = new Array ( contentId );
+						} else {
+							this.localStorage[ componentId ] = new Array( contentId );
 						}
 
 						this.setState();
 					break;
 				}
-				$_target.blur();
+				$target.blur();
 			},
 
 			showElement: function ( button, holder, contentId ) {
 				button
 					.addClass( this.buttonActiveClass );
 
-				holder.data( 'content-id', contentId );
+				holder
+					.data( 'content-id', contentId );
 
 				$( contentId, holder )
 					.addClass( this.showClass );
@@ -165,13 +165,13 @@
 					.removeClass( this.showClass );
 			},
 
-			getState: function(){
+			getState: function() {
 				if ( localStorage ) {
 					return JSON.parse( localStorage.getItem( 'interface-builder' ) );
 				}
 			},
 
-			setState: function(){
+			setState: function() {
 				if ( localStorage ) {
 					localStorage.setItem( 'interface-builder', JSON.stringify( this.localStorage ) );
 				}

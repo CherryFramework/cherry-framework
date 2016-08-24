@@ -15,7 +15,7 @@
 			$( document ).on( 'ready.cherry-ui-elements-init', this.addEvent.bind( this ) );
 			this.initState();
 		},
-		addEvent: function ( event ) {
+		addEvent: function () {
 			$( 'body' ).on( 'click', this.switcherClass, this.switchState.bind( this ) );
 		},
 		initState: function(){

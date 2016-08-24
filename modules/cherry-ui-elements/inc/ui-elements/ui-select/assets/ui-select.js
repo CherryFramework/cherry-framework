@@ -33,13 +33,13 @@
 			this.switchState( event.currentTarget );
 		},
 		switchState: function ( item ) {
-			var item = $( item ),
-				i    = item[0].length,
+			var items = $( item ),
+				i    = items[0].length,
 				option,
 				data;
 
 			for (; i >= 0; i--) {
-				option = $( item[0][ i ] );
+				option = $( items[0][ i ] );
 				data   = option.data();
 
 				if ( jQuery.isEmptyObject( data ) ) {

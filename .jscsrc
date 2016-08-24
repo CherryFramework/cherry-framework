@@ -17,5 +17,6 @@
 				"modules/cherry-ui-elements/inc/ui-elements/ui-collection/assets/js/jquery.collection.js",
 				"modules/cherry-ui-elements/inc/ui-elements/ui-collection/assets/js/ui-collection.js",
 				"modules/cherry-ui-elements/inc/ui-elements/ui-iconpicker/assets/jquery-iconpicker.js",
+				"modules/cherry-interface-builder/inc/assets/cherry-interface-builder.js",
 	]
 }

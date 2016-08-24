@@ -13,7 +13,7 @@
 			$( document ).on( 'ready.cherry-ui-elements-init', this.addEvent.bind( this ) );
 			this.switchState( { currentTarget: $( this.inputClass ) } );
 		},
-		addEvent: function ( event ) {
+		addEvent: function () {
 			$( 'body' ).on( 'click.masterSlave', this.inputClass, this.switchState.bind( this ) );
 		},
 		switchState: function ( event ) {

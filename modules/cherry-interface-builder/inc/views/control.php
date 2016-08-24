@@ -1,5 +1,7 @@
 <?php
 /**
+ * Control template.
+ *
  * @package    Cherry_Interface_Builder
  * @subpackage Views
  * @author     Cherry Team <cherryframework@gmail.com>

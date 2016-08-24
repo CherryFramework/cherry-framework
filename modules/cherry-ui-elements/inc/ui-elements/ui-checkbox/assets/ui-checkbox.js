@@ -12,11 +12,11 @@
 		init: function () {
 			$( document ).on( 'ready.cherry-ui-elements-init', this.addEvent.bind( this ) );
 		},
-		addEvent: function ( event ) {
+		addEvent: function () {
 			$( 'body' ).on( 'click.masterSlave', this.labelClass, this.switchState.bind( this ) );
 			this.initState();
 		},
-		initState: function(){
+		initState: function (){
 			var $_input = $( this.inputClass ),
 				i       = $_input.length - 1,
 				$_target,

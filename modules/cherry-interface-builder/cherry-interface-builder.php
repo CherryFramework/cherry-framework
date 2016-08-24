@@ -1,3 +1,4 @@
+
 <?php
 /**
  * Module Name: Interface Builder
@@ -100,7 +101,7 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 		 * @return void
 		 */
 		public function __construct( $core, array $args = array() ) {
-			$this->args = array_merge_recursive (
+			$this->args = array_merge_recursive(
 				$args,
 				$this->args
 			);
@@ -175,18 +176,18 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 		 *
 		 * @since  1.0.0
 		 * @access protected
-		 * @param  string $type Options new element.
-		 * @param  array  $args Type new element.
+		 * @param  array  $args Options new element.
+		 * @param  string $type Type new element.
 		 * @return void
 		 */
 		protected function add_new_element( array $args = array(), $type = 'section' ) {
-			if ( ! isset( $args[ 0 ] ) && ! is_array( current( $args ) ) ) {
+			if ( ! isset( $args[0] ) && ! is_array( current( $args ) ) ) {
 					$this->structure[ $args['id'] ] = $args;
-			}else{
+			} else {
 				foreach ( $args as $key => $value ) {
 
 					if ( $type !== 'control' ) {
-						$value[ 'type' ] = $type;
+						$value['type'] = $type;
 					}
 
 					$this->structure[ $key ] = $value;
@@ -199,20 +200,19 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 		 *
 		 * @since  1.0.0
 		 * @access protected
-		 * @param  string $structure  The original structure of the elements.
+		 * @param  array $structure  The original structure of the elements.
 		 * @param  string $parent_key The key of the parent element.
 		 * @return array
 		 */
-
 		protected function sort_structure( array $structure = array(), $parent_key = null ) {
 			$new_array = array();
 
 			foreach ( $structure as $key => $value ) {
-				if(
+				if (
 					( null === $parent_key && ! isset( $value['parent'] ) )
 					|| null === $parent_key && ! isset( $structure[ $value['parent'] ] )
 					|| ( isset( $value['parent'] ) && $value['parent'] === $parent_key )
-				){
+				) {
 
 					if ( ! isset( $value['id'] ) ) {
 						$value['id'] = $parent_key ? $parent_key . '-' . $key : $key ;
@@ -223,7 +223,7 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 					$new_array[ $key ] = $value;
 
 					$children = $this->sort_structure( $structure, $key );
-					if ( !empty( $children ) ) {
+					if ( ! empty( $children ) ) {
 						$new_array[ $key ][ 'children' ] = $children;
 					}
 				}
@@ -238,7 +238,7 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 		 * @since  1.0.0
 		 * @access protected
 		 * @param  string $type View type.
-		 * @param  string $args Input data.
+		 * @param  array  $args Input data.
 		 * @return string
 		 */
 		protected function get_view( $type = 'control', array $args = array() ) {
@@ -249,7 +249,7 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 
 			if ( empty( $view ) ) {
 				$path = dirname( __FILE__ ) . '/';
-				$path .= ( array_key_exists( $type, $this->args['views'] ) ) ? $this->args['views'][ $type ] : $this->args['views'][ 'control' ] ;
+				$path .= ( array_key_exists( $type, $this->args['views'] ) ) ? $this->args['views'][ $type ] : $this->args['views']['control'] ;
 			} else {
 				$path = $view;
 			}
@@ -268,8 +268,8 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 		 *
 		 * @since  1.0.0
 		 * @access public
-		 * @param  array  $args The original structure of the elements.
-		 * @param  array  $echo input data.
+		 * @param  array $args The original structure of the elements.
+		 * @param  bool  $echo Input data.
 		 * @return string
 		 */
 		public function render( array $args = array(), $echo = true ) {
@@ -295,8 +295,8 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 		 *
 		 * @since  1.0.0
 		 * @access protected
-		 * @param  array  $args input data.
-		 * @return void
+		 * @param  array $args Input data.
+		 * @return string
 		 */
 		protected function build( array $args = array() ) {
 			$output = '';
@@ -308,12 +308,12 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 					$this->args['views_args']
 				);
 
-				$value[ 'class' ] = '' ;
-				if ( $value[ 'scroll' ] ) {
-					$value[ 'class' ] .= 'cherry-scroll';
+				$value['class'] = '' ;
+				if ( $value['scroll'] ) {
+					$value['class'] .= 'cherry-scroll';
 				}
-				if ( $value[ 'master' ] ) {
-					$value[ 'class' ] .= $value[ 'master' ];
+				if ( $value['master'] ) {
+					$value['class'] .= $value['master'];
 				}
 
 				$type = array_key_exists( $value['type'], $views ) ? $value['type'] : 'field' ;
@@ -322,41 +322,41 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 				switch ( $type ) {
 					case 'component-tab-vertical':
 					case 'component-tab-horizontal':
-						if( $has_child ){
+						if ( $has_child ) {
 							$value['tabs'] = '';
 
-							foreach ( $value['children'] as $key_children => $value_children) {
+							foreach ( $value['children'] as $key_children => $value_children ) {
 								$value['tabs'] .= $this->get_view( 'tab-children-title', $value_children );
 
-								unset( $value[ 'children' ][ $key_children ][ 'title' ] );
+								unset( $value['children'][ $key_children ]['title'] );
 							}
 						}
 					break;
 
 					case 'component-toggle':
 					case 'component-accordion':
-						if( $has_child ){
-							foreach ( $value['children'] as $key_children => $value_children) {
-								$value[ 'children' ][ $key_children ][ 'title_in_view' ] = $this->get_view( 'toggle-children-title', $value_children );
+						if ( $has_child ) {
+							foreach ( $value['children'] as $key_children => $value_children ) {
+								$value['children'][ $key_children ]['title_in_view'] = $this->get_view( 'toggle-children-title', $value_children );
 							}
 						}
 					break;
 
 					case 'settings':
-						if ( isset( $value[ 'title' ] ) && $value[ 'title' ] ) {
-							$value[ 'title' ] = isset( $value['title_in_view'] ) ? $value['title_in_view'] : $this->get_view( 'settings-children-title', $value ) ;
+						if ( isset( $value['title'] ) && $value['title'] ) {
+							$value['title'] = isset( $value['title_in_view'] ) ? $value['title_in_view'] : $this->get_view( 'settings-children-title', $value );
 						}
 					break;
 
 					case 'html':
-						$value[ 'children' ] = $value[ 'html' ];
+						$value['children'] = $value['html'];
 					break;
 
 					case 'field':
-						if( isset( $value[ 'master' ] ) ){
-							$value[ 'master' ] = '';
+						if ( isset( $value['master'] ) ) {
+							$value['master'] = '';
 						}
-						$value[ 'children' ] = $this->ui_elements->get_ui_element_instance( $value[ 'type' ], $value )->render();
+						$value['children'] = $this->ui_elements->get_ui_element_instance( $value['type'], $value )->render();
 					break;
 				}
 
@@ -376,7 +376,7 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 		 * @since  1.0.0
 		 * @access protected
 		 * @param  string  $output Output HTML.
-		 * @param  boolean  $echo   Output type.
+		 * @param  boolean $echo   Output type.
 		 * @return string
 		 */
 		protected function output_method( $output = '', $echo = true ) {

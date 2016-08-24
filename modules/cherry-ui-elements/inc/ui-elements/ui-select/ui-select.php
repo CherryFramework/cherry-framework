@@ -43,7 +43,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 					'label'			=> 'Group 1',
 					'slave'			=> 'slave',
 				),
-				'optgroup-1'=> array(
+				'optgroup-1' => array(
 					'label'			=> 'Group 1',
 					'group_options'	=> array(
 						'select-6'	=> 'select 6',
@@ -124,7 +124,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 							if ( is_array( $option_value ) ) {
 								$lable = $option_value['label'];
 								$data  = 'data-slave="' . $option_value['slave'] . '"';
-							}else{
+							} else {
 								$lable = $option_value;
 								$data  = '';
 							}
