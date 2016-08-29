@@ -59,7 +59,7 @@ label.cherry-label{
 		left: 0;
 		margin-left: 4px;
 		border-radius: 25px;
-		transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+		transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
 	}
 	.cherry-input-switcher{
 		display: none;
@@ -80,7 +80,6 @@ label.cherry-label{
 		~ .state-marker{
 			left: 100%;
 			margin-left: -45px;
-			transform: rotateX(180deg);
 		}
 	}
 

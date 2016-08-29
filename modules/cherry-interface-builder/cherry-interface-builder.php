@@ -159,7 +159,7 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 		}
 
 		/**
-		 * Register element type control.
+		 * Register element type html.
 		 *
 		 * @since  1.0.0
 		 * @access public
@@ -185,7 +185,7 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 			} else {
 				foreach ( $args as $key => $value ) {
 
-					if ( 'control' !== $type ) {
+					if ( 'control' !== $type && 'component' !== $type ) {
 						$value['type'] = $type;
 					}
 
@@ -263,15 +263,15 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 		}
 
 		/**
-		 * Render interface elements.
+		 * Render HTML elements.
 		 *
 		 * @since  1.0.0
 		 * @access public
-		 * @param  array $args The original structure of the elements.
 		 * @param  bool  $echo Input data.
+		 * @param  array $args The original structure of the elements.
 		 * @return string
 		 */
-		public function render( array $args = array(), $echo = true ) {
+		public function render( $echo = true, array $args = array() ) {
 
 			if ( empty( $args ) ) {
 				$args = $this->structure;
@@ -290,7 +290,7 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 		}
 
 		/**
-		 * Render interface elements.
+		 * Render HTML elements.
 		 *
 		 * @since  1.0.0
 		 * @access protected

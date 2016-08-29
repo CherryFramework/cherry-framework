@@ -75,7 +75,6 @@ html{
 		text-decoration: none;
 		&:hover{
 			color: $link-hover-color;
-			text-decoration: underline;
 		}
 		&:focus{
 			outline: 1px solid $link-hover-color;
@@ -125,10 +124,12 @@ html{
 			padding: $padding * 1.5;
 		}
 		&__inner{
-			overflow: hidden;
+			padding: 0;
 			background-color: $color-1;
 			border-radius: $br-radius;
 			box-shadow: 0px 5px 21px rgba(0, 0, 0, 0.1);
+			display: inline-block;
+			width: 100%;
 		}
 	}
 	@media ( min-width: 961px ) {
@@ -169,7 +170,6 @@ html{
 	&__button{
 		display: block;
 		height: 45px;
-		background-color:$color-1;
 		.cherry-ui-kit__title {
 			color: inherit;
 		}
@@ -248,7 +248,6 @@ html{
 				box-shadow:$shadow;
 				border-radius: $br-radius;
 				border: $border;
-				overflow: hidden;
 			}
 		}
 	}
@@ -281,10 +280,9 @@ html{
 			}
 		}
 		.cherry-tab__body{
-			overflow: hidden;
 			box-shadow:$shadow;
-			border: $border;
 			border-radius: $br-radius;
+			border: $border;
 		}
 		@media ( min-width: 783px ) {
 			.cherry-tab__tabs{
@@ -303,24 +301,29 @@ html{
 			}
 			&--horizontal{
 				>.cherry-tab__body{
-					border-radius: 0 0 $br-radius $br-radius;
+					border-radius: none;
 					>.cherry-tab__tabs{
-					flex-wrap: nowrap;
-					flex-direction: row;
+						flex-wrap: nowrap;
+						flex-direction: row;
+						border-radius:$br-radius $br-radius 0 0;
 						.cherry-component__button{
 							flex: 0 1 auto;
 						}
+					}
+					>.cherry-tab__content{
+						border-radius: 0 0 $br-radius $br-radius;
 					}
 				}
 			}
 			&--vertical{
 				>.cherry-tab__body{
 					display: flex;
-					border-radius: 0 $br-radius $br-radius 0;
+					border-radius: none;
 					>.cherry-tab__tabs{
 						flex-direction: row;
 						-webkit-box-flex: 0;
 						flex: 0 1 25%;
+						border-radius:$br-radius 0 0 $br-radius;
 						.cherry-component__button{
 							text-align: right;
 							.cherry-tab__title {
@@ -335,7 +338,6 @@ html{
 						-webkit-box-flex: 0;
 						flex: 0 1 75%;
 						border-radius: 0 $br-radius $br-radius 0;
-						overflow: hidden;
 					}
 				}
 			}
@@ -356,7 +358,6 @@ html{
 	& + & {
 		border-top: $border;
 	}
-	background-color: $color-1;
 	& &__title{
 		margin-bottom: $margin;
 	}
@@ -371,7 +372,6 @@ html{
 	}
 }
 .cherry-control{
-	background-color: $color-1;
 	padding: $padding * 1.5 $padding * 2;
 	&__title{
 		margin: 0 0 $margin 0 ;
@@ -409,33 +409,33 @@ html{
 .cherry-accordion__content > .cherry-scroll > .cherry-settings__content,
 .cherry-toggle__content > .cherry-scroll > .cherry-settings__content,
 {
-	max-height: $max-heught;
-	overflow-y: scroll;
-	&::-webkit-scrollbar {
-		width: 10px;
-		height: 10px;
-		&-button {
-			width: 0px;
-			height: 0px;
-		}
-		&-thumb {
-			background-color: $link-color;
-			border: none;
-			border-radius: $br-radius;
-			&:hover, &:active {
-				background: #206ff4;
+	@media ( min-width: 783px ) {
+		max-height: $max-heught;
+		overflow-y: scroll;
+		position: relative;
+		&::-webkit-scrollbar {
+			width: 10px;
+			height: 10px;
+			&-button {
+				width: 0px;
+				height: 0px;
 			}
-		}
-		&-track {
-			background-color: $color-5;
-			border: none;
-			border-radius: $br-radius;
-			&:hover, &:active {
-				box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.1);
+			&-thumb {
+				background-color: $link-color;
+				border: none;
+				border-radius: $br-radius;
+				&:hover, &:active {
+					background: #206ff4;
+				}
 			}
-		}
-		&-corner {
-			background: transparent;
+			&-track {
+				background-color: $color-5;
+				border: none;
+				border-radius: $br-radius;
+			}
+			&-corner {
+				background: transparent;
+			}
 		}
 	}
 }

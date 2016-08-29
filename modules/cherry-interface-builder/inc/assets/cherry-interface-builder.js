@@ -166,14 +166,18 @@
 			},
 
 			getState: function() {
-				if ( localStorage ) {
+				try {
 					return JSON.parse( localStorage.getItem( 'interface-builder' ) );
+				} catch ( e ) {
+					return false;
 				}
 			},
 
 			setState: function() {
-				if ( localStorage ) {
+				try {
 					localStorage.setItem( 'interface-builder', JSON.stringify( this.localStorage ) );
+				} catch ( e ) {
+					return false;
 				}
 			}
 		}
