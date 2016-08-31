@@ -87,7 +87,7 @@ if ( ! class_exists( 'UI_Element' ) ) {
 			if ( '' !== $name ) {
 				$this->settings['name'] = $name;
 			} else {
-				throw new Exception( "Invalid control name '".$name."'. Name can't be empty." );
+				throw new Exception( "Invalid control name '" . $name . "'. Name can't be empty." );
 			}
 		}
 	}

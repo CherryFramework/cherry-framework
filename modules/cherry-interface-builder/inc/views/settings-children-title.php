@@ -15,4 +15,4 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 ?>
-<h3 class="cherry-ui-kit__title cherry-settings__title" role="banner" ><?php echo $title ?></h3>
+<h3 class="cherry-ui-kit__title cherry-settings__title" role="banner" ><?php echo $args['title']; ?></h3>

@@ -15,16 +15,16 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 ?>
-<div class="cherry-ui-kit cherry-component cherry-accordion <?php echo $id; ?> <?php echo $class; ?>" data-compotent-id='#<?php echo $id ?>'>
-	<?php if ( ! empty( $title ) ) { ?>
-		<h2 class="cherry-ui-kit__title cherry-component__title" role="banner" ><?php echo $title ?></h2>
+<div class="cherry-ui-kit cherry-component cherry-accordion <?php echo $args['id'] ?> <?php echo $args['class']; ?>" data-compotent-id="#<?php echo $args['id'] ?>">
+	<?php if ( ! empty( $args['title'] ) ) { ?>
+		<h2 class="cherry-ui-kit__title cherry-component__title" role="banner" ><?php echo $args['title'] ?></h2>
 	<?php } ?>
-	<?php if ( ! empty( $description ) ) { ?>
-		<div class="cherry-ui-kit__description cherry-component__description" role="note" ><?php echo $description ?></div>
+	<?php if ( ! empty( $args['description'] ) ) { ?>
+		<div class="cherry-ui-kit__description cherry-component__description" role="note" ><?php echo $args['description'] ?></div>
 	<?php } ?>
-	<?php if ( ! empty( $children ) ) { ?>
+	<?php if ( ! empty( $args['children'] ) ) { ?>
 		<div class="cherry-ui-kit__content cherry-component__content cherry-accordion__content" role="group" >
-			<?php echo $children ?>
+			<?php echo $args['children'] ?>
 		</div>
 	<?php } ?>
 </div>

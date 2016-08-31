@@ -15,20 +15,20 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 ?>
-<div class="cherry-ui-kit cherry-component cherry-tab cherry-tab--horizontal <?php echo $id; ?> <?php echo $class; ?>" data-compotent-id='#<?php echo $id ?>'>
-	<?php if ( ! empty( $title ) ) { ?>
-		<h2 class="cherry-ui-kit__title cherry-component__title" role="banner" ><?php echo $title ?></h2>
+<div class="cherry-ui-kit cherry-component cherry-tab cherry-tab--horizontal <?php echo $args['id'] ?> <?php echo $args['class'] ?>" data-compotent-id="#<?php echo $args['id'] ?>">
+	<?php if ( ! empty( $args['title'] ) ) { ?>
+		<h2 class="cherry-ui-kit__title cherry-component__title" role="banner" ><?php echo $args['title']; ?></h2>
 	<?php } ?>
-	<?php if ( ! empty( $description ) ) { ?>
-		<div class="cherry-ui-kit__description cherry-component__description" role="note" ><?php echo $description ?></div>
+	<?php if ( ! empty( $args['description'] ) ) { ?>
+		<div class="cherry-ui-kit__description cherry-component__description" role="note" ><?php echo $args['description']; ?></div>
 	<?php } ?>
-	<?php if ( ! empty( $children ) ) { ?>
+	<?php if ( ! empty( $args['children'] ) ) { ?>
 		<div class="cherry-tab__body" >
 			<div class="cherry-tab__tabs" role="navigation" >
-				<?php echo $tabs ?>
+				<?php echo $args['tabs']; ?>
 			</div>
 			<div class="cherry-ui-kit__content cherry-component__content cherry-tab__content" role="group" >
-				<?php echo $children ?>
+				<?php echo $args['children']; ?>
 			</div>
 		</div>
 	<?php } ?>

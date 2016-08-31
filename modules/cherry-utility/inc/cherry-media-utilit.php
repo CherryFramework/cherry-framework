@@ -102,11 +102,11 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 					$width  = ( 4000 < intval( $attr['width'] ) ) ? 4000 : intval( $attr['width'] );
 					$height = ( 4000 < intval( $attr['height'] ) ) ? 4000 : intval( $attr['height'] );
 
-					$src = 'http://fakeimg.pl/' . $width . 'x' . $height . '/'. $attr['background'] .'/'. $attr['foreground'] . '/?text=' . $attr['title'] . '';
+					$src = 'http://fakeimg.pl/' . $width . 'x' . $height . '/'. $attr['background'] . '/' . $attr['foreground'] . '/?text=' . $attr['title'];
 				}
 
 				$class			= ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
-				$html_tag_suze	= ( filter_var( $args['html_tag_suze'], FILTER_VALIDATE_BOOLEAN ) ) ? 'width="' . $size_array['width']  . '" height="' . $size_array['height']  . '"' : '' ;
+				$html_tag_suze	= ( filter_var( $args['html_tag_suze'], FILTER_VALIDATE_BOOLEAN ) ) ? 'width="' . $size_array['width'] . '" height="' . $size_array['height'] . '"' : '' ;
 
 				if ( isset( $src ) ) {
 					$html = sprintf( $args['html'], $link, $class, $src, $alt, $html_tag_suze );

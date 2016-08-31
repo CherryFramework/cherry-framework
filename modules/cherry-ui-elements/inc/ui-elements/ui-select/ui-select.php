@@ -73,7 +73,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 		 */
 		function __construct( $args = array() ) {
 
-			$this->defaults_settings['id'] = 'cherry-ui-select-'.uniqid();
+			$this->defaults_settings['id'] = 'cherry-ui-select-' . uniqid();
 			$this->settings = wp_parse_args( $args, $this->defaults_settings );
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
@@ -129,7 +129,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 								$data  = '';
 							}
 
-							$html .= '<option value="' . esc_attr( $option ) . '" ' . $selected_state . ' ' . $data . '>'. esc_html( $lable ) .'</option>';
+							$html .= '<option value="' . esc_attr( $option ) . '" ' . $selected_state . ' ' . $data . '>' . esc_html( $lable ) . '</option>';
 						} else {
 							$html .= '<optgroup label="' . esc_attr( $option_value['label'] ) . '">';
 								$selected_state = '';
@@ -140,7 +140,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 											break;
 										}
 									}
-									$html .= '<option value="' . esc_attr( $group_item ) . '" ' . $selected_state . '>'. esc_html( $group_value ) .'</option>';
+									$html .= '<option value="' . esc_attr( $group_item ) . '" ' . $selected_state . '>' . esc_html( $group_value ) . '</option>';
 								}
 							$html .= '</optgroup>';
 						}

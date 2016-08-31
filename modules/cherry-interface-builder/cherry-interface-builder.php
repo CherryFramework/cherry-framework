@@ -242,10 +242,6 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 		 */
 		protected function get_view( $type = 'control', array $args = array() ) {
 
-			if ( is_array( $args ) ) {
-				extract( $args, EXTR_SKIP );
-			}
-
 			if ( empty( $view ) ) {
 				$path = dirname( __FILE__ ) . '/';
 				$path .= ( array_key_exists( $type, $this->args['views'] ) ) ? $this->args['views'][ $type ] : $this->args['views']['control'] ;

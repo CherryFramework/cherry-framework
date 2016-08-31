@@ -43,7 +43,7 @@ if ( ! class_exists( 'UI_Colorpicker' ) ) {
 		 */
 		function __construct( $args = array() ) {
 
-			$this->defaults_settings['id'] = 'cherry-ui-colorpicker-'.uniqid();
+			$this->defaults_settings['id'] = 'cherry-ui-colorpicker-' . uniqid();
 			$this->settings = wp_parse_args( $args, $this->defaults_settings );
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
@@ -64,7 +64,7 @@ if ( ! class_exists( 'UI_Colorpicker' ) ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
 				}
 				$html .= '<div class="cherry-ui-colorpicker-wrapper">';
-					$html .= '<input type="text" id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-colorpicker '. esc_attr( $this->settings['class'] ) . '" name="' . esc_attr( $this->settings['name'] ) . '" value="' . esc_html( $this->settings['value'] ) . '"/>';
+					$html .= '<input type="text" id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-colorpicker ' . esc_attr( $this->settings['class'] ) . '" name="' . esc_attr( $this->settings['name'] ) . '" value="' . esc_html( $this->settings['value'] ) . '"/>';
 				$html .= '</div>';
 			$html .= '</div>';
 

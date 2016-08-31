@@ -15,6 +15,6 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 ?>
-<button class="cherry-tab__button cherry-component__button" role="button" title="<?php echo $title ?>" aria-expanded="false" data-content-id="#<?php echo $id ?>">
-	<h3 class="cherry-ui-kit__title cherry-tab__title" aria-grabbed="true" role="banner" ><?php echo $title ?></h3>
+<button class="cherry-tab__button cherry-component__button" role="button" title="<?php echo $args['title']; ?>" aria-expanded="false" data-content-id="#<?php echo $args['id'] ?>">
+	<h3 class="cherry-ui-kit__title cherry-tab__title" aria-grabbed="true" role="banner" ><?php echo $args['title']; ?></h3>
 </button>

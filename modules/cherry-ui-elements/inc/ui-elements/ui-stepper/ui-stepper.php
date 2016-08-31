@@ -45,7 +45,7 @@ if ( ! class_exists( 'UI_Stepper' ) ) {
 		 * @since  4.0.0
 		 */
 		function __construct( $args = array() ) {
-			$this->defaults_settings['id'] = 'cherry-ui-stepper-'.uniqid();
+			$this->defaults_settings['id'] = 'cherry-ui-stepper-' . uniqid();
 			$this->settings = wp_parse_args( $args, $this->defaults_settings );
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );

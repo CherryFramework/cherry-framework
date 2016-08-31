@@ -15,10 +15,10 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 ?>
-<div class="cherry-ui-kit <?php echo $id; ?> <?php echo $class; ?>">
-	<?php if ( ! empty( $children ) ) { ?>
+<div class="cherry-ui-kit <?php echo $args['id']; ?> <?php echo $args['class']; ?>">
+	<?php if ( ! empty( $args['children'] ) ) { ?>
 		<div class="cherry-ui-kit__content" role="group" >
-			<?php echo $children ?>
+			<?php echo $args['children']; ?>
 		</div>
 	<?php } ?>
 </div>

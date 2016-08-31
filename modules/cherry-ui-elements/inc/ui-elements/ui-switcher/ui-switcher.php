@@ -48,7 +48,7 @@ if ( ! class_exists( 'UI_Switcher' ) ) {
 		 * @since  4.0.0
 		 */
 		function __construct( $args = array() ) {
-			$this->defaults_settings['id'] = 'cherry-ui-swither-'.uniqid();
+			$this->defaults_settings['id'] = 'cherry-ui-swither-' . uniqid();
 			$this->settings = wp_parse_args( $args, $this->defaults_settings );
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
@@ -74,7 +74,7 @@ if ( ! class_exists( 'UI_Switcher' ) ) {
 
 				$selected_class = filter_var( $this->settings['value'], FILTER_VALIDATE_BOOLEAN ) ? 'selected' : '';
 
-				$html .= '<div class="cherry-switcher-wrap size-' . esc_attr( $this->settings['style'] ) . ' ' . esc_attr( $this->settings['class'] ) . ' ' . $selected_class .'">';
+				$html .= '<div class="cherry-switcher-wrap size-' . esc_attr( $this->settings['style'] ) . ' ' . esc_attr( $this->settings['class'] ) . ' ' . $selected_class . '">';
 					$html .= '<input type="radio" id="' . esc_attr( $this->settings['id'] ) . '-true" class="cherry-input-switcher cherry-input-switcher-true" name="' . esc_attr( $this->settings['name'] ) . '" ' . checked( 'true', $this->settings['value'], false ) . ' value="true" ' . $data_slave_true . '>';
 					$html .= '<input type="radio" id="' . esc_attr( $this->settings['id'] ) . '-false" class="cherry-input-switcher cherry-input-switcher-false" name="' . esc_attr( $this->settings['name'] ) . '" ' . checked( 'false', $this->settings['value'], false ) . ' value="false" ' . $data_slave_false . '>';
 					$html .= '<label class="sw-enable"><span>' . esc_html( $this->settings['toggle']['true_toggle'] ) . '</span></label>';

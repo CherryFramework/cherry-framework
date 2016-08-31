@@ -15,17 +15,17 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 ?>
-<div class="cherry-ui-kit cherry-settings <?php echo $id; ?> <?php echo $class; ?>">
-	<?php if ( ! empty( $title ) ) {
-		echo $title;
+<div class="cherry-ui-kit cherry-settings <?php echo $args['id']; ?> <?php echo $args['class']; ?>">
+	<?php if ( ! empty( $args['title'] ) ) {
+		echo $args['title'];
 	} ?>
-	<?php if ( ! empty( $children ) || ! empty( $description ) ) { ?>
-		<div class="cherry-ui-kit__content cherry-settings__content" role="group" id="<?php echo $id ?>"  >
-			<?php if ( ! empty( $description ) ) { ?>
-				<div class="cherry-ui-kit__description cherry-settings__description" role="note" ><?php echo $description ?></div>
+	<?php if ( ! empty( $args['children'] ) || ! empty( $args['description'] ) ) { ?>
+		<div class="cherry-ui-kit__content cherry-settings__content" role="group" id="<?php echo $args['id']; ?>"  >
+			<?php if ( ! empty( $args['description'] ) ) { ?>
+				<div class="cherry-ui-kit__description cherry-settings__description" role="note" ><?php echo $args['description']; ?></div>
 			<?php } ?>
-			<?php if ( ! empty( $children ) ) { ?>
-				<?php echo $children ?>
+			<?php if ( ! empty( $args['children'] ) ) { ?>
+				<?php echo $args['children']; ?>
 			<?php } ?>
 		</div>
 	<?php } ?>
