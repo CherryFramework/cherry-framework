@@ -286,7 +286,7 @@ html{
 		}
 		@media ( min-width: 783px ) {
 			.cherry-tab__tabs{
-				border-bottom: none;
+				border: solid 1px rgba(0,0,0,0.1);
 				.cherry-component__button{
 					& + button{
 						border-top: none;
@@ -306,6 +306,7 @@ html{
 						flex-wrap: nowrap;
 						flex-direction: row;
 						border-radius:$br-radius $br-radius 0 0;
+						border-bottom: none;
 						.cherry-component__button{
 							flex: 0 1 auto;
 						}
@@ -324,6 +325,7 @@ html{
 						-webkit-box-flex: 0;
 						flex: 0 1 25%;
 						border-radius:$br-radius 0 0 $br-radius;
+						border-right: none;
 						.cherry-component__button{
 							text-align: right;
 							.cherry-tab__title {

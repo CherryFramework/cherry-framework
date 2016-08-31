@@ -27,6 +27,7 @@
 							icons: setData.icons,
 							iconBaseClass: setData.iconBase,
 							iconClassPrefix: setData.iconPrefix,
+							animation: false,
 							fullClassFormatter: function( val ) {
 								return setData.iconBase + ' ' + setData.iconPrefix + val;
 							}
