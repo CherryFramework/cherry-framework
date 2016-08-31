@@ -1038,8 +1038,7 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 				$image_src = preg_replace( '/^(.+)(-\d+x\d+)(\..+)$/', '$1$3', $image_src );
 
 				// Try to get current image ID.
-				$query = "SELECT ID FROM {$wpdb->posts} WHERE guid = %s";
-				$id    = $wpdb->get_var( $wpdb->prepare( $query, $image_src ) );
+				$id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE guid = %s", $image_src ) );
 
 				if ( ! $id ) {
 					$result[] = $image_src;
