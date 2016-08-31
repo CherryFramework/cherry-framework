@@ -3,7 +3,7 @@
  * API functions for post formats specific content
  * Module Name: Post Formats API
  * Description: API for post formats specific content
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -11,7 +11,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.1
+ * @version    1.1.2
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -756,7 +756,7 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 
 			if ( ! empty( $atts['include'] ) ) {
 
-				$attachments = explode( ',', str_replace( ' ', '', $atts['include'] ) );
+				$attachments = $this->esc_include_ids( $atts['include'] );
 
 			} elseif ( ! empty( $atts['exclude'] ) ) {
 
@@ -959,6 +959,23 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 			);
 
 			return $result;
+		}
+
+		/**
+		 * Include IDs set (array or string).
+		 *
+		 * @since  1.1.2
+		 * @param  mixed $ids ID's set.
+		 * @return array
+		 */
+		public function esc_include_ids( $ids ) {
+
+			if ( is_array( $ids ) ) {
+				return $ids;
+			} else {
+				return explode( ',', str_replace( ' ', '', $ids ) );
+			}
+
 		}
 
 		/**
