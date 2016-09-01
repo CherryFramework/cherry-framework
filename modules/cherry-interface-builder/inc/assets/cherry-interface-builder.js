@@ -142,6 +142,8 @@
 					break;
 				}
 				$target.blur();
+
+				return false;
 			},
 
 			showElement: function ( button, holder, contentId ) {
