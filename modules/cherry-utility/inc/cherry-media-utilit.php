@@ -102,7 +102,7 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 					$width  = ( 4000 < intval( $attr['width'] ) ) ? 4000 : intval( $attr['width'] );
 					$height = ( 4000 < intval( $attr['height'] ) ) ? 4000 : intval( $attr['height'] );
 
-					$src = 'http://fakeimg.pl/' . $width . 'x' . $height . '/'. $attr['background'] . '/' . $attr['foreground'] . '/?text=' . $attr['title'];
+					$src = 'http://fakeimg.pl/' . $width . 'x' . $height . '/' . $attr['background'] . '/' . $attr['foreground'] . '/?text=' . $attr['title'];
 				}
 
 				$class			= ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
