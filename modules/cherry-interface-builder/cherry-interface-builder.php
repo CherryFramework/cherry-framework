@@ -51,6 +51,7 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 				'settings-children-title'   => 'inc/views/settings-children-title.php',
 				'tab-children-title'        => 'inc/views/tab-children-title.php',
 				'toggle-children-title'     => 'inc/views/toggle-children-title.php',
+				'form'                      => 'inc/views/form.php',
 				'html'                      => 'inc/views/html.php',
 			),
 			'views_args' => array(
@@ -156,6 +157,18 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 		 */
 		public function register_control( array $args = array() ) {
 			$this->add_new_element( $args, 'control' );
+		}
+
+		/**
+		 * Register element type form.
+		 *
+		 * @since  1.0.0
+		 * @access public
+		 * @param  array $args Options form.
+		 * @return void
+		 */
+		public function register_form( array $args = array() ) {
+			$this->add_new_element( $args, 'form' );
 		}
 
 		/**
@@ -303,12 +316,13 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 					$this->args['views_args']
 				);
 
-				$value['class'] = '' ;
+				$value['class'] = isset( $value['class'] ) ? $value['class'] . ' ' : '' ;
+				$value['class'] .= $value['id'] . ' ' ;
 				if ( $value['scroll'] ) {
-					$value['class'] .= 'cherry-scroll';
+					$value['class'] .= 'cherry-scroll ';
 				}
 				if ( $value['master'] ) {
-					$value['class'] .= $value['master'];
+					$value['class'] .= $value['master'] . ' ' ;
 				}
 
 				$type = array_key_exists( $value['type'], $views ) ? $value['type'] : 'field' ;
@@ -345,6 +359,16 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 
 					case 'html':
 						$value['children'] = $value['html'];
+					break;
+
+					case 'form':
+						$value['accept-charset'] = isset( $value['accept-charset'] ) ? 'accept-charset="' . $value['accept-charset'] . '" ' : 'accept-charset="utf-8"';
+						$value['action']         = isset( $value['action'] ) ? 'action="' . $value['action'] . '" ' : '' ;
+						$value['autocomplete']   = isset( $value['autocomplete'] ) ? 'autocomplete="' . $value['autocomplete'] . '" ' : 'autocomplete="on"';
+						$value['enctype']        = isset( $value['enctype'] ) ? 'enctype="' . $value['enctype'] . '" ' : 'enctype="application/x-www-form-urlencoded"';
+						$value['method']         = isset( $value['method'] ) ? 'method="' . $value['method'] . '" ' : 'method="post"';
+						$value['novalidate']     = ( isset( $value['novalidate'] ) && $value['novalidate'] ) ? 'novalidate' : '';
+						$value['target']         = isset( $value['target'] ) ? 'target="' . $value['target'] . '" ' : '';
 					break;
 
 					case 'field':

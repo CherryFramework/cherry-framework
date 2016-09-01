@@ -15,7 +15,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 ?>
-<div class="cherry-ui-kit cherry-component cherry-repeater <?php echo $args['id']; ?> <?php echo $args['class']; ?>" data-compotent-id="#<?php echo $args['id']; ?>">
+<div class="cherry-ui-kit cherry-component cherry-repeater <?php echo $args['class']; ?>" data-compotent-id="#<?php echo $args['id']; ?>">
 	<?php if ( ! empty( $args['title'] ) ) { ?>
 		<h2 class="cherry-ui-kit__title cherry-component__title" role="banner" ><?php echo $args['title']; ?></h2>
 	<?php } ?>

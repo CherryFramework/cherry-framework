@@ -15,7 +15,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 ?>
-<div class="cherry-ui-kit cherry-section <?php echo $args['id']; ?> <?php echo $args['class']; ?>" onclick="void(0)">
+<div class="cherry-ui-kit cherry-section <?php echo $args['class']; ?>" onclick="void(0)">
 	<div class="cherry-section__holde">
 		<div class="cherry-section__inner">
 			<?php if ( ! empty( $args['title'] ) ) { ?>
