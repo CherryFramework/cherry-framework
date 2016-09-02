@@ -484,6 +484,11 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 				$post = get_post();
 			}
 
+			/**
+			 * Hook on current metabox saving
+			 */
+			do_action( 'cherry_save_meta_' . $this->args['id'] );
+
 			if ( is_array( $this->args['single'] ) && isset( $this->args['single']['key'] ) ) {
 				$this->save_meta_mod( $post_id );
 			} else {
