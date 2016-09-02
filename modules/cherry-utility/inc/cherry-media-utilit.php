@@ -102,7 +102,13 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 					$width  = ( 4000 < intval( $attr['width'] ) ) ? 4000 : intval( $attr['width'] );
 					$height = ( 4000 < intval( $attr['height'] ) ) ? 4000 : intval( $attr['height'] );
 
-					$src = 'http://fakeimg.pl/' . $width . 'x' . $height . '/'. $attr['background'] .'/'. $attr['foreground'] . '/?text=' . $attr['title'] . '';
+					$src = $this->get_placeholder_url( array(
+						'width'      => $width,
+						'height'     => $height,
+						'background' => $attr['background'],
+						'foreground' => $attr['foreground'],
+						'title'      => $attr['title'],
+					) );
 				}
 
 				$class			= ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
@@ -114,6 +120,39 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 			}
 
 			return $this->output_method( $html, $args['echo'] );
+		}
+
+		/**
+		 * Get placeholder image URL
+		 *
+		 * @param  array  $args Image argumnets.
+		 * @return string
+		 */
+		public function get_placeholder_url( $args = array() ) {
+
+			$args = wp_parse_args( $args, array(
+				'width'      => 300,
+				'height'     => 300,
+				'background' => '000',
+				'foreground' => 'fff',
+				'title'      => '',
+			) );
+
+			$args      = array_map( 'urlencode', $args );
+			$base_url  = 'http://fakeimg.pl';
+			$format    = '%1$s/%2$sx%3$s/%4$s/%5$s/?text=%6$s';
+			$image_url = sprintf(
+				$format,
+				$base_url, $args['width'], $args['height'], $args['background'], $args['foreground'], $args['title']
+			);
+
+			/**
+			 * Filter image placeholder URL
+			 *
+			 * @param string $image_url Default URL.
+			 * @param string $args      Image arguments.
+			 */
+			return apply_filters( 'cherry_utility_placeholder_image_url', esc_url( $image_url ), $args );
 		}
 
 
