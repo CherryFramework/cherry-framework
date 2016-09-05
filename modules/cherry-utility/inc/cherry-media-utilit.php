@@ -125,7 +125,7 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 		/**
 		 * Get placeholder image URL
 		 *
-		 * @param  array  $args Image argumnets.
+		 * @param array  $args Image argumnets.
 		 * @return string
 		 */
 		public function get_placeholder_url( $args = array() ) {
