@@ -545,6 +545,7 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 					'title_field'        => Cherry_Toolkit::get_arg( $setting, 'title_field' ),
 					'add_label'          => Cherry_Toolkit::get_arg( $setting, 'add_label', '' ),
 					'fields'             => Cherry_Toolkit::get_arg( $setting, 'fields', array() ),
+					'ui_kit'             => Cherry_Toolkit::get_arg( $setting, 'ui_kit', true ),
 				);
 
 				$this->render_control( $args );
