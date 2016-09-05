@@ -75,9 +75,10 @@ if ( ! class_exists( 'UI_Radio' ) ) {
 		 */
 		public function render() {
 			$html = '';
-			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '' ;
+			$class = $this->settings['class'];
+			$class .= ' ' . $this->settings['master'];
 
-			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
+			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
 				if ( $this->settings['options'] && ! empty( $this->settings['options'] ) && is_array( $this->settings['options'] ) ) {
 					if ( '' !== $this->settings['label'] ) {
 						$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . $this->settings['label'] . '</label> ';

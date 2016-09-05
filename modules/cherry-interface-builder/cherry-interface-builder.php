@@ -227,10 +227,10 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 				) {
 
 					if ( ! isset( $value['id'] ) ) {
-						$value['id'] = $parent_key ? $parent_key . '-' . $key : $key ;
+						$value['id'] = $key;
 					}
 					if ( ! isset( $value['name'] ) ) {
-						$value['name'] = $parent_key ? $parent_key . '-' . $key : $key ;
+						$value['name'] = $key;
 					}
 					$new_array[ $key ] = $value;
 
@@ -372,10 +372,12 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 					break;
 
 					case 'field':
-						if ( isset( $value['master'] ) ) {
-							$value['master'] = '';
-						}
-						$value['children'] = $this->ui_elements->get_ui_element_instance( $value['type'], $value )->render();
+						$ui_args = $value;
+
+						unset( $ui_args['class'] );
+						unset( $ui_args['master'] );
+
+						$value['children'] = $this->ui_elements->get_ui_element_instance( $ui_args['type'], $ui_args )->render();
 					break;
 				}
 

@@ -57,10 +57,10 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 		 */
 		public function render() {
 			$html = '';
+			$class = $this->settings['class'];
+			$class .= ' ' . $this->settings['master'];
 
-			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
-
-			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
+			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
 
 			$ui_stepper = new UI_Stepper(
 				array(

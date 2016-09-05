@@ -62,9 +62,10 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 		 */
 		public function render() {
 			$html = '';
-			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
+			$class = $this->settings['class'];
+			$class .= ' ' . $this->settings['master'];
 
-			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
+			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
 
 			$counter = 0;
 				if ( $this->settings['options'] && ! empty( $this->settings['options'] ) && is_array( $this->settings['options'] ) ) {
@@ -90,7 +91,7 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 						$option_label = isset( $option_value ) && is_array( $option_value ) ? $option_value['label'] : $option_value;
 						$data_slave = isset( $option_value['slave'] ) && ! empty( $option_value['slave'] ) ? ' data-slave="' . $option_value['slave'] . '"' : '';
 
-						$html .= '<div class="cherry-checkbox-item-wrap ' . esc_attr( $this->settings['class'] ) . '">';
+						$html .= '<div class="cherry-checkbox-item-wrap">';
 							$html .= '<input type="hidden" id="' . esc_attr( $this->settings['id'] ) . '-' . $counter . '" class="cherry-checkbox-input" name="' . esc_attr( $this->settings['name'] ) . '[' . $option . ']" ' . $checked . ' value="' . esc_html( $item_value ) . '"' . $data_slave . '>';
 							$html .= '<div class="cherry-checkbox-item"><span class="marker dashicons dashicons-yes"></span></div>';
 							$html .= '<label class="cherry-checkbox-label" for="' . esc_attr( $this->settings['id'] ) . '-' . $counter . '">' . esc_html( $option_label ) . '</label> ';

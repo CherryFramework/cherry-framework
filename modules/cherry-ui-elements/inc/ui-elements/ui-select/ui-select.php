@@ -86,12 +86,11 @@ if ( ! class_exists( 'UI_Select' ) ) {
 		 * @since  4.0.0
 		 */
 		public function render() {
-
 			$html = '';
+			$class = $this->settings['class'];
+			$class .= ' ' . $this->settings['master'];
 
-			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
-
-			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
+			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
 
 				( $this->settings['filter'] ) ? $filter_state = 'data-filter="true"' : $filter_state = 'data-filter="false"' ;
 
@@ -104,7 +103,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 
 				$inline_style = $this->settings['inline_style'] ? 'style="' . esc_attr( $this->settings['inline_style'] ) . '"' : '' ;
 
-				$html .= '<select id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-select ' . esc_attr( $this->settings['class'] ) . '" name="' . esc_attr( $name ) . '" size="' . esc_attr( $this->settings['size'] ) . '" ' . $multi_state . ' ' . $filter_state . ' placeholder="' . $this->settings['placeholder'] . '" ' . $inline_style . ' >';
+				$html .= '<select id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-select" name="' . esc_attr( $name ) . '" size="' . esc_attr( $this->settings['size'] ) . '" ' . $multi_state . ' ' . $filter_state . ' placeholder="' . $this->settings['placeholder'] . '" ' . $inline_style . ' >';
 				if ( $this->settings['options'] && ! empty( $this->settings['options'] ) && is_array( $this->settings['options'] ) ) {
 					foreach ( $this->settings['options'] as $option => $option_value ) {
 						if ( ! is_array( $this->settings['value'] ) ) {

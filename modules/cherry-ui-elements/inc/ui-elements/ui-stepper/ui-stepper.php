@@ -59,15 +59,15 @@ if ( ! class_exists( 'UI_Stepper' ) ) {
 		 */
 		public function render() {
 			$html = '';
+			$class = $this->settings['class'];
+			$class .= ' ' . $this->settings['master'];
 
-			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
-
-			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
+			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
 
 				if ( '' !== $this->settings['label'] ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
 				}
-				$html .= '<div class="cherry-ui-stepper ' . esc_attr( $this->settings['class'] ) . '">';
+				$html .= '<div class="cherry-ui-stepper">';
 					$html .= '<input type="number" id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-stepper-input" pattern="[0-5]+([\.,][0-5]+)?" name="' . esc_attr( $this->settings['name'] ) . '" value="' . esc_html( $this->settings['value'] ) . '" min="' . esc_html( $this->settings['min_value'] ) . '" max="' . esc_html( $this->settings['max_value'] ) . '" step="' . esc_html( $this->settings['step_value'] ) . '" placeholder="' . esc_attr( $this->settings['placeholder'] ) . '">';
 				$html .= '</div>';
 			$html .= '</div>';

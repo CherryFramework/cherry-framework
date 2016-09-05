@@ -108,8 +108,10 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 		 */
 		public function render() {
 			$html = '';
+			$class = $this->settings['class'];
+			$class .= ' ' . $this->settings['master'];
 
-			$html .= '<div class="cherry-ui-container ' . esc_attr( $this->settings['master'] ) . '">';
+			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
 				if ( '' !== $this->settings['label'] ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
 				}
