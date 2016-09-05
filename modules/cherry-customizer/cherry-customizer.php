@@ -941,11 +941,35 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * Retrieve a data from font's file.
 		 *
 		 * @since  1.0.0
-		 * @global object $wp_filesystem
-		 * @param  [string] $file          File path.
+		 * @param  string $file          File path.
 		 * @return array        Fonts data.
 		 */
 		public function read_font_file( $file ) {
+
+			if ( ! $this->file_exists( $file ) ) {
+				return false;
+			}
+
+			// Read the file.
+			$json = $this->file_get_contents( $file );
+
+			if ( ! $json ) {
+				return new WP_Error( 'reading_error', 'Error when reading file' );
+			}
+
+			$content = json_decode( $json, true );
+
+			return $content['items'];
+		}
+
+		/**
+		 * Safely checks exists file or not
+		 *
+		 * @global object $wp_filesystem
+		 * @param  string $file File path.
+		 * @return bool
+		 */
+		public function file_exists( $file ) {
 
 			if ( ! function_exists( 'WP_Filesystem' ) ) {
 				include_once( ABSPATH . '/wp-admin/includes/file.php' );
@@ -954,20 +978,38 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			WP_Filesystem();
 			global $wp_filesystem;
 
-			if ( ! $wp_filesystem->exists( $file ) ) {
-				return false;
+			if ( $wp_filesystem->abspath() ) {
+				return $wp_filesystem->exists( $file );
+			} else {
+				return file_exists( $file );
+			}
+		}
+
+		/**
+		 * Safely get file content.
+		 *
+		 * @global object $wp_filesystem
+		 * @param  string $file File path.
+		 * @return bool
+		 */
+		public function file_get_contents( $file ) {
+
+			if ( ! function_exists( 'WP_Filesystem' ) ) {
+				include_once( ABSPATH . '/wp-admin/includes/file.php' );
 			}
 
-			// Read the file.
-			$json = $wp_filesystem->get_contents( $file );
+			WP_Filesystem();
+			global $wp_filesystem;
 
-			if ( ! $json ) {
-				return new WP_Error( 'reading_error', 'Error when reading file' );
+			$result = '';
+
+			if ( $wp_filesystem->abspath() ) {
+				$result = $wp_filesystem->get_contents( $file );
+			} else {
+				$result = file_get_contents( $file );
 			}
 
-			$content = json_decode( $json, true );
-
-			return is_array( $content ) ? $content['items'] : false;
+			return $result;
 		}
 
 		/**
