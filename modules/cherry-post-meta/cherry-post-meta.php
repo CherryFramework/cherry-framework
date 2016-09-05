@@ -2,7 +2,7 @@
 /**
  * Module Name: Post Meta
  * Description: Manage post meta
- * Version: 1.1.4
+ * Version: 1.1.5
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.4
+ * @version    1.1.5
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -459,22 +459,35 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 			$posts = ! empty( $this->args['page'] ) ? $this->args['page'] : array( 'post' );
 			$posts = is_array( $posts ) ? $posts : array( $posts );
 
+			$maybe_break = false;
+
 			foreach ( $posts as $post_type ) {
 
 				if ( get_post_type( $post_id ) !== $post_type ) {
-					return;
+					$maybe_break = true;
+					continue;
 				}
 
-				$obj = get_post_type_object( $post_type );
+				$maybe_break = false;
+				$obj         = get_post_type_object( $post_type );
 
-				if ( ! isset( $obj->cap->edit_post ) || ! current_user_can( $obj->cap->edit_post ) ) {
-					return;
+				if ( ! isset( $obj->cap->edit_posts ) || ! current_user_can( $obj->cap->edit_posts ) ) {
+					$maybe_break = true;
 				}
+			}
+
+			if ( true === $maybe_break ) {
+				return;
 			}
 
 			if ( ! is_object( $post ) ) {
 				$post = get_post();
 			}
+
+			/**
+			 * Hook on current metabox saving
+			 */
+			do_action( 'cherry_save_meta_' . $this->args['id'] );
 
 			if ( is_array( $this->args['single'] ) && isset( $this->args['single']['key'] ) ) {
 				$this->save_meta_mod( $post_id );
