@@ -33,35 +33,35 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 	class Cherry_Post_Meta {
 
 		/**
-		 * Module slug
+		 * Module slug.
 		 *
 		 * @var string
 		 */
 		public $module_slug = 'cherry-post-meta';
 
 		/**
-		 * Module arguments
+		 * Module arguments.
 		 *
 		 * @var array
 		 */
 		public $args = array();
 
 		/**
-		 * interface builder instance
+		 * Interface builder instance.
 		 *
 		 * @var object
 		 */
 		public $builder = null;
 
 		/**
-		 * Core instance
+		 * Core instance.
 		 *
 		 * @var object
 		 */
 		public $core = null;
 
 		/**
-		 * Current nonce name to check
+		 * Current nonce name to check.
 		 *
 		 * @var null
 		 */
@@ -295,7 +295,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 		 * @since  1.2.0 Use interface builder for HTML rendering.
 		 *
 		 * @param  mixed $post Current post object.
-		 * @return string
+		 * @return void
 		 */
 		public function get_fields( $post ) {
 
@@ -356,7 +356,6 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 						break;
 
 				}
-
 			}
 
 			$this->builder->render();
