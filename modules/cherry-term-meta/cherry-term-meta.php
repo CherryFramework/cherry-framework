@@ -2,7 +2,7 @@
 /**
  * Module Name: Term Meta
  * Description: Manage term metadata
- * Version: 1.1.3
+ * Version: 1.1.4
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.3
+ * @version    1.1.4
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -222,6 +222,7 @@ if ( ! class_exists( 'Cherry_Term_Meta' ) ) {
 					'placeholder' => Cherry_Toolkit::get_arg( $field, 'placeholder' ),
 					'master'      => Cherry_Toolkit::get_arg( $field, 'master' ),
 					'title_field' => Cherry_Toolkit::get_arg( $field, 'title_field' ),
+					'ui_kit'      => Cherry_Toolkit::get_arg( $field, 'ui_kit', true ),
 				);
 
 				$current_element = $this->ui_builder->get_ui_element_instance( $args['type'], $args );

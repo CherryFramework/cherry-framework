@@ -2,7 +2,7 @@
 /**
  * Module Name: Post Meta
  * Description: Manage post meta
- * Version: 1.1.5
+ * Version: 1.1.6
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.5
+ * @version    1.1.6
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -375,6 +375,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 					'placeholder' => Cherry_Toolkit::get_arg( $field, 'placeholder' ),
 					'master'      => Cherry_Toolkit::get_arg( $field, 'master' ),
 					'title_field' => Cherry_Toolkit::get_arg( $field, 'title_field' ),
+					'ui_kit'      => Cherry_Toolkit::get_arg( $field, 'ui_kit', true ),
 				);
 
 				$current_element = $this->ui_builder->get_ui_element_instance( $args['type'], $args );

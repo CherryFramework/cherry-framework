@@ -17,6 +17,9 @@
 		border-radius: 3px 0 0 3px;
 		border-right: 1px solid #dddcdc;
 		margin: 7px;
+		.fa {
+			line-height: 36px;
+		}
 	}
 	.cherry-ui-text{
 		@include input();
@@ -303,6 +306,9 @@
 	font-size: 18px;
 	color: #444;
 	box-shadow: 0 0 0 1px #dddddd;
+	.fa {
+		line-height: 28px;
+	}
 }
 .iconpicker .iconpicker-item:hover:not(.iconpicker-selected) {
 	background-color: #eeeeee;
