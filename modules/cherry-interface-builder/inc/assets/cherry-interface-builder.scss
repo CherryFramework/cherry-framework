@@ -384,9 +384,6 @@ html{
 	.cherry-ui-container {
 		margin: 0;
 	}
-	&:nth-child( 2 ), &:nth-child( 3 ) {
-		border-top: $border;
-	}
 	@media (min-width: 783px) {
 		padding: $padding * 1.5;
 		display: flex;
