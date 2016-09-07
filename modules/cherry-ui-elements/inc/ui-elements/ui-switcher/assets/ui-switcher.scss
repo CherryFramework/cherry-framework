@@ -85,24 +85,23 @@ label.cherry-label{
 
 	&.size-small{
 		height: 25px;
-			label{
-				height: 25px;
-					span{
-						font-size: 10px;
-						line-height: 15px;
-						padding: 5px;
-					}
-			}
-			.state-marker{
-				width: 17px;
-				height: 17px;
-				margin-left: 4px;
-			}
-			&.selected{
-				.state-marker{
-					left: 0;
-					margin-left: 33px;
+		label{
+			height: 25px;
+				span{
+					font-size: 10px;
+					line-height: 15px;
+					padding: 5px;
 				}
+		}
+		.state-marker{
+			width: 17px;
+			height: 17px;
+			margin-left: 4px;
+		}
+		.cherry-input-switcher-true:checked{
+			~ .state-marker{
+				margin-left: -22px;
 			}
+		}
 	}
 }
