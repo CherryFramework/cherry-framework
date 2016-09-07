@@ -92,6 +92,7 @@ html{
 		display: none;
 	}
 }
+
 .cherry-control + .cherry-control, .cherry-settings + .cherry-control{
 	border-top: $border;
 }
@@ -112,37 +113,48 @@ html{
 		border: $border;
 		padding: $padding * 1.5;
 		margin: $margin * 1.5 $margin * 1.5 0 0;
-		&__title{
-			margin: $margin * 1.5 0 0 $margin * 1.5;
-		}
-		&__description{
-			margin-left: $margin * 1.5;
-		}
-		&__holde{
+		&__holder{
 			background-color: $color-2;
 			border-radius: $br-radius;
 			padding: $padding * 1.5;
 		}
 		&__inner{
-			padding: 0;
+
+		}
+		&__info{
 			background-color: $color-1;
 			border-radius: $br-radius;
-			box-shadow: 0px 5px 21px rgba(0, 0, 0, 0.1);
-			display: inline-block;
-			width: 100%;
+			padding: $padding * 1.5;
+			box-shadow: $shadow;
+			margin-bottom: $padding * 1.5;
+		}
+		&__content{
+			>.cherry-settings{
+				box-shadow: $shadow;
+				border-radius: $br-radius;
+				border: $border;
+				background-color: $color-1;
+				margin-top: $padding * 1.5;
+				&:first-child{
+					margin-top: 0;
+				}
+			}
 		}
 	}
 	@media ( min-width: 961px ) {
 		padding: $padding * 3;
 		margin: $margin * 2 $margin * 2 0 0;
-		&__title{
-			margin: $margin * 3 0 0 $margin * 3;
-		}
-		&__description{
-			margin-left: $margin * 3;
-		}
-		&__holde{
+		&__info{
 			padding: $padding * 3;
+			margin-bottom: $padding * 3;
+		}
+		&__holder{
+			padding: $padding * 3;
+		}
+		&__content{
+			>.cherry-settings{
+				margin-top: $padding * 3;
+			}
 		}
 	}
 }
@@ -169,7 +181,7 @@ html{
 	}
 	&__button{
 		display: block;
-		height: 45px;
+		min-height: 45px;
 		.cherry-ui-kit__title {
 			color: inherit;
 		}
@@ -283,6 +295,7 @@ html{
 			box-shadow:$shadow;
 			border-radius: $br-radius;
 			border: $border;
+			background-color: $color-1;
 		}
 		@media ( min-width: 783px ) {
 			.cherry-tab__tabs{
@@ -403,7 +416,7 @@ html{
 	}
 }
 
-.cherry-section.cherry-scroll > .cherry-section__holde > .cherry-section__inner,
+.cherry-section.cherry-scroll > .cherry-section__holder > .cherry-section__inner,
 .cherry-tab__content > .cherry-scroll,
 .cherry-accordion__content > .cherry-scroll > .cherry-settings__content,
 .cherry-toggle__content > .cherry-scroll > .cherry-settings__content,

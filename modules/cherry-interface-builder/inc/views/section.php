@@ -16,14 +16,16 @@ if ( ! defined( 'WPINC' ) ) {
 }
 ?>
 <div class="cherry-ui-kit cherry-section <?php echo $args['class']; ?>" onclick="void(0)">
-	<div class="cherry-section__holde">
+	<div class="cherry-section__holder">
 		<div class="cherry-section__inner">
-			<?php if ( ! empty( $args['title'] ) ) { ?>
-				<h1 class="cherry-ui-kit__title cherry-section__title" role="banner" ><?php echo $args['title']; ?></h1>
-			<?php } ?>
-			<?php if ( ! empty( $args['description'] ) ) { ?>
-				<div class="cherry-ui-kit__description cherry-section__description " role="note" ><?php echo $args['description']; ?></div>
-			<?php } ?>
+			<div class="cherry-section__info">
+				<?php if ( ! empty( $args['title'] ) ) { ?>
+					<h1 class="cherry-ui-kit__title cherry-section__title" role="banner" ><?php echo $args['title']; ?></h1>
+				<?php } ?>
+				<?php if ( ! empty( $args['description'] ) ) { ?>
+					<div class="cherry-ui-kit__description cherry-section__description " role="note" ><?php echo $args['description']; ?></div>
+				<?php } ?>
+			</div>
 			<?php if ( ! empty( $args['children'] ) ) { ?>
 				<div class="cherry-ui-kit__content cherry-section__content" role="group" >
 					<?php echo $args['children']; ?>
