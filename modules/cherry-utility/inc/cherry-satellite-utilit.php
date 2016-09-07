@@ -87,13 +87,15 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * @since  1.0.0
 		 * @return string
 		 */
-		public function cut_text( $text = '', $length = 0, $trimmed_type = 'word', $after ) {
+		public function cut_text( $text = '', $length = 0, $trimmed_type = 'word', $after, $content = false ) {
 			$length = (int) $length;
 
 			if ( $length ) {
-				$text = strip_shortcodes( $text );
-				$text = apply_filters( 'the_content', $text );
-				$text = str_replace( ']]>', ']]&gt;', $text );
+				if ( $content ) {
+					$text = strip_shortcodes( $text );
+					$text = apply_filters( 'the_content', $text );
+					$text = str_replace( ']]>', ']]&gt;', $text );
+				}
 
 				if ( 'word' === $trimmed_type ) {
 					$text = wp_trim_words( $text, $length, $after );

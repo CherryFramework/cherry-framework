@@ -104,7 +104,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 					$text = get_the_excerpt();
 				}
 
-				$text = $this->cut_text( $text, $args['length'], $args['trimmed_type'], $args['ending'] );
+				$text = $this->cut_text( $text, $args['length'], $args['trimmed_type'], $args['ending'], true );
 
 				if ( $text ) {
 					$html_class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
