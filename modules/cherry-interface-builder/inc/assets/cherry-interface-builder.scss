@@ -4,6 +4,7 @@ $color-3: #96989a; // Description color and tabs button text color.
 $color-4: #b4b7ba; //
 $color-5: #f1f1f1; // Scrollbar background
 $color-6: #e5e5e5; // Hover scrollbar background
+$color-7: #495159; // Scrollbar track background
 $link-color: #298ffc; // link color.
 $link-hover-color: #23282d; // link hover color.
 
@@ -200,6 +201,9 @@ html{
 		.cherry-component__button{
 			width: 100%;
 			padding: $padding * 1.5 $padding * 2;
+			border:0;
+			background: none;
+			cursor: pointer;
 			.cherry-toggle__title {
 				font-weight: 700;
 				font-size: 14px;
@@ -276,6 +280,9 @@ html{
 				flex: 0 1 100%;
 				align-self: auto;
 				padding: $padding * 1.5 $padding * 2;
+				border:0;
+				background: none;
+				cursor: pointer;
 				&.active{
 					-ms-box-shadow: inset 0px -3px 0px 0px $link-color;
 					box-shadow: inset 0px -3px 0px 0px $link-color;
@@ -441,7 +448,7 @@ html{
 				}
 			}
 			&-track {
-				background-color: $color-5;
+				background-color: $color-1;
 				border: none;
 				border-radius: $br-radius;
 			}

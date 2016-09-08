@@ -2,7 +2,7 @@
 /**
  * Module Name: Interface Builder
  * Description: The module for the creation of interfaces in the WordPress admin panel
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
