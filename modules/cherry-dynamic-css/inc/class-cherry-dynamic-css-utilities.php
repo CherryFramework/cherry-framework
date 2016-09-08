@@ -4,7 +4,7 @@
  *
  * @package   package_name
  * @author    Cherry Team
- * @license   GPL-2.0+
+ * @license   GPL-3.0+
  */
 
 // If this file is called directly, abort.
