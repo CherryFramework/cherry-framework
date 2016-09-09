@@ -535,12 +535,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 			$meta = get_post_meta( $post->ID, $key, false );
 
-			if ( empty( $meta ) ) {
-				return $default;
-			} else {
-				return $meta[0];
-			}
-
+			return ( empty( $meta ) ) ? $default : $meta[0];
 		}
 
 		/**

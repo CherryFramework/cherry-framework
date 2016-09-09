@@ -35,7 +35,7 @@ if ( ! class_exists( 'UI_Button' ) ) {
 			'disabled'   => false,
 			'form'       => '',
 			'formaction' => '',
-			'type'       => 'button', //button/reset/submit
+			'type'       => 'button',
 			'style'      => 'normal',
 			'content'    => 'Button',
 			'class'      => '',

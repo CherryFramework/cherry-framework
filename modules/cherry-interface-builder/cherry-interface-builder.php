@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.0.1
+ * @version    1.0.2
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -403,7 +403,6 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 				if ( $has_child ) {
 					$value['children'] = $this->build( $value['children'] );
 				}
-
 
 				$output .= ( $value['view_wrapping'] ) ? $this->get_view( $type, $value ) : $value['children'];
 			}
