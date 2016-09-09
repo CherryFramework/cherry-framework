@@ -12,9 +12,10 @@
 
 $style      = ! empty( $__data['style'] ) ? esc_attr( ' ui-button-' . $__data['style'] . '-style' ) : '';
 $class      = ! empty( $__data['class'] ) ? esc_attr( ' ' . $__data['class'] ) : '';
+$master     = ! empty( $__data['master'] ) ? esc_attr( ' ' . $__data['master'] ) : '';
 $disabled   = filter_var( $__data['disabled'], FILTER_VALIDATE_BOOLEAN ) ? ' disabled="true"' : '';
 $form       = ! empty( $__data['form'] ) ? esc_attr( ' form="' . $this->settings['class'] . '"'  ) : '';
 $formaction = ! empty( $__data['formaction'] ) ? esc_attr( ' formaction="' . $this->settings['formaction'] . '"'  ) : '';
 ?>
 
-<button type="<?php echo $__data['type']; ?>" id="<?php echo $__data['id']; ?>" name="<?php echo $__data['name']; ?>" class="ui-button<?php echo $style; ?>"<?php echo $disabled; echo $form; echo $formaction; ?>><?php echo $__data['content']; ?></button>
+<button type="<?php echo $__data['type']; ?>" id="<?php echo $__data['id']; ?>" name="<?php echo $__data['name']; ?>" class="ui-button<?php echo $style; echo $master; ?>"<?php echo $disabled; echo $form; echo $formaction; ?>><?php echo $__data['content']; ?></button>

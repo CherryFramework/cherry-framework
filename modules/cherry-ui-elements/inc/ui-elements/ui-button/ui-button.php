@@ -60,28 +60,6 @@ if ( ! class_exists( 'UI_Button' ) ) {
 		 * @since  4.0.0
 		 */
 		public function render() {
-			$html = '';
-			$class = $this->settings['class'];
-			$class .= ' ' . $this->settings['master'];
-
-			/*$html .= sprintf(
-				'<button type="%1$s" id="%2$s" name="%3$s" class="ui-button %4$s %5$s" %6$s%7$s%8$s>%9$s</button>',
-				esc_attr( $this->settings['type'] ),
-				esc_attr( $this->settings['id'] ),
-				esc_attr( $this->settings['name'] ),
-				! empty( $this->settings['style'] ) ? esc_attr( 'ui-button-' . $this->settings['style'] . '-style' ) : '',
-				esc_attr( $this->settings['class'] ),
-				filter_var( $this->settings['disabled'], FILTER_VALIDATE_BOOLEAN ) ? ' disabled="true"' : '',
-				! empty( $this->settings['form'] ) ? ' form="' . esc_attr( $this->settings['form'] ) . '"' : '',
-				! empty( $this->settings['formaction'] ) ? ' formaction="' . esc_attr( $this->settings['formaction'] ) . '"' : '',
-				esc_attr( $this->settings['value'] )
-			);
-
-
-			return $html;*/
-
-
-
 			$html = Cherry_Toolkit::render_view(
 				dirname( __FILE__ ) . '/view/button-view.php',
 				$this->settings
