@@ -55,14 +55,15 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 				'html'                      => 'inc/views/html.php',
 			),
 			'views_args' => array(
-				'parent'      => '',
-				'type'        => '',
-				'view'        => '',
-				'html'        => '',
-				'scroll'      => false,
-				'master'      => false,
-				'title'       => '',
-				'description' => '',
+				'parent'        => '',
+				'type'          => '',
+				'view'          => '',
+				'view_wrapping' => true,
+				'html'          => '',
+				'scroll'        => false,
+				'master'        => false,
+				'title'         => '',
+				'description'   => '',
 			),
 		);
 
@@ -403,7 +404,8 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 					$value['children'] = $this->build( $value['children'] );
 				}
 
-				$output .= $this->get_view( $type, $value );
+
+				$output .= ( $value['view_wrapping'] ) ? $this->get_view( $type, $value ) : $value['children'];
 			}
 
 			return $output;

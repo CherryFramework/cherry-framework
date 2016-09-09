@@ -64,19 +64,17 @@ if ( ! class_exists( 'UI_Button' ) ) {
 			$class = $this->settings['class'];
 			$class .= ' ' . $this->settings['master'];
 
-
 			$html .= sprintf(
-				'<button type="%1$s" id="%2$s" name="%3$s" value="%4$s" class="ui-button %5$s %6$s" %7$s%8$s%9$s>%10$s</button>',
+				'<button type="%1$s" id="%2$s" name="%3$s" class="ui-button %4$s %5$s" %6$s%7$s%8$s>%9$s</button>',
 				esc_attr( $this->settings['type'] ),
 				esc_attr( $this->settings['id'] ),
 				esc_attr( $this->settings['name'] ),
-				esc_attr( $this->settings['value'] ),
-				esc_attr( 'ui-button-' . $this->settings['style'] . '-style' ),
+				! empty( $this->settings['style'] ) ? esc_attr( 'ui-button-' . $this->settings['style'] . '-style' ) : '',
 				esc_attr( $this->settings['class'] ),
 				filter_var( $this->settings['disabled'], FILTER_VALIDATE_BOOLEAN ) ? ' disabled="true"' : '',
 				! empty( $this->settings['form'] ) ? ' form="' . esc_attr( $this->settings['form'] ) . '"' : '',
 				! empty( $this->settings['formaction'] ) ? ' formaction="' . esc_attr( $this->settings['formaction'] ) . '"' : '',
-				! empty( $this->settings['content'] ) ? $this->settings['content'] : ''
+				esc_attr( $this->settings['value'] )
 			);
 
 			return $html;
