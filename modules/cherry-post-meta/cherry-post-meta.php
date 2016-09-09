@@ -323,6 +323,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 				$element        = Cherry_Toolkit::get_arg( $field, 'element', 'control' );
 				$field['id']    = Cherry_Toolkit::get_arg( $field, 'id', $key );
 				$field['name']  = Cherry_Toolkit::get_arg( $field, 'name', $key );
+				$field['type']  = Cherry_Toolkit::get_arg( $field, 'type', '' );
 				$field['value'] = $value;
 
 				// Fix zero values for stepper and slider
@@ -330,31 +331,10 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 					$field['value'] = 0;
 				}
 
-				switch ( $element ) {
-					case 'section':
-						$this->builder->register_section( $field );
-						break;
+				$register_callback = 'register_' . $element;
 
-					case 'component':
-						$this->builder->register_component( $field );
-						break;
-
-					case 'settings':
-						$this->builder->register_settings( $field );
-						break;
-
-					case 'control':
-						$this->builder->register_control( $field );
-						break;
-
-					case 'form':
-						$this->builder->register_form( $field );
-						break;
-
-					case 'html':
-						$this->builder->register_html( $field );
-						break;
-
+				if ( method_exists( $this->builder, $register_callback ) ) {
+					call_user_func( array( $this->builder, $register_callback ), $field );
 				}
 			}
 
