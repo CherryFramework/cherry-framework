@@ -278,13 +278,9 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 				$path = $view;
 			}
 
-			ob_start();
+			$view = Cherry_Toolkit::render_view( $path, $args );
 
-			if ( file_exists( $path ) ) {
-				require $path;
-			}
-
-			return ltrim( ob_get_clean() );
+			return $view;
 		}
 
 		/**

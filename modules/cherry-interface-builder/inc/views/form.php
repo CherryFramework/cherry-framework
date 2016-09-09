@@ -15,10 +15,10 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 ?>
-<form class="cherry-form <?php echo $args['class']; ?>" id="<?php echo $args['id']; ?>" name="<?php echo $args['id']; ?>" <?php echo $args['accept-charset'] . $args['action'] . $args['autocomplete'] . $args['enctype'] . $args['method'] . $args['novalidate'] . $args['target']; ?>>
+<form class="cherry-form <?php echo $__data['class']; ?>" id="<?php echo $__data['id']; ?>" name="<?php echo $__data['id']; ?>" <?php echo $__data['accept-charset'] . $__data['action'] . $__data['autocomplete'] . $__data['enctype'] . $__data['method'] . $__data['novalidate'] . $__data['target']; ?>>
 	<?php
-		if ( ! empty( $args['children'] ) ) {
-			echo $args['children'];
+		if ( ! empty( $__data['children'] ) ) {
+			echo $__data['children'];
 		}
 	?>
 </form>

@@ -2,13 +2,18 @@
 /**
  * Ui-Button view
  *
- * @package    Cherry_Framework
+ * @package    Cherry_UI_Elements
  * @subpackage View
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
+
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 
 $style      = ! empty( $__data['style'] ) ? esc_attr( ' ui-button-' . $__data['style'] . '-style' ) : '';
 $class      = ! empty( $__data['class'] ) ? esc_attr( ' ' . $__data['class'] ) : '';

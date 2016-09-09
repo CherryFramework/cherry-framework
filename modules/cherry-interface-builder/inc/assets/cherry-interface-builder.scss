@@ -129,16 +129,14 @@ html{
 			box-shadow: $shadow;
 			margin-bottom: $padding * 1.5;
 		}
-		&__content{
-			>.cherry-settings{
-				box-shadow: $shadow;
-				border-radius: $br-radius;
-				border: $border;
-				background-color: $color-1;
-				margin-top: $padding * 1.5;
-				&:first-child{
-					margin-top: 0;
-				}
+		.cherry-settings{
+			box-shadow: $shadow;
+			border-radius: $br-radius;
+			border: $border;
+			background-color: $color-1;
+			margin-top: $padding * 1.5;
+			&:first-child{
+				margin-top: 0;
 			}
 		}
 	}
@@ -152,10 +150,8 @@ html{
 		&__holder{
 			padding: $padding * 3;
 		}
-		&__content{
-			>.cherry-settings{
-				margin-top: $padding * 3;
-			}
+		.cherry-settings{
+			margin-top: $padding * 3;
 		}
 	}
 }
@@ -303,6 +299,13 @@ html{
 			border-radius: $br-radius;
 			border: $border;
 			background-color: $color-1;
+			.cherry-settings{
+				box-shadow: none;
+				border-radius: 0;
+				border: none;
+				background-color: inherit;
+				margin: 0;
+			}
 		}
 		@media ( min-width: 783px ) {
 			.cherry-tab__tabs{

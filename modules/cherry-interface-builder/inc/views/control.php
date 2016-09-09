@@ -15,20 +15,20 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 ?>
-<div class="cherry-ui-kit cherry-control <?php echo $args['class']; ?>">
-	<?php if ( ! empty( $args['title'] ) || ! empty( $args['description'] ) ) { ?>
+<div class="cherry-ui-kit cherry-control <?php echo $__data['class']; ?>">
+	<?php if ( ! empty( $__data['title'] ) || ! empty( $__data['description'] ) ) { ?>
 		<div class="cherry-control__info">
-			<?php if ( ! empty( $args['title'] ) ) { ?>
-				<h4 class="cherry-ui-kit__title cherry-control__title" role="banner" ><?php echo $args['title']; ?></h4>
+			<?php if ( ! empty( $__data['title'] ) ) { ?>
+				<h4 class="cherry-ui-kit__title cherry-control__title" role="banner" ><?php echo $__data['title']; ?></h4>
 			<?php } ?>
-			<?php if ( ! empty( $args['description'] ) ) { ?>
-				<div class="cherry-ui-kit__description cherry-control__description" role="note" ><?php echo $args['description']; ?></div>
+			<?php if ( ! empty( $__data['description'] ) ) { ?>
+				<div class="cherry-ui-kit__description cherry-control__description" role="note" ><?php echo $__data['description']; ?></div>
 			<?php } ?>
 		</div>
 	<?php } ?>
-	<?php if ( ! empty( $args['children'] ) ) { ?>
+	<?php if ( ! empty( $__data['children'] ) ) { ?>
 		<div class="cherry-ui-kit__content cherry-control__content" role="group" >
-			<?php echo $args['children']; ?>
+			<?php echo $__data['children']; ?>
 		</div>
 	<?php } ?>
 </div>
