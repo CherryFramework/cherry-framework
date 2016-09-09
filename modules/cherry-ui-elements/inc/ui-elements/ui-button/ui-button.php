@@ -64,7 +64,7 @@ if ( ! class_exists( 'UI_Button' ) ) {
 			$class = $this->settings['class'];
 			$class .= ' ' . $this->settings['master'];
 
-			$html .= sprintf(
+			/*$html .= sprintf(
 				'<button type="%1$s" id="%2$s" name="%3$s" class="ui-button %4$s %5$s" %6$s%7$s%8$s>%9$s</button>',
 				esc_attr( $this->settings['type'] ),
 				esc_attr( $this->settings['id'] ),
@@ -75,6 +75,16 @@ if ( ! class_exists( 'UI_Button' ) ) {
 				! empty( $this->settings['form'] ) ? ' form="' . esc_attr( $this->settings['form'] ) . '"' : '',
 				! empty( $this->settings['formaction'] ) ? ' formaction="' . esc_attr( $this->settings['formaction'] ) . '"' : '',
 				esc_attr( $this->settings['value'] )
+			);
+
+
+			return $html;*/
+
+
+
+			$html = Cherry_Toolkit::render_view(
+				dirname( __FILE__ ) . '/view/button-view.php',
+				$this->settings
 			);
 
 			return $html;

@@ -30,7 +30,6 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 	 * @since 1.0.0
 	 */
 	class Cherry_Interface_Builder {
-
 		/**
 		 * Module settings.
 		 *
