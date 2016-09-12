@@ -1,6 +1,6 @@
 {
 	"name" : "Cherry Framework",
-	"version" : "1.1.0",
+	"version" : "1.1.1",
 	"description" : "",
 	"doc_link" : "",
 	"git_link" : "https://github.com/CherryFramework/cherry-framework",
@@ -8,18 +8,9 @@
 		"cherry-breadcrumbs" : {
 			"name" : "Breadcrumb Trail",
 			"description" : "A breadcrumb menu script for WordPress.",
+			"version" : "1.1.1",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-breadcrumbs",
-			"compatible" : ["theme", "plugin"],
-			"wordpress_org" : true,
-			"required" : false,
-			"dependencies" : []
-		},
-		"cherry-creator" : {
-			"name" : "Creator.",
-			"description" : "Creator.",
-			"doc_link" : "",
-			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-creator",
 			"compatible" : ["theme", "plugin"],
 			"wordpress_org" : true,
 			"required" : false,
@@ -28,6 +19,7 @@
 		"cherry-customizer" : {
 			"name" : "Customizer",
 			"description" : "Customizer functionality.",
+			"version" : "1.1.4",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-customizer",
 			"compatible" : ["theme", "plugin"],
@@ -38,6 +30,7 @@
 		"cherry-dynamic-css" : {
 			"name" : "Dynamic Css",
 			"description" : "Generate Css.",
+			"version" : "1.1.1",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-dynamic-css",
 			"compatible" : ["theme", "plugin"],
@@ -48,6 +41,7 @@
 		"cherry-google-fonts-loader" : {
 			"name" : "Google Fonts Loader",
 			"description" : "Enqueue Google font.",
+			"version" : "1.1.0",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-google-fonts-loader",
 			"compatible" : ["theme", "plugin"],
@@ -55,9 +49,21 @@
 			"required" : false,
 			"dependencies" : []
 		},
+		"cherry-interface-builder" : {
+			"name" : "Interface Builder",
+			"description" : "The module for the creation of interfaces in the WordPress admin panel.",
+			"version" : "1.0.1",
+			"doc_link" : "",
+			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-interface-builder",
+			"compatible" : ["theme", "plugin"],
+			"wordpress_org" : true,
+			"required" : false,
+			"dependencies" : [ "cherry-ui-elements" ]
+		},
 		"cherry-js-core" : {
 			"name" : "JS Core",
 			"description" : "Initializes global JS object which provides additional plugin functionality.",
+			"version" : "1.1.2",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-js-core",
 			"compatible" : ["theme", "plugin"],
@@ -68,6 +74,7 @@
 		"cherry-page-builder" : {
 			"name" : "Page Builder",
 			"description" : "Provides functionality for building custom options pages.",
+			"version" : "1.1.1",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-page-builder",
 			"compatible" : ["plugin"],
@@ -78,6 +85,7 @@
 		"cherry-plugin-updater" : {
 			"name" : "Plugin Updater",
 			"description" : "Provides functionality for updating plugins.",
+			"version" : "1.1.0",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-plugin-updater",
 			"compatible" : ["plugin"],
@@ -88,6 +96,7 @@
 		"cherry-post-formats-api" : {
 			"name" : "Post Formats API",
 			"description" : "API for post formats specific content.",
+			"version" : "1.1.2",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-post-formats-api",
 			"compatible" : ["theme", "plugin"],
@@ -98,36 +107,18 @@
 		"cherry-post-meta" : {
 			"name" : "Post Meta",
 			"description" : "Manage post meta.",
+			"version" : "1.2.0",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-post-meta",
 			"compatible" : ["theme", "plugin"],
 			"wordpress_org" : true,
 			"required" : false,
-			"dependencies" : [ "cherry-ui-elements" ]
-		},
-		"cherry-post-types" : {
-			"name" : "Post Types",
-			"description" : "Provides functionality for creating custom post types.",
-			"doc_link" : "",
-			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-post-types",
-			"compatible" : ["plugin"],
-			"wordpress_org" : true,
-			"required" : false,
-			"dependencies" : [ "cherry-ui-elements" ]
-		},
-		"cherry-taxonomies" : {
-			"name" : "Taxanomies",
-			"description" : "Provides functionality for creating custom taxanomies.",
-			"doc_link" : "",
-			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-taxonomies",
-			"compatible" : ["plugin"],
-			"wordpress_org" : true,
-			"required" : false,
-			"dependencies" : []
+			"dependencies" : [ "cherry-interface-builder" ]
 		},
 		"cherry-term-meta" : {
 			"name" : "Term Meta",
 			"description" : "Manage term metadata.",
+			"version" : "1.1.4",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-term-meta",
 			"compatible" : ["theme", "plugin"],
@@ -138,6 +129,7 @@
 		"cherry-theme-updater" : {
 			"name" : "Theme Updater",
 			"description" : "Provides functionality for updating themes.",
+			"version" : "1.1.0",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-theme-updater",
 			"compatible" : ["theme"],
@@ -148,6 +140,7 @@
 		"cherry-ui-elements" : {
 			"name" : "UI Elements",
 			"description" : "UI Elements",
+			"version" : "1.2.1",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-ui-elements",
 			"compatible" : ["theme", "plugin"],
@@ -158,6 +151,7 @@
 		"cherry-utility" : {
 			"name" : "Utility",
 			"description" : "Multiple utility functions.",
+			"version" : "1.1.2",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-utility",
 			"compatible" : ["theme", "plugin"],
@@ -168,6 +162,7 @@
 		"cherry-widget-factory" : {
 			"name" : "Widget Factory.",
 			"description" : "Base widget class that simplifies creating of your own widgets.",
+			"version" : "1.1.4",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-widget-factory",
 			"compatible" : ["theme", "plugin"],
@@ -178,6 +173,7 @@
 		"cherry-toolkit": {
 			"name": "Framework Toolkit",
 			"description": "Framework Toolkit contains various PHP utilities",
+			"version" : "1.1.0",
 			"doc_link": "",
 			"git_link": "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-toolkit",
 			"compatible": ["theme", "plugin"],

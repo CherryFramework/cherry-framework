@@ -4,6 +4,7 @@ $color-3: #96989a; // Description color and tabs button text color.
 $color-4: #b4b7ba; //
 $color-5: #f1f1f1; // Scrollbar background
 $color-6: #e5e5e5; // Hover scrollbar background
+$color-7: #495159; // Scrollbar track background
 $link-color: #298ffc; // link color.
 $link-hover-color: #23282d; // link hover color.
 
@@ -92,6 +93,7 @@ html{
 		display: none;
 	}
 }
+
 .cherry-control + .cherry-control, .cherry-settings + .cherry-control{
 	border-top: $border;
 }
@@ -112,37 +114,44 @@ html{
 		border: $border;
 		padding: $padding * 1.5;
 		margin: $margin * 1.5 $margin * 1.5 0 0;
-		&__title{
-			margin: $margin * 1.5 0 0 $margin * 1.5;
-		}
-		&__description{
-			margin-left: $margin * 1.5;
-		}
-		&__holde{
+		&__holder{
 			background-color: $color-2;
 			border-radius: $br-radius;
 			padding: $padding * 1.5;
 		}
 		&__inner{
-			padding: 0;
+
+		}
+		&__info{
 			background-color: $color-1;
 			border-radius: $br-radius;
-			box-shadow: 0px 5px 21px rgba(0, 0, 0, 0.1);
-			display: inline-block;
-			width: 100%;
+			padding: $padding * 1.5;
+			box-shadow: $shadow;
+			margin-bottom: $padding * 1.5;
+		}
+		.cherry-settings{
+			box-shadow: $shadow;
+			border-radius: $br-radius;
+			border: $border;
+			background-color: $color-1;
+			margin-top: $padding * 1.5;
+			&:first-child{
+				margin-top: 0;
+			}
 		}
 	}
 	@media ( min-width: 961px ) {
 		padding: $padding * 3;
 		margin: $margin * 2 $margin * 2 0 0;
-		&__title{
-			margin: $margin * 3 0 0 $margin * 3;
-		}
-		&__description{
-			margin-left: $margin * 3;
-		}
-		&__holde{
+		&__info{
 			padding: $padding * 3;
+			margin-bottom: $padding * 3;
+		}
+		&__holder{
+			padding: $padding * 3;
+		}
+		.cherry-settings{
+			margin-top: $padding * 3;
 		}
 	}
 }
@@ -169,7 +178,7 @@ html{
 	}
 	&__button{
 		display: block;
-		height: 45px;
+		min-height: 45px;
 		.cherry-ui-kit__title {
 			color: inherit;
 		}
@@ -188,6 +197,9 @@ html{
 		.cherry-component__button{
 			width: 100%;
 			padding: $padding * 1.5 $padding * 2;
+			border:0;
+			background: none;
+			cursor: pointer;
 			.cherry-toggle__title {
 				font-weight: 700;
 				font-size: 14px;
@@ -264,6 +276,9 @@ html{
 				flex: 0 1 100%;
 				align-self: auto;
 				padding: $padding * 1.5 $padding * 2;
+				border: 0;
+				background: none;
+				cursor: pointer;
 				&.active{
 					-ms-box-shadow: inset 0px -3px 0px 0px $link-color;
 					box-shadow: inset 0px -3px 0px 0px $link-color;
@@ -283,6 +298,14 @@ html{
 			box-shadow:$shadow;
 			border-radius: $br-radius;
 			border: $border;
+			background-color: $color-1;
+			.cherry-settings{
+				box-shadow: none;
+				border-radius: 0;
+				border: none;
+				background-color: inherit;
+				margin: 0;
+			}
 		}
 		@media ( min-width: 783px ) {
 			.cherry-tab__tabs{
@@ -384,9 +407,6 @@ html{
 	.cherry-ui-container {
 		margin: 0;
 	}
-	&:nth-child( 2 ), &:nth-child( 3 ) {
-		border-top: $border;
-	}
 	@media (min-width: 783px) {
 		padding: $padding * 1.5;
 		display: flex;
@@ -406,7 +426,7 @@ html{
 	}
 }
 
-.cherry-section.cherry-scroll > .cherry-section__holde > .cherry-section__inner,
+.cherry-section.cherry-scroll > .cherry-section__holder > .cherry-section__inner,
 .cherry-tab__content > .cherry-scroll,
 .cherry-accordion__content > .cherry-scroll > .cherry-settings__content,
 .cherry-toggle__content > .cherry-scroll > .cherry-settings__content,
@@ -431,7 +451,7 @@ html{
 				}
 			}
 			&-track {
-				background-color: $color-5;
+				background-color: $color-1;
 				border: none;
 				border-radius: $br-radius;
 			}

@@ -2,7 +2,7 @@
 /**
  * Module Name: Interface Builder
  * Description: The module for the creation of interfaces in the WordPress admin panel
- * Version: 1.0.0
+ * Version: 1.0.2
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.0.0
+ * @version    1.0.2
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -30,7 +30,6 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 	 * @since 1.0.0
 	 */
 	class Cherry_Interface_Builder {
-
 		/**
 		 * Module settings.
 		 *
@@ -55,14 +54,15 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 				'html'                      => 'inc/views/html.php',
 			),
 			'views_args' => array(
-				'parent'      => '',
-				'type'        => '',
-				'view'        => '',
-				'html'        => '',
-				'scroll'      => false,
-				'master'      => false,
-				'title'       => '',
-				'description' => '',
+				'parent'        => '',
+				'type'          => '',
+				'view'          => '',
+				'view_wrapping' => true,
+				'html'          => '',
+				'scroll'        => false,
+				'master'        => false,
+				'title'         => '',
+				'description'   => '',
 			),
 		);
 
@@ -194,6 +194,11 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 		 */
 		protected function add_new_element( array $args = array(), $type = 'section' ) {
 			if ( ! isset( $args[0] ) && ! is_array( current( $args ) ) ) {
+
+					if ( 'control' !== $type && 'component' !== $type ) {
+						$args['type'] = $type;
+					}
+
 					$this->structure[ $args['id'] ] = $args;
 			} else {
 				foreach ( $args as $key => $value ) {
@@ -245,6 +250,17 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 		}
 
 		/**
+		 * Reset structure array.
+		 * Call this method only after render.
+		 *
+		 * @since  1.0.1
+		 * @return void
+		 */
+		public function reset_structure() {
+			$this->structure = array();
+		}
+
+		/**
 		 * Get view for interface elements.
 		 *
 		 * @since  1.0.0
@@ -262,13 +278,9 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 				$path = $view;
 			}
 
-			ob_start();
+			$view = Cherry_Toolkit::render_view( $path, $args );
 
-			if ( file_exists( $path ) ) {
-				require $path;
-			}
-
-			return ltrim( ob_get_clean() );
+			return $view;
 		}
 
 		/**
@@ -294,6 +306,8 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 
 			$output = $this->build( $sorted_structure );
 			$output = str_replace( array( "\r\n", "\r", "\n", "\t" ), '', $output );
+
+			$this->reset_structure();
 
 			return $this->output_method( $output, $echo );
 		}
@@ -385,7 +399,7 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 					$value['children'] = $this->build( $value['children'] );
 				}
 
-				$output .= $this->get_view( $type, $value );
+				$output .= ( $value['view_wrapping'] ) ? $this->get_view( $type, $value ) : $value['children'];
 			}
 
 			return $output;

@@ -52,6 +52,7 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 				'slider',
 				'repeater',
 				'iconpicker',
+				'button',
 			),
 		);
 
