@@ -104,7 +104,7 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 					'root'      => $this->module_slug,
 					'depends'   => 'cherry-interface-builder',
 					'core'      => $this->core,
-					'root_path' => dirname( __FILE__ )
+					'root_path' => dirname( __FILE__ ),
 				)
 			);
 
