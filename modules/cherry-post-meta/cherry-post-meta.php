@@ -474,7 +474,10 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 				if ( ! isset( $obj->cap->edit_posts ) || ! current_user_can( $obj->cap->edit_posts ) ) {
 					$maybe_break = true;
+					continue;
 				}
+
+				break;
 			}
 
 			if ( true === $maybe_break ) {
