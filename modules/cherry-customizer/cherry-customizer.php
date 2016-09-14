@@ -951,7 +951,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			}
 
 			// Read the file.
-			$json = $this->file_get_contents( $file );
+			$json = $this->get_file( $file );
 
 			if ( ! $json ) {
 				return new WP_Error( 'reading_error', 'Error when reading file' );
@@ -992,7 +992,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * @param  string $file File path.
 		 * @return bool
 		 */
-		public function file_get_contents( $file ) {
+		public function get_file( $file ) {
 
 			if ( ! function_exists( 'WP_Filesystem' ) ) {
 				include_once( ABSPATH . '/wp-admin/includes/file.php' );
@@ -1006,7 +1006,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			if ( $wp_filesystem->abspath() ) {
 				$result = $wp_filesystem->get_contents( $file );
 			} else {
-				$result = file_get_contents( $file );
+				$result = Cherry_Toolkit::get_file( $file );
 			}
 
 			return $result;
