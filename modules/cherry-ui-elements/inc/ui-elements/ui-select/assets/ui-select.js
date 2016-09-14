@@ -7,10 +7,12 @@
 	CherryJsCore.utilites.namespace('ui_elements.select');
 	CherryJsCore.ui_elements.select = {
 		selectClass: '.cherry-ui-select[data-filter="true"]:not([name*="__i__"]), .cherry-ui-select[multiple]:not([name*="__i__"])',
+		wrapperClass: '.widget, .postbox, .cherry-form',
 
 		init: function () {
-			$( document ).on( 'ready.cherry-ui-elements-init', this.render.bind( this ) );
-			$( window ).on( 'cherry-ui-elements-init', this.render.bind( this ) );
+			$( document )
+				.on( 'ready.cherry-ui-elements-init', this.render.bind( this ) )
+				.on( 'cherry-ui-elements-init', this.render.bind( this ) );
 		},
 		render: function ( event ) {
 			var target = ( event._target ) ? event._target : $( 'body' );
@@ -36,16 +38,18 @@
 			var items = $( item ),
 				i    = items[0].length,
 				option,
-				data;
+				data,
+				wrapper;
 
 			for (; i >= 0; i--) {
-				option = $( items[0][ i ] );
-				data   = option.data();
+				option  = $( items[0][ i ] );
+				data    = option.data();
+				wrapper = $( items[0] ).closest( this.wrapperClass );
 
 				if ( jQuery.isEmptyObject( data ) ) {
 					continue;
 				} else {
-					$( '.' + data.slave )[ ( option[ 0 ].selected ) ? 'removeClass' : 'addClass' ]( 'hide' );
+					$( '.' + data.slave, wrapper )[ ( option[ 0 ].selected ) ? 'removeClass' : 'addClass' ]( 'hide' );
 				}
 			}
 

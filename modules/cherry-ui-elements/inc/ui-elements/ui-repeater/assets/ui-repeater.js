@@ -37,7 +37,7 @@
 			// Custom events
 				.on( 'sortable-init', { 'self': this }, this.sortableItem );
 
-			$( window )
+			$( document )
 				.on( 'cherry-ui-elements-init', { 'self': this }, this.sortableItem );
 
 			this.triggers();
@@ -47,7 +47,7 @@
 			$( 'body' ).trigger( 'sortable-init' );
 
 			if ( $target ) {
-				$( window ).trigger( 'cherry-ui-elements-init', { 'target': $target } );
+				$( document ).trigger( 'cherry-ui-elements-init', { 'target': $target } );
 			}
 
 			return this;

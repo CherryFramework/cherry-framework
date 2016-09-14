@@ -62,6 +62,7 @@ if ( ! class_exists( 'UI_Switcher' ) ) {
 		public function render() {
 			$data_slave_true  = ( ! empty( $this->settings['toggle']['true_slave'] ) ) ? 'data-slave="' . $this->settings['toggle']['true_slave'] . '" ' : '';
 			$data_slave_false = ( ! empty( $this->settings['toggle']['false_slave'] ) ) ? 'data-slave="' . $this->settings['toggle']['false_slave'] . '" ' : '';
+			$master_true = $data_slave_true || $data_slave_false ? 'data-master="true"' : '' ;
 
 			$html = '';
 			$class = $this->settings['class'];
@@ -74,7 +75,7 @@ if ( ! class_exists( 'UI_Switcher' ) ) {
 
 				$value = filter_var( $this->settings['value'], FILTER_VALIDATE_BOOLEAN );
 
-				$html .= '<div class="cherry-switcher-wrap size-' . esc_attr( $this->settings['style'] ) . '">';
+				$html .= '<div class="cherry-switcher-wrap size-' . esc_attr( $this->settings['style'] ) . '" ' . $master_true . '>';
 					$html .= '<input type="radio" id="' . esc_attr( $this->settings['id'] ) . '-true" class="cherry-input-switcher cherry-input-switcher-true" name="' . esc_attr( $this->settings['name'] ) . '" ' . checked( true, $value, false ) . ' value="true" ' . $data_slave_true . '>';
 					$html .= '<input type="radio" id="' . esc_attr( $this->settings['id'] ) . '-false" class="cherry-input-switcher cherry-input-switcher-false" name="' . esc_attr( $this->settings['name'] ) . '" ' . checked( false, $value, false ) . ' value="false" ' . $data_slave_false . '>';
 					$html .= '<label class="sw-enable"><span>' . esc_html( $this->settings['toggle']['true_toggle'] ) . '</span></label>';
