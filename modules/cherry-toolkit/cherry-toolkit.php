@@ -61,6 +61,43 @@ if ( ! class_exists( 'Cherry_Toolkit' ) ) {
 		}
 
 		/**
+		 * Load depends modules
+		 *
+		 * @since  1.2.0
+		 * @param  array $args  Arguments array.
+		 * @return bool
+		 */
+		public static function dependencies_injection( $args = array() ) {
+
+			$root_module   = ! empty( $args['root'] ) ? $args['root'] : false;
+			$depend_module = ! empty( $args['depends'] ) ? $args['depends'] : false;
+			$core          = ! empty( $args['core'] ) ? $args['core'] : false;
+			$root_path     = ! empty( $args['root_path'] ) ? $args['root_path'] : false;
+
+			$depend_class = str_replace( '-', ' ', $depend_module );
+			$depend_class = str_replace( ' ', '_', ucwords( $depend_class ) );
+
+			if ( class_exists( $depend_class ) ) {
+				return false;
+			}
+
+			$prepared_path = str_replace( $root_module, $depend_module, $root_path );
+
+			if ( ! file_exists( $prepared_path ) ) {
+				return false;
+			}
+
+			if ( ! method_exists( $core, 'load_module' ) ) {
+				return false;
+			}
+
+			$core->load_module(
+				$depend_module, $prepared_path . '/' . $depend_module . '.php'
+			);
+
+		}
+
+		/**
 		 * Safely get attribute from field settings array.
 		 *
 		 * @since  1.0.0

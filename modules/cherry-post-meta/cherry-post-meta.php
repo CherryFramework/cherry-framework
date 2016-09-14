@@ -100,6 +100,14 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 				return;
 			}
 
+			Cherry_Toolkit::dependencies_injection( array(
+					'root'      => $this->module_slug,
+					'depends'   => 'cherry-interface-builder',
+					'core'      => $this->core,
+					'root_path' => dirname( __FILE__ )
+				)
+			);
+
 			$this->builder = $this->core->init_module( 'cherry-interface-builder', array() );
 
 			$this->init_columns_actions();
