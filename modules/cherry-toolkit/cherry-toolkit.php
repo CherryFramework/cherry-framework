@@ -2,7 +2,7 @@
 /**
  * Module Name: Framework Toolkit
  * Description: Framework Toolkit contains various PHP utilities
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,6 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Class
+ * @version    1.2.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -27,13 +28,6 @@ if ( ! class_exists( 'Cherry_Toolkit' ) ) {
 	 * Various PHP utilities
 	 */
 	 class Cherry_Toolkit {
-
-		/**
-		 * Module version
-		 *
-		 * @var string Module version
-		 */
-		public $module_version = '1.1.0';
 
 		/**
 		 * Module slug
@@ -183,6 +177,23 @@ if ( ! class_exists( 'Cherry_Toolkit' ) ) {
 				}
 			}
 			return $array;
+		}
+
+		/**
+		 * Safely get file content by path
+		 *
+		 * @param  string $filepath Path to file.
+		 * @return mixed
+		 */
+		public static function get_file( $filepath ) {
+
+			if ( ! file_exists( $filepath ) ) {
+				return false;
+			}
+
+			ob_start();
+			include $filepath;
+			return ob_get_clean();
 		}
 
 		/**

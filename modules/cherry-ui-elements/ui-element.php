@@ -7,7 +7,7 @@
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-3.0.html
  */
 
 /**
@@ -87,7 +87,7 @@ if ( ! class_exists( 'UI_Element' ) ) {
 			if ( '' !== $name ) {
 				$this->settings['name'] = $name;
 			} else {
-				throw new Exception( "Invalid control name '".$name."'. Name can't be empty." );
+				throw new Exception( "Invalid control name '" . $name . "'. Name can't be empty." );
 			}
 		}
 	}

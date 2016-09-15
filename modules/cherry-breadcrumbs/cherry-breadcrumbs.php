@@ -2,7 +2,7 @@
 /**
  * Module Name: Breadcrumb Trail
  * Description: A breadcrumb menu script for WordPress
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -35,17 +35,9 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 	 * Breadcrumbs builder class.
 	 * Class is based on Breadcrumb Trail plugin by Justin Tadlock.
 	 *
-	 * @since 4.0.0
+	 * @since 1.0.0
 	 */
 	class Cherry_Breadcrumbs {
-
-		/**
-		 * Module version.
-		 *
-		 * @since 1.0.0
-		 * @var   string
-		 */
-		public $module_version = '1.1.0';
 
 		/**
 		 * A reference to an instance of this class.
@@ -657,7 +649,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 				return;
 			}
 
-			$url   = network_home_url();
+			$url   = esc_url( network_home_url() );
 			$label = $this->args['labels']['home'];
 
 			$this->_add_item( 'home_format', $label, $url );
@@ -676,7 +668,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 						? 'link_format'
 						: 'home_format';
 
-			$url   = home_url( '/' );
+			$url   = esc_url( home_url( '/' ) );
 			$label = ( is_multisite() && ! is_main_site() && true === $this->args['network'] )
 						? get_bloginfo( 'name' )
 						: $this->args['labels']['home'];
@@ -1125,7 +1117,10 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 				$this->_add_item(
 					'link_format',
 					$week,
-					add_query_arg( array( 'm' => get_the_time( 'Y' ), 'w' => get_the_time( 'W' ) ), home_url( '/' ) )
+					add_query_arg(
+						array( 'm' => get_the_time( 'Y' ), 'w' => get_the_time( 'W' ) ),
+						esc_url( home_url( '/' ) )
+					)
 				);
 
 			}

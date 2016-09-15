@@ -4,7 +4,7 @@
  *
  * @package  TM Real Estate
  * @author   Guriev Eugen & Sergyj Osadchij
- * @license  GPL-2.0+
+ * @license  GPL-3.0+
  */
 ?>
 <div class="description"><?php echo $__data['description'] ?></div>

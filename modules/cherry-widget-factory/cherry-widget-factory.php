@@ -2,7 +2,7 @@
 /**
  * Module Name: Widget Factory
  * Description: Base widget class that simplifies creating of your own widgets.
- * Version: 1.1.1
+ * Version: 1.1.4
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.1
+ * @version    1.1.4
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -92,10 +92,11 @@ if ( ! class_exists( 'Cherry_Widget_Factory' ) ) {
 		 * Include abstract widget class
 		 *
 		 * @since  1.0.0
+		 * @since  1.1.2 Using dirname( __FILE__ ) instead of __DIR__.
 		 * @return void
 		 */
 		public function include_abstract_widget() {
-			require_once( __DIR__ . '/inc/class-cherry-abstract-widget.php' );
+			require_once( dirname( __FILE__ ) . '/inc/class-cherry-abstract-widget.php' );
 		}
 
 		/**

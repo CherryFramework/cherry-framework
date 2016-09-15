@@ -8,6 +8,9 @@ label.cherry-label{
 	margin: 0 0 5px 0;
 	display: block;
 }
+.hide{
+	display: none !important;
+}
 .cherry-switcher-wrap{
 	height: 49px;
 	border-radius: 25px;
@@ -21,7 +24,7 @@ label.cherry-label{
 		background-color: $red_color;
 		display: block;
 		float: left;
-		transition: all 0.2s ease-in-out;
+		transition: all 0.4s ease;
 		span{
 			font-size: 12px;
 			line-height: 19px;
@@ -32,7 +35,7 @@ label.cherry-label{
 			text-align: center;
 			display: block;
 			opacity: 1;
-			transition: all 0.2s ease-in-out;
+			transition: all 0.4s ease;
 		}
 	}
 	.sw-enable{
@@ -56,46 +59,49 @@ label.cherry-label{
 		left: 0;
 		margin-left: 4px;
 		border-radius: 25px;
-		transition: all 0.2s ease-in-out;
+		transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
 	}
-	&.selected{
-		.sw-enable{
+	.cherry-input-switcher{
+		display: none;
+	}
+	.cherry-input-switcher-true:checked{
+		~ .sw-enable{
 			background-color: $green_color;
 				span{
 					opacity: 1;
 				}
 		}
-		.sw-disable{
+		~ .sw-disable{
 			background-color: $green_color;
 				span{
 					opacity: 0;
 				}
 		}
-		.state-marker{
+		~ .state-marker{
 			left: 100%;
 			margin-left: -45px;
 		}
 	}
+
 	&.size-small{
 		height: 25px;
-			label{
-				height: 25px;
-					span{
-						font-size: 10px;
-						line-height: 15px;
-						padding: 5px;
-					}
-			}
-			.state-marker{
-				width: 17px;
-				height: 17px;
-				margin-left: 4px;
-			}
-			&.selected{
-				.state-marker{
-					left: 0;
-					margin-left: 33px;
+		label{
+			height: 25px;
+				span{
+					font-size: 10px;
+					line-height: 15px;
+					padding: 5px;
 				}
+		}
+		.state-marker{
+			width: 17px;
+			height: 17px;
+			margin-left: 4px;
+		}
+		.cherry-input-switcher-true:checked{
+			~ .state-marker{
+				margin-left: -22px;
 			}
+		}
 	}
 }

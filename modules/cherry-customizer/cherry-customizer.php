@@ -2,7 +2,7 @@
 /**
  * Module Name: Customizer
  * Description: Customizer functionality.
- * Version: 1.1.3
+ * Version: 1.1.4
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.3
+ * @version    1.1.4
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -207,11 +207,12 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * Include advanced customizer controls classes
 		 *
 		 * @since 1.1.0
+		 * @since 1.1.4 Using dirname( __FILE__ ) instead of __DIR__.
 		 */
 		private function include_custom_controls() {
 
 			if ( ! class_exists( 'Cherry_WP_Customize_Iconpicker' ) ) {
-				require_once( trailingslashit( __DIR__ ) . '/inc/class-cherry-wp-customize-iconpicker.php' );
+				require_once( trailingslashit( dirname( __FILE__ ) ) . '/inc/class-cherry-wp-customize-iconpicker.php' );
 			}
 
 		}
@@ -909,8 +910,8 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			 * @param object $this Cherry_Customiser instance.
 			 */
 			return apply_filters( 'cherry_customizer_get_fonts_data', array(
-				'standard' => __DIR__ . '/assets/fonts/standard.json',
-				'google'   => __DIR__ . '/assets/fonts/google.json',
+				'standard' => dirname( __FILE__ ) . '/assets/fonts/standard.json',
+				'google'   => dirname( __FILE__ ) . '/assets/fonts/google.json',
 			), $this );
 		}
 
@@ -940,11 +941,35 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * Retrieve a data from font's file.
 		 *
 		 * @since  1.0.0
-		 * @global object $wp_filesystem
-		 * @param  [string] $file          File path.
+		 * @param  string $file          File path.
 		 * @return array        Fonts data.
 		 */
 		public function read_font_file( $file ) {
+
+			if ( ! $this->file_exists( $file ) ) {
+				return false;
+			}
+
+			// Read the file.
+			$json = $this->get_file( $file );
+
+			if ( ! $json ) {
+				return new WP_Error( 'reading_error', 'Error when reading file' );
+			}
+
+			$content = json_decode( $json, true );
+
+			return $content['items'];
+		}
+
+		/**
+		 * Safely checks exists file or not
+		 *
+		 * @global object $wp_filesystem
+		 * @param  string $file File path.
+		 * @return bool
+		 */
+		public function file_exists( $file ) {
 
 			if ( ! function_exists( 'WP_Filesystem' ) ) {
 				include_once( ABSPATH . '/wp-admin/includes/file.php' );
@@ -953,20 +978,38 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			WP_Filesystem();
 			global $wp_filesystem;
 
-			if ( ! $wp_filesystem->exists( $file ) ) {
-				return false;
+			if ( $wp_filesystem->abspath() ) {
+				return $wp_filesystem->exists( $file );
+			} else {
+				return file_exists( $file );
+			}
+		}
+
+		/**
+		 * Safely get file content.
+		 *
+		 * @global object $wp_filesystem
+		 * @param  string $file File path.
+		 * @return bool
+		 */
+		public function get_file( $file ) {
+
+			if ( ! function_exists( 'WP_Filesystem' ) ) {
+				include_once( ABSPATH . '/wp-admin/includes/file.php' );
 			}
 
-			// Read the file.
-			$json = $wp_filesystem->get_contents( $file );
+			WP_Filesystem();
+			global $wp_filesystem;
 
-			if ( ! $json ) {
-				return new WP_Error( 'reading_error', 'Error when reading file' );
+			$result = '';
+
+			if ( $wp_filesystem->abspath() ) {
+				$result = $wp_filesystem->get_contents( $file );
+			} else {
+				$result = Cherry_Toolkit::get_file( $file );
 			}
 
-			$content = json_decode( $json, true );
-
-			return is_array( $content ) ? $content['items'] : false;
+			return $result;
 		}
 
 		/**

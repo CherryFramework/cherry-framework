@@ -7,7 +7,7 @@
  * @author     Cherry Team <support@cherryframework.com>
  * @copyright  Copyright (c) 2012 - 2015, Cherry Team
  * @link       http://www.cherryframework.com/
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-3.0.html
  */
 
 // If this file is called directly, abort.
@@ -46,7 +46,7 @@ if ( ! class_exists( 'UI_Media' ) ) {
 		 */
 		function __construct( $args = array() ) {
 
-			$this->defaults_settings['id'] = 'cherry-ui-media-'.uniqid();
+			$this->defaults_settings['id'] = 'cherry-ui-media-' . uniqid();
 			$this->settings = wp_parse_args( $args, $this->defaults_settings );
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
@@ -59,10 +59,10 @@ if ( ! class_exists( 'UI_Media' ) ) {
 		 */
 		public function render() {
 			$html = '';
+			$class = $this->settings['class'];
+			$class .= ' ' . $this->settings['master'];
 
-			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
-
-			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
+			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
 				if ( '' != $this->settings['value'] ) {
 					$this->settings['value'] = str_replace( ' ', '', $this->settings['value'] );
 					$medias = explode( ',', $this->settings['value'] );
@@ -128,7 +128,7 @@ if ( ! class_exists( 'UI_Media' ) ) {
 					$html .= '</div>';
 					$html .= '<div class="cherry-element-wrap">';
 						$html .= '<input type="hidden" id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-upload-input" name="' . esc_attr( $this->settings['name'] ) . '" value="' . esc_html( $this->settings['value'] ) . '" >';
-						$html .= '<input type="button" class="upload-button button-default_" value="' . esc_attr( $this->settings['upload_button_text'] ) . '" data-title="' . esc_attr( $this->settings['upload_button_text'] ) . '" data-multi-upload="' . esc_attr( $this->settings['multi_upload'] ) . '" data-library-type="' . esc_attr( $this->settings['library_type'] ) . '"/>';
+						$html .= '<input type="button" class="upload-button cherry-upload-button button-default_" value="' . esc_attr( $this->settings['upload_button_text'] ) . '" data-title="' . esc_attr( $this->settings['upload_button_text'] ) . '" data-multi-upload="' . esc_attr( $this->settings['multi_upload'] ) . '" data-library-type="' . esc_attr( $this->settings['library_type'] ) . '"/>';
 						$html .= '<div class="clear"></div>';
 					$html .= '</div>';
 				$html .= '</div>';

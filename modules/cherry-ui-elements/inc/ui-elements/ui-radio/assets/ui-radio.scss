@@ -8,6 +8,9 @@ label.cherry-label{
 	margin: 0 0 5px 0;
 	display: block;
 }
+.hide{
+	display: none !important;
+}
 input.cherry-radio-input{
 	display: none;
 }
@@ -40,14 +43,18 @@ input.cherry-radio-input{
 				border-radius: 20px;
 				display: inline-block;
 				transform: scale(0);
-				transition: all 0.3s cubic-bezier(.27,.63,.54,.96);
+				transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
 			}
 	}
 }
-.cherry-radio-item.checked{
-	span{
-		i{
-			transform: scale(1);
+.cherry-radio-item{
+	.cherry-radio-input:checked{
+		& + label{
+			span{
+				i{
+					transform: scale(1);
+				}
+			}
 		}
 	}
 }
@@ -67,12 +74,16 @@ input.cherry-radio-input{
 		pointer-events: none;
 	}
 }
-.cherry-radio-img.checked{
-	font-weight: bold;
-	.check{
-		display: block;
-	}
-	img{
-		box-shadow: 0 0 0 2px rgba(255, 254, 255, 1), 0 0 0 5px $blue_color;
+.cherry-radio-img{
+	.cherry-radio-input:checked{
+		& + label{
+			font-weight: bold;
+			.check{
+				display: block;
+			}
+			img{
+				box-shadow: 0 0 0 2px rgba(255, 254, 255, 1), 0 0 0 5px $blue_color;
+			}
+		}
 	}
 }

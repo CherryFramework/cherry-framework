@@ -7,7 +7,7 @@
  * @author     Cherry Team <support@cherryframework.com>
  * @copyright  Copyright (c) 2012 - 2015, Cherry Team
  * @link       http://www.cherryframework.com/
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-3.0.html
  */
 
 // If this file is called directly, abort.
@@ -44,7 +44,7 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 		 * @since  4.0.0
 		 */
 		function __construct( $args = array() ) {
-			$this->defaults_settings['id'] = 'cherry-ui-slider-'.uniqid();
+			$this->defaults_settings['id'] = 'cherry-ui-slider-' . uniqid();
 			$this->settings = wp_parse_args( $args, $this->defaults_settings );
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
@@ -57,10 +57,10 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 		 */
 		public function render() {
 			$html = '';
+			$class = $this->settings['class'];
+			$class .= ' ' . $this->settings['master'];
 
-			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
-
-			$html .= '<div class="cherry-ui-container ' . $master_class . '">';
+			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
 
 			$ui_stepper = new UI_Stepper(
 				array(
@@ -79,7 +79,7 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 				}
 				$html .= '<div class="cherry-slider-wrap">';
 					$html .= '<div class="cherry-slider-holder">';
-						$html .= '<input type="range" class="cherry-slider-unit" step="' .  esc_attr( $this->settings['step_value'] ) . '" min="' . esc_attr( $this->settings['min_value'] ) . '" max="' . esc_attr( $this->settings['max_value'] ) . '" value="' . esc_attr( $this->settings['value'] ) . '">';
+						$html .= '<input type="range" class="cherry-slider-unit" step="' . esc_attr( $this->settings['step_value'] ) . '" min="' . esc_attr( $this->settings['min_value'] ) . '" max="' . esc_attr( $this->settings['max_value'] ) . '" value="' . esc_attr( $this->settings['value'] ) . '">';
 					$html .= '</div>';
 					$html .= '<div class="cherry-slider-input">';
 						$html .= $ui_stepper_html;

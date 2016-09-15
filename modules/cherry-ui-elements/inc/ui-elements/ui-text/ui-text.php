@@ -7,7 +7,7 @@
  * @author     Cherry Team <support@cherryframework.com>
  * @copyright  Copyright (c) 2012 - 2015, Cherry Team
  * @link       http://www.cherryframework.com/
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-3.0.html
  */
 
 // If this file is called directly, abort.
@@ -45,7 +45,7 @@ if ( ! class_exists( 'UI_Text' ) ) {
 		 * @since  4.0.0
 		 */
 		function __construct( $args = array() ) {
-			$this->defaults_settings['id'] = 'cherry-ui-input-text-'.uniqid();
+			$this->defaults_settings['id'] = 'cherry-ui-input-text-' . uniqid();
 			$this->settings = wp_parse_args( $args, $this->defaults_settings );
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
@@ -70,12 +70,14 @@ if ( ! class_exists( 'UI_Text' ) ) {
 		 */
 		public function render() {
 			$html = '';
+			$class = $this->settings['class'];
+			$class .= ' ' . $this->settings['master'];
 
-			$html .= '<div class="cherry-ui-container ' . esc_attr( $this->settings['master'] ) . '">';
+			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
 				if ( '' !== $this->settings['label'] ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
 				}
-				$html .= '<input type="' . esc_attr( $this->settings['type'] ) . '" id="' . esc_attr( $this->settings['id'] ) . '" class="widefat cherry-ui-text ' . esc_attr( $this->settings['class'] ) . '"  name="' . esc_attr( $this->settings['name'] ) . '"  value="' . esc_html( $this->settings['value'] ) . '" placeholder="' . esc_attr( $this->settings['placeholder'] ) . '" '.$this->get_required().'>';
+				$html .= '<input type="' . esc_attr( $this->settings['type'] ) . '" id="' . esc_attr( $this->settings['id'] ) . '" class="widefat cherry-ui-text" name="' . esc_attr( $this->settings['name'] ) . '" value="' . esc_html( $this->settings['value'] ) . '" placeholder="' . esc_attr( $this->settings['placeholder'] ) . '" ' . $this->get_required() . '>';
 			$html .= '</div>';
 			return $html;
 		}

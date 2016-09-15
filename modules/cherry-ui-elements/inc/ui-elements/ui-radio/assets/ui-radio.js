@@ -1,53 +1,48 @@
 /**
  * Radio
  */
-( function( $, CherryJsCore ){
+(function($, CherryJsCore){
 	'use strict';
 
 	CherryJsCore.utilites.namespace('ui_elements.radio');
 	CherryJsCore.ui_elements.radio = {
+		inputClass: '.cherry-radio-input:not([name*="__i__"])',
+		containerClass: '.cherry-ui-container',
+		wrapperClass: '.widget, .postbox, .cherry-form',
+
 		init: function () {
-			$( document ).on( 'ready', this.render );
-			$( window ).on( 'cherry-ui-elements-init', this.render );
+			$( document )
+				.on( 'ready.cherry-ui-elements-init', this.addEvent.bind( this ) )
+				.on( 'cherry-ui-elements-init', this.setState.bind( this ) );
 		},
-		render: function ( event ) {
-			var target = ( event._target ) ? event._target : $( 'body' );
+		addEvent: function () {
+			$( 'body' ).on( 'click.masterSlave', this.inputClass, this.switchState.bind( this ) );
+			this.setState( { '_target': $( 'body' ) } );
+		},
+		setState: function ( event ) {
+			this.switchState( { 'currentTarget': $( this.inputClass, event._target ) } );
+		},
+		switchState: function ( event ) {
+			var parent   = $( event.currentTarget ).closest( this.containerClass ),
+				children = $( this.inputClass, parent ),
+				i        = children.length - 1,
+				$_target,
+				wrapper,
+				data;
 
-			$( '.cherry-radio-group', target ).each( function() {
-				$( '.cherry-radio-input[type="radio"]', this ).each( function() {
-					var $this = $(this),
-						this_slave = $this.data('slave');
+			for (; i >= 0; i--) {
+				$_target = $( children[ i ] );
+				data     = $_target.data();
+				wrapper  = $_target.closest( this.wrapperClass );
 
-					if ( ! $this.is( ':checked' ) ) {
-						$( '.' + this_slave, target ).stop().hide();
-					}
-				} );
-			} );
-
-			$( '.cherry-radio-input[type="radio"]', target ).on( 'change', function() {
-				var $this = $(this),
-					slave = $this.data('slave'),
-					radio_group = $this.parents('.cherry-radio-group'),
-					radio_group_list = $('.cherry-radio-input[type="radio"]', radio_group);
-
-				$this.parents('.cherry-radio-group').find('.checked').removeClass('checked');
-				$this.parent().addClass('checked');
-
-				$('.' + slave, target).show();
-				radio_group_list.each(function(){
-					var $this = $(this),
-						this_slave = $this.data('slave');
-
-					if( this_slave !== slave ){
-						$('.' + this_slave, target).hide();
-					}
-				});
-
-				$this.trigger( 'radio_change_event', [slave, radio_group_list] );
-			});
+				if ( jQuery.isEmptyObject( data ) ) {
+					continue;
+				} else {
+					$( '.' + data.slave, wrapper )[ ( $_target[ 0 ].checked ) ? 'removeClass' : 'addClass' ]( 'hide' );
+				}
+			}
 		}
 	};
 
 	CherryJsCore.ui_elements.radio.init();
-
-}( jQuery, window.CherryJsCore ) );
+}(jQuery, window.CherryJsCore));

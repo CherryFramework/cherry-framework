@@ -7,7 +7,7 @@
  * @author     Cherry Team <support@cherryframework.com>
  * @copyright  Copyright (c) 2012 - 2015, Cherry Team
  * @link       http://www.cherryframework.com/
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-3.0.html
  */
 
 // If this file is called directly, abort.
@@ -114,16 +114,15 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		 * @since  1.0.1
 		 */
 		public function render() {
-
 			$html = '';
-
-			$master_class = ! empty( $this->settings['master'] ) && isset( $this->settings['master'] ) ? esc_html( $this->settings['master'] ) : '';
+			$class = $this->settings['class'];
+			$class .= ' ' . $this->settings['master'];
 
 			$ui_kit = ! empty( $this->settings['ui_kit'] ) ? 'cherry-ui-kit' : '';
 
 			$html .= sprintf( '<div class="cherry-ui-repeater-container cherry-ui-container %1$s %2$s">',
 					$ui_kit,
-					$master_class
+					esc_attr( $class )
 				);
 				if ( '' !== $this->settings['label'] ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';

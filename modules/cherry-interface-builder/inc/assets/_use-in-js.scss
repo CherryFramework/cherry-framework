@@ -1,0 +1,20 @@
+.cherry-ui-kit{
+	button{
+		border:0;
+		background: none;
+		cursor: pointer;
+		*{
+			pointer-events: none;
+		}
+	}
+}
+.cherry-component{
+	&__content{
+		.cherry-settings__content{
+			display: none;
+			&.show{
+				display: inherit;
+			}
+		}
+	}
+}
