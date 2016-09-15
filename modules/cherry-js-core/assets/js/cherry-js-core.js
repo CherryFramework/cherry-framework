@@ -70,7 +70,7 @@ var CherryJsCore = {};
 		expressions: {
 			widget_ui_init: function() {
 				$( document ).on( 'widget-added widget-updated', function( event, data ) {
-					$( window ).trigger( {
+					$( 'body' ).trigger( {
 						type: 'cherry-ui-elements-init',
 						_target: data
 					} );
@@ -92,61 +92,6 @@ var CherryJsCore = {};
 						parent = parent[ parts[ i ] ];
 					}
 				return parent;
-			},
-			get_compress_assets: function( url, callback ) {
-				var data = {
-						action: 'get_compress_assets',
-						security: CherryJsCore.variable.security,
-						style: [],
-						script: []
-					},
-					reg_name = /([\S.]+\/)/gmi,
-					reg_type = /(\.js|\.css)/gmi,
-					callback_function = callback || function() {};
-
-				if( !$.isArray( url ) ){
-					url = [ url ];
-				}
-
-				for( var index in url ){
-					var file_url = url[ index ],
-						file_name = file_url.replace( reg_name, '' ),
-						file_type = file_url.match( reg_type )[ 0 ];
-
-					if( '.js' === file_type && -1 === $.inArray( file_name, CherryJsCore.variable.loaded_assets.script ) ){
-						data.script.push( file_url );
-						CherryJsCore.variable.loaded_assets.script.push( file_name );
-					}
-
-					if( '.css' === file_type && -1 === $.inArray( file_name, CherryJsCore.variable.loaded_assets.style ) ){
-						data.style.push( file_url );
-						CherryJsCore.variable.loaded_assets.style.push( file_name );
-					}
-				}
-
-				$.get( window.ajaxurl, data, function( response ) {
-					var json = $.parseJSON(response),
-						compressStyle = json.style,
-						compressScript = json.script,
-						script = null;
-
-					if(compressStyle){
-						var style = document.createElement('style');
-
-						style.type = 'text/css';
-						style.media = 'all';
-						style.innerHTML = compressStyle;
-
-						$('body', document).append(style);
-
-					}
-
-					if ( compressScript ) {
-						script = new Function( compressScript ) ();
-					}
-
-					return callback_function();
-				});
 			}
 		}
 	};
