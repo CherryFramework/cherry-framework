@@ -25,7 +25,8 @@
 			'errorCallback': function() {},
 			'successCallback': function() {},
 			'completeCallback': function() {},
-		}
+			},
+			self = this;
 
 		/**
 		 * Checking options, settings and options merging
@@ -49,28 +50,28 @@
 		 *
 		 * @type {Object}
 		 */
-		this.handlerSettings = window[ settings.handlerId ] || {};
+		self.handlerSettings = window[ settings.handlerId ] || {};
 
 		/**
 		 * Ajax request instance
 		 *
 		 * @type {Object}
 		 */
-		this.ajaxRequest = null;
+		self.ajaxRequest = null;
 
 		/**
 		 * Ajax processing state
 		 *
 		 * @type {Boolean}
 		 */
-		this.ajaxProcessing = false;
+		self.ajaxProcessing = false;
 
 		/**
 		 * Set ajax request data
 		 *
 		 * @type {Object}
 		 */
-		this.data = {
+		self.data = {
 			'action': this.handlerSettings.action,
 			'nonce': this.handlerSettings.nonce
 		}
@@ -81,37 +82,34 @@
 		if ( '' === settings.url ) {
 
 			// Check public request
-			if ( 'false' === this.handlerSettings.public) {
+			if ( 'false' === self.handlerSettings.public) {
 				settings.url = ajaxurl;
 			} else{
 				settings.url = cherryHandlerAjaxUrl.ajax_url;
 			}
 		}
-
 		/**
 		 * Init ajax request
 		 *
 		 * @return {void}
 		 */
-		this.send = function() {
+		self.send = function() {
 
-			this.ajaxProcessing = true;
-			console.log(this.data);
-			this.ajaxRequest = jQuery.ajax( {
-				type: this.handlerSettings.type.toUpperCase(),
+			self.ajaxProcessing = true;
+			self.ajaxRequest = jQuery.ajax( {
+				type: self.handlerSettings.type.toUpperCase(),
 				url: settings.url,
-				data: this.data,
+				data: self.data,
 				cache: settings.cache,
-				dataType: this.handlerSettings.data_type,
+				dataType: self.handlerSettings.data_type,
 				processData: settings.processData,
-				beforeSend: function( jqXHR, settings ) {
-
-					if ( this.ajaxProcessing ) {
-						//jqXHR.abort();
+				beforeSend: function( jqXHR, ajaxSettings ) {
+					if ( null !== self.ajaxRequest ) {
+						self.ajaxRequest.abort();
 					}
 
 					if ( settings.beforeSendCallback && 'function' === typeof( settings.beforeSendCallback ) ) {
-						settings.beforeSendCallback( jqXHR, settings );
+						settings.beforeSendCallback( jqXHR, ajaxSettings );
 					}
 				},
 				error: function( jqXHR, textStatus, errorThrown ) {
@@ -136,15 +134,15 @@
 			} );
 		}
 
-		this.sendData = function( data ) {
+		self.sendData = function( data ) {
 			var data = data || {};
-				this.data = {
-					'action': this.handlerSettings.action,
-					'nonce': this.handlerSettings.nonce,
+				self.data = {
+					'action': self.handlerSettings.action,
+					'nonce': self.handlerSettings.nonce,
 					'data': data
 				}
 
-			this.send();
+			self.send();
 		}
 
 
