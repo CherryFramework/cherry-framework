@@ -190,8 +190,13 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 					'nonce'     => $nonce,
 					'type'      => $this->settings['type'],
 					'data_type' => $this->settings['data_type'],
+					'public'    => $this->settings['public'] ? 'true' : 'false',
 				)
 			);
+
+			if ( $this->settings['public'] ) {
+				wp_localize_script( 'cherry-handler-js', 'cherryHandlerAjaxUrl', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
+			}
 		}
 
 		/**
