@@ -147,7 +147,7 @@
 			this.send();
 		}
 
-		$( document ).trigger( 'CherryHandlerInit' );
+
 	}
 
 	CherryJsCore.utilites.namespace('cherryHandlerUtils');
@@ -222,5 +222,5 @@
 
 	}
 
-	//CherryJsCore.CherryAjaxHandler.handlerTrigger();
+	$( document ).trigger( 'CherryHandlerInit' );
 } ( jQuery ) );
