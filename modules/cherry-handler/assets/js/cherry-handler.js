@@ -72,8 +72,7 @@
 		 */
 		this.data = {
 			'action': this.handlerSettings.action,
-			'nonce': this.handlerSettings.nonce,
-			'data': {}
+			'nonce': this.handlerSettings.nonce
 		}
 
 		/**
@@ -97,7 +96,7 @@
 		this.send = function() {
 
 			this.ajaxProcessing = true;
-
+			console.log(this.data);
 			this.ajaxRequest = jQuery.ajax( {
 				type: this.handlerSettings.type.toUpperCase(),
 				url: settings.url,
@@ -106,7 +105,7 @@
 				dataType: this.handlerSettings.data_type,
 				processData: settings.processData,
 				beforeSend: function( jqXHR, settings ) {
-					console.log(this.ajaxProcessing);
+
 					if ( this.ajaxProcessing ) {
 						//jqXHR.abort();
 					}
