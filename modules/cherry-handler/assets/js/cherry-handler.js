@@ -9,6 +9,7 @@
 
 	CherryJsCore.utilites.namespace('CherryAjaxHandler');
 	CherryJsCore.CherryAjaxHandler = function( options ) {
+
 		/**
 		 * General default settings
 		 *
@@ -72,13 +73,14 @@
 		this.data = {
 			'action': this.handlerSettings.action,
 			'nonce': this.handlerSettings.nonce,
+			'data': {}
 		}
 
 		/**
 		 * Check ajax url is empty
 		 */
 		if ( '' === settings.url ) {
-			console.log(ajaxurl);
+
 			// Check public request
 			if ( 'false' === this.handlerSettings.public) {
 				settings.url = ajaxurl;
@@ -92,7 +94,7 @@
 		 *
 		 * @return {void}
 		 */
-		this.runAjaxRequst = function() {
+		this.send = function() {
 
 			this.ajaxProcessing = true;
 
@@ -104,6 +106,7 @@
 				dataType: this.handlerSettings.data_type,
 				processData: settings.processData,
 				beforeSend: function( jqXHR, settings ) {
+					console.log(this.ajaxProcessing);
 					if ( this.ajaxProcessing ) {
 						//jqXHR.abort();
 					}
@@ -133,6 +136,19 @@
 
 			} );
 		}
+
+		this.sendData = function( data ) {
+			var data = data || {};
+				this.data = {
+					'action': this.handlerSettings.action,
+					'nonce': this.handlerSettings.nonce,
+					'data': data
+				}
+
+			this.send();
+		}
+
+		$( document ).trigger( 'CherryHandlerInit' );
 	}
 
 	CherryJsCore.utilites.namespace('cherryHandlerUtils');
@@ -207,4 +223,5 @@
 
 	}
 
+	//CherryJsCore.CherryAjaxHandler.handlerTrigger();
 } ( jQuery ) );
