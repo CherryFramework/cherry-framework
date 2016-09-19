@@ -16,15 +16,15 @@
 		 * @type {Object}
 		 */
 		var settings = {
-			'handlerId': '',
-			'ifModified': false,
-			'cache': false,
-			'processData': true,
-			'url': '',
-			'beforeSendCallback': function() {},
-			'errorCallback': function() {},
-			'successCallback': function() {},
-			'completeCallback': function() {},
+				'handlerId': '',
+				'ifModified': false,
+				'cache': false,
+				'processData': true,
+				'url': '',
+				'beforeSendCallback': function() {},
+				'errorCallback': function() {},
+				'successCallback': function() {},
+				'completeCallback': function() {},
 			},
 			self = this;
 
@@ -72,8 +72,8 @@
 		 * @type {Object}
 		 */
 		self.data = {
-			'action': this.handlerSettings.action,
-			'nonce': this.handlerSettings.nonce
+			'action': self.handlerSettings.action,
+			'nonce': self.handlerSettings.nonce
 		}
 
 		/**
@@ -88,13 +88,13 @@
 				settings.url = cherryHandlerAjaxUrl.ajax_url;
 			}
 		}
+
 		/**
 		 * Init ajax request
 		 *
 		 * @return {void}
 		 */
 		self.send = function() {
-
 			self.ajaxProcessing = true;
 			self.ajaxRequest = jQuery.ajax( {
 				type: self.handlerSettings.type.toUpperCase(),
@@ -118,7 +118,8 @@
 					}
 				},
 				success: function( data, textStatus, jqXHR ) {
-					this.ajaxProcessing = false;
+					self.ajaxProcessing = false;
+
 					if ( settings.successCallback && 'function' === typeof( settings.successCallback ) ) {
 						settings.successCallback( data, textStatus, jqXHR );
 					}
@@ -134,6 +135,12 @@
 			} );
 		}
 
+		/**
+		 * Send data ajax request
+		 *
+		 * @param  {object} data User data
+		 * @return {void}
+		 */
 		self.sendData = function( data ) {
 			var data = data || {};
 				self.data = {
@@ -145,7 +152,19 @@
 			self.send();
 		}
 
+		/**
+		 * Send form serialized data
+		 * @param  {string} formId Form selector
+		 * @return {void}
+		 */
+		self.sendFormData = function( formId ) {
+			var form = $( formId ),
+				data;
 
+			data = CherryJsCore.cherryHandlerUtils.serializeObject( form );
+
+			self.sendData( data );
+		}
 	}
 
 	CherryJsCore.utilites.namespace('cherryHandlerUtils');
@@ -216,8 +235,77 @@
 						window.console.log( message );
 				}
 			}
-		}
+		},
 
+		/**
+		 * Serialize form into
+		 *
+		 * @return {object} [description]
+		 */
+		serializeObject: function( form ) {
+
+			var self = this,
+				json = {},
+				push_counters = {},
+				patterns = {
+					"validate": /^[a-zA-Z][a-zA-Z0-9_-]*(?:\[(?:\d*|[a-zA-Z0-9_-]+)\])*$/,
+					"key":      /[a-zA-Z0-9_-]+|(?=\[\])/g,
+					"push":     /^$/,
+					"fixed":    /^\d+$/,
+					"named":    /^[a-zA-Z0-9_-]+$/
+				};
+
+			this.build = function( base, key, value ) {
+				base[ key ] = value;
+
+				return base;
+			};
+
+			this.push_counter = function( key ) {
+				if ( push_counters[ key ] === undefined ) {
+					push_counters[ key ] = 0;
+				}
+
+				return push_counters[ key ]++;
+			};
+
+			$.each( form.serializeArray(), function() {
+				// skip invalid keys
+				if ( ! patterns.validate.test( this.name ) ) {
+					return;
+				}
+
+				var k,
+					keys = this.name.match( patterns.key ),
+					merge = this.value,
+					reverse_key = this.name;
+
+				while( ( k = keys.pop() ) !== undefined ) {
+
+					// adjust reverse_key
+					reverse_key = reverse_key.replace( new RegExp( "\\[" + k + "\\]$" ), '' );
+
+					// push
+					if ( k.match( patterns.push ) ) {
+						merge = self.build( [], self.push_counter( reverse_key ), merge );
+					}
+
+					// fixed
+					else if( k.match( patterns.fixed ) ) {
+						merge = self.build( [], k, merge );
+					}
+
+					// named
+					else if( k.match( patterns.named ) ) {
+						merge = self.build( {}, k, merge );
+					}
+				}
+
+				json = $.extend( true, json, merge );
+			});
+
+			return json;
+		}
 	}
 
 	$( document ).trigger( 'CherryHandlerInit' );
