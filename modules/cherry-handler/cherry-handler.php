@@ -130,12 +130,10 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 
 				if ( ! empty( $this->settings['callback'] ) && is_callable( $this->settings['callback'] ) ) {
 
-					// Call user callback
-					call_user_func( $this->settings['callback'] );
-
 					$response = array(
 						'message' => $this->settings['sys_messages']['access_is_allowed'],
 						'type'    => 'success-notice',
+						'data'    => call_user_func( $this->settings['callback'] ),
 					);
 
 					wp_send_json( $response );
