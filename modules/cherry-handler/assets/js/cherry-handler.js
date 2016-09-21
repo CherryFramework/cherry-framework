@@ -15,7 +15,8 @@
 		 *
 		 * @type {Object}
 		 */
-		var settings = {
+		var self     = this,
+			settings = {
 				'handlerId': '',
 				'ifModified': false,
 				'cache': false,
@@ -25,8 +26,7 @@
 				'errorCallback': function() {},
 				'successCallback': function() {},
 				'completeCallback': function() {},
-			},
-			self = this;
+			};
 
 		/**
 		 * Checking options, settings and options merging
@@ -92,7 +92,7 @@
 		/**
 		 * Init ajax request
 		 *
-		 * @return {void}
+		 * @return {Void}
 		 */
 		self.send = function() {
 			self.ajaxProcessing = true;
@@ -138,8 +138,8 @@
 		/**
 		 * Send data ajax request
 		 *
-		 * @param  {object} data User data
-		 * @return {void}
+		 * @param  {Object} data User data
+		 * @return {Void}
 		 */
 		self.sendData = function( data ) {
 			var data = data || {};
@@ -154,8 +154,8 @@
 
 		/**
 		 * Send form serialized data
-		 * @param  {string} formId Form selector
-		 * @return {void}
+		 * @param  {String} formId Form selector
+		 * @return {Void}
 		 */
 		self.sendFormData = function( formId ) {
 			var form = $( formId ),
@@ -172,9 +172,9 @@
 		/**
 		 * Rendering notice message
 		 *
-		 * @param  {string} type    Message type
-		 * @param  {string} message Message content
-		 * @return {void}
+		 * @param  {String} type    Message type
+		 * @param  {String} message Message content
+		 * @return {Void}
 		 */
 		noticeCreate: function( type, message ) {
 			var notice = $( '<div class="cherry-handler-notice ' + type + '"><span class="dashicons"></span><div class="inner">' + message + '</div></div>' ),
@@ -209,9 +209,9 @@
 		/**
 		 * Console message and console avaliable checking
 		 *
-		 * @param  {string} type    Console method type
-		 * @param  {string} message Console message
-		 * @return {void}
+		 * @param  {String} type    Console method type
+		 * @param  {String} message Console message
+		 * @return {Void}
 		 */
 		consoleMessage: function( type, message ) {
 			var type = type || 'log',
@@ -240,7 +240,7 @@
 		/**
 		 * Serialize form into
 		 *
-		 * @return {object} [description]
+		 * @return {Object}
 		 */
 		serializeObject: function( form ) {
 
