@@ -95,7 +95,11 @@
 		 * @return {Void}
 		 */
 		self.send = function() {
+			if ( self.ajaxProcessing ) {
+				CherryJsCore.cherryHandlerUtils.noticeCreate( 'error-notice', self.handlerSettings.sys_messages.wait_processing );
+			}
 			self.ajaxProcessing = true;
+
 			self.ajaxRequest = jQuery.ajax( {
 				type: self.handlerSettings.type.toUpperCase(),
 				url: settings.url,
@@ -118,8 +122,8 @@
 					}
 				},
 				success: function( data, textStatus, jqXHR ) {
+					console.log(123);
 					self.ajaxProcessing = false;
-
 					if ( settings.successCallback && 'function' === typeof( settings.successCallback ) ) {
 						settings.successCallback( data, textStatus, jqXHR );
 					}

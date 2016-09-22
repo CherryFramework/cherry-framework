@@ -59,6 +59,7 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 				'no_right'          => 'No right for this action',
 				'invalid_nonce'     => 'Stop CHEATING!!!',
 				'access_is_allowed' => 'Access is allowed',
+				'wait_processing'   => 'Please wait, processing the previous request',
 			),
 		);
 
@@ -191,11 +192,12 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 
 			wp_localize_script( 'cherry-handler-js', $this->settings['id'],
 				array(
-					'action'    => $this->settings['action'],
-					'nonce'     => $nonce,
-					'type'      => $this->settings['type'],
-					'data_type' => $this->settings['data_type'],
-					'public'    => $this->settings['public'] ? 'true' : 'false',
+					'action'       => $this->settings['action'],
+					'nonce'        => $nonce,
+					'type'         => $this->settings['type'],
+					'data_type'    => $this->settings['data_type'],
+					'public'       => $this->settings['public'] ? 'true' : 'false',
+					'sys_messages' => $this->settings['sys_messages'],
 				)
 			);
 
