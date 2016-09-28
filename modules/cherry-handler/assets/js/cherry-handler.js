@@ -189,7 +189,7 @@
 				return false;
 			}
 
-			notice = $( '<div class="cherry-handler-notice ' + type + '"><span class="dashicons"></span><div class="inner">' + message + '</div></div>' )
+			notice = $( '<div class="cherry-handler-notice ' + type + '"><span class="dashicons"></span><div class="inner">' + message + '</div></div>' );
 
 			$( 'body' ).prepend( notice );
 			reposition();

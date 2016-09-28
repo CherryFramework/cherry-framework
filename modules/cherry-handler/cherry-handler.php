@@ -209,7 +209,7 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 		/**
 		 * Create nonce by action
 		 *
-		 * @param  string $action Nonce name
+		 * @param  string $action Nonce name.
 		 * @return string
 		 */
 		public function create_nonce( $action = '' ) {
