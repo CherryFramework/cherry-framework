@@ -133,7 +133,8 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 
 					ob_start();
 					$data = call_user_func( $this->settings['callback'] );
-					if( ! $data ){
+
+					if ( ! $data ) {
 						$data = ob_get_contents();
 					}
 					ob_end_clean();
@@ -209,8 +210,8 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 		/**
 		 * Create nonce by action
 		 *
-		 * @param  string $nonce Nonce name
-		 * @return string
+		 * @param  string $action Nonce name
+		 * @return [string]
 		 */
 		public function create_nonce( $action = '' ) {
 			if ( ! empty( $action ) ) {

@@ -1,5 +1,5 @@
 ( function( $ ) {
-	"use strict";
+	'use strict';
 
 	/**
 	 * CherryAjaxHandler class
@@ -7,7 +7,7 @@
 	 * @param {object} options Handler options
 	 */
 
-	CherryJsCore.utilites.namespace('CherryAjaxHandler');
+	CherryJsCore.utilites.namespace( 'CherryAjaxHandler' );
 	CherryJsCore.CherryAjaxHandler = function( options ) {
 
 		/**
@@ -25,7 +25,7 @@
 				'beforeSendCallback': function() {},
 				'errorCallback': function() {},
 				'successCallback': function() {},
-				'completeCallback': function() {},
+				'completeCallback': function() {}
 			};
 
 		/**
@@ -74,7 +74,7 @@
 		self.data = {
 			'action': self.handlerSettings.action,
 			'nonce': self.handlerSettings.nonce
-		}
+		};
 
 		/**
 		 * Check ajax url is empty
@@ -82,9 +82,9 @@
 		if ( '' === settings.url ) {
 
 			// Check public request
-			if ( 'false' === self.handlerSettings.public) {
+			if ( 'false' === self.handlerSettings.public ) {
 				settings.url = ajaxurl;
-			} else{
+			} else {
 				settings.url = cherryHandlerAjaxUrl.ajax_url;
 			}
 		}
@@ -122,7 +122,6 @@
 					}
 				},
 				success: function( data, textStatus, jqXHR ) {
-					console.log(123);
 					self.ajaxProcessing = false;
 					if ( settings.successCallback && 'function' === typeof( settings.successCallback ) ) {
 						settings.successCallback( data, textStatus, jqXHR );
@@ -137,7 +136,7 @@
 				}
 
 			} );
-		}
+		};
 
 		/**
 		 * Send data ajax request
@@ -151,10 +150,10 @@
 					'action': self.handlerSettings.action,
 					'nonce': self.handlerSettings.nonce,
 					'data': data
-				}
+				};
 
 			self.send();
-		}
+		};
 
 		/**
 		 * Send form serialized data
@@ -168,10 +167,10 @@
 			data = CherryJsCore.cherryHandlerUtils.serializeObject( form );
 
 			self.sendData( data );
-		}
+		};
 	}
 
-	CherryJsCore.utilites.namespace('cherryHandlerUtils');
+	CherryJsCore.utilites.namespace( 'cherryHandlerUtils' );
 	CherryJsCore.cherryHandlerUtils = {
 		/**
 		 * Rendering notice message
@@ -188,19 +187,21 @@
 			$( 'body' ).prepend( notice );
 			reposition();
 			rightDelta = -1 * ( notice.outerWidth( true ) + 10 );
-			notice.css( {'right' : rightDelta } );
+			notice.css( { 'right': rightDelta } );
 
-			timeoutId = setTimeout( function () { notice.css( { 'right' : 10 } ).addClass( 'show-state' ) }, 100 );
-			timeoutId = setTimeout( function () {
+			timeoutId = setTimeout( function() {
+				notice.css( { 'right': 10 } ).addClass( 'show-state' );
+			}, 100 );
+			timeoutId = setTimeout( function() {
 				rightDelta = -1 * ( notice.outerWidth( true ) + 10 );
 				notice.css( { right: rightDelta } ).removeClass( 'show-state' );
 			}, 4000 );
-			timeoutId = setTimeout( function () {
+			timeoutId = setTimeout( function() {
 				notice.remove();
 				clearTimeout( timeoutId );
 			}, 4500 );
 
-			function reposition(){
+			function reposition() {
 				var topDelta = 100;
 
 				$( '.cherry-handler-notice' ).each( function( index ) {
@@ -225,16 +226,16 @@
 				switch ( type ) {
 					case 'log':
 						window.console.log( message );
-						break
+						break;
 					case 'warn':
 						window.console.warn( message );
-						break
+						break;
 					case 'info':
 						window.console.info( message );
-						break
+						break;
 					case 'error':
 						window.console.error( message );
-						break
+						break;
 					default:
 						window.console.log( message );
 				}
@@ -250,13 +251,13 @@
 
 			var self = this,
 				json = {},
-				push_counters = {},
+				pushCounters = {},
 				patterns = {
-					"validate": /^[a-zA-Z][a-zA-Z0-9_-]*(?:\[(?:\d*|[a-zA-Z0-9_-]+)\])*$/,
-					"key":      /[a-zA-Z0-9_-]+|(?=\[\])/g,
-					"push":     /^$/,
-					"fixed":    /^\d+$/,
-					"named":    /^[a-zA-Z0-9_-]+$/
+					'validate': /^[a-zA-Z][a-zA-Z0-9_-]*(?:\[(?:\d*|[a-zA-Z0-9_-]+)\])*$/,
+					'key':      /[a-zA-Z0-9_-]+|(?=\[\])/g,
+					'push':     /^$/,
+					'fixed':    /^\d+$/,
+					'named':    /^[a-zA-Z0-9_-]+$/
 				};
 
 			this.build = function( base, key, value ) {
@@ -266,32 +267,33 @@
 			};
 
 			this.push_counter = function( key ) {
-				if ( push_counters[ key ] === undefined ) {
-					push_counters[ key ] = 0;
+				if ( pushCounters[ key ] === undefined ) {
+					pushCounters[ key ] = 0;
 				}
 
-				return push_counters[ key ]++;
+				return pushCounters[ key ]++;
 			};
 
 			$.each( form.serializeArray(), function() {
+				var k, keys, merge, reverseKey;
+
 				// skip invalid keys
 				if ( ! patterns.validate.test( this.name ) ) {
 					return;
 				}
 
-				var k,
-					keys = this.name.match( patterns.key ),
-					merge = this.value,
-					reverse_key = this.name;
+				keys = this.name.match( patterns.key );
+				merge = this.value;
+				reverseKey = this.name;
 
-				while( ( k = keys.pop() ) !== undefined ) {
+				while ( ( k = keys.pop() ) !== undefined ) {
 
-					// adjust reverse_key
-					reverse_key = reverse_key.replace( new RegExp( "\\[" + k + "\\]$" ), '' );
+					// adjust reverseKey
+					reverseKey = reverseKey.replace( new RegExp( "\\[" + k + "\\]$" ), '' );
 
 					// push
 					if ( k.match( patterns.push ) ) {
-						merge = self.build( [], self.push_counter( reverse_key ), merge );
+						merge = self.build( [], self.push_counter( reverseKey ), merge );
 					}
 
 					// fixed
