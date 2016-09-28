@@ -18,7 +18,6 @@
 		var self     = this,
 			settings = {
 				'handlerId': '',
-				'ifModified': false,
 				'cache': false,
 				'processData': true,
 				'url': '',
@@ -41,7 +40,9 @@
 		 *
 		 */
 		if ( ! window[ settings.handlerId ] ) {
-			CherryJsCore.cherryHandlerUtils.consoleMessage( 'warn', 'Handler id not found' );
+			if ( window.console ) {
+				console.warn( 'Handler id not found' );
+			}
 			return false;
 		}
 
@@ -168,7 +169,7 @@
 
 			self.sendData( data );
 		};
-	}
+	};
 
 	CherryJsCore.utilites.namespace( 'cherryHandlerUtils' );
 	CherryJsCore.cherryHandlerUtils = {
@@ -180,9 +181,15 @@
 		 * @return {Void}
 		 */
 		noticeCreate: function( type, message ) {
-			var notice = $( '<div class="cherry-handler-notice ' + type + '"><span class="dashicons"></span><div class="inner">' + message + '</div></div>' ),
+			var notice,
 				rightDelta = 0,
 				timeoutId;
+
+			if ( ! message ) {
+				return false;
+			}
+
+			notice = $( '<div class="cherry-handler-notice ' + type + '"><span class="dashicons"></span><div class="inner">' + message + '</div></div>' )
 
 			$( 'body' ).prepend( notice );
 			reposition();
@@ -212,37 +219,6 @@
 		},
 
 		/**
-		 * Console message and console avaliable checking
-		 *
-		 * @param  {String} type    Console method type
-		 * @param  {String} message Console message
-		 * @return {Void}
-		 */
-		consoleMessage: function( type, message ) {
-			var type = type || 'log',
-				message = message || 'BlaBla';
-
-			if ( window.console ) {
-				switch ( type ) {
-					case 'log':
-						window.console.log( message );
-						break;
-					case 'warn':
-						window.console.warn( message );
-						break;
-					case 'info':
-						window.console.info( message );
-						break;
-					case 'error':
-						window.console.error( message );
-						break;
-					default:
-						window.console.log( message );
-				}
-			}
-		},
-
-		/**
 		 * Serialize form into
 		 *
 		 * @return {Object}
@@ -267,7 +243,7 @@
 			};
 
 			this.push_counter = function( key ) {
-				if ( pushCounters[ key ] === undefined ) {
+				if ( undefined === pushCounters[ key ] ) {
 					pushCounters[ key ] = 0;
 				}
 
@@ -277,7 +253,7 @@
 			$.each( form.serializeArray(), function() {
 				var k, keys, merge, reverseKey;
 
-				// skip invalid keys
+				// Skip invalid keys
 				if ( ! patterns.validate.test( this.name ) ) {
 					return;
 				}
@@ -286,23 +262,17 @@
 				merge = this.value;
 				reverseKey = this.name;
 
-				while ( ( k = keys.pop() ) !== undefined ) {
+				while ( undefined !== ( k = keys.pop() ) ) {
 
-					// adjust reverseKey
-					reverseKey = reverseKey.replace( new RegExp( "\\[" + k + "\\]$" ), '' );
+					// Adjust reverseKey
+					reverseKey = reverseKey.replace( new RegExp( '\\[' + k + '\\]$' ), '' );
 
-					// push
+					// Push
 					if ( k.match( patterns.push ) ) {
 						merge = self.build( [], self.push_counter( reverseKey ), merge );
-					}
-
-					// fixed
-					else if( k.match( patterns.fixed ) ) {
+					} else if ( k.match( patterns.fixed ) ) {
 						merge = self.build( [], k, merge );
-					}
-
-					// named
-					else if( k.match( patterns.named ) ) {
+					} else if ( k.match( patterns.named ) ) {
 						merge = self.build( {}, k, merge );
 					}
 				}
@@ -312,7 +282,7 @@
 
 			return json;
 		}
-	}
+	};
 
 	$( document ).trigger( 'CherryHandlerInit' );
-} ( jQuery ) );
+}( jQuery ) );

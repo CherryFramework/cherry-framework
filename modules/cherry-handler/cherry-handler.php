@@ -55,7 +55,7 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 			'type'       => 'post',
 			'data_type'  => 'json',
 			'sys_messages' => array(
-				'invalid_base_data' => 'Unable to process the request without nonche or server error',
+				'invalid_base_data' => 'Unable to process the request without nonce or server error',
 				'no_right'          => 'No right for this action',
 				'invalid_nonce'     => 'Stop CHEATING!!!',
 				'access_is_allowed' => 'Access is allowed',
@@ -147,7 +147,6 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 
 					wp_send_json( $response );
 				}
-
 			} else {
 				$response = array(
 					'message' => $this->settings['sys_messages']['invalid_base_data'],
@@ -211,7 +210,7 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 		 * Create nonce by action
 		 *
 		 * @param  string $action Nonce name
-		 * @return [string]
+		 * @return string
 		 */
 		public function create_nonce( $action = '' ) {
 			if ( ! empty( $action ) ) {
