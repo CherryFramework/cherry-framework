@@ -1,4 +1,4 @@
-( function( $ ) {
+( function( $, CherryJsCore ) {
 	'use strict';
 
 	/**
@@ -41,7 +41,7 @@
 		 */
 		if ( ! window[ settings.handlerId ] ) {
 			if ( window.console ) {
-				console.warn( 'Handler id not found' );
+				window.console.warn( 'Handler id not found' );
 			}
 			return false;
 		}
@@ -84,9 +84,9 @@
 
 			// Check public request
 			if ( 'false' === self.handlerSettings.public ) {
-				settings.url = ajaxurl;
+				settings.url = window.ajaxurl;
 			} else {
-				settings.url = cherryHandlerAjaxUrl.ajax_url;
+				settings.url = window.cherryHandlerAjaxUrl.ajax_url;
 			}
 		}
 
@@ -146,11 +146,11 @@
 		 * @return {Void}
 		 */
 		self.sendData = function( data ) {
-			var data = data || {};
+			var sendData = data || {};
 				self.data = {
 					'action': self.handlerSettings.action,
 					'nonce': self.handlerSettings.nonce,
-					'data': data
+					'data': sendData
 				};
 
 			self.send();
@@ -211,7 +211,7 @@
 			function reposition() {
 				var topDelta = 100;
 
-				$( '.cherry-handler-notice' ).each( function( index ) {
+				$( '.cherry-handler-notice' ).each( function() {
 					$( this ).css( { top: topDelta } );
 					topDelta += $( this ).outerHeight( true );
 				} );
@@ -285,4 +285,4 @@
 	};
 
 	$( document ).trigger( 'CherryHandlerInit' );
-}( jQuery ) );
+}( jQuery, window.CherryJsCore ) );
