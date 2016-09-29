@@ -389,6 +389,11 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 						$ui_args = $value;
 
 						$ui_args['class'] = isset( $ui_args['child_class'] ) ? $ui_args['child_class'] : '' ;
+
+						if ( isset( $ui_args['options_callback'] ) ) {
+							$ui_args['options'] = call_user_func( $ui_args['options_callback'] );
+						}
+
 						unset( $ui_args['master'] );
 
 						$value['children'] = $this->ui_elements->get_ui_element_instance( $ui_args['type'], $ui_args )->render();
