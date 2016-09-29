@@ -50,7 +50,7 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 			'id'         => '',
 			'action'     => '',
 			'capability' => '',
-			'public'     => false,
+			'is_public'  => false,
 			'callback'   => '',
 			'type'       => 'post',
 			'data_type'  => 'json',
@@ -88,7 +88,7 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 				add_action( 'wp_ajax_' . $this->settings['action'], array( $this, 'handler_init' ) );
 
 				// Public action check
-				if ( filter_var( $this->settings['public'], FILTER_VALIDATE_BOOLEAN ) ) {
+				if ( filter_var( $this->settings['is_public'], FILTER_VALIDATE_BOOLEAN ) ) {
 					add_action( 'wp_ajax_nopriv_' . $this->settings['action'], array( $this, 'handler_init' ) );
 				}
 			}
@@ -196,12 +196,12 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 					'nonce'        => $nonce,
 					'type'         => $this->settings['type'],
 					'data_type'    => $this->settings['data_type'],
-					'public'       => $this->settings['public'] ? 'true' : 'false',
+					'is_public'    => $this->settings['is_public'] ? 'true' : 'false',
 					'sys_messages' => $this->settings['sys_messages'],
 				)
 			);
 
-			if ( $this->settings['public'] ) {
+			if ( $this->settings['is_public'] ) {
 				wp_localize_script( 'cherry-handler-js', 'cherryHandlerAjaxUrl', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 			}
 		}

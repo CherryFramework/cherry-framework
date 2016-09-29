@@ -83,7 +83,7 @@
 		if ( '' === settings.url ) {
 
 			// Check public request
-			if ( 'false' === self.handlerSettings.public ) {
+			if ( 'false' === self.handlerSettings.is_public ) {
 				settings.url = window.ajaxurl;
 			} else {
 				settings.url = window.cherryHandlerAjaxUrl.ajax_url;
