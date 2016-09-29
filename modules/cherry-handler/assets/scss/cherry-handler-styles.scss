@@ -1,0 +1,65 @@
+.cherry-handler-notice{
+	background: #23282d;
+	position: fixed;
+	margin: 5px 0;
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+	box-sizing: border-box;
+	padding: 8px 15px 8px 8px;
+	min-width: 200px;
+	overflow: hidden;
+	color: #fff;
+	z-index: 999;
+	border-radius: 2px;
+	transition: all 250ms cubic-bezier(0.85, 0.04, 1, 1);
+	span.dashicons{
+		position: relative;
+		margin-right: 10px;
+		&:before{
+			position: absolute;
+			font-size: 30px;
+			left: -6px;
+			top: -4px;
+		}
+	}
+	&.success-notice{
+		span.dashicons{
+			color: #48c569;
+			&:before{
+				content: "\f147";
+			}
+		}
+		.inner{
+			b{
+				color: #48c569;
+			}
+		}
+	}
+	&.info-notice{
+		span.dashicons{
+			color: #faa730;
+			&:before{
+				content: "\f534";
+			}
+		}
+		.inner{
+			b{
+				color: #faa730;
+			}
+		}
+	}
+	&.error-notice{
+		span.dashicons{
+			color: #e54343;
+			&:before{
+				content: "\f158";
+			}
+		}
+	}
+	&.show-state{
+		-webkit-transition: all 500ms cubic-bezier(0.1, 0.67, 0.26, 1);
+				transition: all 500ms cubic-bezier(0.1, 0.67, 0.26, 1);
+	}
+	.inner{
+		display: inline-block;
+	}
+}

@@ -87,22 +87,32 @@ select.select2-hidden-accessible{
 }
 .select2-container{
 	.select2-dropdown{
-		background-color: $grey_color_4;
+		background-color: $grey_color_2;
 		border: none;
 		border-radius: $border_radius_extra_small;
 		margin: 5px 0;
+		box-shadow: 0px 5px 21px rgba(0,0,0,0.1);
 		z-index: 500001;
-		&.select2-container--open, &.select2-dropdown--below{
-
+		&.select2-container--open, &.select2-dropdown--below{}
+		.select2-search__field{
+			border: none;
+			box-shadow: none;
+			border-radius: $border_radius_extra_small;
+			margin: 0;
+			&:focus{
+				outline: none;
+			}
 		}
 		.select2-results{
 			.select2-results__options{
 				.select2-results__option{
-					color: #fff;
+
 					&[aria-selected=true]{
+						color: #fff;
 						background-color: $green_color;
 					}
 					&--highlighted{
+						color: #fff;
 						background-color: $dark_color_2;
 					}
 				}

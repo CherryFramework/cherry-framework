@@ -2,7 +2,7 @@
 /**
  * Module Name: Interface Builder
  * Description: The module for the creation of interfaces in the WordPress admin panel
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.0.2
+ * @version    1.0.3
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -388,7 +388,7 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 					case 'field':
 						$ui_args = $value;
 
-						unset( $ui_args['class'] );
+						$ui_args['class'] = isset( $ui_args['child_class'] ) ? $ui_args['child_class'] : '' ;
 						unset( $ui_args['master'] );
 
 						$value['children'] = $this->ui_elements->get_ui_element_instance( $ui_args['type'], $ui_args )->render();
