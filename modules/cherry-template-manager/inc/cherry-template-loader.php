@@ -124,8 +124,8 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 		 * @return string
 		 */
 		private function get_slug() {
-			$file_dir    = preg_replace( '/\\\\+/', '/', __DIR__ );
-			$product_dir = preg_replace( '/\\\\+/', '/', $this->get_project_root() );
+			$file_dir    = wp_normalize_path( __DIR__ );
+			$product_dir = $this->get_project_root();
 
 			$slug = str_replace( $product_dir, '', $file_dir );
 			preg_match( '/^[a-zA-Z-]*/' , $slug, $slug );
@@ -141,11 +141,12 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 		 * @return string
 		 */
 		private function get_project_root() {
-			$themes_dir  = get_theme_root();
-			$file_dir    = preg_replace( '/\\\\+/', '/', __DIR__ );
-			$project_root = ! strpos( $file_dir, $themes_dir ) ? WP_CONTENT_DIR . '/plugins/' : WP_CONTENT_DIR . '/themes/' ;
+			$themes_dir   = wp_normalize_path( get_theme_root() );
+			$plugin_dir   = wp_normalize_path( WP_PLUGIN_DIR );
+			$file_dir     = wp_normalize_path( __DIR__ );
+			$project_root = false === strpos( $file_dir, $themes_dir ) ? $plugin_dir : $themes_dir ;
 
-			return $project_root;
+			return trailingslashit( $project_root );
 		}
 
 		/**
@@ -188,13 +189,12 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 		public function get_contents( $file ) {
 			global $wp_filesystem;
 
+			$file = wp_normalize_path( $file );
+
 			// Check for existence.
-			if ( ! $wp_filesystem->exists( $file ) ) {
+			if ( ! $content = $wp_filesystem->get_contents( $file ) ) {
 				return false;
 			}
-
-			// Read the file.
-			$content = $wp_filesystem->get_contents( $file );
 
 			if ( ! $content ) {
 				// Return error object.
