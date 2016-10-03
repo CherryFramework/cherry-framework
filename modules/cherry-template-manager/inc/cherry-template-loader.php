@@ -35,7 +35,8 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 		 * A reference to an instance of this class.
 		 *
 		 * @since 1.0.0
-		 * @var object
+		 * @access private
+		 * @var   object
 		 */
 		private static $instance = null;
 
@@ -43,7 +44,8 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 		 * A reference to an instance of this Cherry_Template_Manager class.
 		 *
 		 * @since 1.0.0
-		 * @var object
+		 * @access private
+		 * @var   object
 		 */
 		private $cherry_template_manager_class = null;
 
@@ -64,6 +66,8 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 		 * Cherry_Template_Loader constructor.
 		 *
 		 * @since 1.0.0
+		 * @access public
+		 * @return void
 		 */
 		public function __construct( $args = array(), $main_class = null ) {
 

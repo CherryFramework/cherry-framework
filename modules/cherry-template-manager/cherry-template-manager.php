@@ -34,8 +34,9 @@ if ( ! class_exists( 'Cherry_Template_Manager' ) ) {
 		/**
 		 * A reference to an instance of this class.
 		 *
-		 * @since 1.0.0
-		 * @var object
+		 * @since  1.0.0
+		 * @access private
+		 * @var    object
 		 */
 		private static $instance = null;
 
@@ -51,16 +52,18 @@ if ( ! class_exists( 'Cherry_Template_Manager' ) ) {
 		/**
 		 * It contains a class Cherry_Template_Parser.
 		 *
-		 * @since 1.0.0
-		 * @var object
+		 * @since  1.0.0
+		 * @access public
+		 * @var    object
 		 */
 		public $parser = null;
 
 		/**
 		 * It contains a class Cherry_Template_Loader.
 		 *
-		 * @since 1.0.0
-		 * @var object
+		 * @since  1.0.0
+		 * @access public
+		 * @var    object
 		 */
 		public $loader = null;
 
@@ -68,6 +71,8 @@ if ( ! class_exists( 'Cherry_Template_Manager' ) ) {
 		 * Cherry_Template_Manager constructor.
 		 *
 		 * @since 1.0.0
+		 * @access public
+		 * @return void
 		 */
 		public function __construct( $core = null, $args = array() ) {
 			$this->include_class();
@@ -84,6 +89,7 @@ if ( ! class_exists( 'Cherry_Template_Manager' ) ) {
 		 * Include abstract widget class
 		 *
 		 * @since  1.0.0
+		 * @access public
 		 * @return void
 		 */
 		public function include_class() {
@@ -94,7 +100,8 @@ if ( ! class_exists( 'Cherry_Template_Manager' ) ) {
 		/**
 		 * Function set the child classes.
 		 *
-		* @since  1.0.0
+		 * @since  1.0.0
+		 * @access public
 		 * @return void
 		 */
 		public function set_class() {
@@ -106,6 +113,7 @@ if ( ! class_exists( 'Cherry_Template_Manager' ) ) {
 		 * Returns the instance.
 		 *
 		 * @since  1.0.0
+		 * @access public
 		 * @return object
 		 */
 		public static function get_instance() {

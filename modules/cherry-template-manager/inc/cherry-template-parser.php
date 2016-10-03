@@ -34,16 +34,18 @@ if ( ! class_exists( 'Cherry_Template_Parser' ) ) {
 		/**
 		 * A reference to an instance of this class.
 		 *
-		 * @since 1.0.0
-		 * @var object
+		 * @since  1.0.0
+		 * @access private
+		 * @var    object
 		 */
 		private static $instance = null;
 
 		/**
 		 * A reference to an instance of this Cherry_Template_Manager class.
 		 *
-		 * @since 1.0.0
-		 * @var object
+		 * @since  1.0.0
+		 * @access private
+		 * @var    object
 		 */
 		private $cherry_template_manager_class = null;
 
@@ -62,15 +64,18 @@ if ( ! class_exists( 'Cherry_Template_Parser' ) ) {
 		/**
 		 * Keeps the user callbacks class.
 		 *
-		 * @since 1.0.0
-		 * @var object
+		 * @since  1.0.0
+		 * @access private
+		 * @var    object
 		 */
 		private static $Callbacks_Class = null;
 
 		/**
 		 * Cherry_Template_Parser constructor.
 		 *
-		 * @since 1.0.0
+		 * @since  1.0.0
+		 * @access public
+		 * @return void
 		 */
 		public function __construct( $args = array(), $main_class = null ) {
 			$this->args = array_merge_recursive(
@@ -85,17 +90,22 @@ if ( ! class_exists( 'Cherry_Template_Parser' ) ) {
 		 * Function parsed template.
 		 *
 		 * @since  1.0.0
-		 * @param  string          $template_name  Template Name.
-		 * @param  string|stdClass $class          An instance or class name.
-		 * @param  string          $macros         The regular expression for the macro.
+		 * @param  string          $template_name   Template Name.
+		 * @param  string|stdClass $class           An instance or class name.
+		 * @param  string          $macros_callback The regular expression for the callback.
+		 * @param  string          $macros_variable The regular expression for the variable.
 		 * @access public
 		 * @return string|bool
 		 */
-		public function parsed_template( $template_name, $class = false, $macros = false ) {
-
+		public function parsed_template( $template_name = false, $class = false, $macros_callback = false, $macros_variable = false ) {
 			if ( $template_name && $class ) {
-				if ( ! $macros ) {
-					$macros = $this->args['macros'];
+
+				if ( ! $macros_callback ) {
+					$macros_callback = $this->args['macros_callback'];
+				}
+
+				if ( ! $macros_variable ) {
+					$macros_variable = $this->args['macros_variable'];
 				}
 
 				$search_form_template = $this->cherry_template_manager_class->loader->get_template_by_name( $template_name );
@@ -112,7 +122,10 @@ if ( ! class_exists( 'Cherry_Template_Parser' ) ) {
 					self::$Callbacks_Class = $class;
 				}
 
-				return preg_replace_callback( $this->args['macros_callback'], array( $this, 'replace_callback' ), $search_form_template );
+				$ouput = preg_replace_callback( $macros_callback, array( $this, 'replace_callback' ), $search_form_template );
+				$ouput = preg_replace_callback( $macros_variable, array( $this, 'replace_variable' ), $ouput );
+
+				return $ouput;
 			} else {
 				return false;
 			}
@@ -122,9 +135,10 @@ if ( ! class_exists( 'Cherry_Template_Parser' ) ) {
 		/**
 		 * Callback to replace macros with data.
 		 *
-		 * @since 1.0.0
-		 * @param array $matches Founded macros.
+		 * @since  1.0.0
+		 * @param  array   $matches Founded macros.
 		 * @access private
+		 * @return string
 		 */
 		private function replace_callback( $matches ) {
 
@@ -153,6 +167,37 @@ if ( ! class_exists( 'Cherry_Template_Parser' ) ) {
 			}
 
 			return call_user_func( $callback );
+		}
+
+		/**
+		 * Callback to replace macros with data.
+		 *
+		 * @since  1.0.0
+		 * @param  array   $matches Founded macros.
+		 * @access private
+		 * @return string
+		 */
+		private function replace_variable( $matches ) {
+
+			if ( ! is_array( $matches ) ) {
+				return;
+			}
+
+			if ( empty( $matches ) ) {
+				return;
+			}
+
+			$item   = trim( $matches[0], '$$' );
+			$arr    = explode( ' ', $item, 2 );
+			$macros = strtoupper( $arr[0] );
+
+			if ( isset( self::$Callbacks_Class->variable ) && array_key_exists( $macros, self::$Callbacks_Class->variable ) ) {
+				$variable = self::$Callbacks_Class->variable[ $macros ];
+			} else {
+				return;
+			}
+
+			return $variable;
 		}
 
 		/**
