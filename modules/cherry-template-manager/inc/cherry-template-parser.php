@@ -57,8 +57,8 @@ if ( ! class_exists( 'Cherry_Template_Parser' ) ) {
 		 * @var    array
 		 */
 		private $args = array(
-			'macros_callback'       => '/%%.+?%%/',
-			'macros_variable'       => '/\$\$.+?\$\$/',
+			'macros_callback' => '/%%.+?%%/',
+			'macros_variable' => '/\$\$.+?\$\$/',
 		);
 
 		/**
@@ -68,7 +68,7 @@ if ( ! class_exists( 'Cherry_Template_Parser' ) ) {
 		 * @access private
 		 * @var    object
 		 */
-		private static $Callbacks_Class = null;
+		private static $callbacks_class = null;
 
 		/**
 		 * Cherry_Template_Parser constructor.
@@ -118,8 +118,8 @@ if ( ! class_exists( 'Cherry_Template_Parser' ) ) {
 					$class = new $class();
 				}
 
-				if ( $class !== self::$Callbacks_Class ) {
-					self::$Callbacks_Class = $class;
+				if ( $class !== self::$callbacks_class ) {
+					self::$callbacks_class = $class;
 				}
 
 				$ouput = preg_replace_callback( $macros_callback, array( $this, 'replace_callback' ), $search_form_template );
@@ -136,7 +136,7 @@ if ( ! class_exists( 'Cherry_Template_Parser' ) ) {
 		 * Callback to replace macros with data.
 		 *
 		 * @since  1.0.0
-		 * @param  array   $matches Founded macros.
+		 * @param  array $matches Founded macros.
 		 * @access private
 		 * @return string
 		 */
@@ -155,7 +155,7 @@ if ( ! class_exists( 'Cherry_Template_Parser' ) ) {
 			$macros = strtolower( $arr[0] );
 			$attr   = isset( $arr[1] ) ? shortcode_parse_atts( $arr[1] ) : array();
 
-			$callback = array( self::$Callbacks_Class, 'get_' . $macros );
+			$callback = array( self::$callbacks_class, 'get_' . $macros );
 
 			if ( ! is_callable( $callback ) ) {
 				return false;
@@ -173,7 +173,7 @@ if ( ! class_exists( 'Cherry_Template_Parser' ) ) {
 		 * Callback to replace macros with data.
 		 *
 		 * @since  1.0.0
-		 * @param  array   $matches Founded macros.
+		 * @param  array $matches Founded macros.
 		 * @access private
 		 * @return string
 		 */
@@ -191,8 +191,8 @@ if ( ! class_exists( 'Cherry_Template_Parser' ) ) {
 			$arr    = explode( ' ', $item, 2 );
 			$macros = strtoupper( $arr[0] );
 
-			if ( isset( self::$Callbacks_Class->variable ) && array_key_exists( $macros, self::$Callbacks_Class->variable ) ) {
-				$variable = self::$Callbacks_Class->variable[ $macros ];
+			if ( isset( self::$callbacks_class->variable ) && array_key_exists( $macros, self::$callbacks_class->variable ) ) {
+				$variable = self::$callbacks_class->variable[ $macros ];
 			} else {
 				return;
 			}

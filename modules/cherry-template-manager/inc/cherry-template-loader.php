@@ -76,7 +76,6 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 				$this->args
 			);
 
-
 			$this->cherry_template_manager_class = $main_class;
 
 			$this->set_default_variable();
@@ -98,7 +97,7 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 
 			if ( ! $this->args['upload_dir'] ) {
 				$get_upload_dir = wp_upload_dir();
-				$this->args['upload_dir'] =  trailingslashit( $get_upload_dir['basedir'] );
+				$this->args['upload_dir'] = trailingslashit( $get_upload_dir['basedir'] );
 			}
 		}
 
@@ -131,7 +130,7 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 			$slug = str_replace( $product_dir, '', $file_dir );
 			preg_match( '/^[a-zA-Z-]*/' , $slug, $slug );
 
-			return $slug[ 0 ];
+			return $slug[0];
 		}
 
 		/**
