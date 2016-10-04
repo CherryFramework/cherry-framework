@@ -283,6 +283,4 @@
 			return json;
 		}
 	};
-
-	$( document ).trigger( 'CherryHandlerInit' );
 }( jQuery, window.CherryJsCore ) );
