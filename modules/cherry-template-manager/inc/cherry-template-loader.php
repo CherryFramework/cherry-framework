@@ -144,7 +144,7 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 			$themes_dir   = wp_normalize_path( get_theme_root() );
 			$plugin_dir   = wp_normalize_path( WP_PLUGIN_DIR );
 			$file_dir     = wp_normalize_path( __DIR__ );
-			$project_root = false === strpos( $file_dir, $themes_dir ) ? $plugin_dir : $themes_dir ;
+			$project_root = ( false === strpos( $file_dir, $themes_dir ) ) ? $plugin_dir : $themes_dir;
 
 			return trailingslashit( $project_root );
 		}
