@@ -2,7 +2,7 @@
 /**
  * Module Name: Post Meta
  * Description: Manage post meta
- * Version: 1.2.0
+ * Version: 1.2.1
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.2.0
+ * @version    1.2.1
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -414,6 +414,10 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 			// Array of new post meta value.
 			$new_meta_value = array();
+
+			if ( empty( $_POST[ $meta_key ] ) ) {
+				return;
+			}
 
 			foreach ( $_POST[ $meta_key ] as $key => $value ) {
 
