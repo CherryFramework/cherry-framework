@@ -1,6 +1,6 @@
 {
 	"name" : "Cherry Framework",
-	"version" : "1.1.1",
+	"version" : "1.2.0",
 	"description" : "",
 	"doc_link" : "",
 	"git_link" : "https://github.com/CherryFramework/cherry-framework",
@@ -49,10 +49,21 @@
 			"required" : false,
 			"dependencies" : []
 		},
+		"cherry-handler" : {
+			"name" : "Cherry handler",
+			"description" : "Initializes handlers.",
+			"version" : "1.0.0",
+			"doc_link" : "",
+			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-handler",
+			"compatible" : ["theme", "plugin"],
+			"wordpress_org" : true,
+			"required" : false,
+			"dependencies" : [ "cherry-js-core" ]
+		},
 		"cherry-interface-builder" : {
 			"name" : "Interface Builder",
 			"description" : "The module for the creation of interfaces in the WordPress admin panel.",
-			"version" : "1.0.1",
+			"version" : "1.0.3",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-interface-builder",
 			"compatible" : ["theme", "plugin"],
@@ -107,7 +118,7 @@
 		"cherry-post-meta" : {
 			"name" : "Post Meta",
 			"description" : "Manage post meta.",
-			"version" : "1.2.0",
+			"version" : "1.2.1",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-post-meta",
 			"compatible" : ["theme", "plugin"],
@@ -137,10 +148,21 @@
 			"required" : false,
 			"dependencies" : []
 		},
+		"cherry-toolkit": {
+			"name": "Framework Toolkit",
+			"description": "Framework Toolkit contains various PHP utilities",
+			"version" : "1.2.0",
+			"doc_link": "",
+			"git_link": "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-toolkit",
+			"compatible": ["theme", "plugin"],
+			"wordpress_org": true,
+			"required": true,
+			"dependencies": []
+		},
 		"cherry-ui-elements" : {
 			"name" : "UI Elements",
 			"description" : "UI Elements",
-			"version" : "1.2.1",
+			"version" : "1.3.0",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-ui-elements",
 			"compatible" : ["theme", "plugin"],
@@ -151,7 +173,7 @@
 		"cherry-utility" : {
 			"name" : "Utility",
 			"description" : "Multiple utility functions.",
-			"version" : "1.1.2",
+			"version" : "1.1.3",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-utility",
 			"compatible" : ["theme", "plugin"],
@@ -169,17 +191,6 @@
 			"wordpress_org" : true,
 			"required" : false,
 			"dependencies" : [ "cherry-ui-elements" ]
-		},
-		"cherry-toolkit": {
-			"name": "Framework Toolkit",
-			"description": "Framework Toolkit contains various PHP utilities",
-			"version" : "1.1.0",
-			"doc_link": "",
-			"git_link": "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-toolkit",
-			"compatible": ["theme", "plugin"],
-			"wordpress_org": true,
-			"required": true,
-			"dependencies": []
 		}
 	}
 }
