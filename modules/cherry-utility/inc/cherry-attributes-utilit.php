@@ -39,14 +39,14 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			}
 
 			$default_args = array(
-				'visible'		=> true,
-				'length'		=> 9999,
-				'trimmed_type'	=> 'word',
-				'ending'		=> '&hellip;',
-				'html'			=> '<h3 %1$s><a href="%2$s" %3$s rel="bookmark">%4$s</a></h3>',
-				'class'			=> '',
-				'title'			=> '',
-				'echo'			=> false,
+				'visible'      => true,
+				'length'       => -1,
+				'trimmed_type' => 'word',
+				'ending'       => '&hellip;',
+				'html'         => '<h3 %1$s><a href="%2$s" %3$s rel="bookmark">%4$s</a></h3>',
+				'class'        => '',
+				'title'        => '',
+				'echo'         => false,
 			);
 			$args = wp_parse_args( $args, $default_args );
 			$html = '' ;
@@ -54,9 +54,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) && 0 !== $args['length'] ) {
 				$title = $title_cut = ( 'post' === $type ) ? $object->post_title : $object->name ;
 				$title = ( $args['title'] ) ? 'title="' . $args['title'] . '"' : 'title="' . $title . '"' ;
-
 				$title_cut = $this->cut_text( $title_cut, $args['length'], $args['trimmed_type'], $args['ending'] );
-
 				$link = ( 'post' === $type ) ? $this->get_post_permalink() : $this->get_term_permalink( $object->term_id );
 				$html_class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
 
@@ -83,14 +81,14 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			}
 
 			$default_args = array(
-				'visible'		=> true,
-				'content_type'	=> 'post_content',
-				'length'		=> 0,
-				'trimmed_type'	=> 'word',
-				'ending'		=> '&hellip;',
-				'html'			=> '<p %1$s>%2$s</p>',
-				'class'			=> '',
-				'echo'			=> false,
+				'visible'      => true,
+				'content_type' => 'post_content',
+				'length'       => -1,
+				'trimmed_type' => 'word',
+				'ending'       => '&hellip;',
+				'html'         => '<p %1$s>%2$s</p>',
+				'class'        => '',
+				'echo'         => false,
 			);
 			$args = wp_parse_args( $args, $default_args );
 			$html = '' ;
@@ -135,13 +133,13 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			}
 
 			$default_args = array(
-				'visible'	=> true,
-				'text'		=> '',
-				'icon'		=> '',
-				'html'		=> '<a href="%1$s" %2$s %3$s><span class="btn__text">%4$s</span>%5$s</a>',
-				'class'		=> 'btn',
-				'title'		=> '',
-				'echo'		=> false,
+				'visible' => true,
+				'text'    => '',
+				'icon'    => '',
+				'html'    => '<a href="%1$s" %2$s %3$s><span class="btn__text">%4$s</span>%5$s</a>',
+				'class'   => 'btn',
+				'title'   => '',
+				'echo'    => false,
 			);
 			$args = wp_parse_args( $args, $default_args );
 			$html = '' ;
