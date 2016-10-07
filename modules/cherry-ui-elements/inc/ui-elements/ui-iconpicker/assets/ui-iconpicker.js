@@ -38,7 +38,7 @@
 					}
 
 					if ( setData ) {
-						$( 'body' ).append( '<link rel="stylesheet" type="text/css" href="' + setData.iconCSS + '"">' );
+						$( 'head' ).append( '<link rel="stylesheet" type="text/css" href="' + setData.iconCSS + '"">' );
 					}
 				} );
 		}
