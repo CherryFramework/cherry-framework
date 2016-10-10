@@ -115,6 +115,17 @@
 			"required" : false,
 			"dependencies" : [ "cherry-interface-builder" ]
 		},
+		"cherry-template-manager" : {
+			"name" : "emplate Manager",
+			"description" : "Manage term metadata.",
+			"version" : "1.0.0",
+			"doc_link" : "",
+			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-template-manager",
+			"compatible" : ["theme", "plugin"],
+			"wordpress_org" : true,
+			"required" : false,
+			"dependencies" : []
+		},
 		"cherry-term-meta" : {
 			"name" : "Term Meta",
 			"description" : "Manage term metadata.",
@@ -162,7 +173,7 @@
 		"cherry-utility" : {
 			"name" : "Utility",
 			"description" : "Multiple utility functions.",
-			"version" : "1.1.3",
+			"version" : "1.1.4",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-utility",
 			"compatible" : ["theme", "plugin"],
