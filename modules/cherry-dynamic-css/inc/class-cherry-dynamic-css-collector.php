@@ -31,15 +31,38 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Collector' ) ) {
 
 		/**
 		 * Holder for grabbed CSS
+		 *
 		 * @var array
 		 */
 		public static $grabbed_css = array();
 
 		/**
 		 * Array with sorted css
+		 *
 		 * @var array
 		 */
 		public static $sorted_css = array();
+
+		/**
+		 * Apropriate JS handle name
+		 *
+		 * @var string
+		 */
+		public static $js_handle = 'cherry-js-core';
+
+		/**
+		 * Passed handler file content
+		 *
+		 * @var string
+		 */
+		public static $handler_file = null;
+
+		/**
+		 * Set handler file on construct
+		 */
+		function __construct( $handler_file = null ) {
+			self::$handler_file = $handler_file;
+		}
 
 		/**
 		 * Add new style to collector
@@ -58,17 +81,30 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Collector' ) ) {
 
 		}
 
+		public function get_handle() {
+			return apply_filters( 'cherry_dynamic_css_collector_handle', self::$js_handle );
+		}
+
+		/**
+		 * Add inline JS handler
+		 *
+		 * @return void
+		 */
+		public function add_js_handler() {
+
+			if ( ! self::$handler_file ) {
+				return;
+			}
+
+			wp_add_inline_script( $this->get_handle(), self::$handler_file );
+		}
+
 		/**
 		 * Print grabbed CSS
 		 *
 		 * @return void
 		 */
 		public function print_style() {
-
-			$format = apply_filters(
-				'cherry_dynamic_css_collector_print_format',
-				'<style title="cherry-collected-dynamic-style" type="text/css">%s</style>'
-			);
 
 			self::$grabbed_css = apply_filters(
 				'cherry_dynamic_css_collected_styles',
@@ -95,14 +131,21 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Collector' ) ) {
 
 			$styles = ob_get_clean();
 
-			printf( $format, $styles );
+			$localize_var = apply_filters( 'cherry_dynamic_css_collector_localize_object', array(
+				'type'  => 'text/css',
+				'title' => 'cherry-collected-dynamic-style',
+				'css'   => $styles
+			) );
+
+			wp_localize_script( $this->get_handle(), 'CherryCollectedCSS', $localize_var );
 
 		}
 
 		/**
 		 * Print single breakpoint
 		 *
-		 * @param  array $rules Rules array.
+		 * @param  array  $rules      Rules array.
+		 * @param  string $breakpoint Breakpoint name.
 		 * @return void
 		 */
 		public function print_breakpoint( $rules, $breakpoint ) {
@@ -164,7 +207,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Collector' ) ) {
 		 *
 		 * @param  string $selector Selector name.
 		 * @param  array  $rule     CSS rule data.
-		 * @return void
+		 * @return void|bool
 		 */
 		public function prepare_rule( $selector, $rule ) {
 
@@ -174,7 +217,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Collector' ) ) {
 			), $rule );
 
 			if ( empty( $rule['style'] ) ) {
-				return;
+				return false;
 			}
 
 			$breakpoint = $this->breakpoint_name( $rule['media'] );
@@ -230,11 +273,11 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Collector' ) ) {
 		 * @since  1.2.0
 		 * @return object
 		 */
-		public static function get_instance() {
+		public static function get_instance( $handler_file = null ) {
 
 			// If the single instance hasn't been set, set it now.
 			if ( null == self::$instance ) {
-				self::$instance = new self;
+				self::$instance = new self( $handler_file );
 			}
 			return self::$instance;
 		}

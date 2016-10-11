@@ -104,8 +104,14 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 			}
 
 			require_once 'inc/class-cherry-dynamic-css-collector.php';
-			self::$collector = Cherry_Dynamic_Css_Collector::get_instance();
-			add_action( 'wp_footer', array( self::$collector, 'print_style' ) );
+
+			ob_start();
+			include 'assets/min/cherry-css-collector.min.js';
+			$handler = ob_get_clean();
+
+			self::$collector = Cherry_Dynamic_Css_Collector::get_instance( $handler );
+			add_action( 'wp_footer', array( self::$collector, 'print_style' ), 11 );
+			add_action( 'wp_footer', array( self::$collector, 'add_js_handler' ), 11 );
 
 			return true;
 
