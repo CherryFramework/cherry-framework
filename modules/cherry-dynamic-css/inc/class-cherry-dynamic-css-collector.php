@@ -81,6 +81,11 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Collector' ) ) {
 
 		}
 
+		/**
+		 * Return JS handle name
+		 *
+		 * @return string
+		 */
 		public function get_handle() {
 			return apply_filters( 'cherry_dynamic_css_collector_handle', self::$js_handle );
 		}
@@ -134,7 +139,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Collector' ) ) {
 			$localize_var = apply_filters( 'cherry_dynamic_css_collector_localize_object', array(
 				'type'  => 'text/css',
 				'title' => 'cherry-collected-dynamic-style',
-				'css'   => $styles
+				'css'   => $styles,
 			) );
 
 			wp_localize_script( $this->get_handle(), 'CherryCollectedCSS', $localize_var );
@@ -173,7 +178,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Collector' ) ) {
 		/**
 		 * Print rules for selector.
 		 *
-		 * @param  array  $rule     Single rule
+		 * @param  array  $rule     Single rule.
 		 * @param  string $selector Selector name.
 		 * @return void
 		 */
@@ -241,7 +246,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Collector' ) ) {
 		 * Generate media rule name
 		 *
 		 * @param  array $media Media breakpoints.
-		 * @return void
+		 * @return string
 		 */
 		public function breakpoint_name( $media ) {
 
