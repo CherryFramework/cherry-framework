@@ -2,7 +2,7 @@
 /**
  * Module Name: Widget Factory
  * Description: Base widget class that simplifies creating of your own widgets.
- * Version: 1.1.4
+ * Version: 1.2.0
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.4
+ * @version    1.2.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
