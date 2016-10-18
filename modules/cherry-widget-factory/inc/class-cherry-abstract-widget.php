@@ -608,6 +608,25 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 		}
 
 		/**
+		 * Add widget_id-related CSS selector
+		 *
+		 * @since  1.2.0
+		 * @param  string $selector Selector inside widget.
+		 * @param  array  $args     widget arguments (optional, pass it only setup_widget_data not called before).
+		 * @return string|bool
+		 */
+		public function add_selector( $selector = null, $args = array() ) {
+
+			if ( null == $this->args && empty( $args ) ) {
+				return false;
+			}
+
+			$args = null !== $this->args ? $this->args : $args;
+
+			return sprintf( '#%1$s %2$s', $args['widget_id'], $selector );
+		}
+
+		/**
 		 * Retrieve a string translation via WPML.
 		 *
 		 * @since  1.0.1
