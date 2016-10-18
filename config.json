@@ -17,7 +17,7 @@
 			"dependencies" : []
 		},
 		"cherry-customizer" : {
-			"name" : "Customizer",
+			"name" : "Customizer API",
 			"description" : "Customizer functionality.",
 			"version" : "1.1.4",
 			"doc_link" : "",
@@ -28,9 +28,9 @@
 			"dependencies" : []
 		},
 		"cherry-dynamic-css" : {
-			"name" : "Dynamic Css",
-			"description" : "Generate Css.",
-			"version" : "1.1.1",
+			"name" : "Dynamic CSS",
+			"description" : "Generate CSS.",
+			"version" : "1.2.0",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-dynamic-css",
 			"compatible" : ["theme", "plugin"],
@@ -40,7 +40,7 @@
 		},
 		"cherry-google-fonts-loader" : {
 			"name" : "Google Fonts Loader",
-			"description" : "Enqueue Google font.",
+			"description" : "Enqueue Google fonts.",
 			"version" : "1.1.0",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-google-fonts-loader",
@@ -51,7 +51,7 @@
 		},
 		"cherry-handler" : {
 			"name" : "Cherry handler",
-			"description" : "Initializes handlers.",
+			"description" : "Initialize handlers.",
 			"version" : "1.0.0",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-handler",
@@ -73,23 +73,12 @@
 		},
 		"cherry-js-core" : {
 			"name" : "JS Core",
-			"description" : "Initializes global JS object which provides additional plugin functionality.",
+			"description" : "Initialize global JS object which provides additional plugin functionality.",
 			"version" : "1.1.2",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-js-core",
 			"compatible" : ["theme", "plugin"],
 			"wordpress_org" : true,
-			"required" : false,
-			"dependencies" : []
-		},
-		"cherry-plugin-updater" : {
-			"name" : "Plugin Updater",
-			"description" : "Provides functionality for updating plugins.",
-			"version" : "1.1.0",
-			"doc_link" : "",
-			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-plugin-updater",
-			"compatible" : ["plugin"],
-			"wordpress_org" : false,
 			"required" : false,
 			"dependencies" : []
 		},
@@ -116,8 +105,8 @@
 			"dependencies" : [ "cherry-interface-builder" ]
 		},
 		"cherry-template-manager" : {
-			"name" : "emplate Manager",
-			"description" : "Manage term metadata.",
+			"name" : "Template Manager",
+			"description" : "Module for load and parse *.tmpl files.",
 			"version" : "1.0.0",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-template-manager",
@@ -136,17 +125,6 @@
 			"wordpress_org" : true,
 			"required" : false,
 			"dependencies" : [ "cherry-ui-elements" ]
-		},
-		"cherry-theme-updater" : {
-			"name" : "Theme Updater",
-			"description" : "Provides functionality for updating themes.",
-			"version" : "1.1.0",
-			"doc_link" : "",
-			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-theme-updater",
-			"compatible" : ["theme"],
-			"wordpress_org" : false,
-			"required" : false,
-			"dependencies" : []
 		},
 		"cherry-toolkit": {
 			"name": "Framework Toolkit",
@@ -182,9 +160,9 @@
 			"dependencies" : []
 		},
 		"cherry-widget-factory" : {
-			"name" : "Widget Factory.",
+			"name" : "Widget Factory",
 			"description" : "Base widget class that simplifies creating of your own widgets.",
-			"version" : "1.1.4",
+			"version" : "1.2.0",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-widget-factory",
 			"compatible" : ["theme", "plugin"],
