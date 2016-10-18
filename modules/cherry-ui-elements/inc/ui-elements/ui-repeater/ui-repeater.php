@@ -114,11 +114,11 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		 * @since  1.0.1
 		 */
 		public function render() {
-			$html = '';
-			$class = $this->settings['class'];
-			$class .= ' ' . $this->settings['master'];
-
-			$ui_kit = ! empty( $this->settings['ui_kit'] ) ? 'cherry-ui-kit' : '';
+			$html        = '';
+			$class       = $this->settings['class'] . ' ' . $this->settings['master'];
+			$ui_kit      = ! empty( $this->settings['ui_kit'] ) ? 'cherry-ui-kit' : '';
+			$value       = ! empty( $this->settings['value'] ) ? count( $this->settings['value'] ) : 0 ;
+			$title_field = ! empty( $this->settings['title_field'] ) ? 'data-title-field="' . $this->settings['title_field'] . '"' : '' ;
 
 			$html .= sprintf( '<div class="cherry-ui-repeater-container cherry-ui-container %1$s %2$s">',
 					$ui_kit,
@@ -131,8 +131,8 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 				$html .= sprintf(
 					'<div class="cherry-ui-repeater-list" data-name="%1$s" data-index="%2$s" data-widget-id="__i__" %3$s id="%4$s">',
 					$this->get_tmpl_name(),
-					( ! empty( $this->settings['value'] ) ) ? count( $this->settings['value'] ) : 0,
-					( ! empty( $this->settings['title_field'] ) ) ? 'data-title-field="' . $this->settings['title_field'] . '"': '',
+					$value,
+					$title_field,
 					esc_attr( $this->settings['id'] )
 				);
 
@@ -218,14 +218,14 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 				return '"type" and "name" are required fields for UI_Repeater items';
 			}
 
-			$field = wp_parse_args( $field, array( 'value' => '' ) );
-			$parent_name = str_replace( '__i__', $widget_index, $this->settings['name'] );
+			$field          = wp_parse_args( $field, array( 'value' => '' ) );
+			$parent_name    = str_replace( '__i__', $widget_index, $this->settings['name'] );
 
 			$field['id']    = sprintf( '%s-%s', $field['id'], $index );
 			$field['value'] = isset( $this->data[ $field['name'] ] ) ? $this->data[ $field['name'] ] : $field['value'];
 			$field['name']  = sprintf( '%1$s[item-%2$s][%3$s]', $parent_name, $index, $field['name'] );
 
-			$ui_class_name = 'UI_' . ucwords( $field['type'] );
+			$ui_class_name  = 'UI_' . ucwords( $field['type'] );
 
 			if ( ! class_exists( $ui_class_name ) ) {
 				return '<p>Class <b>' . $ui_class_name . '</b> not exist!</p>';
