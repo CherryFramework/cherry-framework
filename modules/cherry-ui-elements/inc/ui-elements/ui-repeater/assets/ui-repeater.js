@@ -62,6 +62,8 @@
 				widgetId    = $list.data( 'widget-id' ),
 				data        = { index: index };
 
+			widgetId = '__i__' !== widgetId ? widgetId : $list.attr( 'id' ) ;
+
 			if ( widgetId ) {
 				data.widgetId = widgetId;
 			}
