@@ -386,6 +386,10 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 				return;
 			}
 
+			if ( ! $this->is_allowed_page() ) {
+				return;
+			}
+
 			if ( ! is_object( $post ) ) {
 				$post = get_post();
 			}
