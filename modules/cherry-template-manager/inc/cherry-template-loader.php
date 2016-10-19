@@ -205,6 +205,23 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 		}
 
 		/**
+		 * Returns argument.
+		 *
+		 * @since  1.0.0
+		 * @param  string $argument_name Argument name.
+		 * @access public
+		 * @return object
+		 */
+		public function get_argument( $argument_name ) {
+			if ( isset( $this->args[ $argument_name ] ) ) {
+				return $this->args[ $argument_name ];
+			} else {
+				return;
+			}
+		}
+
+
+		/**
 		 * Returns the instance.
 		 *
 		 * @since  1.0.0

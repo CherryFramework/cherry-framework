@@ -140,25 +140,20 @@ if ( ! class_exists( 'Cherry_Template_Parser' ) ) {
 		 * @access private
 		 * @return string
 		 */
-		private function replace_callback( $matches ) {
-
-			if ( ! is_array( $matches ) ) {
-				return false;
+		private function replace_callback( $matches, $slug = '' ) {
+			if ( ! is_array( $matches ) || empty( $matches ) ) {
+				return;
 			}
 
-			if ( empty( $matches ) ) {
-				return false;
-			}
-
-			$item   = trim( $matches[0], '%%' );
-			$arr    = explode( ' ', $item, 2 );
-			$macros = strtolower( $arr[0] );
-			$attr   = isset( $arr[1] ) ? shortcode_parse_atts( $arr[1] ) : array();
-
-			$callback = array( self::$callbacks_class, 'get_' . $macros );
+			$slug     = $this->cherry_template_manager_class->loader->get_argument( 'slug' );
+			$item     = trim( $matches[0], '%%' );
+			$arr      = explode( ' ', $item, 2 );
+			$macros   = strtolower( $arr[0] );
+			$attr     = isset( $arr[1] ) ? shortcode_parse_atts( $arr[1] ) : array();
+			$callback = apply_filters( $slug . '_set_callback_' . $macros, array( self::$callbacks_class, 'get_' . $macros ) );
 
 			if ( ! is_callable( $callback ) ) {
-				return false;
+				return;
 			}
 
 			if ( ! empty( $attr ) ) {
@@ -177,27 +172,43 @@ if ( ! class_exists( 'Cherry_Template_Parser' ) ) {
 		 * @access private
 		 * @return string
 		 */
-		private function replace_variable( $matches ) {
+		private function replace_variable( $matches, $slug = '' ) {
 
-			if ( ! is_array( $matches ) ) {
+			if ( ! is_array( $matches ) || empty( $matches ) ) {
 				return;
 			}
 
-			if ( empty( $matches ) ) {
-				return;
-			}
+			$slug     = $this->cherry_template_manager_class->loader->get_argument( 'slug' );
+			$item     = trim( $matches[0], '$$' );
+			$arr      = explode( ' ', $item, 2 );
+			$macros   = strtolower( $arr[0] );
+			$variable = apply_filters( $slug . '_set_variable_' . $macros, null );
 
-			$item   = trim( $matches[0], '$$' );
-			$arr    = explode( ' ', $item, 2 );
-			$macros = strtoupper( $arr[0] );
-
-			if ( isset( self::$callbacks_class->variable ) && array_key_exists( $macros, self::$callbacks_class->variable ) ) {
-				$variable = self::$callbacks_class->variable[ $macros ];
-			} else {
-				return;
+			if ( null === $variable ) {
+				if ( isset( self::$callbacks_class->variable ) && array_key_exists( $macros, self::$callbacks_class->variable ) ) {
+					$variable = self::$callbacks_class->variable[ $macros ];
+				} else {
+					return;
+				}
 			}
 
 			return $variable;
+		}
+
+		/**
+		 * Returns argument.
+		 *
+		 * @since  1.0.0
+		 * @param  string $argument_name Argument name.
+		 * @access public
+		 * @return object
+		 */
+		public function get_argument( $argument_name ) {
+			if ( isset( $this->args[ $argument_name ] ) ) {
+				return $this->args[ $argument_name ];
+			} else {
+				return;
+			}
 		}
 
 		/**
