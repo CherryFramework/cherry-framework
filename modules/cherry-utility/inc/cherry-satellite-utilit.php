@@ -87,10 +87,10 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * @since  1.0.0
 		 * @return string
 		 */
-		public function cut_text( $text = '', $length = 0, $trimmed_type = 'word', $after, $content = false ) {
-			$length = (int) $length;
+		public function cut_text( $text = '', $length = -1, $trimmed_type = 'word', $after, $content = false ) {
 
-			if ( $length ) {
+			if ( -1 !== $length ) {
+
 				if ( $content ) {
 					$text = strip_shortcodes( $text );
 					$text = apply_filters( 'the_content', $text );

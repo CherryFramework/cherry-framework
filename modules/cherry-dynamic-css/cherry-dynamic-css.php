@@ -2,7 +2,7 @@
 /**
  * Module Name: Dynamic CSS
  * Description: CSS parser which uses variables & functions for CSS code optimization
- * Version: 1.1.1
+ * Version: 1.2.0
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.1
+ * @version    1.2.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -65,6 +65,14 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		public $func_pattern = '/@(([a-zA-Z_]+)\(([^@\)]*)?\))/';
 
 		/**
+		 * Collector instance holder
+		 *
+		 * @since 1.2.0
+		 * @var   object
+		 */
+		public static $collector = null;
+
+		/**
 		 * Constructor for the module
 		 */
 		function __construct( $core, $args ) {
@@ -79,6 +87,50 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 			) );
 
 			add_action( 'wp_head', array( $this, 'print_inline_css' ), 99 );
+
+			$this->init_collector();
+		}
+
+		/**
+		 * Initalize CSS collector class
+		 *
+		 * @since  1.2.0
+		 * @return bool
+		 */
+		public function init_collector() {
+
+			if ( null !== self::$collector ) {
+				return true;
+			}
+
+			require_once 'inc/class-cherry-dynamic-css-collector.php';
+
+			ob_start();
+			include 'assets/min/cherry-css-collector.min.js';
+			$handler = ob_get_clean();
+
+			self::$collector = Cherry_Dynamic_Css_Collector::get_instance( $handler );
+			add_action( 'wp_footer', array( self::$collector, 'print_style' ), 11 );
+			add_action( 'wp_footer', array( self::$collector, 'add_js_handler' ), 11 );
+
+			return true;
+
+		}
+
+		/**
+		 * Add new style to collector
+		 *
+		 * @since  1.2.0
+		 * @param  string $selector CSS selector to add styles for.
+		 * @param  array  $style    Styles array to add.
+		 * @param  array  $media    Media breakpoints.
+		 * @return void
+		 */
+		public function add_style( $selector, $style = array(), $media = array() ) {
+			if ( ! $selector ) {
+				return;
+			}
+			self::$collector->add_style( $selector, $style, $media );
 		}
 
 		/**
@@ -186,26 +238,6 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		}
 
 		/**
-		 * Get path inside of current module
-		 *
-		 * @since  1.0.0
-		 * @since  1.1.1 Using dirname( __FILE__ ) instead of __DIR__.
-		 * @param  string $path file inside module directory to get path for.
-		 * @return string
-		 */
-		public function get_path( $path = null ) {
-
-			$result = trailingslashit( dirname( __FILE__ ) );
-
-			if ( null !== $path ) {
-				$result .= $path;
-			}
-
-			return $result;
-
-		}
-
-		/**
 		 * Get avaliable functions into array
 		 *
 		 * @since  1.0.0
@@ -213,7 +245,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 */
 		public function get_css_functions() {
 
-			require_once $this->get_path( 'inc/class-cherry-dynamic-css-utilities.php' );
+			require_once 'inc/class-cherry-dynamic-css-utilities.php';
 			$utilities = Cherry_Dynamic_Css_Utilities::get_instance();
 
 			$func_list = array(
