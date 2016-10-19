@@ -30,13 +30,6 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Collector' ) ) {
 		private static $instance = null;
 
 		/**
-		 * Holder for grabbed CSS
-		 *
-		 * @var array
-		 */
-		public static $grabbed_css = array();
-
-		/**
 		 * Array with sorted css
 		 *
 		 * @var array
@@ -74,9 +67,12 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Collector' ) ) {
 		 */
 		public function add_style( $selector, $style = array(), $media = array() ) {
 
-			self::$grabbed_css[ $selector ] = array(
-				'style' => $style,
-				'media' => $media,
+			$this->prepare_rule(
+				$selector,
+				array(
+					'style' => $style,
+					'media' => $media,
+				)
 			);
 
 		}
@@ -111,12 +107,12 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Collector' ) ) {
 		 */
 		public function print_style() {
 
-			self::$grabbed_css = apply_filters(
+			self::$sorted_css = apply_filters(
 				'cherry_dynamic_css_collected_styles',
-				self::$grabbed_css
+				self::$sorted_css
 			);
 
-			if ( empty( self::$grabbed_css ) || ! is_array( self::$grabbed_css ) ) {
+			if ( empty( self::$sorted_css ) || ! is_array( self::$sorted_css ) ) {
 				return;
 			}
 
@@ -124,13 +120,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Collector' ) ) {
 
 			do_action( 'cherry_dynamic_css_before_print_collected' );
 
-			foreach ( self::$grabbed_css as $selector => $rule ) {
-				$this->prepare_rule( $selector, $rule );
-			}
-
-			if ( ! empty( self::$sorted_css ) ) {
-				array_walk( self::$sorted_css, array( $this, 'print_breakpoint' ) );
-			}
+			array_walk( self::$sorted_css, array( $this, 'print_breakpoint' ) );
 
 			do_action( 'cherry_dynamic_css_after_print_collected' );
 
@@ -260,16 +250,16 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Collector' ) ) {
 			}
 
 			if ( ! empty( $media['max'] ) ) {
+				$sep       = true === $has_media ? ' and ' : '';
 				$has_media = true;
-				$sep       = true === $has_media ? ' & ' : '';
-				$max       = sprintf( '(max-width: %1$s)', esc_attr( $media['min'] ) );
+				$max       = sprintf( '(max-width: %1$s)', esc_attr( $media['max'] ) );
 			}
 
 			if ( ! $has_media ) {
 				return 'all';
 			}
 
-			return sprintf( 'media %1$s%2$s', $min, $max );
+			return sprintf( 'media %1$s%3$s%2$s', $min, $max, $sep );
 		}
 
 		/**
