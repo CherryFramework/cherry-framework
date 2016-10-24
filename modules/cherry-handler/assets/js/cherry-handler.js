@@ -180,11 +180,11 @@
 		 * @param  {String} message Message content
 		 * @return {Void}
 		 */
-		noticeCreate: function( type, message, public ) {
+		noticeCreate: function( type, message, isPublicPage ) {
 			var notice,
 				rightDelta = 0,
 				timeoutId,
-				isPublic = public || false;
+				isPublic = isPublicPage || false;
 
 			if ( ! message || 'true' === isPublic ) {
 				return false;
