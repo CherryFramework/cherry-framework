@@ -433,7 +433,7 @@ html{
 {
 	@media ( min-width: 783px ) {
 		max-height: $max-heught;
-		overflow-y: scroll;
+		overflow-y: auto;
 		position: relative;
 		&::-webkit-scrollbar {
 			width: 10px;
