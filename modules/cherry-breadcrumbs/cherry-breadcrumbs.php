@@ -2,7 +2,7 @@
 /**
  * Module Name: Breadcrumb Trail
  * Description: A breadcrumb menu script for WordPress
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -207,7 +207,7 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			$wrapper_css     = implode( ' ', $wrapper_classes );
 
 			/* Open the breadcrumb trail containers. */
-			$result = "\n\t\t" . '<div class="' . $wrapper_css . '">';
+			$result = "\n\t\t" . '<div class="' . esc_attr( $wrapper_css ) . '">';
 
 			$result .= sprintf( $this->args['wrapper_format'], $title, $breadcrumb );
 

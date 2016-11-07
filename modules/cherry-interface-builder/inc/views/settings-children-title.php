@@ -15,4 +15,4 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 ?>
-<h3 class="cherry-ui-kit__title cherry-settings__title" role="banner" ><?php echo $__data['title']; ?></h3>
+<h3 class="cherry-ui-kit__title cherry-settings__title" role="banner" ><?php echo wp_kses_post( $__data['title'] ); ?></h3>

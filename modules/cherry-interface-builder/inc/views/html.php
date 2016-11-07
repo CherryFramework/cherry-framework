@@ -15,7 +15,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 ?>
-<div class="cherry-ui-kit <?php echo $__data['class']; ?>">
+<div class="cherry-ui-kit <?php echo esc_attr( $__data['class'] ); ?>">
 	<?php if ( ! empty( $__data['children'] ) ) { ?>
 		<div class="cherry-ui-kit__content" role="group" >
 			<?php echo $__data['children']; ?>

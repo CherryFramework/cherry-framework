@@ -286,7 +286,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			$class_name = self::get_class_name( $module );
 
 			if ( ! class_exists( $class_name ) ) {
-				echo '<p>Class <b>' . $class_name . '</b> not exist!</p>';
+				echo '<p>Class <b>' . esc_attr( $class_name ) . '</b> not exist!</p>';
 				return false;
 			}
 

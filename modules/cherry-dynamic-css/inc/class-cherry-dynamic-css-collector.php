@@ -150,7 +150,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Collector' ) ) {
 			}
 
 			if ( 'all' !== $breakpoint ) {
-				echo '@' . $breakpoint . ' {';
+				echo '@' . esc_attr( $breakpoint ) . ' {';
 			}
 
 			do_action( 'cherry_dynamic_css_breakpoint_start', $breakpoint );
@@ -174,7 +174,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Collector' ) ) {
 		 */
 		public function print_rules( $rule, $selector ) {
 
-			echo $selector . ' {';
+			echo esc_attr( $selector ) . ' {';
 
 			do_action( 'cherry_dynamic_css_rule_start', $selector );
 

@@ -15,14 +15,14 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 ?>
-<div class="cherry-ui-kit cherry-control <?php echo $__data['class']; ?>">
+<div class="cherry-ui-kit cherry-control <?php echo esc_attr( $__data['class'] ); ?>">
 	<?php if ( ! empty( $__data['title'] ) || ! empty( $__data['description'] ) ) { ?>
 		<div class="cherry-control__info">
 			<?php if ( ! empty( $__data['title'] ) ) { ?>
-				<h4 class="cherry-ui-kit__title cherry-control__title" role="banner" ><?php echo $__data['title']; ?></h4>
+				<h4 class="cherry-ui-kit__title cherry-control__title" role="banner" ><?php echo wp_kses_post( $__data['title'] ); ?></h4>
 			<?php } ?>
 			<?php if ( ! empty( $__data['description'] ) ) { ?>
-				<div class="cherry-ui-kit__description cherry-control__description" role="note" ><?php echo $__data['description']; ?></div>
+				<div class="cherry-ui-kit__description cherry-control__description" role="note" ><?php echo wp_kses_post( $__data['description'] ); ?></div>
 			<?php } ?>
 		</div>
 	<?php } ?>
