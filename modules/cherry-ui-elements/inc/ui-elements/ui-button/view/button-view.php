@@ -18,7 +18,7 @@ if ( ! defined( 'WPINC' ) ) {
 $attrs = Cherry_Toolkit::join(
 	array(
 		'type'       => esc_attr( $__data['type'] ),
-		'id'         => esc_attr(  $__data['id'] ),
+		'id'         => esc_attr( $__data['id'] ),
 		'name'       => esc_attr( $__data['name'] ),
 		'class'      => 'ui-button ui-button-' . esc_attr( $__data['style'] ) . '-style ' . esc_attr( $__data['master'] . $__data['class'] ),
 		'disabled'   => filter_var( $__data['disabled'], FILTER_VALIDATE_BOOLEAN ),
