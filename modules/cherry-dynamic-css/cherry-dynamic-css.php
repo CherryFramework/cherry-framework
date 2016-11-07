@@ -2,7 +2,7 @@
 /**
  * Module Name: Dynamic CSS
  * Description: CSS parser which uses variables & functions for CSS code optimization
- * Version: 1.2.0
+ * Version: 1.2.1
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.2.0
+ * @version    1.2.1
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -254,6 +254,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 				'contrast'             => array( $utilities, 'color_contrast' ),
 				'alpha'                => array( $utilities, 'color_alpha' ),
 				'background'           => array( $utilities, 'background_css' ),
+				'background_url'       => array( $utilities, 'background_url' ),
 				'typography'           => array( $utilities, 'get_typography_css' ),
 				'box'                  => array( $utilities, 'get_box_model_css' ),
 				'emph'                 => array( $utilities, 'element_emphasis' ),
