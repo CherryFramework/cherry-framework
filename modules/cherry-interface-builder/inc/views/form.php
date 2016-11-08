@@ -15,7 +15,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 ?>
-<form class="cherry-form <?php echo esc_attr( $__data['class'] ); ?>" id="<?php echo esc_attr( $__data['id'] ); ?>" name="<?php echo esc_attr( $__data['id'] ); ?>" accept-charset="<?php echo esc_html( $__data['accept-charset'] ); ?>" action="<?php echo esc_attr( $__data['action'] ); ?>" autocomplete="<?php echo esc_attr( $__data['autocomplete'] ); ?>" enctype="<?php echo esc_attr( $__data['enctype'] ); ?>" method="<?php echo esc_attr( $__data['method'] ); ?>" target="<?php echo esc_attr( $__data['target'] ); ?>" <?php echo esc_attr( $__data['novalidate'] ); ?> >
+<form class="cherry-form <?php echo esc_attr( $__data['class'] ); ?>" id="<?php echo esc_attr( $__data['id'] ); ?>" name="<?php echo esc_attr( $__data['id'] ); ?>" accept-charset="<?php echo esc_attr( $__data['accept-charset'] ); ?>" action="<?php echo esc_attr( $__data['action'] ); ?>" autocomplete="<?php echo esc_attr( $__data['autocomplete'] ); ?>" enctype="<?php echo esc_attr( $__data['enctype'] ); ?>" method="<?php echo esc_attr( $__data['method'] ); ?>" target="<?php echo esc_attr( $__data['target'] ); ?>" <?php echo esc_attr( $__data['novalidate'] ); ?> >
 	<?php
 		if ( ! empty( $__data['children'] ) ) {
 			echo $__data['children'];
