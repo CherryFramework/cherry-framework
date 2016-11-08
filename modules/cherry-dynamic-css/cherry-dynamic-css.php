@@ -254,6 +254,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 				'contrast'             => array( $utilities, 'color_contrast' ),
 				'alpha'                => array( $utilities, 'color_alpha' ),
 				'background'           => array( $utilities, 'background_css' ),
+				'background_url'       => array( $utilities, 'background_url' ),
 				'typography'           => array( $utilities, 'get_typography_css' ),
 				'box'                  => array( $utilities, 'get_box_model_css' ),
 				'emph'                 => array( $utilities, 'element_emphasis' ),

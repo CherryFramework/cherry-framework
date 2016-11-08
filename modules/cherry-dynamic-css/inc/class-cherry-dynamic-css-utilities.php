@@ -246,6 +246,24 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		}
 
 		/**
+		 * Get background-image CSS property CSS by url.
+		 *
+		 * @param  [string] $url url-value.
+		 * @return string
+		 */
+		public function background_url( $url = '' ) {
+
+			if ( empty( $url ) ) {
+				return;
+			}
+
+			$properties = wp_parse_args( $data, $default_properties );
+			$result = 'background-image: url(' . $url . ')';
+
+			return $result;
+		}
+
+		/**
 		 * Get background CSS by bg data from options and selector.
 		 * If passed multiplie images - returns retina ready CSS.
 		 *
