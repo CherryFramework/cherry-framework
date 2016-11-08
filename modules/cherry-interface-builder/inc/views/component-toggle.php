@@ -15,12 +15,12 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 ?>
-<div class="cherry-ui-kit cherry-component cherry-toggle <?php echo $__data['class']; ?>" data-compotent-id="#<?php echo $__data['id'] ?>">
+<div class="cherry-ui-kit cherry-component cherry-toggle <?php echo esc_attr( $__data['class'] ); ?>" data-compotent-id="#<?php echo esc_attr( $__data['id'] ); ?>">
 	<?php if ( ! empty( $__data['title'] ) ) { ?>
-		<h2 class="cherry-ui-kit__title cherry-component__title" role="banner" ><?php echo $__data['title']; ?></h2>
+		<h2 class="cherry-ui-kit__title cherry-component__title" role="banner" ><?php echo wp_kses_post( $__data['title'] ); ?></h2>
 	<?php } ?>
 	<?php if ( ! empty( $__data['description'] ) ) { ?>
-		<div class="cherry-ui-kit__description cherry-component__description" role="note" ><?php echo $__data['description']; ?></div>
+		<div class="cherry-ui-kit__description cherry-component__description" role="note" ><?php echo wp_kses_post( $__data['description'] ); ?></div>
 	<?php } ?>
 	<?php if ( ! empty( $__data['children'] ) ) { ?>
 		<div class="cherry-ui-kit__content cherry-component__content cherry-toggle__content" role="group" >

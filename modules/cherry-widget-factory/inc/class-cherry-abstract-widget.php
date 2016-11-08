@@ -251,7 +251,7 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 			}
 
 			if ( isset( $cache[ $args['widget_id'] ] ) ) {
-				echo $cache[ $args['widget_id'] ];
+				echo esc_attr( $cache[ $args['widget_id'] ] );
 				return true;
 			}
 

@@ -133,9 +133,9 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 */
 		public function output_method( $content = '', $echo = false ) {
 			if ( ! filter_var( $echo, FILTER_VALIDATE_BOOLEAN ) ) {
-				return $content;
+				return wp_kses_post( $content );
 			} else {
-				echo $content;
+				echo wp_kses_post( $content );
 			}
 		}
 

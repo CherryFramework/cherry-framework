@@ -17,13 +17,13 @@ if ( ! defined( 'WPINC' ) ) {
 
 $attrs = Cherry_Toolkit::join(
 	array(
-		'type'       => $__data['type'],
-		'id'         => $__data['id'],
-		'name'       => $__data['name'],
-		'class'      => 'ui-button ui-button-' . $__data['style'] . '-style ' . $__data['master'] . $__data['class'],
+		'type'       => esc_attr( $__data['type'] ),
+		'id'         => esc_attr( $__data['id'] ),
+		'name'       => esc_attr( $__data['name'] ),
+		'class'      => 'ui-button ui-button-' . esc_attr( $__data['style'] ) . '-style ' . esc_attr( $__data['master'] . $__data['class'] ),
 		'disabled'   => filter_var( $__data['disabled'], FILTER_VALIDATE_BOOLEAN ),
-		'form'       => $__data['form'],
-		'formaction' => $__data['formaction'],
+		'form'       => esc_attr( $__data['form'] ),
+		'formaction' => esc_attr( $__data['formaction'] ),
 	)
 );
 ?>
