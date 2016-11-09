@@ -257,7 +257,6 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 				return;
 			}
 
-			$properties = wp_parse_args( $data, $default_properties );
 			$result = 'background-image: url(' . $url . ')';
 
 			return $result;
