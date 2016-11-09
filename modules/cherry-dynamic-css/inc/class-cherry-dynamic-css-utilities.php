@@ -257,7 +257,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 				return;
 			}
 
-			$result = 'background-image: url(' . $url . ')';
+			$result = 'background-image: url(' . esc_attr( $url ) . ')';
 
 			return $result;
 		}
