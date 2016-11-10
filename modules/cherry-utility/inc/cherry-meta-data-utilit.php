@@ -43,7 +43,6 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 				'delimiter'	=> ' ',
 				'before'	=> '<div class="post-terms">',
 				'after'		=> '</div>',
-				'class'		=> 'post-term',
 				'echo'		=> false,
 			);
 			$args = wp_parse_args( $args, $default_args );
