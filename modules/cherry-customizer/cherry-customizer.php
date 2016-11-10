@@ -2,7 +2,7 @@
 /**
  * Module Name: Customizer
  * Description: Customizer functionality.
- * Version: 1.1.4
+ * Version: 1.1.5
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.4
+ * @version    1.1.5
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -140,7 +140,8 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 *              'description' => esc_html__( 'Control Description', 'text-domain' ),
 		 *              'section'     => 'unique_section_ID', (*)
 		 *              'default'     => '',
-		 *              'field'       => 'text', // text, textarea, checkbox, radio, select, fonts, hex_color, image, file.
+		 *              'field'       => 'text',  // text, textarea, checkbox, radio, select,
+		 *                                        // iconpicker, fonts, hex_color, image, file.
 		 *              'choices'     => array(), // for `select` and `radio` field.
 		 *              'type'        => 'control', (*)
 		 *              'active_callback'      => '', (optional: is_front_page, is_single)
@@ -151,10 +152,12 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 *      )
 		 * );
 		 */
+
 		/**
 		 * Cherry customizer class construct.
 		 */
 		public function __construct( $core, $args ) {
+
 			/**
 			 * Cherry Customizer only works in WordPress 4.0 or later.
 			 */
@@ -175,7 +178,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			$this->options    = $args['options'];
 			$this->core       = $core;
 			$this->fonts      = array();
-			$this->version    = '1.1.0';
+			$this->version    = '1.1.5';
 
 			add_action( 'customize_register', array( $this, 'register' ) );
 
@@ -406,11 +409,13 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 				case 'file':
 						$control_class = 'WP_Customize_Upload_Control';
 					break;
+
 				case 'iconpicker':
 						$control_class = 'Cherry_WP_Customize_Iconpicker';
 						$icon_data     = ( isset( $args['icon_data'] ) ) ? $args['icon_data'] : array();
 						$control_args  = wp_parse_args( array( 'icon_data' => $icon_data ), $control_args );
 					break;
+
 				default:
 						/**
 						 * Filter arguments for a `$field_type` customize control.
@@ -919,7 +924,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * Retrieve array with font-family (for select element).
 		 *
 		 * @since  1.0.0
-		 * @param  [string] $type Font type.
+		 * @param  string $type Font type.
 		 * @return array
 		 */
 		public function get_fonts( $type = '' ) {
@@ -963,8 +968,9 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		}
 
 		/**
-		 * Safely checks exists file or not
+		 * Safely checks exists file or not.
 		 *
+		 * @since  1.1.4
 		 * @global object $wp_filesystem
 		 * @param  string $file File path.
 		 * @return bool
@@ -980,6 +986,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 
 			if ( $wp_filesystem->abspath() ) {
 				return $wp_filesystem->exists( $file );
+
 			} else {
 				return file_exists( $file );
 			}
@@ -988,6 +995,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		/**
 		 * Safely get file content.
 		 *
+		 * @since  1.1.4
 		 * @global object $wp_filesystem
 		 * @param  string $file File path.
 		 * @return bool
@@ -1005,6 +1013,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 
 			if ( $wp_filesystem->abspath() ) {
 				$result = $wp_filesystem->get_contents( $file );
+
 			} else {
 				$result = Cherry_Toolkit::get_file( $file );
 			}
@@ -1030,7 +1039,9 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		}
 
 		/**
-		 * Function _build_keys
+		 * Function _build_keys.
+		 *
+		 * @since 1.0.0
 		 */
 		public function _build_keys( $item ) {
 
@@ -1042,7 +1053,9 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		}
 
 		/**
-		 * Function _build_values
+		 * Function _build_values.
+		 *
+		 * @since 1.0.0
 		 */
 		public function _build_values( $item ) {
 
@@ -1055,6 +1068,8 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 
 		/**
 		 * Function add_options
+		 *
+		 * @since 1.0.0
 		 */
 		public function add_options() {
 
@@ -1112,7 +1127,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * Handler for custom `active_callback` feature.
 		 *
 		 * @since  1.0.0
-		 * @param  [string] $callback Callback-function.
+		 * @param  string $callback Callback-function.
 		 * @return mixed
 		 */
 		public function active_callback( $callback ) {
