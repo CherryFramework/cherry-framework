@@ -102,7 +102,7 @@
 			self.ajaxProcessing = true;
 
 			self.ajaxRequest = jQuery.ajax( {
-				type: self.handlerSettings.type.toUpperCase(),
+				type: self.handlerSettings.type,
 				url: settings.url,
 				data: self.data,
 				cache: settings.cache,

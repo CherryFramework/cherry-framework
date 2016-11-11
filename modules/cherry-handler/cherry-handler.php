@@ -2,7 +2,7 @@
 /**
  * Module Name: Cherry handler
  * Description: Initializes handlers
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.0.0
+ * @version    1.1.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -52,7 +52,7 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 			'capability' => '',
 			'is_public'  => false,
 			'callback'   => '',
-			'type'       => 'post',
+			'type'       => 'POST',
 			'data_type'  => 'json',
 			'sys_messages' => array(
 				'invalid_base_data' => 'Unable to process the request without nonce or server error',
@@ -83,14 +83,11 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 				return false;
 			}
 
-			// Action empty check
-			if ( ! empty( $this->settings['action'] ) ) {
-				add_action( 'wp_ajax_' . $this->settings['action'], array( $this, 'handler_init' ) );
+			add_action( 'wp_ajax_' . $this->settings['action'], array( $this, 'handler_init' ) );
 
-				// Public action check
-				if ( filter_var( $this->settings['is_public'], FILTER_VALIDATE_BOOLEAN ) ) {
-					add_action( 'wp_ajax_nopriv_' . $this->settings['action'], array( $this, 'handler_init' ) );
-				}
+			// Public action check
+			if ( filter_var( $this->settings['is_public'], FILTER_VALIDATE_BOOLEAN ) ) {
+				add_action( 'wp_ajax_nopriv_' . $this->settings['action'], array( $this, 'handler_init' ) );
 			}
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -105,9 +102,11 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 		 * @return void
 		 */
 		public function handler_init() {
-			if ( ! empty( $_POST ) && array_key_exists( 'nonce', $_POST ) ) {
+			$request_type = strtoupper( '_' . $this->settings['type'] );
 
-				$nonce = $_POST['nonce'];
+			if ( ! empty( $GLOBALS[ $request_type ] ) && array_key_exists( 'nonce', $GLOBALS[ $request_type ] ) ) {
+
+				$nonce = $GLOBALS[ $request_type ]['nonce'];
 
 				$nonce_action = ! empty( $this->settings['action'] ) ? $this->settings['action'] : 'cherry_ajax_nonce';
 
@@ -194,7 +193,7 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 				array(
 					'action'       => $this->settings['action'],
 					'nonce'        => $nonce,
-					'type'         => $this->settings['type'],
+					'type'         => strtoupper( $this->settings['type'] ),
 					'data_type'    => $this->settings['data_type'],
 					'is_public'    => $this->settings['is_public'] ? 'true' : 'false',
 					'sys_messages' => $this->settings['sys_messages'],
@@ -202,7 +201,8 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 			);
 
 			if ( $this->settings['is_public'] ) {
-				wp_localize_script( 'cherry-handler-js', 'cherryHandlerAjaxUrl', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
+				$ajax_url = esc_url( admin_url( 'admin-ajax.php' ) );
+				wp_localize_script( 'cherry-handler-js', 'cherryHandlerAjaxUrl', array( 'ajax_url' => $ajax_url ) );
 			}
 		}
 
