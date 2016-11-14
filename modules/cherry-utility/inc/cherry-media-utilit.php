@@ -55,7 +55,9 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
 
 				$size = wp_is_mobile() ? $args['mobile_size'] : $args['size'];
-				$size = in_array( $size, get_intermediate_image_sizes() ) ? $size : 'post-thumbnail';
+				$intermediate_image_sizes = get_intermediate_image_sizes();
+				$intermediate_image_sizes[] = 'full';
+				$size = in_array( $size, $intermediate_image_sizes ) ? $size : 'post-thumbnail';
 
 				// Place holder defaults attr
 				$size_array	= $this->get_thumbnail_size_array( $size );
