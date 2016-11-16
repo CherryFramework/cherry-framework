@@ -12,6 +12,7 @@
 				.on( 'cherry-ui-elements-init', this.render );
 		},
 		render: function ( event ) {
+			console.log('media');
 			var target = ( event._target ) ? event._target : $( 'body' ),
 				buttons = $('.cherry-upload-button', target);
 
@@ -33,7 +34,7 @@
 					});
 
 				if ( ! button_parent.has('input[name*="__i__"]')[ 0 ] ) {
-					button.on( 'click', function() {
+					button.off( 'click.cherry-media' ).on( 'click.cherry-media', function() {
 						cherry_uploader.open();
 						return !1;
 					} ); // end click
