@@ -8,7 +8,7 @@
 		"cherry-breadcrumbs" : {
 			"name" : "Breadcrumb Trail",
 			"description" : "A breadcrumb menu script for WordPress.",
-			"version" : "1.1.1",
+			"version" : "1.1.2",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-breadcrumbs",
 			"compatible" : ["theme", "plugin"],
@@ -19,7 +19,7 @@
 		"cherry-customizer" : {
 			"name" : "Customizer API",
 			"description" : "Customizer functionality.",
-			"version" : "1.1.4",
+			"version" : "1.1.5",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-customizer",
 			"compatible" : ["theme", "plugin"],
@@ -30,7 +30,7 @@
 		"cherry-dynamic-css" : {
 			"name" : "Dynamic CSS",
 			"description" : "Generate CSS.",
-			"version" : "1.2.1",
+			"version" : "1.2.2",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-dynamic-css",
 			"compatible" : ["theme", "plugin"],
@@ -52,7 +52,7 @@
 		"cherry-handler" : {
 			"name" : "Cherry handler",
 			"description" : "Initialize handlers.",
-			"version" : "1.0.0",
+			"version" : "1.1.0",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-handler",
 			"compatible" : ["theme", "plugin"],
@@ -63,7 +63,7 @@
 		"cherry-interface-builder" : {
 			"name" : "Interface Builder",
 			"description" : "The module for the creation of interfaces in the WordPress admin panel.",
-			"version" : "1.0.3",
+			"version" : "1.1.1",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-interface-builder",
 			"compatible" : ["theme", "plugin"],
@@ -140,7 +140,7 @@
 		"cherry-ui-elements" : {
 			"name" : "UI Elements",
 			"description" : "UI Elements",
-			"version" : "1.3.0",
+			"version" : "1.3.2",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-ui-elements",
 			"compatible" : ["theme", "plugin"],
@@ -151,7 +151,7 @@
 		"cherry-utility" : {
 			"name" : "Utility",
 			"description" : "Multiple utility functions.",
-			"version" : "1.1.4",
+			"version" : "1.1.5",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-utility",
 			"compatible" : ["theme", "plugin"],
@@ -162,7 +162,7 @@
 		"cherry-widget-factory" : {
 			"name" : "Widget Factory",
 			"description" : "Base widget class that simplifies creating of your own widgets.",
-			"version" : "1.2.0",
+			"version" : "1.2.1",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-widget-factory",
 			"compatible" : ["theme", "plugin"],
