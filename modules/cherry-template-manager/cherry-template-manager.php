@@ -2,7 +2,7 @@
 /**
  * Module Name: Template Manager
  * Description: Module load and parse tmpl files.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.0.0
+ * @version    1.0.1
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/

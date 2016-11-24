@@ -2,7 +2,7 @@
 /**
  * Module Name: Template Loader
  * Description: Module load tmpl files.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.0.0
+ * @version    1.0.1
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -184,26 +184,13 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 		 * Read template (static).
 		 *
 		 * @since  1.0.0
+		 * @since  1.0.1 - Use Cherry_Toolkit::get_file instead of WP Filesystem.
 		 * @param  string $file Correct file path.
 		 * @access public
 		 * @return string|bool
 		 */
 		public function get_contents( $file ) {
-			global $wp_filesystem;
-
-			$file = wp_normalize_path( $file );
-
-			// Check for existence.
-			if ( ! $content = $wp_filesystem->get_contents( $file ) ) {
-				return false;
-			}
-
-			if ( ! $content ) {
-				// Return error object.
-				return new WP_Error( 'reading_error', 'Error when reading file' );
-			}
-
-			return $content;
+			return Cherry_Toolkit::get_file( $file );
 		}
 
 		/**
