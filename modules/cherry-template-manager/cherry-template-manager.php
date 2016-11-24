@@ -2,15 +2,15 @@
 /**
  * Module Name: Template Manager
  * Description: Module load and parse tmpl files.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
- * @package    Cherry_Framework
+ * @package    Template_Manager
  * @subpackage Modules
- * @version    1.0.0
+ * @version    1.0.1
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -50,6 +50,13 @@ if ( ! class_exists( 'Cherry_Template_Manager' ) ) {
 		private $args = array();
 
 		/**
+		 * Core instance
+		 *
+		 * @var object
+		 */
+		public $core = null;
+
+		/**
 		 * It contains a class Cherry_Template_Parser.
 		 *
 		 * @since  1.0.0
@@ -75,6 +82,8 @@ if ( ! class_exists( 'Cherry_Template_Manager' ) ) {
 		 * @return void
 		 */
 		public function __construct( $core = null, $args = array() ) {
+			$this->core = $core;
+
 			$this->include_class();
 
 			$this->args = array_merge_recursive(
@@ -116,11 +125,11 @@ if ( ! class_exists( 'Cherry_Template_Manager' ) ) {
 		 * @access public
 		 * @return object
 		 */
-		public static function get_instance() {
+		public static function get_instance( $core = null, $args = array() ) {
 
 			// If the single instance hasn't been set, set it now.
 			if ( null == self::$instance ) {
-				self::$instance = new self;
+				self::$instance = new self( $core, $args );
 			}
 
 			return self::$instance;

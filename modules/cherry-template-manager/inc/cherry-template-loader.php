@@ -1,16 +1,6 @@
 <?php
 /**
- * Module Name: Template Loader
- * Description: Module load tmpl files.
- * Version: 1.0.0
- * Author: Cherry Team
- * Author URI: http://www.cherryframework.com/
- * License: GPLv3
- * License URI: http://www.gnu.org/licenses/gpl-3.0.html
- *
- * @package    Cherry_Framework
- * @subpackage Modules
- * @version    1.0.0
+ * @package    Template_Manager
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -120,12 +110,12 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 		 * Return product slug.
 		 *
 		 * @since  1.0.0
-		 * @since  1.1.3 Using dirname( __FILE__ ) instead of __DIR__.
+		 * @since  1.0.1 Using dirname( __FILE__ ) instead of __DIR__.
 		 * @access private
 		 * @return string
 		 */
 		private function get_slug() {
-			$file_dir    = wp_normalize_path( dirname( __FILE__ ) );
+			$file_dir    = wp_normalize_path( dirname( $this->cherry_template_manager_class->core->settings['base_dir'] ) );
 			$product_dir = $this->get_project_root();
 
 			$slug = str_replace( $product_dir, '', $file_dir );
@@ -138,14 +128,14 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 		 * Function return the project root dir, themes or plugins.
 		 *
 		 * @since  1.0.0
-		 * @since  1.1.3 Using dirname( __FILE__ ) instead of __DIR__.
+		 * @since  1.0.1 Using dirname( __FILE__ ) instead of __DIR__.
 		 * @access private
 		 * @return string
 		 */
 		private function get_project_root() {
 			$themes_dir   = wp_normalize_path( get_theme_root() );
 			$plugin_dir   = wp_normalize_path( WP_PLUGIN_DIR );
-			$file_dir     = wp_normalize_path( dirname( __FILE__ ) );
+			$file_dir     = wp_normalize_path( dirname( $this->cherry_template_manager_class->core->settings['base_dir'] ) );
 			$project_root = ( false === strpos( $file_dir, $themes_dir ) ) ? $plugin_dir : $themes_dir;
 
 			return trailingslashit( $project_root );
