@@ -1,5 +1,7 @@
 <?php
 /**
+ * Class for load templates.
+ *
  * @package    Template_Manager
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
@@ -110,7 +112,6 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 		 * Return product slug.
 		 *
 		 * @since  1.0.0
-		 * @since  1.0.1 Using dirname( __FILE__ ) instead of __DIR__.
 		 * @access private
 		 * @return string
 		 */
@@ -128,7 +129,6 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 		 * Function return the project root dir, themes or plugins.
 		 *
 		 * @since  1.0.0
-		 * @since  1.0.1 Using dirname( __FILE__ ) instead of __DIR__.
 		 * @access private
 		 * @return string
 		 */
@@ -174,26 +174,13 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 		 * Read template (static).
 		 *
 		 * @since  1.0.0
+		 * @since  1.0.1 - Use Cherry_Toolkit::get_file instead of WP Filesystem.
 		 * @param  string $file Correct file path.
 		 * @access public
 		 * @return string|bool
 		 */
 		public function get_contents( $file ) {
-			global $wp_filesystem;
-
-			$file = wp_normalize_path( $file );
-
-			// Check for existence.
-			if ( ! $content = $wp_filesystem->get_contents( $file ) ) {
-				return false;
-			}
-
-			if ( ! $content ) {
-				// Return error object.
-				return new WP_Error( 'reading_error', 'Error when reading file' );
-			}
-
-			return $content;
+			return Cherry_Toolkit::get_file( $file );
 		}
 
 		/**

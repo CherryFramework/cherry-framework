@@ -1,5 +1,7 @@
 <?php
 /**
+ * Class for parse templates.
+ *
  * @package    Template_Manager
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team

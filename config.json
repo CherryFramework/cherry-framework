@@ -107,7 +107,7 @@
 		"cherry-template-manager" : {
 			"name" : "Template Manager",
 			"description" : "Module for load and parse *.tmpl files.",
-			"version" : "1.0.0",
+			"version" : "1.0.1",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-template-manager",
 			"compatible" : ["theme", "plugin"],
