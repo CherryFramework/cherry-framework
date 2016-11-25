@@ -1,0 +1,241 @@
+$border-color: #e5e5e5;
+$link-color: #298ffc; // link color.
+$color-1: #206ff4; // Scrollbar track background
+$color-2: #e5e5e5; // Scrollbar background.
+$color-3: #fff; // Background color.
+
+$br-radius: 5px; // Border radius.
+$min_screen_width: '961px';
+$padding: 15px;
+
+$shadow: 0px 5px 21px rgba(0, 0, 0, 0.1); //Shadow.
+$border: 1px solid rgba(0, 0, 0, 0.1) ;
+
+.cherry5-is{
+	&__open-button{
+		color: $color-3;
+		padding: 4px 10px;
+		font-size: 13px;
+		font-style: normal;
+		font-weight: 400;
+		text-transform: capitalize;
+		letter-spacing: 1.1px;
+		.cherry5-insert-shortcode-icon {
+			margin-right: 5px;
+			display: inline-block;
+			line-height: 1.1;
+		}
+	}
+	&__modal-window{
+		position: fixed;
+		display: none;
+		top: 0px;
+		right: 0;
+		left: 0;
+		bottom: 0;
+		z-index: 9990;
+		justify-content: center;
+		align-items: center;
+		&.show{
+			display: flex;
+		}
+		@media ( min-width: 780px ) {
+			top: 32px;
+		}
+	}
+	&__background{
+		display: none;
+		animation-name: simple-fade-out;
+		animation-fill-mode: both;
+		animation-duration: 0.25s;
+		animation-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+		.open &{
+			animation-name: simple-fade-in;
+			animation-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+		}
+		@media ( min-width: $min_screen_width ) {
+			display: block;
+			background-color: #000;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+		}
+	}
+	&__popup{
+		background-color: $color-3;
+		order: 0;
+		align-self: center;
+		height: 100%;
+		flex: 0 1 100%;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+
+		animation-name: close-pop-up;
+		animation-fill-mode: both;
+		animation-duration: 0.4s;
+		animation-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+
+		box-shadow:$shadow;
+		border-radius: $br-radius;
+		border: $border;
+		.open &{
+			animation-name: open-pop-up;
+		}
+		@media ( min-width: $min_screen_width ) {
+			height: 85%;
+			flex: 0 1 85%;
+		}
+	}
+	&__popup-header{
+		border-bottom: 1px solid $border-color;
+	}
+	&__popup-header-inner{
+		display: flex;
+	}
+	&__popup-title{
+		flex: 0 1 100%;
+		padding: $padding;
+		margin: 0;
+	}
+	&__close-button{
+		flex: 0 1 auto;
+		padding: $padding;
+		border-left: 1px solid $border-color;
+		cursor: pointer;
+	}
+	&__popup-body{
+		display: flex;
+		height: 100%;
+	}
+	&__popup-sidebar{
+		//border-right: 1px solid $border-color;
+		padding: $padding;
+		position: absolute;
+		width: 100%;
+		background-color: $color-3;
+		box-sizing: border-box;
+		&:before{
+			font-family: 'dashicons';
+			content: "\f345";
+			position: absolute;
+			top: 0;
+			right: 0;
+			height: 40px;
+			padding: 50% 10px;
+			border-left: 1px solid;
+		};
+		&.open-list:before{
+			content: "\f341";
+		};
+		@media ( min-width: $min_screen_width ) {
+			position: relative;
+			flex: 0 1 20%;
+			align-self: stretch;
+			overflow-y: scroll;
+			&:before{
+				display: none;
+			}
+		}
+	}
+	&__popup-section{
+		flex: 0 1 90%;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: nowrap;
+		justify-content: flex-start;
+		align-content: stretch;
+		align-items: stretch;
+		@media ( min-width: $min_screen_width ) {
+			flex: 0 1 100%;
+		}
+	}
+	&__shortcodes-options{
+		flex: 0 1 100%;
+		padding: $padding;
+		@media ( min-width: $min_screen_width ) {
+			position: relative;
+			flex: 0 1 100%;
+		}
+	}
+	&__shortcode-section{
+		display: none;
+		&.show{
+			display: block;
+		}
+	}
+	&__popup-footer{
+		flex: 0 1 auto;
+		align-self: auto;
+		border-top: 1px solid $border-color;
+		padding: $padding;
+	}
+	&__insert-button{
+		float: right;
+	}
+}
+.cherry-scroll{
+	overflow-y: scroll;
+	&::-webkit-scrollbar {
+		width: 10px;
+		height: 10px;
+		&-button {
+			width: 0px;
+			height: 0px;
+		}
+		&-thumb {
+			background-color: $link-color;
+			border: none;
+			border-radius: $br-radius;
+			&:hover, &:active {
+				background: $color-1;
+			}
+		}
+		&-track {
+			background-color: $color-2;
+			border: none;
+			border-radius: $br-radius;
+		}
+		&-corner {
+			background: transparent;
+		}
+	}
+}
+@keyframes open-pop-up {
+	0%	{
+		transform: scale( 0.5 );
+		opacity: 0;
+	}
+	100%{
+		transform: scale( 1 );
+		opacity: 1;
+	}
+}
+@keyframes close-pop-up {
+	0%	{
+		transform: scale( 1 );
+		opacity: 1;
+	}
+	100%{
+		transform: scale( 0.5 );
+		opacity: 0;
+	}
+}
+
+@keyframes simple-fade-in {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 0.7;
+	}
+}
+
+@keyframes simple-fade-out {
+	0% {
+		opacity: 0.7;
+	}
+	100% {
+		opacity: 0;
+	}
+}

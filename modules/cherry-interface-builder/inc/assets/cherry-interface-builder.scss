@@ -4,7 +4,7 @@ $color-3: #96989a; // Description color and tabs button text color.
 $color-4: #b4b7ba; //
 $color-5: #f1f1f1; // Scrollbar background
 $color-6: #e5e5e5; // Hover scrollbar background
-$color-7: #495159; // Scrollbar track background
+$color-7: #206ff4; // Scrollbar track background
 $link-color: #298ffc; // link color.
 $link-hover-color: #23282d; // link hover color.
 
@@ -447,7 +447,7 @@ html{
 				border: none;
 				border-radius: $br-radius;
 				&:hover, &:active {
-					background: #206ff4;
+					background: $color-7;
 				}
 			}
 			&-track {
