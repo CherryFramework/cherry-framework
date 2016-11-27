@@ -33,8 +33,8 @@ if ( ! class_exists( 'Cherry5_Insertion_Button' ) ) {
 		 * @access public
 		 * @return void
 		 */
-		public function __construct() {
-			$this->ui_elements = blank_plugin()->get_core()->modules['cherry-ui-elements'];
+		public function __construct( $core = null, $args = array() ) {
+			$this->ui_elements = $core->init_module( 'cherry-ui-elements' );
 
 			add_action( 'media_buttons', array( $this, 'add_button' ) );
 		}

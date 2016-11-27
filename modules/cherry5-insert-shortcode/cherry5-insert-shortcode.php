@@ -79,7 +79,7 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 				$this->includes();
 
 				// Initializing child classes.
-				$this->shortcodes_button = new Cherry5_Insertion_Button();
+				$this->shortcodes_button = new Cherry5_Insertion_Button( $core, $args );
 				$this->shortcodes_popup = new Cherry5_Insertion_Popup( $core, $args );
 
 				// Register admin assets.

@@ -63,7 +63,7 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 						'icon'        => '',
 						'slug'        => 'cherry-search-form',
 						'twin'        => false,
-						'option'      => array(
+						'options'      => array(
 
 						),
 					)
@@ -117,7 +117,7 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 				$insert_button        = '';
 				$this->shortcode_list = apply_filters( 'cherry5_shortcode_list', array() );
 				$sidebar_list         = $this->get_sidebar_list( $this->shortcode_list );
-				var_dump($this->shortcode_list);
+
 				$args = array(
 					'id'         => '',
 					'name'       => '',
@@ -198,7 +198,6 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 			} else {
 				$shortcode_options = $shortcode_list[ $plugin_slug ]['shortcodes'][ $shortcode_slug ]['options'];
 				$shortcode_options_html = $this->cherry_interface_builder->render( false, $shortcode_options );
-
 				$output_html = sprintf( '<div id="%1$s-%2$s" class="cherry5-is__shortcode-section show">%3$s<div>', $plugin_slug, $shortcode_slug, $shortcode_options_html );
 
 				return array( 'error' => false, 'html' => $output_html );
