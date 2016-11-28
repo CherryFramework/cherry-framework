@@ -343,20 +343,20 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			}
 
 			if ( $use_custom_front_title ) {
-				$default = 'Home';
+				$default = esc_html__( 'Home', 'cherry-framework' );
 				$page_on_front_title = $default;
 				$page_on_front_title = $this->prepare_label( $page_on_front_title, $default );
 			}
 
 			$labels = array(
-				'browse'              => 'Browse:',
+				'browse'              => esc_html__( 'Browse:', 'cherry-framework' ),
 				'home'                => $page_on_front_title,
-				'error_404'           => '404 Not Found',
-				'archives'            => 'Archives',
-				'search'              => 'Search results for &#8220;%s&#8221;',
-				'paged'               => 'Page %s',
-				'archive_minute'      => 'Minute %s',
-				'archive_week'        => 'Week %s',
+				'error_404'           => esc_html__( '404 Not Found', 'cherry-framework' ),
+				'archives'            => esc_html__( 'Archives', 'cherry-framework' ),
+				'search'              => esc_html__( 'Search results for &#8220;%s&#8221;', 'cherry-framework' ),
+				'paged'               => esc_html__( 'Page %s', 'cherry-framework' ),
+				'archive_minute'      => esc_html__( 'Minute %s', 'cherry-framework' ),
+				'archive_week'        => esc_html__( 'Week %s', 'cherry-framework' ),
 
 				/* "%s" is replaced with the translated date/time format. */
 				'archive_minute_hour' => '%s',
