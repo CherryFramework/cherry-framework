@@ -266,7 +266,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			$prefix          = $this->prefix . '_';
 			$priority        = isset( $args['priority'] )        ? $args['priority'] : 160;
 			$theme_supports  = isset( $args['theme_supports'] )  ? $args['theme_supports'] : '';
-			$title           = isset( $args['title'] )           ? esc_attr( $args['title'] ) : 'Untitled Panel';
+			$title           = isset( $args['title'] )           ? esc_attr( $args['title'] ) : esc_html__( 'Untitled Panel', 'cherry-framework' );
 			$description     = isset( $args['description'] )     ? esc_attr( $args['description'] ) : '';
 			$active_callback = isset( $args['active_callback'] ) ? $this->active_callback( $args['active_callback'] ) : '';
 
@@ -302,7 +302,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 */
 		public function add_section( $id, $args ) {
 			$prefix          = $this->prefix . '_';
-			$title           = isset( $args['title'] )           ? esc_attr( $args['title'] ) : 'Untitled Section';
+			$title           = isset( $args['title'] )           ? esc_attr( $args['title'] ) : esc_html__( 'Untitled Section', 'cherry-framework' );
 			$description     = isset( $args['description'] )     ? esc_attr( $args['description'] ) : '';
 			$panel           = isset( $args['panel'] )           ? $prefix . esc_attr( $args['panel'] ) : '';
 			$priority        = isset( $args['priority'] )        ? $args['priority'] : 160;
@@ -335,7 +335,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			$id          = ( 'option' === $this->type )  ? sprintf( '%1$s_options[%2$s]', $this->prefix, esc_attr( $id ) ) : esc_attr( $id );
 			$priority    = isset( $args['priority'] )    ? $args['priority'] : ++$control_priority;
 			$default     = isset( $args['default'] )     ? $args['default'] : '';
-			$title       = isset( $args['title'] )       ? esc_attr( $args['title'] ) : 'Untitled Control';
+			$title       = isset( $args['title'] )       ? esc_attr( $args['title'] ) : esc_html__( 'Untitled Control', 'cherry-framework' );
 			$description = isset( $args['description'] ) ? esc_attr( $args['description'] ) : '';
 			$transport   = isset( $args['transport'] )   ? esc_attr( $args['transport'] ) : 'refresh';
 			$field_type  = isset( $args['field'] )       ? esc_attr( $args['field'] ) : 'text';
