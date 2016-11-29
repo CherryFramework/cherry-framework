@@ -1,0 +1,69 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: cherry-framework\n"
+"POT-Creation-Date: 2016-11-28 19:44+0200\n"
+"PO-Revision-Date: 2016-02-15 11:18+0200\n"
+"Last-Translator: \n"
+"Language-Team: TemplateMonster\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_n_noop:1,2;_x:1,2c;_nx:1,2,4c;"
+"_nx_noop:1,2,3c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;"
+"esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: .\n"
+
+#: modules/cherry-breadcrumbs/cherry-breadcrumbs.php:346
+msgid "Home"
+msgstr ""
+
+#: modules/cherry-breadcrumbs/cherry-breadcrumbs.php:352
+msgid "Browse:"
+msgstr ""
+
+#: modules/cherry-breadcrumbs/cherry-breadcrumbs.php:354
+msgid "404 Not Found"
+msgstr ""
+
+#: modules/cherry-breadcrumbs/cherry-breadcrumbs.php:355
+msgid "Archives"
+msgstr ""
+
+#: modules/cherry-breadcrumbs/cherry-breadcrumbs.php:356
+#, php-format
+msgid "Search results for &#8220;%s&#8221;"
+msgstr ""
+
+#: modules/cherry-breadcrumbs/cherry-breadcrumbs.php:357
+#, php-format
+msgid "Page %s"
+msgstr ""
+
+#: modules/cherry-breadcrumbs/cherry-breadcrumbs.php:358
+#, php-format
+msgid "Minute %s"
+msgstr ""
+
+#: modules/cherry-breadcrumbs/cherry-breadcrumbs.php:359
+#, php-format
+msgid "Week %s"
+msgstr ""
+
+#: modules/cherry-customizer/cherry-customizer.php:269
+msgid "Untitled Panel"
+msgstr ""
+
+#: modules/cherry-customizer/cherry-customizer.php:305
+msgid "Untitled Section"
+msgstr ""
+
+#: modules/cherry-customizer/cherry-customizer.php:338
+msgid "Untitled Control"
+msgstr ""
