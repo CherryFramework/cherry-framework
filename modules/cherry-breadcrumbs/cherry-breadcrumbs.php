@@ -1446,7 +1446,17 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 				if ( $terms ) {
 
 					/* Sort the terms by ID and get the first category. */
-					usort( $terms, '_usort_terms_by_ID' );
+					if ( function_exists( 'wp_list_sort' ) ) {
+						$terms = wp_list_sort( $terms, array(
+							'term_id' => 'ASC',
+						) );
+
+					} else {
+
+						// Backward compatibility with WordPress 4.6 or later.
+						usort( $terms, '_usort_terms_by_ID' );
+					}
+
 					$term = get_term( $terms[0], 'category' );
 
 					/* If the category has a parent, add the hierarchy to the trail. */
