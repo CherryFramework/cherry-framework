@@ -155,6 +155,8 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 				return $callbacks;
 			}
 
+			ksort( $this->args['callbacks'] );
+
 			foreach ( $this->args['callbacks'] as $ver => $ver_cb ) {
 				if ( version_compare( $this->get_current_version(), $ver, '<' ) ) {
 					$callbacks = array_merge( $callbacks, $ver_cb );
