@@ -98,15 +98,10 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 			add_action( 'admin_notices', array( $this, 'init_notices' ) );
 			add_action( 'admin_init',    array( $this, 'do_update' ) );
 
-			/**
-			 * Todo list.
-			 *
-			 * @todo  Prepare strings for translate.
-			 */
 			$this->messages = array(
-				'error'   => 'Module DB Updater init error in <b>%s</b> - version and slug is required arguments',
-				'update'  => 'We need to update your database to the latest version.',
-				'updated' => 'Update complete, thank you for updating to the latest version!',
+				'error'   => esc_html__( 'Module DB Updater init error in %s - version and slug is required arguments', 'cherry-framework' ),
+				'update'  => esc_html__( 'We need to update your database to the latest version.', 'cherry-framework' ),
+				'updated' => esc_html__( 'Update complete, thank you for updating to the latest version!', 'cherry-framework' ),
 			);
 
 		}
@@ -262,7 +257,7 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 				echo '<div class="error"><p>';
 				printf(
 					$this->messages['error'],
-					str_replace( untrailingslashit( ABSPATH ), '', $this->core->settings['base_dir'] )
+					'<b>' . str_replace( untrailingslashit( ABSPATH ), '', $this->core->settings['base_dir'] ) . '</b>'
 				);
 				echo '</p></div>';
 
@@ -319,13 +314,8 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 		 */
 		private function notice_submit( $slug = '' ) {
 
-			/**
-			 * Todo list.
-			 *
-			 * @todo  Prepare strings for translate.
-			 */
 			$format = '<a href="%1s" class="button button-primary">%2$s</a>';
-			$label  = 'Start Update';
+			$label  = esc_html__( 'Start Update', 'cherry-framework' );
 			$url    = add_query_arg(
 				array(
 					'cherry_db_update' => true,
@@ -365,7 +355,7 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 			 *
 			 * @todo  Prepare strings for translate.
 			 */
-			printf( '<strong>%s Data Update</strong> &#8211; ', $name );
+			printf( '<strong>%1$s %2$s</strong> &#8211; ', $name, esc_html__( 'Data Update', 'cherry-framework' ) );
 
 		}
 
