@@ -99,6 +99,8 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 			add_action( 'admin_init',    array( $this, 'do_update' ) );
 
 			/**
+			 * Todo list.
+			 *
 			 * @todo  Prepare strings for translate.
 			 */
 			$this->messages = array(
@@ -154,13 +156,9 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 			}
 
 			foreach ( $this->args['callbacks'] as $ver => $ver_cb ) {
-
 				if ( version_compare( $this->get_current_version(), $ver, '<' ) ) {
-
 					$callbacks = array_merge( $callbacks, $ver_cb );
-
 				}
-
 			}
 
 			return $callbacks;
@@ -320,6 +318,8 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 		private function notice_submit( $slug = '' ) {
 
 			/**
+			 * Todo list.
+			 *
 			 * @todo  Prepare strings for translate.
 			 */
 			$format = '<a href="%1s" class="button button-primary">%2$s</a>';
@@ -359,6 +359,8 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 			$name = ucwords( $name );
 
 			/**
+			 * Todo list.
+			 *
 			 * @todo  Prepare strings for translate.
 			 */
 			printf( '<strong>%s Data Update</strong> &#8211; ', $name );
