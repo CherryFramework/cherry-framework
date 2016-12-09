@@ -1,7 +1,7 @@
 <?php
 /**
  * Module Name: Database Updater
- * Description: Module loads templater.
+ * Description: Handle database updates if required.
  * Version: 1.0.0
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
