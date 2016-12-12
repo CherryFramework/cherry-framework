@@ -34,9 +34,8 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 		/**
 		 * Module arguments.
 		 *
-		 * @since  1.0.0
-		 * @access private
-		 * @var    array
+		 * @since 1.0.0
+		 * @var array
 		 */
 		private $args = array(
 			'callbacks' => array(),
@@ -47,6 +46,7 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 		/**
 		 * Option key for DB version.
 		 *
+		 * @since 1.0.0
 		 * @var string
 		 */
 		protected $version_key = '%s-db-version';
@@ -54,13 +54,15 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 		/**
 		 * Nonce format.
 		 *
+		 * @since 1.0.0
 		 * @var string
 		 */
 		protected $nonce = '_%s-db-update-nonce';
 
 		/**
-		 * Messages array
+		 * Messages array.
 		 *
+		 * @since 1.0.0
 		 * @var array
 		 */
 		protected $messages = array();
@@ -68,13 +70,15 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 		/**
 		 * Update done trigger.
 		 *
-		 * @var boolean
+		 * @since 1.0.0
+		 * @var bool
 		 */
 		protected $updated = false;
 
 		/**
-		 * Core instance
+		 * Core instance.
 		 *
+		 * @since 1.0.0
 		 * @var object
 		 */
 		public $core = null;
@@ -83,7 +87,6 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 		 * Cherry_Db_Updater constructor.
 		 *
 		 * @since 1.0.0
-		 * @access public
 		 * @return void
 		 */
 		public function __construct( $core = null, $args = array() ) {
@@ -108,6 +111,8 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 
 		/**
 		 * Process DB update.
+		 *
+		 * @since 1.0.0
 		 */
 		public function do_update() {
 
@@ -129,7 +134,9 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 		}
 
 		/**
-		 * Finalize update
+		 * Finalize update.
+		 *
+		 * @since 1.0.0
 		 */
 		public function set_updated() {
 			$this->updated = true;
@@ -140,6 +147,7 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 		/**
 		 * Prepare callbacks array.
 		 *
+		 * @since 1.0.0
 		 * @return array
 		 */
 		private function prepare_callbacks() {
@@ -159,13 +167,13 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 			}
 
 			return $callbacks;
-
 		}
 
 		/**
 		 * Check if we processed update for plugin passed in arguments.
 		 *
-		 * @return boolean
+		 * @since 1.0.0
+		 * @return bool
 		 */
 		private function is_current_update() {
 
@@ -189,6 +197,7 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 		/**
 		 * Init admin notices.
 		 *
+		 * @since 1.0.0
 		 * @return void
 		 */
 		public function init_notices() {
@@ -208,12 +217,12 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 			if ( $this->is_updated() ) {
 				$this->show_updated_notice( $slug );
 			}
-
 		}
 
 		/**
 		 * Returns current DB version.
 		 *
+		 * @since 1.0.0
 		 * @return string
 		 */
 		private function get_current_version() {
@@ -222,8 +231,9 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 		}
 
 		/**
-		 * Check if database requires update
+		 * Check if database requires update.
 		 *
+		 * @since 1.0.0
 		 * @return bool
 		 */
 		private function is_update_required() {
@@ -234,6 +244,7 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 		/**
 		 * Check if update was succesfully done.
 		 *
+		 * @since 1.0.0
 		 * @return bool
 		 */
 		private function is_updated() {
@@ -243,12 +254,12 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 			}
 
 			return (bool) $this->updated;
-
 		}
 
 		/**
 		 * Validate module arguments.
 		 *
+		 * @since 1.0.0
 		 * @return bool
 		 */
 		private function validate_module_args() {
@@ -265,12 +276,12 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 			}
 
 			return true;
-
 		}
 
 		/**
 		 * Show notice.
 		 *
+		 * @since  1.0.0
 		 * @param  string $slug Plugin slug.
 		 * @return void
 		 */
@@ -291,6 +302,7 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 		/**
 		 * Show update notice.
 		 *
+		 * @since 1.0.0
 		 * @return void
 		 */
 		private function show_updated_notice() {
@@ -309,6 +321,7 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 		/**
 		 * Show plugin notice submit button.
 		 *
+		 * @since  1.0.0
 		 * @param  string $slug Plugin slug.
 		 * @return void
 		 */
@@ -330,8 +343,9 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 		}
 
 		/**
-		 * Create DB update nonce
+		 * Create DB update nonce.
 		 *
+		 * @since  1.0.0
 		 * @param  string $slug Plugin slug.
 		 * @return string
 		 */
@@ -342,6 +356,7 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 		/**
 		 * Show plugin notice title.
 		 *
+		 * @since  1.0.0
 		 * @param  string $slug Plugin slug.
 		 * @return void
 		 */
@@ -350,20 +365,13 @@ if ( ! class_exists( 'Cherry_Db_Updater' ) ) {
 			$name = str_replace( '-', ' ', $slug );
 			$name = ucwords( $name );
 
-			/**
-			 * Todo list.
-			 *
-			 * @todo  Prepare strings for translate.
-			 */
 			printf( '<strong>%1$s %2$s</strong> &#8211; ', $name, esc_html__( 'Data Update', 'cherry-framework' ) );
-
 		}
 
 		/**
 		 * Returns the instance.
 		 *
-		 * @since  1.0.0
-		 * @access public
+		 * @since 1.0.0
 		 * @return object
 		 */
 		public static function get_instance( $core = null, $args = array() ) {
