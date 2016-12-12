@@ -1,16 +1,15 @@
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: cherry-framework\n"
-"POT-Creation-Date: 2016-11-28 19:44+0200\n"
-"PO-Revision-Date: 2016-02-15 11:18+0200\n"
+"POT-Creation-Date: 2016-12-09 16:29+0200\n"
+"PO-Revision-Date: 2016-12-09 16:29+0200\n"
 "Last-Translator: \n"
 "Language-Team: TemplateMonster\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 1.7.6\n"
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -66,4 +65,26 @@ msgstr ""
 
 #: modules/cherry-customizer/cherry-customizer.php:338
 msgid "Untitled Control"
+msgstr ""
+
+#: modules/cherry-db-updater/cherry-db-updater.php:102
+#, php-format
+msgid ""
+"Module DB Updater init error in %s - version and slug is required arguments"
+msgstr ""
+
+#: modules/cherry-db-updater/cherry-db-updater.php:103
+msgid "We need to update your database to the latest version."
+msgstr ""
+
+#: modules/cherry-db-updater/cherry-db-updater.php:104
+msgid "Update complete, thank you for updating to the latest version!"
+msgstr ""
+
+#: modules/cherry-db-updater/cherry-db-updater.php:318
+msgid "Start Update"
+msgstr ""
+
+#: modules/cherry-db-updater/cherry-db-updater.php:358
+msgid "Data Update"
 msgstr ""
