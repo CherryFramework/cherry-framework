@@ -52,22 +52,20 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 		 * @access private
 		 */
 		private $shortcode_list = array(
-			'cherry-search' => array(
-				'title'        => 'Cherry Search',
+			array(
+				'title'       => '',
 				'description' => '',
 				'icon'        => '',
-				'slug'        => 'cherry-search',
+				'slug'        => '',
 				'shortcodes'  => array(
 					array(
 						'title'       => '',
 						'description' => '',
 						'icon'        => '',
-						'slug'        => 'cherry-search-form',
+						'slug'        => '',
 						'twin'        => false,
-						'options'      => array(
-
-						),
-					)
+						'options'     => array(),
+					),
 				),
 			),
 		);
@@ -101,7 +99,7 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 				)
 			);
 
-			if ( ! defined( 'DOING_AJAX' ) ){
+			if ( ! defined( 'DOING_AJAX' ) ) {
 				add_action( 'admin_print_footer_scripts', array( $this, 'render_popup' ), 99 );
 			}
 		}
@@ -116,7 +114,7 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 		public function render_popup( $hook ) {
 			$screen = get_current_screen();
 
-			if ( in_array( $screen->base, $this->args[ 'in_screen' ] ) ) {
+			if ( in_array( $screen->base, $this->args['in_screen'] ) ) {
 
 				$this->shortcode_list = apply_filters( 'cherry5-is__shortcode_list', array() );
 				$sidebar_list         = $this->get_sidebar_list( $this->shortcode_list );
@@ -165,7 +163,7 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 
 				$output_html = '<ul class="cherry5-is__shortcode-list">';
 
-				foreach ( $plugin_value['shortcodes'] as $shortcode_slug => $shortcode_value) {
+				foreach ( $plugin_value['shortcodes'] as $shortcode_slug => $shortcode_value ) {
 					$shortcode_icon        = ( isset( $shortcode_value['icon'] ) ) ? $shortcode_value['icon'] : '' ;
 					$shortcode_title       = ( isset( $shortcode_value['title'] ) ) ? $shortcode_value['title'] : '' ;
 					$shortcode_description = ( isset( $shortcode_value['description'] ) ) ? $shortcode_value['description'] : '' ;
@@ -179,8 +177,8 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 					'id'          => $plugin_slug . '-shortcodes',
 					'type'        => 'html',
 					'parent'      => $plugin_slug,
-					'html'        => $output_html
-				 );
+					'html'        => $output_html,
+				);
 			}
 			return $this->parent_self->cherry_interface_builder->render( false, $structure );
 		}
@@ -190,7 +188,7 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 		 *
 		 * @since 1.0.0
 		 * @access public
-		 * @return void
+		 * @return array
 		 */
 		public function get_shortcode_options() {
 			$shortcode_list = apply_filters( 'cherry5-is__shortcode_list', array() );
@@ -202,7 +200,7 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 			if ( ! $shortcode_attr ) {
 				return array(
 					'error'   => true,
-					'message' => 'Shortcone not find.'
+					'message' => 'Shortcone not find.',
 				);
 			} else {
 				$content_area      = '';
@@ -223,16 +221,16 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 
 				}
 				$shortcode_option_template = apply_filters( 'cherry5-is__options-template', Cherry_Toolkit::get_file( $this->args['module_dir'] . 'inc/views/shortcode-options.php' ) );
-				$output_html               = sprintf( $shortcode_option_template, $plugin_slug, $shortcode_slug, $title, $description, $content_area, $shortcode_options_html);
+				$output_html               = sprintf( $shortcode_option_template, $plugin_slug, $shortcode_slug, $title, $description, $content_area, $shortcode_options_html );
 
 				return array(
 					'error'             => false,
 					'pluginSlug'        => $plugin_slug,
 					'shortcodeSlug'     => $shortcode_slug,
 					'twin'              => $twin,
-					'default_content'   => $default_content ,
+					'default_content'   => $default_content,
 					'html'              => $output_html,
-				 );
+				);
 			}
 		}
 

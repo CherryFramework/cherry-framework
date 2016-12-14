@@ -2,7 +2,7 @@ jQuery( document ).on( 'ready', function( /*$, CherryJsCore*/ ) {
 	var $            = jQuery,
 		CherryJsCore = window.CherryJsCore;
 
-	CherryJsCore.utilites.namespace('cherry5InsertShortcode');
+	CherryJsCore.utilites.namespace( 'cherry5InsertShortcode' );
 	CherryJsCore.cherry5InsertShortcode = {
 		openPopUpButton: '.cherry5-is__open-button',
 		closePopUpButton: '.cherry5-is__close-button',
@@ -31,7 +31,7 @@ jQuery( document ).on( 'ready', function( /*$, CherryJsCore*/ ) {
 			activeShortcode: {}
 		},
 
-		init: function(){
+		init: function() {
 			this.devMode                    = ( 'true' === window.cherry5InsertShortcode.devMode ) ? true : false ;
 			this.sessionStorage             = ( ! this.devMode ) ? this.getState() : this.sessionStorage ;
 			this.getShortcodeOptionInstance = new CherryJsCore.CherryAjaxHandler(
@@ -55,30 +55,30 @@ jQuery( document ).on( 'ready', function( /*$, CherryJsCore*/ ) {
 				.on( 'click.cherry5InsertShortcode', this.sidebarButton, this.openSodebar.bind( this ) );
 		},
 
-		showPopUp: function(){
+		showPopUp: function() {
 			var activeShortcode;
 
 			if ( window.tinymce ) {
 				if ( window.tinymce.get( 'content' ) && window.tinymce.get( 'content' ).selection ) {
-					this.selectedContent = window.tinymce.get( 'content' ).selection.getContent( { format: "text" } );
+					this.selectedContent = window.tinymce.get( 'content' ).selection.getContent( { format: 'text' } );
 				}
 
 				activeShortcode = this.sessionStorage.activeShortcode;
 				this.afterShowShortcode( activeShortcode.pluginSlug + '-' + activeShortcode.shortcodeSlug, activeShortcode.twin );
 			}
 
-			$( this.insertionWindow ).addClass('open show');
+			$( this.insertionWindow ).addClass( 'open show' );
 			$( this.insertionPopUp, this.insertionWindow ).off( 'animationend' );
 		},
-		hidePopUp: function(){
+		hidePopUp: function() {
 			this.selectedContent = '';
 			this.openedShortcode = [];
 
-			$( this.insertionWindow ).removeClass('open');
-			$( this.insertionPopUp, this.insertionWindow ).on( 'animationend', this.hideModalWindow.bind( this ) )
+			$( this.insertionWindow ).removeClass( 'open' );
+			$( this.insertionPopUp, this.insertionWindow ).on( 'animationend', this.hideModalWindow.bind( this ) );
 		},
 		hideModalWindow: function() {
-			$( this.insertionWindow ).removeClass('show');
+			$( this.insertionWindow ).removeClass( 'show' );
 		},
 
 		switchFirstShortcode: function() {
@@ -99,18 +99,18 @@ jQuery( document ).on( 'ready', function( /*$, CherryJsCore*/ ) {
 			return false;
 		},
 		switchShortcode: function( targetButton ) {
-			var pluginSlug       = targetButton.data('plugin-slug'),
-				shortcodeSlug    = targetButton.data('shortcode-slug'),
+			var pluginSlug       = targetButton.data( 'plugin-slug' ),
+				shortcodeSlug    = targetButton.data( 'shortcode-slug' ),
 				shortcodeId      = pluginSlug + '-' + shortcodeSlug,
 				shortcodeSection = $( '#' + shortcodeId ),
 				data;
 
 			$( this.insertButton, this.insertionPopUp ).attr( 'disabled', 'disabled' );
 
-			// remove class to active button
+			// Remove class to active button
 			this.hide( $( this.getShortcodeOptionButton + '.show' ) );
 
-			// add class to active button
+			// Add class to active button
 			this.show( targetButton );
 			this.hide( $( this.shortcodeOptionHolderClass ) );
 
@@ -137,7 +137,7 @@ jQuery( document ).on( 'ready', function( /*$, CherryJsCore*/ ) {
 				shortcodeId;
 
 			if ( data.error ) {
-				console.log( data.message );
+				window.console.log( data.message );
 				return;
 			}
 
@@ -152,17 +152,15 @@ jQuery( document ).on( 'ready', function( /*$, CherryJsCore*/ ) {
 
 			$( document )
 				.trigger( 'cherryInterfaceBuilder' )
-				.trigger( { type: 'cherry-ui-elements-init', _target: $( '#' + shortcodeId , holder ) } );
+				.trigger( { type: 'cherry-ui-elements-init', _target: $( '#' + shortcodeId, holder ) } );
 		},
 		setProxyStorage: function( data, id ) {
-			var activeShortcodeData;
-
 			if ( data ) {
 				this.sessionStorage.optionsTemplate[ id ] = data;
 				this.sessionStorage.activeShortcode = data;
 			}
 
-			if ( ! this.devMode ){
+			if ( ! this.devMode ) {
 				this.setState();
 			}
 		},
@@ -171,7 +169,7 @@ jQuery( document ).on( 'ready', function( /*$, CherryJsCore*/ ) {
 				content = '';
 
 			if ( twin && -1 === this.openedShortcode.indexOf( shortcodeId ) ) {
-				defaultContent = this.sessionStorage.activeShortcode[ 'default_content' ];
+				defaultContent = this.sessionStorage.activeShortcode['default_content'];
 
 				if ( this.selectedContent ) {
 					content = this.selectedContent;
@@ -193,7 +191,7 @@ jQuery( document ).on( 'ready', function( /*$, CherryJsCore*/ ) {
 				pluginSlug      = activeShortcode.pluginSlug,
 				shortcodeId     = pluginSlug + '-' + slug,
 				twin            = activeShortcode.twin,
-				tepmlate        = ( twin ) ? '[$1$2]$3[/$1]' : '[$1$2]' ,
+				tepmlate        = ( twin ) ? '[$1$2]$3[/$1]' : '[$1$2]',
 				attrs           = $( 'form#' + shortcodeId ).serializeArray(),
 				sortedAttra     = {},
 				outputAttr      = '',
@@ -221,11 +219,11 @@ jQuery( document ).on( 'ready', function( /*$, CherryJsCore*/ ) {
 					}
 				}
 
-				$.map( sortedAttra, function( elem, index ){
+				$.map( sortedAttra, function( elem, index ) {
 					if ( elem ) {
 						outputAttr += ' ' + index + '="' + elem + '"' ;
 					}
-				} )
+				} );
 			}
 
 			if ( twin ) {
@@ -256,16 +254,16 @@ jQuery( document ).on( 'ready', function( /*$, CherryJsCore*/ ) {
 		},
 
 		show: function( target ) {
-			target.addClass('show');
+			target.addClass( 'show' );
 		},
 
 		hide: function( target ) {
-			target.removeClass('show');
+			target.removeClass( 'show' );
 		},
 
-		openSodebar: function( target ) {
+		openSodebar: function() {
 			$( this.sidebar ).toggleClass( 'open' );
-		},
+		}
 
 	};
 

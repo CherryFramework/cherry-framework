@@ -122,7 +122,7 @@
 						type: 'cherry-ajax-handler-error',
 						jqXHR: jqXHR,
 						textStatus: textStatus,
-						errorThrown: errorThrown,
+						errorThrown: errorThrown
 					} );
 
 					if ( settings.errorCallback && 'function' === typeof( settings.errorCallback ) ) {
@@ -136,7 +136,7 @@
 						type: 'cherry-ajax-handler-success',
 						response: data,
 						jqXHR: jqXHR,
-						textStatus: textStatus,
+						textStatus: textStatus
 					} );
 
 					if ( settings.successCallback && 'function' === typeof( settings.successCallback ) ) {
@@ -149,7 +149,7 @@
 					$( document ).trigger( {
 						type: 'cherry-ajax-handler-complete',
 						jqXHR: jqXHR,
-						textStatus: textStatus,
+						textStatus: textStatus
 					} );
 
 					if ( settings.completeCallback && 'function' === typeof( settings.completeCallback ) ) {

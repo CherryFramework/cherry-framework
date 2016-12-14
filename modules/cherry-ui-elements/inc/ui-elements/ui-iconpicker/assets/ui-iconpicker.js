@@ -18,10 +18,10 @@
 
 			underscore.each(
 				icons,
-				function( element, index ){
+				function( element, index ) {
 					window[index] = element;
 				}
-			)
+			);
 		},
 
 		render: function( event ) {

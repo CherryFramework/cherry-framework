@@ -238,7 +238,8 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 		/**
 		 * Function sends the icons into ajax response.
 		 *
-		 * @return void
+		 * @param  array $data Icon data.
+		 * @return array
 		 */
 		public function send_icon_set( $data ) {
 

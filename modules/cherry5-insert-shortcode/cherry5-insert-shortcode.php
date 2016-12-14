@@ -112,7 +112,7 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		public function __construct( $core = null, $args = array(), $init = true ) {
 			if ( $init ) {
 				$this->core = $core;
-				$this->args =  array_merge_recursive(
+				$this->args = array_merge_recursive(
 					$args,
 					array(
 						'module_dir' => trailingslashit( dirname( __FILE__ ) ),
@@ -162,7 +162,7 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 			wp_register_style( 'cherry5-insert-shortcode', esc_url( Cherry_Core::base_url( 'assets/min/cherry-insert-shortcode.min.css', __FILE__ ) ), array(), '1.0.0', 'all' );
 
 			// Register JavaScripts.
-			wp_register_script( 'cherry5-insert-shortcode-js', esc_url( Cherry_Core::base_url( 'assets/min/cherry-insert-shortcode.min.js', __FILE__ ) ), array( 'cherry-js-core',  ), '1.0.0' , true );
+			wp_register_script( 'cherry5-insert-shortcode-js', esc_url( Cherry_Core::base_url( 'assets/min/cherry-insert-shortcode.min.js', __FILE__ ) ), array( 'cherry-js-core' ), '1.0.0', true );
 		}
 
 		/**
@@ -175,7 +175,7 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		public function enqueue_assets() {
 			$screen = get_current_screen();
 
-			if ( in_array( $screen->base, $this->args[ 'in_screen' ] ) ) {
+			if ( in_array( $screen->base, $this->args['in_screen'] ) ) {
 				wp_enqueue_style( 'cherry5-insert-shortcode' );
 				wp_enqueue_script( 'cherry5-insert-shortcode-js' );
 
@@ -201,7 +201,7 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		 *
 		 * @since 1.0.0
 		 * @access public
-		 * @return void
+		 * @return array
 		 */
 		public function add_shortcode( $shotrcodes = array() ) {
 			$plugin_slug = $this->added_shortcodes['slug'];
@@ -244,7 +244,13 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 	}
 	// If class `Cherry5_Insert_Shortcode` doesn't exists yet.
 	if ( ! function_exists( 'cherry5_register_shortcode' ) ) {
-		function cherry5_register_shortcode( $args =array() ) {
+
+		/**
+		 * The function registers a new shortcode.
+		 *
+		 * @since  1.0.0
+		 */
+		function cherry5_register_shortcode( $args = array() ) {
 			$cherry5_insert_shortcode = new Cherry5_Insert_Shortcode( null, array(), false );
 			$cherry5_insert_shortcode->register_shortcode( $args );
 		}
