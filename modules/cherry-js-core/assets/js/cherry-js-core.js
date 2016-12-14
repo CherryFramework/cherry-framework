@@ -70,7 +70,7 @@ var CherryJsCore = {};
 		expressions: {
 			widget_ui_init: function() {
 				$( document ).on( 'widget-added widget-updated', function( event, data ) {
-					$( 'body' ).trigger( {
+					$( document ).trigger( {
 						type: 'cherry-ui-elements-init',
 						_target: data
 					} );

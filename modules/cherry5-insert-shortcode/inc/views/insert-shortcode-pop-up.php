@@ -1,8 +1,8 @@
 <?php
 /**
- * Accordion template.
+ * Popup view.
  *
- * @package    Cherry_Interface_Builder
+ * @package    cherry5_insert_shortcode
  * @subpackage Views
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
@@ -15,7 +15,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 ?>
-<div class="cherry5-is__modal-window">
+<div class="cherry5-is cherry5-is__modal-window cherry-ui-kit">
 	<div class="cherry5-is__popup">
 		<div class="cherry5-is__popup-header">
 			<div class="cherry5-is__popup-header-inner">
@@ -26,11 +26,19 @@ if ( ! defined( 'WPINC' ) ) {
 			</div>
 		</div>
 		<div class="cherry5-is__popup-body">
-			<div class="cherry5-is__popup-sidebar cherry-scroll">
-				<?php echo $sidebar_list ?>
+			<div class="cherry5-is__popup-sidebar">
+				<div class="cherry5-is__sidebar-list cherry-scroll">
+					<?php echo $sidebar_list ?>
+				</div>
+				<div class="cherry5-is__sidebar-button">
+					<span class="dashicons dashicons-arrow-left-alt2 close"></span>
+					<span class="dashicons dashicons-arrow-right-alt2 open"></span>
+				</div>
 			</div>
 			<div class="cherry5-is__popup-section">
-				<div class="cherry5-is__shortcodes-options cherry-scroll"></div>
+				<div class="cherry5-is__shortcodes-options cherry-scroll">
+					<span class="cherry-loader-wrapper"><span class="cherry-loader"></span></span>
+				</div>
 				<div class="cherry5-is__popup-footer">
 					<?php echo $insert_button ?>
 				</div>

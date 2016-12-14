@@ -18,13 +18,18 @@ if ( ! class_exists( 'Cherry5_Insertion_Button' ) ) {
 	class Cherry5_Insertion_Button {
 
 		/**
-		 * UI element instance.
+		 * Module arguments
 		 *
-		 * @since  1.0.0
-		 * @access public
-		 * @var    object
+		 * @var array
 		 */
-		public $ui_elements = null;
+		public $args = array();
+
+		/**
+		 * Core instance
+		 *
+		 * @var object
+		 */
+		public $core = null;
 
 		/**
 		 * Class constructor.
@@ -33,10 +38,13 @@ if ( ! class_exists( 'Cherry5_Insertion_Button' ) ) {
 		 * @access public
 		 * @return void
 		 */
-		public function __construct( $core = null, $args = array() ) {
-			$this->ui_elements = $core->init_module( 'cherry-ui-elements' );
+		public function __construct( $core = null, $args = array(), $parent_self = null ) {
+			$this->core        = $core;
+			$this->args        = $args;
+			$this->parent_self = $parent_self;
 
 			add_action( 'media_buttons', array( $this, 'add_button' ) );
+			add_action( 'cherry5-insert-shortcode', array( $this, 'add_button' ) );
 		}
 
 		/**
@@ -47,15 +55,15 @@ if ( ! class_exists( 'Cherry5_Insertion_Button' ) ) {
 		 * @return void
 		 */
 		public function add_button() {
-			$args = array(
+			$args = apply_filters( 'cherry5-is__open-button', array(
 				'id'         => '',
 				'name'       => '',
 				'style'      => 'normal',
-				'content'    => '<span class="cherry5-is-icon dashicons dashicons-plus"></span>' . esc_html__( 'Cherry shortcodes', 'shortcodes-ultimate' ),
+				'content'    => '<span class="cherry5-is__icon dashicons dashicons-plus"></span>' . esc_html__( 'Cherry shortcodes', 'cherry' ),
 				'class'      => 'cherry5-is__open-button',
-			);
+			) );
 
-			echo $this->ui_elements->get_ui_element_instance( 'button', $args )->render();
+			echo $this->parent_self->ui_elements->get_ui_element_instance( 'button', $args )->render();
 		}
 	}
 }

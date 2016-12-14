@@ -40,6 +40,42 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		private static $instance = null;
 
 		/**
+		 * Module arguments
+		 *
+		 * @since 1.0.0
+		 * @var array
+		 * @access private
+		 */
+		private $args = array();
+
+		/**
+		 * Core instance
+		 *
+		 * @since 1.0.0
+		 * @var object
+		 * @access private
+		 */
+		private $core = null;
+
+		/**
+		 * UI element instance.
+		 *
+		 * @since  1.0.0
+		 * @var    object
+		 * @access public
+		 */
+		public $ui_elements = null;
+
+		/**
+		 * Cherry Interface Builder instance.
+		 *
+		 * @since  1.0.0
+		 * @var    object
+		 * @access public
+		 */
+		public $cherry_interface_builder = null;
+
+		/**
 		 * A reference to an instance of this class Cherry_Insert_Admin_Button.
 		 *
 		 * @since 1.0.0
@@ -53,16 +89,16 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		 *
 		 * @since 1.0.0
 		 * @var object
-		 * @access public
+		 * @access private
 		 */
-		public $shortcodes_popup = null;
+		private $shortcodes_popup = null;
 
 		/**
 		 * Shortcode list.
 		 *
 		 * @since  1.0.0
-		 * @access public
 		 * @var    object
+		 * @access private
 		 */
 		private $added_shortcodes = array();
 
@@ -75,18 +111,30 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		 */
 		public function __construct( $core = null, $args = array(), $init = true ) {
 			if ( $init ) {
+				$this->core = $core;
+				$this->args =  array_merge_recursive(
+					$args,
+					array(
+						'module_dir' => trailingslashit( dirname( __FILE__ ) ),
+						'in_screen'  => array( 'post' ),
+					)
+				);
+
+				$this->ui_elements = $this->core->init_module( 'cherry-ui-elements' );
+				$this->cherry_interface_builder = $this->core->init_module( 'cherry-interface-builder' );
+
 				// Include libraries from the `includes/admin`.
 				$this->includes();
 
 				// Initializing child classes.
-				$this->shortcodes_button = new Cherry5_Insertion_Button( $core, $args );
-				$this->shortcodes_popup = new Cherry5_Insertion_Popup( $core, $args );
+				$this->shortcodes_button = new Cherry5_Insertion_Button( $this->core, $this->args, $this );
+				$this->shortcodes_popup = new Cherry5_Insertion_Popup( $this->core, $this->args, $this );
 
 				// Register admin assets.
 				add_action( 'admin_enqueue_scripts', array( $this, 'register_assets' ), 0 );
 
 				// Load admin assets.
-				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
+				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ), 11 );
 			}
 		}
 
@@ -94,7 +142,7 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		 * Include libraries from the `includes/admin`.
 		 *
 		 * @since 1.0.0
-		 * @access public
+		 * @access private
 		 * @return void
 		 */
 		private function includes() {
@@ -106,14 +154,15 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		 * Register assets.
 		 *
 		 * @since 1.0.0
+		 * @access public
+		 * @return void
 		 */
 		public function register_assets() {
-
 			// Register stylesheets.
 			wp_register_style( 'cherry5-insert-shortcode', esc_url( Cherry_Core::base_url( 'assets/min/cherry-insert-shortcode.min.css', __FILE__ ) ), array(), '1.0.0', 'all' );
 
 			// Register JavaScripts.
-			wp_register_script( 'cherry5-insert-shortcode-js', esc_url( Cherry_Core::base_url( 'assets/min/cherry-insert-shortcode.min.js', __FILE__ ) ), array( 'cherry-js-core' ), '1.0.0' , true );
+			wp_register_script( 'cherry5-insert-shortcode-js', esc_url( Cherry_Core::base_url( 'assets/min/cherry-insert-shortcode.min.js', __FILE__ ) ), array( 'cherry-js-core',  ), '1.0.0' , true );
 		}
 
 		/**
@@ -121,15 +170,17 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		 *
 		 * @since  1.0.0
 		 * @access public
-		 * @param  string $hook The current admin page.
 		 * @return void
 		 */
-		public function enqueue_assets( $hook ) {
+		public function enqueue_assets() {
 			$screen = get_current_screen();
 
-			if ( 'post' === $screen->base ) {
+			if ( in_array( $screen->base, $this->args[ 'in_screen' ] ) ) {
 				wp_enqueue_style( 'cherry5-insert-shortcode' );
 				wp_enqueue_script( 'cherry5-insert-shortcode-js' );
+
+				$dev_mode = ( constant( 'WP_DEBUG' ) ) ? 'true' : 'false' ;
+				wp_localize_script( 'cherry-js-core', 'cherry5InsertShortcode', [ 'devMode' => $dev_mode ] );
 			}
 		}
 
@@ -142,7 +193,7 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		 */
 		public function register_shortcode( $args = array() ) {
 			$this->added_shortcodes = $args;
-			add_filter( 'cherry5_shortcode_list', array( $this, 'add_shortcode' ), 10, 1 );
+			add_filter( 'cherry5-is__shortcode_list', array( $this, 'add_shortcode' ), 10, 1 );
 		}
 
 		/**

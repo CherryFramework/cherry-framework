@@ -87,6 +87,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
 			add_action( 'admin_footer', array( $this, 'print_icon_set' ), 1 );
 			add_action( 'customize_controls_print_footer_scripts', array( $this, 'print_icon_set' ), 9999 );
+			add_filter( 'cherry_handler_response_data', array( $this, 'send_icon_set' ), 10, 1 );
 		}
 
 		/**
@@ -133,6 +134,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 
 				$html .= '</div>';
 			$html .= '</div>';
+
 			return $html;
 		}
 
@@ -173,7 +175,6 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 					'icons'      => $this->settings['icon_data']['icons'],
 				);
 			}
-
 		}
 
 		/**
@@ -232,6 +233,24 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 				return true;
 			}
 
+		}
+
+		/**
+		 * Function sends the icons into ajax response.
+		 *
+		 * @return void
+		 */
+		public function send_icon_set( $data ) {
+
+			if ( empty( $data['cherry_icons_sets'] ) ) {
+				$data['cherry_icons_sets'] = array();
+			}
+
+			foreach ( self::$sets as $key => $value ) {
+				$data['cherry_icons_sets'][ $key ] = $value;
+			}
+
+			return $data;
 		}
 
 		/**
