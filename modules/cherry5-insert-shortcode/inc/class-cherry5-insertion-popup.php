@@ -210,7 +210,7 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 				$options           = ( ! empty( $shortcode_attr['options'] ) ) ? $shortcode_attr['options'] : false ;
 
 				if ( $twin ) {
-					$default_content   = ( ! empty( $shortcode_attr['default_content'] ) ) ? $shortcode_attr['default_content'] : '' ;
+					$default_content   = ( ! empty( $shortcode_attr['defaultContent'] ) ) ? $shortcode_attr['defaultContent'] : '' ;
 					$content_area      = $this->get_shortcode_content_editor( $default_content, $plugin_slug, $shortcode_slug );
 				}
 
@@ -228,7 +228,7 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 					'pluginSlug'        => $plugin_slug,
 					'shortcodeSlug'     => $shortcode_slug,
 					'twin'              => $twin,
-					'default_content'   => $default_content,
+					'defaultContent'   => $default_content,
 					'html'              => $output_html,
 				);
 			}

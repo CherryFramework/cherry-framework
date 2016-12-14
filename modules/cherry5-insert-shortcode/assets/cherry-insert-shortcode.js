@@ -169,7 +169,7 @@ jQuery( document ).on( 'ready', function( /*$, CherryJsCore*/ ) {
 				content = '';
 
 			if ( twin && -1 === this.openedShortcode.indexOf( shortcodeId ) ) {
-				defaultContent = this.sessionStorage.activeShortcode['default_content'];
+				defaultContent = this.sessionStorage.activeShortcode.defaultContent;
 
 				if ( this.selectedContent ) {
 					content = this.selectedContent;
