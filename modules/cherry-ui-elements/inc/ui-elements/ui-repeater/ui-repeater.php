@@ -78,9 +78,9 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		public static $customizer_tmpl_printed = false;
 
 		/**
-		 * Constructor method for the UI_Text class.
+		 * Constructor method for the UI_Repeater class.
 		 *
-		 * @since  1.0.0
+		 * @since 1.0.0
 		 */
 		function __construct( $args = array() ) {
 
@@ -97,7 +97,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		}
 
 		/**
-		 * Get required attribute
+		 * Get required attribute.
 		 *
 		 * @return string required attribute
 		 */
@@ -111,7 +111,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		/**
 		 * Render html UI_Repeater.
 		 *
-		 * @since  1.0.1
+		 * @since 1.0.1
 		 */
 		public function render() {
 			$html        = '';
@@ -237,17 +237,16 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		}
 
 		/**
-		 * Enqueue javascript and stylesheet UI_Text
+		 * Enqueue javascript and stylesheet UI_Repeater.
 		 *
-		 * @since  1.0.0
+		 * @since 1.0.0
 		 */
 		public static function enqueue_assets() {
-
 			wp_enqueue_style(
 				'ui-repeater',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-repeater.min.css', __FILE__ ) ),
 				array(),
-				'1.0.0',
+				'1.3.2',
 				'all'
 			);
 
@@ -255,7 +254,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 				'ui-repeater',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-repeater.min.js', __FILE__ ) ),
 				array( 'wp-util', 'jquery-ui-sortable' ),
-				'1.0.0',
+				'1.3.2',
 				true
 			);
 

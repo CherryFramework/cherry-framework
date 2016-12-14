@@ -23,8 +23,9 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 	class UI_Iconpicker extends UI_Element implements I_UI {
 
 		/**
-		 * Default settings
+		 * Default settings.
 		 *
+		 * @since 1.0.0
 		 * @var array
 		 */
 		private $defaults_settings = array(
@@ -42,7 +43,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 		);
 
 		/**
-		 * Default icon data settings
+		 * Default icon data settings.
 		 *
 		 * @var array
 		 */
@@ -76,9 +77,9 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 		public static $printed_sets = array();
 
 		/**
-		 * Constructor method for the UI_Text class.
+		 * Constructor method for the UI_Iconpicker class.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 */
 		function __construct( $args = array() ) {
 			$this->defaults_settings['id'] = 'cherry-ui-input-icon-' . uniqid();
@@ -102,9 +103,9 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 		}
 
 		/**
-		 * Render html UI_Text.
+		 * Render html UI_Iconpicker.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 */
 		public function render() {
 			$html = '';
@@ -262,9 +263,9 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 		}
 
 		/**
-		 * Enqueue javascript and stylesheet UI_Text
+		 * Enqueue javascript and stylesheet UI_Iconpicker
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 */
 		public static function enqueue_assets() {
 
@@ -272,7 +273,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 				'ui-iconpicker',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-iconpicker.min.css', __FILE__ ) ),
 				array(),
-				'1.0.0',
+				'1.3.2',
 				'all'
 			);
 
@@ -280,14 +281,15 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 				'jquery-iconpicker',
 				esc_url( Cherry_Core::base_url( 'assets/min/jquery-iconpicker.min.js', __FILE__ ) ),
 				array( 'jquery' ),
-				'1.0.0',
+				'1.3.2',
 				true
 			);
+
 			wp_enqueue_script(
 				'ui-iconpicker',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-iconpicker.min.js', __FILE__ ) ),
 				array( 'jquery' ),
-				'1.0.0',
+				'1.3.2',
 				true
 			);
 		}
