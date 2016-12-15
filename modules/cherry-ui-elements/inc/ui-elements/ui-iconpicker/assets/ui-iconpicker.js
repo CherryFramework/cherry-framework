@@ -18,9 +18,11 @@
 		},
 
 		setIconsSets: function( iconSets ) {
-			if( iconSets ){
-				var icon  = ( iconSets.response ) ? iconSets.response.cherry5IconSets : iconSets,
-					_this = this;
+			var icon,
+				_this = this;
+
+			if ( iconSets ) {
+				icon  = ( iconSets.response ) ? iconSets.response.cherry5IconSets : iconSets;
 
 				underscore.each(
 					icon,
