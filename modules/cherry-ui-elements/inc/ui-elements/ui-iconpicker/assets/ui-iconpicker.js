@@ -6,22 +6,39 @@
 
 	CherryJsCore.utilites.namespace( 'ui_elements.iconpicker' );
 	CherryJsCore.ui_elements.iconpicker = {
+		iconSets: {},
+		iconSetsKey: 'cherry5-icon-sets',
+
 		init: function() {
 			$( document )
-				.on( 'cherry-ajax-handler-success', this.set_icons_sets )
-				.on( 'ready', this.render )
-				.on( 'cherry-ui-elements-init', this.render );
+				.on( 'cherry-ajax-handler-success', this.setIconsSets.bind( this ) )
+				.on( 'ready.iconpicker', this.setIconsSets.bind( this, window.сherry5IconSets ) )
+				.on( 'ready.iconpicker', this.render.bind( this ) )
+				.on( 'cherry-ui-elements-init', this.render.bind( this ) );
 		},
 
-		set_icons_sets: function( data ) {
-			var icons = data.response.cherry_icons_sets;
+		setIconsSets: function( iconSets ) {
+			if( iconSets ){
+				var icon  = ( iconSets.response ) ? iconSets.response.cherry5IconSets : iconSets,
+					_this = this;
 
-			underscore.each(
-				icons,
-				function( element, index ) {
-					window[index] = element;
-				}
-			);
+				underscore.each(
+					icon,
+					function( element, index ) {
+						_this.iconSets[ index ] = element;
+					}
+				);
+
+				_this.setState( _this.iconSetsKey, _this.iconSets );
+			}
+		},
+
+		getIconsSets: function() {
+			var iconSets = this.getState( this.iconSetsKey );
+
+			if ( iconSets ) {
+				this.iconSets = iconSets;
+			}
 		},
 
 		render: function( event ) {
@@ -29,12 +46,16 @@
 				$picker = $( '.cherry-ui-iconpicker:not([name*="__i__"])', target ),
 				$this,
 				set,
-				setData;
+				setData,
+				_this = this;
+
+			if ( $picker[0] ) {
+				this.getIconsSets();
 
 				$picker.each( function() {
 					$this   = $( this );
 					set     = $this.data( 'set' );
-					setData = window[set];
+					setData = _this.iconSets[set];
 
 					if ( $this.length && setData.icons ) {
 						$this.iconpicker({
@@ -54,6 +75,23 @@
 						$( 'head' ).append( '<link rel="stylesheet" type="text/css" href="' + setData.iconCSS + '"">' );
 					}
 				} );
+			}
+		},
+
+		getState: function( key ) {
+			try {
+				return JSON.parse( window.sessionStorage.getItem( key ) );
+			} catch ( e ) {
+				return false;
+			}
+		},
+
+		setState: function( key, data ) {
+			try {
+				window.sessionStorage.setItem( key, JSON.stringify( data ) );
+			} catch ( e ) {
+				return false;
+			}
 		}
 	};
 

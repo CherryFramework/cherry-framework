@@ -33,7 +33,7 @@ jQuery( document ).on( 'ready', function( /*$, CherryJsCore*/ ) {
 
 		init: function() {
 			this.devMode                    = ( 'true' === window.cherry5InsertShortcode.devMode ) ? true : false ;
-			this.sessionStorage             = ( ! this.devMode ) ? this.getState() : this.sessionStorage ;
+			this.sessionStorage             = ( ! this.devMode ) ? this.getState() || this.sessionStorage : this.sessionStorage ;
 			this.getShortcodeOptionInstance = new CherryJsCore.CherryAjaxHandler(
 				{
 					handlerId: this.insertShortcodeId,

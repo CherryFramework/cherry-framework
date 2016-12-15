@@ -243,12 +243,12 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 		 */
 		public function send_icon_set( $data ) {
 
-			if ( empty( $data['cherry_icons_sets'] ) ) {
-				$data['cherry_icons_sets'] = array();
+			if ( empty( $data['cherryIconsSets'] ) ) {
+				$data['cherry5IconSets'] = array();
 			}
 
 			foreach ( self::$sets as $key => $value ) {
-				$data['cherry_icons_sets'][ $key ] = $value;
+				$data['cherry5IconSets'][ $key ] = $value;
 			}
 
 			return $data;
@@ -276,7 +276,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 				self::$printed_sets[] = $set;
 				$json = json_encode( $data );
 
-				printf( '<script>window.%1$s = %2$s</script>', $set, $json );
+				printf( '<script> if ( ! window.сherry5IconSets ) { window.сherry5IconSets = {} } window.сherry5IconSets.%1$s = %2$s</script>', $set, $json );
 			}
 
 		}
