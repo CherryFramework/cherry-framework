@@ -150,7 +150,7 @@ jQuery( document ).on( 'ready', function( /*$, CherryJsCore*/ ) {
 
 			this.afterShowShortcode( shortcodeId, data.enclosing );
 
-			$( document ).trigger( 'cherryInterfaceBuilder' )
+			$( document ).trigger( 'cherryInterfaceBuilder' );
 			$( 'body' ).trigger( { type: 'cherry-ui-elements-init', _target: $( '#' + shortcodeId, holder ) } );
 		},
 		setProxyStorage: function( data, id ) {
