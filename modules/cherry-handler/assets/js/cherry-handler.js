@@ -118,12 +118,27 @@
 					}
 				},
 				error: function( jqXHR, textStatus, errorThrown ) {
+					$( document ).trigger( {
+						type: 'cherry-ajax-handler-error',
+						jqXHR: jqXHR,
+						textStatus: textStatus,
+						errorThrown: errorThrown
+					} );
+
 					if ( settings.errorCallback && 'function' === typeof( settings.errorCallback ) ) {
 						settings.errorCallback( jqXHR, textStatus, errorThrown );
 					}
 				},
 				success: function( data, textStatus, jqXHR ) {
 					self.ajaxProcessing = false;
+
+					$( document ).trigger( {
+						type: 'cherry-ajax-handler-success',
+						response: data,
+						jqXHR: jqXHR,
+						textStatus: textStatus
+					} );
+
 					if ( settings.successCallback && 'function' === typeof( settings.successCallback ) ) {
 						settings.successCallback( data, textStatus, jqXHR );
 					}
@@ -131,6 +146,12 @@
 					CherryJsCore.cherryHandlerUtils.noticeCreate( data.type, data.message, self.handlerSettings.is_public );
 				},
 				complete: function( jqXHR, textStatus ) {
+					$( document ).trigger( {
+						type: 'cherry-ajax-handler-complete',
+						jqXHR: jqXHR,
+						textStatus: textStatus
+					} );
+
 					if ( settings.completeCallback && 'function' === typeof( settings.completeCallback ) ) {
 						settings.completeCallback( jqXHR, textStatus );
 					}

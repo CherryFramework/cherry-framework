@@ -12,7 +12,6 @@
 				.on( 'cherry-ui-elements-init', this.render );
 		},
 		render: function ( event ) {
-			console.log('media');
 			var target = ( event._target ) ? event._target : $( 'body' ),
 				buttons = $('.cherry-upload-button', target);
 

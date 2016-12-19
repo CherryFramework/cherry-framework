@@ -4,7 +4,7 @@ $color-3: #96989a; // Description color and tabs button text color.
 $color-4: #b4b7ba; //
 $color-5: #f1f1f1; // Scrollbar background
 $color-6: #e5e5e5; // Hover scrollbar background
-$color-7: #495159; // Scrollbar track background
+$color-7: #206ff4; // Scrollbar track background
 $link-color: #298ffc; // link color.
 $link-hover-color: #23282d; // link hover color.
 
@@ -200,21 +200,26 @@ html{
 			border:0;
 			background: none;
 			cursor: pointer;
+			position: relative;
 			.cherry-toggle__title {
 				font-weight: 700;
 				font-size: 14px;
 				float: left;
 				margin: 0;
 			}
-			span{
+			>span[class*="icon"]{
+				position: absolute;
+				top: 50%;
+				right: 5px;
+				margin-top: -10px;
+
 				font-size: 25px;
 				color: $color-4;
-				float: right;
 				padding: 5px 5px;
 				width: 10px;
 				height: 9px;
 				text-align: left;
-				margin-right: -6px;
+				overflow: hidden;
 				&.hide-icon{
 					&:before{
 						position: relative;
@@ -230,14 +235,14 @@ html{
 						top: -7px;
 						left: -9px;
 					}
-					position: relative;
-					left: 14px;
+					//position: relative;
+					//left: 14px;
 					transform:scaleX(0);
 					transition: all 300ms cubic-bezier(0.215, 0.61, 0.355, 1);
 				}
 			}
 			&.active{
-				span{
+				>span[class*="icon"]{
 					&.show-icon{
 						transform:scaleX(1);
 						transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -447,7 +452,7 @@ html{
 				border: none;
 				border-radius: $br-radius;
 				&:hover, &:active {
-					background: #206ff4;
+					background: $color-7;
 				}
 			}
 			&-track {

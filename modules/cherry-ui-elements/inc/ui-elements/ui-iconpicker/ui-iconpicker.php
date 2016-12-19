@@ -88,6 +88,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
 			add_action( 'admin_footer', array( $this, 'print_icon_set' ), 1 );
 			add_action( 'customize_controls_print_footer_scripts', array( $this, 'print_icon_set' ), 9999 );
+			add_filter( 'cherry_handler_response_data', array( $this, 'send_icon_set' ), 10, 1 );
 		}
 
 		/**
@@ -134,6 +135,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 
 				$html .= '</div>';
 			$html .= '</div>';
+
 			return $html;
 		}
 
@@ -174,7 +176,6 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 					'icons'      => $this->settings['icon_data']['icons'],
 				);
 			}
-
 		}
 
 		/**
@@ -236,6 +237,25 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 		}
 
 		/**
+		 * Function sends the icons into ajax response.
+		 *
+		 * @param  array $data Icon data.
+		 * @return array
+		 */
+		public function send_icon_set( $data ) {
+
+			if ( empty( $data['cherryIconsSets'] ) ) {
+				$data['cherry5IconSets'] = array();
+			}
+
+			foreach ( self::$sets as $key => $value ) {
+				$data['cherry5IconSets'][ $key ] = $value;
+			}
+
+			return $data;
+		}
+
+		/**
 		 * Print icon sets
 		 *
 		 * @return void
@@ -257,7 +277,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 				self::$printed_sets[] = $set;
 				$json = json_encode( $data );
 
-				printf( '<script>window.%1$s = %2$s</script>', $set, $json );
+				printf( '<script> if ( ! window.сherry5IconSets ) { window.сherry5IconSets = {} } window.сherry5IconSets.%1$s = %2$s</script>', $set, $json );
 			}
 
 		}
