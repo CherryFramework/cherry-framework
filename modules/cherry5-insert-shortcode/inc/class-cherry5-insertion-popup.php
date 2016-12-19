@@ -203,7 +203,7 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 			if ( ! $shortcode_attr ) {
 				return array(
 					'error'   => true,
-					'message' => 'Shortcone not found.',
+					'message' => esc_html__( 'Shortcode not found.', 'cherry-framework' ),
 				);
 			} else {
 				$defaults = array(
