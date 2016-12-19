@@ -64,7 +64,7 @@ jQuery( document ).on( 'ready', function( /*$, CherryJsCore*/ ) {
 				}
 
 				activeShortcode = this.sessionStorage.activeShortcode;
-				this.afterShowShortcode( activeShortcode.pluginSlug + '-' + activeShortcode.shortcodeSlug, activeShortcode.twin );
+				this.afterShowShortcode( activeShortcode.pluginSlug + '-' + activeShortcode.shortcodeSlug, activeShortcode.enclosing );
 			}
 
 			$( this.insertionWindow ).addClass( 'open show' );
@@ -118,7 +118,7 @@ jQuery( document ).on( 'ready', function( /*$, CherryJsCore*/ ) {
 				data = this.sessionStorage.optionsTemplate[ shortcodeId ];
 				this.setProxyStorage( data, shortcodeId );
 				this.show( shortcodeSection );
-				this.afterShowShortcode( shortcodeId, data.twin );
+				this.afterShowShortcode( shortcodeId, data.enclosing );
 				return;
 			}
 
@@ -148,11 +148,10 @@ jQuery( document ).on( 'ready', function( /*$, CherryJsCore*/ ) {
 			this.hide( $( this.spinner, this.shortcodeOptionHolder ) );
 			holder.append( data.html );
 
-			this.afterShowShortcode( shortcodeId, data.twin );
+			this.afterShowShortcode( shortcodeId, data.enclosing );
 
-			$( document )
-				.trigger( 'cherryInterfaceBuilder' )
-				.trigger( { type: 'cherry-ui-elements-init', _target: $( '#' + shortcodeId, holder ) } );
+			$( document ).trigger( 'cherryInterfaceBuilder' )
+			$( 'body' ).trigger( { type: 'cherry-ui-elements-init', _target: $( '#' + shortcodeId, holder ) } );
 		},
 		setProxyStorage: function( data, id ) {
 			if ( data ) {
@@ -164,11 +163,11 @@ jQuery( document ).on( 'ready', function( /*$, CherryJsCore*/ ) {
 				this.setState();
 			}
 		},
-		afterShowShortcode: function( shortcodeId, twin ) {
+		afterShowShortcode: function( shortcodeId, enclosing ) {
 			var defaultContent,
 				content = '';
 
-			if ( twin && -1 === this.openedShortcode.indexOf( shortcodeId ) ) {
+			if ( enclosing && -1 === this.openedShortcode.indexOf( shortcodeId ) ) {
 				defaultContent = this.sessionStorage.activeShortcode.defaultContent;
 
 				if ( this.selectedContent ) {
@@ -190,8 +189,8 @@ jQuery( document ).on( 'ready', function( /*$, CherryJsCore*/ ) {
 				slug            = activeShortcode.shortcodeSlug,
 				pluginSlug      = activeShortcode.pluginSlug,
 				shortcodeId     = pluginSlug + '-' + slug,
-				twin            = activeShortcode.twin,
-				tepmlate        = ( twin ) ? '[$1$2]$3[/$1]' : '[$1$2]',
+				enclosing       = activeShortcode.enclosing,
+				tepmlate        = ( enclosing ) ? '[$1$2]$3[/$1]' : '[$1$2]',
 				attrs           = $( 'form#' + shortcodeId ).serializeArray(),
 				sortedAttra     = {},
 				outputAttr      = '',
@@ -226,7 +225,7 @@ jQuery( document ).on( 'ready', function( /*$, CherryJsCore*/ ) {
 				} );
 			}
 
-			if ( twin ) {
+			if ( enclosing ) {
 				content = $( '#' + shortcodeId + '-content' ).val();
 			}
 

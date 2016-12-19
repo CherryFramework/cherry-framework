@@ -1,7 +1,7 @@
 <?php
 /**
  * Module Name: Insert Shortcode
- * Description: The module allows you to add shortcodes editor tinyMCE.
+ * Description: The module allows you to add shortcodes from editor tinyMCE.
  * Version: 1.0.0
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
@@ -29,6 +29,14 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 	 * Cherry5_Insert_Shortcode class.
 	 */
 	class Cherry5_Insert_Shortcode {
+
+		/**
+		 * Module version.
+		 *
+		 * @since 1.0.0
+		 * @var string
+		 */
+		private $module_version = '1.0.0';
 
 		/**
 		 * A reference to an instance of this class.
@@ -123,7 +131,7 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 				$this->ui_elements = $this->core->init_module( 'cherry-ui-elements' );
 				$this->cherry_interface_builder = $this->core->init_module( 'cherry-interface-builder' );
 
-				// Include libraries from the `includes/admin`.
+				// Include libraries from the `inc/`.
 				$this->includes();
 
 				// Initializing child classes.
@@ -139,7 +147,7 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		}
 
 		/**
-		 * Include libraries from the `includes/admin`.
+		 * Include libraries from the `inc/`.
 		 *
 		 * @since 1.0.0
 		 * @access private
@@ -159,10 +167,10 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		 */
 		public function register_assets() {
 			// Register stylesheets.
-			wp_register_style( 'cherry5-insert-shortcode', esc_url( Cherry_Core::base_url( 'assets/min/cherry-insert-shortcode.min.css', __FILE__ ) ), array(), '1.0.0', 'all' );
+			wp_register_style( 'cherry5-insert-shortcode', esc_url( Cherry_Core::base_url( 'assets/min/cherry-insert-shortcode.min.css', __FILE__ ) ), array(), $this->module_version, 'all' );
 
 			// Register JavaScripts.
-			wp_register_script( 'cherry5-insert-shortcode-js', esc_url( Cherry_Core::base_url( 'assets/min/cherry-insert-shortcode.min.js', __FILE__ ) ), array( 'cherry-js-core' ), '1.0.0', true );
+			wp_register_script( 'cherry5-insert-shortcode-js', esc_url( Cherry_Core::base_url( 'assets/min/cherry-insert-shortcode.min.js', __FILE__ ) ), array( 'cherry-js-core' ), $this->module_version, true );
 		}
 
 		/**
@@ -180,7 +188,7 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 				wp_enqueue_script( 'cherry5-insert-shortcode-js' );
 
 				$dev_mode = ( constant( 'WP_DEBUG' ) ) ? 'true' : 'false' ;
-				wp_localize_script( 'cherry-js-core', 'cherry5InsertShortcode', [ 'devMode' => $dev_mode ] );
+				wp_localize_script( 'cherry-js-core', 'cherry5InsertShortcode', array( 'devMode' => $dev_mode ) );
 			}
 		}
 
@@ -203,26 +211,26 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		 * @access public
 		 * @return array
 		 */
-		public function add_shortcode( $shotrcodes = array() ) {
+		public function add_shortcode( $shortcodes = array() ) {
 			$plugin_slug = $this->added_shortcodes['slug'];
 			$new_shortcodes = $this->added_shortcodes['shortcodes'];
-			$this->added_shortcodes['shortcodes'] = [];
+			$this->added_shortcodes['shortcodes'] = array();
 
-			if ( ! array_key_exists( $plugin_slug, $shotrcodes ) ) {
-				$shotrcodes[ $plugin_slug ] = $this->added_shortcodes;
+			if ( ! array_key_exists( $plugin_slug, $shortcodes ) ) {
+				$shortcodes[ $plugin_slug ] = $this->added_shortcodes;
 			}
 
 			foreach ( $new_shortcodes as $value ) {
 				$shortcode_slug = $value['slug'];
 
-				if ( array_key_exists( $shortcode_slug, $shotrcodes[ $plugin_slug ]['shortcodes'] ) ) {
+				if ( array_key_exists( $shortcode_slug, $shortcodes[ $plugin_slug ]['shortcodes'] ) ) {
 					continue;
 				}
 
-				$shotrcodes[ $plugin_slug ]['shortcodes'][ $shortcode_slug ] = $value;
+				$shortcodes[ $plugin_slug ]['shortcodes'][ $shortcode_slug ] = $value;
 			}
 
-			return $shotrcodes;
+			return $shortcodes;
 		}
 
 		/**

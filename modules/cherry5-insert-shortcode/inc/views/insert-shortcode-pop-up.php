@@ -19,7 +19,7 @@ if ( ! defined( 'WPINC' ) ) {
 	<div class="cherry5-is__popup">
 		<div class="cherry5-is__popup-header">
 			<div class="cherry5-is__popup-header-inner">
-				<h3 class="cherry5-is__popup-title"><?php esc_html_e( 'Insert Shortcode', 'cherry' ); ?></h3>
+				<h3 class="cherry5-is__popup-title"><?php echo $popup_title ?></h3>
 				<div class="cherry5-is__close-button">
 					<span class="dashicons dashicons-no"></span>
 				</div>

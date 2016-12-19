@@ -46,7 +46,7 @@ if ( ! class_exists( 'Cherry_Js_Core' ) ) {
 		 * @since 1.0.0
 		 * @var string
 		 */
-		private $module_version = '1.1.0';
+		private $module_version = '1.1.2';
 
 		/**
 		 * Default options.

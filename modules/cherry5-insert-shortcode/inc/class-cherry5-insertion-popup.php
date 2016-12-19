@@ -2,11 +2,12 @@
 /**
  * Sets up the admin functionality for the plugin.
  *
- * @package    Blank_Plugin
- * @subpackage Admin
- * @author     Cherry Team
- * @license    GPL-3.0+
- * @copyright  2012-2016, Cherry Team
+ * @package    Cherry_Framework
+ * @subpackage Modules
+ * @author     Cherry Team <cherryframework@gmail.com>
+ * @copyright  Copyright (c) 2012 - 2016, Cherry Team
+ * @link       http://www.cherryframework.com/
+ * @license    http://www.gnu.org/licenses/gpl-3.0.html
  */
 
 // If class `Cherry5_Insertion_Popup` doesn't exists yet.
@@ -63,7 +64,7 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 						'description' => '',
 						'icon'        => '',
 						'slug'        => '',
-						'twin'        => false,
+						'enclosing '  => false,
 						'options'     => array(),
 					),
 				),
@@ -117,13 +118,14 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 			if ( in_array( $screen->base, $this->args['in_screen'] ) ) {
 
 				$this->shortcode_list = apply_filters( 'cherry5-is__shortcode_list', array() );
+				$popup_title          = esc_html( 'Insert Cherry Shortcode', 'cherry' );
 				$sidebar_list         = $this->get_sidebar_list( $this->shortcode_list );
 
 				$args = apply_filters( 'cherry5-is__insert-button', array(
 					'id'         => '',
 					'name'       => '',
 					'style'      => 'normal',
-					'content'    => esc_html__( 'insert shortcodes', 'cherry' ),
+					'content'    => esc_html__( 'insert shortcode', 'cherry-framework' ),
 					'class'      => 'cherry5-is__insert-button',
 				) );
 
@@ -143,32 +145,33 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 		private function get_sidebar_list( $plugins = array() ) {
 			$structure['shortcode-list'] = array(
 				'type'  => 'component-accordion',
-				'title' => esc_html__( 'Shortcode List', 'cherry' ),
+				'title' => esc_html__( 'Shortcode List', 'cherry-framework' ),
+			);
+			$defaults = array(
+				'icon'        => '',
+				'title'       => '',
+				'description' => '',
 			);
 
 			$list_items_template = apply_filters( 'cherry5-is__list-items-template', '<li><button id="button-%1$s-%2$s" class="cherry5-is__get-shotcode" data-plugin-slug="%1$s" data-shortcode-slug="%2$s" title="%3$s">%4$s%5$s</button></li>' );
 
 			foreach ( $plugins as $plugin_slug => $plugin_value ) {
-				$icon        = ( isset( $plugin_value['icon'] ) ) ? $plugin_value['icon'] : '' ;
-				$title       = ( isset( $plugin_value['title'] ) ) ? $plugin_value['title'] : '' ;
-				$description = ( isset( $plugin_value['description'] ) ) ? $plugin_value['description'] : '' ;
+				$plugin_value = wp_parse_args( $plugin_value, $defaults );
 
 				$structure[ $plugin_slug ] = array(
 					'id'          => $plugin_slug,
 					'type'        => 'settings',
 					'parent'      => 'shortcode-list',
-					'title'       => $icon . $title,
-					'description' => $description,
+					'title'       => $plugin_value['icon'] . $plugin_value['title'],
+					'description' => $plugin_value['description'],
 				);
 
 				$output_html = '<ul class="cherry5-is__shortcode-list">';
 
 				foreach ( $plugin_value['shortcodes'] as $shortcode_slug => $shortcode_value ) {
-					$shortcode_icon        = ( isset( $shortcode_value['icon'] ) ) ? $shortcode_value['icon'] : '' ;
-					$shortcode_title       = ( isset( $shortcode_value['title'] ) ) ? $shortcode_value['title'] : '' ;
-					$shortcode_description = ( isset( $shortcode_value['description'] ) ) ? $shortcode_value['description'] : '' ;
+					$shortcode_value = wp_parse_args( $shortcode_value, $defaults );
 
-					$output_html .= sprintf( $list_items_template, $plugin_slug, $shortcode_slug, $shortcode_description, $shortcode_icon, $shortcode_title );
+					$output_html .= sprintf( $list_items_template, $plugin_slug, $shortcode_slug, $shortcode_value['description'], $shortcode_value['icon'], $shortcode_value['title'] );
 				}
 
 				$output_html .= '</ul>';
@@ -200,36 +203,40 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 			if ( ! $shortcode_attr ) {
 				return array(
 					'error'   => true,
-					'message' => 'Shortcone not find.',
+					'message' => 'Shortcone not found.',
 				);
 			} else {
-				$content_area      = '';
-				$twin              = ( ! empty( $shortcode_attr['twin'] ) ) ? $shortcode_attr['twin'] : false ;
-				$title             = ( ! empty( $shortcode_attr['title'] ) ) ? $shortcode_attr['title'] : '' ;
-				$description       = ( ! empty( $shortcode_attr['description'] ) ) ? $shortcode_attr['description'] : '' ;
-				$options           = ( ! empty( $shortcode_attr['options'] ) ) ? $shortcode_attr['options'] : false ;
+				$defaults = array(
+					'content_area'   => '',
+					'enclosing'      => false,
+					'title'          => '',
+					'description'    => '',
+					'defaultContent' => '',
+					'options'        => false,
+				);
 
-				if ( $twin ) {
-					$default_content   = ( ! empty( $shortcode_attr['defaultContent'] ) ) ? $shortcode_attr['defaultContent'] : '' ;
-					$content_area      = $this->get_shortcode_content_editor( $default_content, $plugin_slug, $shortcode_slug );
+				$shortcode_attr = wp_parse_args( $shortcode_attr, $defaults );
+
+				if ( $shortcode_attr['enclosing'] ) {
+					$shortcode_attr['content_area'] = $this->get_shortcode_content_editor( $default_content, $plugin_slug, $shortcode_slug );
 				}
 
-				if ( $options ) {
-					$shortcode_options_html = $this->parent_self->cherry_interface_builder->render( false, $options );
+				if ( $shortcode_attr['options'] ) {
+					$shortcode_options_html = $this->parent_self->cherry_interface_builder->render( false, $shortcode_attr['options'] );
 				} else {
 					$shortcode_options_html = $this->get_empty_layer();
-
 				}
+
 				$shortcode_option_template = apply_filters( 'cherry5-is__options-template', Cherry_Toolkit::get_file( $this->args['module_dir'] . 'inc/views/shortcode-options.php' ) );
-				$output_html               = sprintf( $shortcode_option_template, $plugin_slug, $shortcode_slug, $title, $description, $content_area, $shortcode_options_html );
+				$output_html               = sprintf( $shortcode_option_template, $plugin_slug, $shortcode_slug, $shortcode_attr['title'], $shortcode_attr['description'], $shortcode_attr['content_area'], $shortcode_options_html );
 
 				return array(
-					'error'             => false,
-					'pluginSlug'        => $plugin_slug,
-					'shortcodeSlug'     => $shortcode_slug,
-					'twin'              => $twin,
-					'defaultContent'   => $default_content,
-					'html'              => $output_html,
+					'error'          => false,
+					'pluginSlug'     => $plugin_slug,
+					'shortcodeSlug'  => $shortcode_slug,
+					'enclosing'      => $shortcode_attr['enclosing'],
+					'defaultContent' => $shortcode_attr['defaultContent'],
+					'html'           => $output_html,
 				);
 			}
 		}
@@ -243,8 +250,8 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 		 */
 		private function get_shortcode_content_editor( $content = '', $plugin_slug = '', $shortcode_slug = '' ) {
 			$template    = apply_filters( 'cherry5-is__content-area-template', Cherry_Toolkit::get_file( $this->args['module_dir'] . 'inc/views/shortcode-content-area.php' ) );
-			$title       = apply_filters( 'cherry5-is__content-title', esc_html__( 'Shortcode content.', 'cherry' ) );
-			$placeholder = apply_filters( 'cherry5-is__content-placeholder', esc_html__( 'Input shortcode content.', 'cherry' ) );
+			$title       = apply_filters( 'cherry5-is__content-title', esc_html__( 'Shortcode content.', 'cherry-framework' ) );
+			$placeholder = apply_filters( 'cherry5-is__content-placeholder', esc_html__( 'Input shortcode content.', 'cherry-framework' ) );
 
 			$output = sprintf( $template, $plugin_slug, $shortcode_slug, $title, $placeholder, $content );
 
@@ -259,7 +266,7 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 		 * @return string
 		 */
 		private function get_empty_layer() {
-			$text     = apply_filters( 'cherry5-is__empty_layer-text', esc_html__( 'Shortcode not a have options.', 'cherry' ) );
+			$text     = apply_filters( 'cherry5-is__empty_layer-text', esc_html__( 'Shortcode not a have options.', 'cherry-framework' ) );
 			$template = apply_filters( 'cherry5-is__empty_layer-template', Cherry_Toolkit::get_file( $this->args['module_dir'] . 'inc/views/shortcode-has-not-option.php' ) );
 			$output   = sprintf( $template, $text );
 

@@ -2,11 +2,12 @@
 /**
  * Sets up the admin functionality for the plugin.
  *
- * @package    Blank_Plugin
- * @subpackage Admin
- * @author     Cherry Team
- * @license    GPL-3.0+
- * @copyright  2012-2016, Cherry Team
+ * @package    Cherry_Framework
+ * @subpackage Modules
+ * @author     Cherry Team <cherryframework@gmail.com>
+ * @copyright  Copyright (c) 2012 - 2016, Cherry Team
+ * @link       http://www.cherryframework.com/
+ * @license    http://www.gnu.org/licenses/gpl-3.0.html
  */
 
 // If class `Cherry5_Insertion_Button` doesn't exists yet.
@@ -59,8 +60,8 @@ if ( ! class_exists( 'Cherry5_Insertion_Button' ) ) {
 				'id'         => '',
 				'name'       => '',
 				'style'      => 'normal',
-				'content'    => '<span class="cherry5-is__icon dashicons dashicons-plus"></span>' . esc_html__( 'Cherry shortcodes', 'cherry' ),
-				'class'      => 'cherry5-is__open-button',
+				'content'    => '<span class="cherry5-is__icon dashicons dashicons-plus"></span>' . esc_html__( 'Cherry shortcodes', 'cherry-framework' ),
+				'class'      => 'cherry5-is__open-button button',
 			) );
 
 			echo $this->parent_self->ui_elements->get_ui_element_instance( 'button', $args )->render();
