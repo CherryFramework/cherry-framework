@@ -221,7 +221,15 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 					$shortcode_attr['content_area'] = $this->get_shortcode_content_editor( $default_content, $plugin_slug, $shortcode_slug );
 				}
 
-				if ( $shortcode_attr['options'] ) {
+				if ( ! empty( $shortcode_attr['options'] ) ) {
+
+					foreach ( $shortcode_attr['options'] as $key => $settings ) {
+
+						if ( ! array_key_exists( 'id', $settings ) ) {
+							$shortcode_attr['options'][ $key ]['id'] = $shortcode_slug . '_' . $key;
+						}
+					}
+
 					$shortcode_options_html = $this->parent_self->cherry_interface_builder->render( false, $shortcode_attr['options'] );
 				} else {
 					$shortcode_options_html = $this->get_empty_layer();
