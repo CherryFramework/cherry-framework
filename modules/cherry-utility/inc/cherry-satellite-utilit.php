@@ -115,7 +115,7 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 */
 		public function get_thumbnail_size_array( $size ) {
 			global $_wp_additional_image_sizes;
-			$size_array = array();
+
 			if ( array_key_exists( $size, $_wp_additional_image_sizes ) ) {
 				$size_array = $_wp_additional_image_sizes[ $size ];
 			} else {
@@ -138,8 +138,6 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 				echo $content;
 			}
 		}
-
-
 
 		/**
 		 * Return post terms.
