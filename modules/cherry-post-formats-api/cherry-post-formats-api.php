@@ -793,7 +793,6 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 				return;
 			}
 
-			$atts   = array_merge( $atts, $this->args['gallery_args'] );
 			$result = $this->get_gallery_html( $attachments, $atts );
 
 			return $result;

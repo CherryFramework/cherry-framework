@@ -8,7 +8,7 @@
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-3.0.html
+ * @license    http://www.gnu.org/licenses/gpl-3.0.en.html
  */
 
 return create_function( '', '

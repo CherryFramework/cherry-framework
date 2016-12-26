@@ -2,7 +2,7 @@
 /**
  * Module Name: UI Elements
  * Description: Class for the building ui elements
- * Version: 1.3.2
+ * Version: 1.3.4
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.3.2
+ * @version    1.3.4
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -136,7 +136,6 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 				foreach ( $this->args['ui_elements'] as $ui_element ) {
 					$ui_class_name = 'UI_' . ucwords( $ui_element );
 					call_user_func( array( $ui_class_name, 'enqueue_assets' ) );
-
 				}
 			}
 		}

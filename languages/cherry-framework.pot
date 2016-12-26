@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: cherry-framework\n"
-"POT-Creation-Date: 2016-11-28 19:44+0200\n"
-"PO-Revision-Date: 2016-02-15 11:18+0200\n"
+"POT-Creation-Date: 2016-12-26 14:10+0200\n"
+"PO-Revision-Date: 2016-12-09 16:29+0200\n"
 "Last-Translator: \n"
 "Language-Team: TemplateMonster\n"
 "Language: en\n"
@@ -66,4 +66,54 @@ msgstr ""
 
 #: modules/cherry-customizer/cherry-customizer.php:338
 msgid "Untitled Control"
+msgstr ""
+
+#: modules/cherry-db-updater/cherry-db-updater.php:105
+#, php-format
+msgid ""
+"Module DB Updater init error in %s - version and slug is required arguments"
+msgstr ""
+
+#: modules/cherry-db-updater/cherry-db-updater.php:106
+msgid "We need to update your database to the latest version."
+msgstr ""
+
+#: modules/cherry-db-updater/cherry-db-updater.php:107
+msgid "Update complete, thank you for updating to the latest version!"
+msgstr ""
+
+#: modules/cherry-db-updater/cherry-db-updater.php:331
+msgid "Start Update"
+msgstr ""
+
+#: modules/cherry-db-updater/cherry-db-updater.php:368
+msgid "Data Update"
+msgstr ""
+
+#: modules/cherry5-insert-shortcode/inc/class-cherry5-insertion-button.php:63
+msgid "Cherry shortcodes"
+msgstr ""
+
+#: modules/cherry5-insert-shortcode/inc/class-cherry5-insertion-popup.php:128
+msgid "insert shortcode"
+msgstr ""
+
+#: modules/cherry5-insert-shortcode/inc/class-cherry5-insertion-popup.php:148
+msgid "Shortcode List"
+msgstr ""
+
+#: modules/cherry5-insert-shortcode/inc/class-cherry5-insertion-popup.php:206
+msgid "Shortcode not found."
+msgstr ""
+
+#: modules/cherry5-insert-shortcode/inc/class-cherry5-insertion-popup.php:261
+msgid "Shortcode content."
+msgstr ""
+
+#: modules/cherry5-insert-shortcode/inc/class-cherry5-insertion-popup.php:262
+msgid "Input shortcode content."
+msgstr ""
+
+#: modules/cherry5-insert-shortcode/inc/class-cherry5-insertion-popup.php:277
+msgid "Shortcode not a have options."
 msgstr ""

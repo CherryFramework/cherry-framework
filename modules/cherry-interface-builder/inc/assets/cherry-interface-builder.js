@@ -9,6 +9,9 @@
 	CherryJsCore.interfaceBuilder = {
 		init: function() {
 			this.component.init();
+
+			$( document )
+				.on( 'cherryInterfaceBuilder', this.component.init.bind( this.component ) );
 		},
 		component: {
 			tabClass:           '.cherry-tab',
@@ -35,7 +38,8 @@
 
 			addEvent: function() {
 				$( 'body' )
-					.on( 'click',
+					.off( 'click.cherryInterfaceBuilder' )
+					.on( 'click.cherryInterfaceBuilder',
 						this.tabClass + ' ' + this.buttonClass + ', ' +
 						this.toggleClass + ' ' + this.buttonClass + ', ' +
 						this.accordionClass + ' ' + this.buttonClass,

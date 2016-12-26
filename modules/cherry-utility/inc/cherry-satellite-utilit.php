@@ -7,7 +7,7 @@
  * @author     Cherry Team <support@cherryframework.com>
  * @copyright  Copyright (c) 2012 - 2015, Cherry Team
  * @link       http://www.cherryframework.com/
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-3.0.html
+ * @license    http://www.gnu.org/licenses/gpl-3.0.en.html
  */
 
 // If this file is called directly, abort.
@@ -115,7 +115,7 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 */
 		public function get_thumbnail_size_array( $size ) {
 			global $_wp_additional_image_sizes;
-			$size_array = array();
+
 			if ( array_key_exists( $size, $_wp_additional_image_sizes ) ) {
 				$size_array = $_wp_additional_image_sizes[ $size ];
 			} else {
@@ -138,8 +138,6 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 				echo $content;
 			}
 		}
-
-
 
 		/**
 		 * Return post terms.

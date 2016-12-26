@@ -7,7 +7,7 @@
  * @author     Cherry Team <support@cherryframework.com>
  * @copyright  Copyright (c) 2012 - 2015, Cherry Team
  * @link       http://www.cherryframework.com/
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-3.0.html
+ * @license    http://www.gnu.org/licenses/gpl-3.0.en.html
  */
 
 // If this file is called directly, abort.
@@ -21,9 +21,11 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 	 * Class for the building UI_Slider elements.
 	 */
 	class UI_Slider extends UI_Element implements I_UI {
+
 		/**
-		 * Default settings
+		 * Default settings.
 		 *
+		 * @since 1.0.0
 		 * @var array
 		 */
 		private $defaults_settings = array(
@@ -41,7 +43,7 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 		/**
 		 * Constructor method for the UI_Slider class.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 */
 		function __construct( $args = array() ) {
 			$this->defaults_settings['id'] = 'cherry-ui-slider-' . uniqid();
@@ -53,7 +55,7 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 		/**
 		 * Render html UI_Slider.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 */
 		public function render() {
 			$html = '';
@@ -93,15 +95,14 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 		/**
 		 * Enqueue javascript and stylesheet UI_Slider.
 		 *
-		 * @since  4.0.0
+		 * @since 1.0.0
 		 */
 		public static function enqueue_assets() {
-
 			wp_enqueue_script(
 				'ui-slider-min',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-slider.min.js', __FILE__ ) ),
 				array( 'jquery' ),
-				'1.0.0',
+				'1.3.2',
 				true
 			);
 
@@ -109,7 +110,7 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 				'ui-slider-min',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-slider.min.css', __FILE__ ) ),
 				array(),
-				'1.0.0',
+				'1.3.2',
 				'all'
 			);
 		}
