@@ -2,7 +2,7 @@
 /**
  * Module Name: Interface Builder
  * Description: The module for the creation of interfaces in the WordPress admin panel
- * Version: 1.1.2
+ * Version: 1.1.1
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.2
+ * @version    1.1.1
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -38,20 +38,20 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 		 * @var    array
 		 */
 		private $args = array(
-			'views'        => array(
-				'section'                   => 'inc/views/section.php',
-				'component-tab-vertical'    => 'inc/views/component-tab-vertical.php',
-				'component-tab-horizontal'  => 'inc/views/component-tab-horizontal.php',
-				'component-toggle'          => 'inc/views/component-toggle.php',
-				'component-accordion'       => 'inc/views/component-accordion.php',
-				'component-repeater'        => 'inc/views/component-repeater.php',
-				'settings'                  => 'inc/views/settings.php',
-				'control'                   => 'inc/views/control.php',
-				'settings-children-title'   => 'inc/views/settings-children-title.php',
-				'tab-children-title'        => 'inc/views/tab-children-title.php',
-				'toggle-children-title'     => 'inc/views/toggle-children-title.php',
-				'form'                      => 'inc/views/form.php',
-				'html'                      => 'inc/views/html.php',
+			'views' => array(
+				'section'                  => 'inc/views/section.php',
+				'component-tab-vertical'   => 'inc/views/component-tab-vertical.php',
+				'component-tab-horizontal' => 'inc/views/component-tab-horizontal.php',
+				'component-toggle'         => 'inc/views/component-toggle.php',
+				'component-accordion'      => 'inc/views/component-accordion.php',
+				'component-repeater'       => 'inc/views/component-repeater.php',
+				'settings'                 => 'inc/views/settings.php',
+				'control'                  => 'inc/views/control.php',
+				'settings-children-title'  => 'inc/views/settings-children-title.php',
+				'tab-children-title'       => 'inc/views/tab-children-title.php',
+				'toggle-children-title'    => 'inc/views/toggle-children-title.php',
+				'form'                     => 'inc/views/form.php',
+				'html'                     => 'inc/views/html.php',
 			),
 			'views_args' => array(
 				'parent'        => '',
@@ -193,6 +193,7 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 		 * @return void
 		 */
 		protected function add_new_element( array $args = array(), $type = 'section' ) {
+
 			if ( ! isset( $args[0] ) && ! is_array( current( $args ) ) ) {
 
 					if ( 'control' !== $type && 'component' !== $type ) {
@@ -200,6 +201,7 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 					}
 
 					$this->structure[ $args['id'] ] = $args;
+
 			} else {
 				foreach ( $args as $key => $value ) {
 
@@ -271,16 +273,17 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 		 */
 		protected function get_view( $type = 'control', array $args = array() ) {
 
-			if ( empty( $view ) ) {
-				$path = dirname( __FILE__ ) . '/';
-				$path .= ( array_key_exists( $type, $this->args['views'] ) ) ? $this->args['views'][ $type ] : $this->args['views']['control'] ;
+			if ( empty( $args['view'] ) ) {
+				$path = ( array_key_exists( $type, $this->args['views'] ) ) ? $this->args['views'][ $type ] : $this->args['views']['control'];
+
+				$path = is_array( $path ) ? $path[0] : $path;
+				$path = file_exists( $path ) ? $path : trailingslashit( dirname( __FILE__ ) ) . $path;
+
 			} else {
-				$path = $view;
+				$path = $args['view'];
 			}
 
-			$view = Cherry_Toolkit::render_view( $path, $args );
-
-			return $view;
+			return Cherry_Toolkit::render_view( $path, $args );
 		}
 
 		/**
@@ -322,7 +325,7 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 		 */
 		protected function build( array $args = array() ) {
 			$output = '';
-			$views = $this->args['views'];
+			$views  = $this->args['views'];
 
 			foreach ( $args as $key => $value ) {
 				$value = wp_parse_args(
@@ -330,16 +333,18 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 					$this->args['views_args']
 				);
 
-				$value['class'] = isset( $value['class'] ) ? $value['class'] . ' ' : '' ;
-				$value['class'] .= $value['id'] . ' ' ;
+				$value['class'] = isset( $value['class'] ) ? $value['class'] . ' ' : '';
+				$value['class'] .= $value['id'] . ' ';
+
 				if ( $value['scroll'] ) {
 					$value['class'] .= 'cherry-scroll ';
 				}
+
 				if ( $value['master'] ) {
-					$value['class'] .= $value['master'] . ' ' ;
+					$value['class'] .= $value['master'] . ' ';
 				}
 
-				$type = array_key_exists( $value['type'], $views ) ? $value['type'] : 'field' ;
+				$type      = array_key_exists( $value['type'], $views ) ? $value['type'] : 'field';
 				$has_child = isset( $value['children'] ) && is_array( $value['children'] ) && ! empty( $value['children'] );
 
 				switch ( $type ) {
