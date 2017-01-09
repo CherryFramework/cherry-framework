@@ -2,7 +2,7 @@
 /**
  * Module Name: Dynamic CSS
  * Description: CSS parser which uses variables & functions for CSS code optimization
- * Version: 1.2.2
+ * Version: 1.3.0
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,9 +10,9 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.2.2
+ * @version    1.3.0
  * @author     Cherry Team <cherryframework@gmail.com>
- * @copyright  Copyright (c) 2012 - 2016, Cherry Team
+ * @copyright  Copyright (c) 2012 - 2017, Cherry Team
  * @link       http://www.cherryframework.com/
  * @license    http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -79,16 +79,44 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 
 			$this->core = $core;
 			$this->args = wp_parse_args( $args, array(
-				'prefix'    => 'blank',
-				'type'      => 'theme_mod',
-				'single'    => true,
-				'css_files' => null,
-				'options'   => array(),
+				'prefix'        => 'blank',
+				'type'          => 'theme_mod',
+				'parent_handle' => false,
+				'single'        => true,
+				'css_files'     => null,
+				'options'       => array(),
 			) );
 
-			add_action( 'wp_head', array( $this, 'print_inline_css' ), 99 );
-
+			$this->init_dynamic_css();
 			$this->init_collector();
+		}
+
+		/**
+		 * Initalize dynamic CSS with fallback compatibility.
+		 *
+		 * @since  1.3.0
+		 * @return void
+		 */
+		public function init_dynamic_css() {
+
+			/**
+			 * Not actual for now, required only for fallback compatibility.
+			 */
+			if ( empty( $this->args['parent_handle'] ) ) {
+				add_action( 'wp_head', array( $this, 'print_inline_css' ), 99 );
+			}
+
+			add_action( 'wp_enqueue_scripts', array( $this, 'add_inline_css' ), 99 );
+		}
+
+		/**
+		 * Adds inline CSS into queue
+		 *
+		 * @since  1.3.0
+		 * @return void
+		 */
+		public function add_inline_css() {
+			wp_add_inline_style( $this->args['parent_handle'], $this->get_inline_css() );
 		}
 
 		/**
@@ -296,12 +324,12 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		}
 
 		/**
-		 * Print inline CSS after current theme stylesheet
+		 * Returns complied dynamic CSS string.
 		 *
-		 * @since  1.0.0
-		 * @return void|bool false
+		 * @since  1.3.0
+		 * @return string|bool false
 		 */
-		public function print_inline_css() {
+		public function get_inline_css() {
 
 			if ( ! $this->args['css_files'] ) {
 				return false;
@@ -343,6 +371,23 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 			 * @param array  $this->args module arguments.
 			 */
 			$parsed_css = apply_filters( 'cherry_dynamic_css_parsed_styles', $parsed_css, $this->args );
+
+			return $parsed_css;
+		}
+
+		/**
+		 * Print inline CSS after current theme stylesheet
+		 *
+		 * @since  1.0.0
+		 * @return void|bool false
+		 */
+		public function print_inline_css() {
+
+			$parsed_css = $this->get_inline_css();
+
+			if ( empty( $parsed_css ) ) {
+				return false;
+			}
 
 			printf( '<style type="text/css">%s</style>', $parsed_css );
 
