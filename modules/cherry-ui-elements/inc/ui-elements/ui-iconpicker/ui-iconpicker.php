@@ -277,7 +277,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 				self::$printed_sets[] = $set;
 				$json = json_encode( $data );
 
-				printf( '<script> if ( ! window.сherry5IconSets ) { window.сherry5IconSets = {} } window.сherry5IconSets.%1$s = %2$s</script>', $set, $json );
+				printf( '<script> if ( ! window.cherry5IconSets ) { window.cherry5IconSets = {} } window.cherry5IconSets.%1$s = %2$s</script>', $set, $json );
 			}
 
 		}
