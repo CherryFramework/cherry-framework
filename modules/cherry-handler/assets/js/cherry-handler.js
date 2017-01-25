@@ -21,6 +21,7 @@
 				'cache': false,
 				'processData': true,
 				'url': '',
+				'async': false,
 				'beforeSendCallback': function() {},
 				'errorCallback': function() {},
 				'successCallback': function() {},
@@ -109,7 +110,7 @@
 				dataType: self.handlerSettings.data_type,
 				processData: settings.processData,
 				beforeSend: function( jqXHR, ajaxSettings ) {
-					if ( null !== self.ajaxRequest ) {
+					if ( null !== self.ajaxRequest && ! settings.async ) {
 						self.ajaxRequest.abort();
 					}
 
