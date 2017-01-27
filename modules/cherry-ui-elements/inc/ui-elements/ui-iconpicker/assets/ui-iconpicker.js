@@ -20,7 +20,7 @@
 		setIconsSets: function( iconSets ) {
 			var icon,
 				_this = this;
-			console.log(iconSets);
+
 			if ( iconSets ) {
 				icon  = ( iconSets.response ) ? iconSets.response.cherry5IconSets : iconSets;
 
@@ -50,7 +50,7 @@
 				set,
 				setData,
 				_this = this;
-console.log( _this.iconSets );
+
 			if ( $picker[0] ) {
 				this.getIconsSets();
 
