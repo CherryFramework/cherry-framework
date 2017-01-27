@@ -92,11 +92,12 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			);
 			$args = wp_parse_args( $args, $default_args );
 			$html = '' ;
+			$content_type = $args['content_type'];
 
 			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
 				if ( 'term' === $type ) {
 					$text = $object->description;
-				} elseif ( 'post_content' === $args['content_type'] || 'post_excerpt' === $args['content_type'] && empty( $object->$args['content_type'] ) ) {
+				} elseif ( 'post_content' === $content_type || 'post_excerpt' === $content_type && empty( $object->$content_type ) ) {
 					$text = get_the_content();
 				} else {
 					$text = get_the_excerpt();
