@@ -2,8 +2,13 @@
 @import "ui-kit/mixins";
 
 .cherry-ui-iconpicker-group {
-	max-width: 230px;
 	position: relative;
+	.full &{
+		max-width: 100%;
+	}
+	.fixed &{
+		max-width: 230px;
+	}
 	.input-group-addon {
 		position: absolute;
 		width: 36px;

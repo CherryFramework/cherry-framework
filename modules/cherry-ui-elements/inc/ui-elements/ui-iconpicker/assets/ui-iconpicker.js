@@ -12,7 +12,7 @@
 		init: function() {
 			$( document )
 				.on( 'cherry-ajax-handler-success', this.setIconsSets.bind( this ) )
-				.on( 'ready.iconpicker', this.setIconsSets.bind( this, window.сherry5IconSets ) )
+				.on( 'ready.iconpicker', this.setIconsSets.bind( this, window.cherry5IconSets ) )
 				.on( 'ready.iconpicker', this.render.bind( this ) )
 				.on( 'cherry-ui-elements-init', this.render.bind( this ) );
 		},
@@ -20,7 +20,7 @@
 		setIconsSets: function( iconSets ) {
 			var icon,
 				_this = this;
-
+			console.log(iconSets);
 			if ( iconSets ) {
 				icon  = ( iconSets.response ) ? iconSets.response.cherry5IconSets : iconSets;
 
@@ -50,7 +50,7 @@
 				set,
 				setData,
 				_this = this;
-
+console.log( _this.iconSets );
 			if ( $picker[0] ) {
 				this.getIconsSets();
 

@@ -39,6 +39,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 			'label'       => '',
 			'class'       => '',
 			'master'      => '',
+			'width'       => 'fixed', // full, fixed
 			'required'    => false,
 		);
 
@@ -110,7 +111,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 		 */
 		public function render() {
 			$html = '';
-			$class = $this->settings['class'];
+			$class = $this->settings['class'] . $this->settings['width'] ;
 			$class .= ' ' . $this->settings['master'];
 
 			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
