@@ -32,15 +32,6 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 	class Cherry_Handler {
 
 		/**
-		 * A reference to an instance of this class.
-		 *
-		 * @since 1.0.0
-		 * @access private
-		 * @var   object
-		 */
-		private static $handlers_list = array();
-
-		/**
 		 * Default settings.
 		 *
 		 * @since 1.0.0
