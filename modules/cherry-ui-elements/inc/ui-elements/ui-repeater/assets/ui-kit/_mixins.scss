@@ -7,7 +7,7 @@
 	padding: 15px 20px;
 	color: #fff;
 	text-transform: uppercase;
-	border-radius: $border_radius;
+	border-radius: $border_radius_small;
 	transition: all 200ms linear;
 	box-shadow: $box_shadow;
 	&:hover {
@@ -17,7 +17,8 @@
 	&:focus,
 	&:active {
 		outline: none;
-		box-shadow: none;
+		border-color: rgba(41, 143, 252, .6);
+		box-shadow: 0 0 2px rgba(41, 143, 252, .6);
 		color: #fff;
 	}
 }
@@ -55,6 +56,22 @@
 	&:hover {
 		background: $orange_color_h;
 	}
+}
+
+@mixin input() {
+	font-size: 14px;
+	line-height: 20px;
+	color: $dark_color_1;
+	background-color: $grey_color_3;
+	border-radius: $border_radius_extra_small;
+	padding: 10px 20px;
+	min-height: 50px;
+	border: 1px solid $grey_color_3;
+	box-shadow: none;
+		&:focus{
+			border-color: rgba(41, 143, 252, .6);
+			box-shadow: 0 0 2px rgba(41, 143, 252, .6);
+		}
 }
 
 @mixin button_icon( $icon ) {
@@ -109,7 +126,8 @@
 	&:focus,
 	&:active {
 		outline: none;
-		box-shadow: none;
+		border-color: rgba(41, 143, 252, .6);
+		box-shadow: 0 0 2px rgba(41, 143, 252, .6);
 		color: $blue_color;
 	}
 }
@@ -131,12 +149,12 @@
 	padding: 30px;
 	border: 2px solid $grey_color_2;
 	background: $grey_color_3;
-	border-radius: $border_radius_2x;
+	border-radius: $border_radius_large;
 }
 
 @mixin container_heading() {
 	margin: -30px -30px 30px -30px;
-	border-radius: $border_radius_2x $border_radius_2x 0 0;
+	border-radius: $border_radius_large $border_radius_large 0 0;
 	border-bottom: 1px solid $grey_color_2;
 	padding: 20px 30px;
 	font-weight: bold;
@@ -156,7 +174,7 @@
 
 @mixin box_heading() {
 	margin: -20px -20px 20px -20px;
-	border-radius: $border_radius $border_radius 0 0;
+	border-radius: $border_radius_small $border_radius_small 0 0;
 	border-bottom: 1px solid $grey_color_2;
 	padding: 20px 30px;
 	font-weight: bold;
