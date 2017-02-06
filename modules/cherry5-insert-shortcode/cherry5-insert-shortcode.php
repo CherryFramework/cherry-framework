@@ -201,7 +201,7 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		 */
 		public function register_shortcode( $args = array() ) {
 			$this->added_shortcodes = $args;
-			add_filter( 'cherry5-is__shortcode_list', array( $this, 'add_shortcode' ), 10, 1 );
+			add_filter( 'cherry5-is__shortcode_list', array( $this, 'add_new_shortcode' ), 10, 1 );
 		}
 
 		/**
@@ -211,7 +211,7 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		 * @access public
 		 * @return array
 		 */
-		public function add_shortcode( $shortcodes = array() ) {
+		public function add_new_shortcode( $shortcodes = array() ) {
 			$plugin_slug = $this->added_shortcodes['slug'];
 			$new_shortcodes = $this->added_shortcodes['shortcodes'];
 			$this->added_shortcodes['shortcodes'] = array();

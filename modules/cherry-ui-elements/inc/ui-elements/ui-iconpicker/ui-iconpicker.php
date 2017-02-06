@@ -39,6 +39,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 			'label'       => '',
 			'class'       => '',
 			'master'      => '',
+			'width'       => 'fixed', // full, fixed
 			'required'    => false,
 		);
 
@@ -110,7 +111,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 		 */
 		public function render() {
 			$html = '';
-			$class = $this->settings['class'];
+			$class = $this->settings['class'] . $this->settings['width'] ;
 			$class .= ' ' . $this->settings['master'];
 
 			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
@@ -277,7 +278,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 				self::$printed_sets[] = $set;
 				$json = json_encode( $data );
 
-				printf( '<script> if ( ! window.сherry5IconSets ) { window.сherry5IconSets = {} } window.сherry5IconSets.%1$s = %2$s</script>', $set, $json );
+				printf( '<script> if ( ! window.cherry5IconSets ) { window.cherry5IconSets = {} } window.cherry5IconSets.%1$s = %2$s</script>', $set, $json );
 			}
 
 		}
