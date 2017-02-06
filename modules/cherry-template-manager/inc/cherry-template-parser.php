@@ -22,16 +22,6 @@ if ( ! class_exists( 'Cherry_Template_Parser' ) ) {
 	 * @since 1.0.0
 	 */
 	class Cherry_Template_Parser {
-
-		/**
-		 * A reference to an instance of this class.
-		 *
-		 * @since  1.0.0
-		 * @access private
-		 * @var    object
-		 */
-		private static $instance = null;
-
 		/**
 		 * A reference to an instance of this Cherry_Template_Manager class.
 		 *
@@ -70,7 +60,7 @@ if ( ! class_exists( 'Cherry_Template_Parser' ) ) {
 		 * @return void
 		 */
 		public function __construct( $args = array(), $main_class = null ) {
-			$this->args = array_merge_recursive(
+			$this->args = wp_parse_args(
 				$args,
 				$this->args
 			);
@@ -201,22 +191,6 @@ if ( ! class_exists( 'Cherry_Template_Parser' ) ) {
 			} else {
 				return;
 			}
-		}
-
-		/**
-		 * Returns the instance.
-		 *
-		 * @since  1.0.0
-		 * @return object
-		 */
-		public static function get_instance( $args, $main_class ) {
-
-			// If the single instance hasn't been set, set it now.
-			if ( null == self::$instance ) {
-				self::$instance = new self( $args, $main_class );
-			}
-
-			return self::$instance;
 		}
 	}
 }

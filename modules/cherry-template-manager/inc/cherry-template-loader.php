@@ -24,15 +24,6 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 	class Cherry_Template_Loader {
 
 		/**
-		 * A reference to an instance of this class.
-		 *
-		 * @since 1.0.0
-		 * @access private
-		 * @var   object
-		 */
-		private static $instance = null;
-
-		/**
 		 * A reference to an instance of this Cherry_Template_Manager class.
 		 *
 		 * @since 1.0.0
@@ -50,8 +41,8 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 		 */
 		private $args = array(
 			'template_dir' => 'templates/%1$s/%2$s.tmpl',
-			'slug'         => '',
-			'upload_dir'   => '',
+			'slug'         => null,
+			'upload_dir'   => null,
 		);
 
 		/**
@@ -63,7 +54,7 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 		 */
 		public function __construct( $args = array(), $main_class = null ) {
 
-			$this->args = array_merge_recursive(
+			$this->args = wp_parse_args(
 				$args,
 				$this->args
 			);
@@ -116,7 +107,7 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 		 * @return string
 		 */
 		private function get_slug() {
-			$file_dir    = wp_normalize_path( dirname( $this->cherry_template_manager_class->core->settings['base_dir'] ) );
+			$file_dir    = wp_normalize_path( dirname( $this->cherry_template_manager_class->core->settings['extra_base_dir'] ) );
 			$product_dir = $this->get_project_root();
 
 			$slug = str_replace( $product_dir, '', $file_dir );
@@ -135,7 +126,7 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 		private function get_project_root() {
 			$themes_dir   = wp_normalize_path( get_theme_root() );
 			$plugin_dir   = wp_normalize_path( WP_PLUGIN_DIR );
-			$file_dir     = wp_normalize_path( dirname( $this->cherry_template_manager_class->core->settings['base_dir'] ) );
+			$file_dir     = wp_normalize_path( dirname( $this->cherry_template_manager_class->core->settings['extra_base_dir'] ) );
 			$project_root = ( false === strpos( $file_dir, $themes_dir ) ) ? $plugin_dir : $themes_dir;
 
 			return trailingslashit( $project_root );
@@ -197,23 +188,6 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 			} else {
 				return;
 			}
-		}
-
-
-		/**
-		 * Returns the instance.
-		 *
-		 * @since  1.0.0
-		 * @return object
-		 */
-		public static function get_instance( $args, $main_class ) {
-
-			// If the single instance hasn't been set, set it now.
-			if ( null == self::$instance ) {
-				self::$instance = new self( $args, $main_class );
-			}
-
-			return self::$instance;
 		}
 	}
 }
