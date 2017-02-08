@@ -2,7 +2,7 @@
 /**
  * Module Name: Template Manager
  * Description: Module load and parse tmpl files.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Template_Manager
  * @subpackage Modules
- * @version    1.0.1
+ * @version    1.0.2
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -30,15 +30,6 @@ if ( ! class_exists( 'Cherry_Template_Manager' ) ) {
 	 * @since 1.0.0
 	 */
 	class Cherry_Template_Manager {
-
-		/**
-		 * A reference to an instance of this class.
-		 *
-		 * @since  1.0.0
-		 * @access private
-		 * @var    object
-		 */
-		private static $instance = null;
 
 		/**
 		 * Module arguments.
@@ -86,7 +77,7 @@ if ( ! class_exists( 'Cherry_Template_Manager' ) ) {
 
 			$this->include_class();
 
-			$this->args = array_merge_recursive(
+			$this->args = wp_parse_args(
 				$args,
 				$this->args
 			);
@@ -114,25 +105,8 @@ if ( ! class_exists( 'Cherry_Template_Manager' ) ) {
 		 * @return void
 		 */
 		public function set_class() {
-			$this->loader = Cherry_Template_Loader::get_instance( $this->args, $this );
-			$this->parser = Cherry_Template_Parser::get_instance( $this->args, $this );
-		}
-
-		/**
-		 * Returns the instance.
-		 *
-		 * @since  1.0.0
-		 * @access public
-		 * @return object
-		 */
-		public static function get_instance( $core = null, $args = array() ) {
-
-			// If the single instance hasn't been set, set it now.
-			if ( null == self::$instance ) {
-				self::$instance = new self( $core, $args );
-			}
-
-			return self::$instance;
+			$this->loader = new Cherry_Template_Loader( $this->args, $this );
+			$this->parser = new Cherry_Template_Parser( $this->args, $this );
 		}
 	}
 }
