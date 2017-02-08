@@ -807,7 +807,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			} else {
 
 				// Ensure input is an absolute integer.
-				$number  = ( isset( $atts['min'] ) && 0 > $atts['min'] ) ? absint( $number ) * -1 : absint( $number );
+				$number  = ( isset( $atts['min'] ) && 0 > $atts['min'] && 0 > $number ) ? intval( $number ) : absint( $number );
 				$checker = is_int( $number / $step );
 			}
 
