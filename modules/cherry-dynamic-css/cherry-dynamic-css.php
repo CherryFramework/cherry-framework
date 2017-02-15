@@ -482,7 +482,6 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 				}
 			}
 
-
 			$function = $functions[ $matches[2] ];
 			$args     = isset( $matches[3] ) ? $matches[3] : array();
 
