@@ -7,7 +7,7 @@
 	CherryJsCore.utilites.namespace('ui_elements.select');
 	CherryJsCore.ui_elements.select = {
 		selectClass: '.cherry-ui-select[data-filter="true"]:not([name*="__i__"]), .cherry-ui-select[multiple]:not([name*="__i__"])',
-		wrapperClass: '.widget, .postbox, .cherry-form',
+		wrapperClass: '.widget, .postbox, .cherry-form, .cherry-ui-repeater-item',
 
 		init: function () {
 			$( document )

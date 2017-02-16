@@ -10,7 +10,7 @@
 		inputTrueClass:  '.cherry-input-switcher-true',
 		inputFalseClass: '.cherry-input-switcher-false',
 		containerClass:  '.cherry-ui-container',
-		wrapperClass: '.widget, .postbox, .cherry-form',
+		wrapperClass: '.widget, .postbox, .cherry-form, .cherry-ui-repeater-item',
 
 		init: function () {
 			$( document )
