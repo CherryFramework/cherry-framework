@@ -2,7 +2,7 @@
 /**
  * Module Name: Utility
  * Description: Multiple utility functions
- * Version: 1.1.5
+ * Version: 1.1.6
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.5
+ * @version    1.1.6
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
