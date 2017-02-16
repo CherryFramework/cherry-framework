@@ -2,7 +2,7 @@
 /**
  * Module Name: UI Elements
  * Description: Class for the building ui elements
- * Version: 1.3.8
+ * Version: 1.3.9
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.3.8
+ * @version    1.3.9
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
