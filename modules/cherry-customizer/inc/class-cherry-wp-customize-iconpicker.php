@@ -40,7 +40,11 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 				<span class="customize-control-title">
 					<?php echo esc_html( $this->label ); ?>
 				</span>
-
+				<?php if ( isset( $this->description ) ) : ?>
+				<span class="description customize-control-description">
+					<?php echo wp_kses_post( $this->description ); ?>
+				</span>
+				<?php endif; ?>
 			</label>
 			<?php
 			echo str_replace(
