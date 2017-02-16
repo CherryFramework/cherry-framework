@@ -2,7 +2,7 @@
 /**
  * Module Name: Dynamic CSS
  * Description: CSS parser which uses variables & functions for CSS code optimization
- * Version: 1.3.0
+ * Version: 1.4.0
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -71,6 +71,17 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		 * @var   object
 		 */
 		public static $collector = null;
+
+		/**
+		 * Reserved words list
+		 *
+		 * @since 1.4.0
+		 * @var   array
+		 */
+		public $css_reserved = array(
+			'media',
+			'supports',
+		);
 
 		/**
 		 * Constructor for the module
@@ -339,6 +350,14 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 				$this->args['css_files'] = array( $this->args['css_files'] );
 			}
 
+			/**
+			 * Filter CSS reserved words list
+			 *
+			 * @since 1.4.0
+			 * @var   array
+			 */
+			$this->css_reserved = apply_filters( 'cherry_dynamic_css_reserved_words_list', $this->css_reserved );
+
 			ob_start();
 
 			foreach ( $this->args['css_files'] as $file ) {
@@ -454,11 +473,13 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 
 			$functions = $this->get_css_functions();
 
-			// check if function exists and is not CSS @media query
-			if ( ! array_key_exists( $matches[2], $functions ) && 'media' !== $matches[2] ) {
-				return $not_found;
-			} elseif ( 'media' == $matches[2] ) {
-				return $matches[0];
+			// check if function exists and is not CSS-reserved word
+			if ( ! array_key_exists( $matches[2], $functions ) ) {
+				if ( is_array( $this->css_reserved ) && in_array( $matches[2], $this->css_reserved ) ) {
+					return $matches[0];
+				} else {
+					return $not_found;
+				}
 			}
 
 			$function = $functions[ $matches[2] ];

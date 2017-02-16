@@ -8,7 +8,7 @@
 	CherryJsCore.ui_elements.radio = {
 		inputClass: '.cherry-radio-input:not([name*="__i__"])',
 		containerClass: '.cherry-ui-container',
-		wrapperClass: '.widget, .postbox, .cherry-form',
+		wrapperClass: '.widget, .postbox, .cherry-form, .cherry-ui-repeater-item',
 
 		init: function () {
 			$( document )
