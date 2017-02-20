@@ -14,7 +14,7 @@ label.cherry-label{
 select.cherry-ui-select{
 	width: 100%;
 	outline: 0 none;
-	color: $dark_color_1;
+	color: $dark_color;
 	@include input();
 	&:focus{
 		border-color: none;
@@ -26,9 +26,10 @@ select.select2-hidden-accessible{
 	display: none;
 }
 .select2{
-	color: $dark_color_1;
-	background-color: $grey_color_3;
+	color: $dark_color;
+	background-color: $bg_color;
 	border-radius: $border_radius_extra_small;
+	border: 1px solid $border_color;
 	.selection{
 		.select2-selection{
 			&.select2-selection--single{
@@ -58,12 +59,12 @@ select.select2-hidden-accessible{
 						line-height: 20px;
 						margin: 5px;
 						border: none;
-						background-color: $dark_color_2;
+						background-color: $dark_color;
 						border-radius: $border_radius_extra_small;
 						color: #fff;
 						padding: 10px;
 						.select2-selection__choice__remove{
-							color: $red_color;
+							color: $remove_color;
 							margin-right: 10px;
 						}
 					}
@@ -87,7 +88,7 @@ select.select2-hidden-accessible{
 }
 .select2-container{
 	.select2-dropdown{
-		background-color: $grey_color_2;
+		background-color: $bg_color_2;
 		border: none;
 		border-radius: $border_radius_extra_small;
 		margin: 5px 0;
@@ -109,11 +110,11 @@ select.select2-hidden-accessible{
 
 					&[aria-selected=true]{
 						color: #fff;
-						background-color: $green_color;
+						background-color: $primary_color;
 					}
 					&--highlighted{
 						color: #fff;
-						background-color: $dark_color_2;
+						background-color: $dark_color;
 					}
 				}
 				.li[aria-disabled=true]{
