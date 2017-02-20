@@ -33,7 +33,7 @@ if ( ! class_exists( 'UI_Media' ) ) {
 			'name'               => 'cherry-ui-media-name',
 			'value'              => '',
 			'multi_upload'       => true,
-			'library_type'       => '', // image, video
+			'library_type'       => '', // image, video, sound
 			'upload_button_text' => 'Choose Media',
 			'label'              => '',
 			'class'              => '',
@@ -137,7 +137,7 @@ if ( ! class_exists( 'UI_Media' ) ) {
 						$html .= '</div>';
 						$html .= '<div class="cherry-element-wrap">';
 							$html .= '<input type="hidden" id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-upload-input" name="' . esc_attr( $this->settings['name'] ) . '" value="' . esc_html( $this->settings['value'] ) . '" >';
-							$html .= '<input type="button" class="upload-button cherry-upload-button button-default_" value="' . esc_attr( $this->settings['upload_button_text'] ) . '" data-title="' . esc_attr( $this->settings['upload_button_text'] ) . '" data-multi-upload="' . esc_attr( $this->settings['multi_upload'] ) . '" data-library-type="' . esc_attr( $this->settings['library_type'] ) . '"/>';
+							$html .= '<button type="button" class="upload-button cherry-upload-button button-default_" value="' . esc_attr( $this->settings['upload_button_text'] ) . '" data-title="' . esc_attr( $this->settings['upload_button_text'] ) . '" data-multi-upload="' . esc_attr( $this->settings['multi_upload'] ) . '" data-library-type="' . esc_attr( $this->settings['library_type'] ) . '">' . esc_attr( $this->settings['upload_button_text'] ) . '</button>';
 							$html .= '<div class="clear"></div>';
 						$html .= '</div>';
 					$html .= '</div>';

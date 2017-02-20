@@ -59,9 +59,9 @@ if ( ! class_exists( 'Cherry5_Insertion_Button' ) ) {
 			$args = apply_filters( 'cherry5-is__open-button', array(
 				'id'         => '',
 				'name'       => '',
-				'style'      => 'normal',
+				'style'      => 'primary',
 				'content'    => '<span class="cherry5-is__icon dashicons dashicons-plus"></span>' . esc_html__( 'Cherry shortcodes', 'cherry-framework' ),
-				'class'      => 'cherry5-is__open-button button',
+				'class'      => 'cherry5-is__open-button',
 			) );
 
 			echo $this->parent_self->ui_elements->get_ui_element_instance( 'button', $args )->render();
