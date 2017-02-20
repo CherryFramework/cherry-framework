@@ -116,6 +116,12 @@
 			display: inline-block;
 			font-size: 14px;
 		}
+		&-add {
+			&:focus {
+				outline: none;
+				box-shadow: none;
+			}
+		}
 	}
 
 	.cherry-ui-repeater-min {

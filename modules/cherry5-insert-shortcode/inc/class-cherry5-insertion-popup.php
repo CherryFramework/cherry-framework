@@ -124,7 +124,7 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 				$args = apply_filters( 'cherry5-is__insert-button', array(
 					'id'         => '',
 					'name'       => '',
-					'style'      => 'normal',
+					'style'      => 'primary',
 					'content'    => esc_html__( 'insert shortcode', 'cherry-framework' ),
 					'class'      => 'cherry5-is__insert-button',
 				) );

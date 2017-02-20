@@ -7,7 +7,7 @@
 	padding: 15px 20px;
 	color: #fff;
 	text-transform: uppercase;
-	border-radius: $border_radius_small;
+	border-radius: $border_radius;
 	transition: all 200ms linear;
 	box-shadow: $box_shadow;
 	&:hover {
@@ -149,12 +149,12 @@
 	padding: 30px;
 	border: 2px solid $grey_color_2;
 	background: $grey_color_3;
-	border-radius: $border_radius_large;
+	border-radius: $border_radius_2x;
 }
 
 @mixin container_heading() {
 	margin: -30px -30px 30px -30px;
-	border-radius: $border_radius_large $border_radius_large 0 0;
+	border-radius: $border_radius_2x $border_radius_2x 0 0;
 	border-bottom: 1px solid $grey_color_2;
 	padding: 20px 30px;
 	font-weight: bold;
@@ -174,7 +174,7 @@
 
 @mixin box_heading() {
 	margin: -20px -20px 20px -20px;
-	border-radius: $border_radius_small $border_radius_small 0 0;
+	border-radius: $border_radius $border_radius 0 0;
 	border-bottom: 1px solid $grey_color_2;
 	padding: 20px 30px;
 	font-weight: bold;
