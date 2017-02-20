@@ -22,14 +22,20 @@ $border: 1px solid rgba(0, 0, 0, 0.1) ;
 		text-transform: capitalize;
 		box-sizing: border-box;
 		white-space: nowrap;
-		height: 28px;
+		//height: 28px;
 		text-decoration: none;
 		font-weight: normal;
-		line-height: 0;
+		line-height: 26px;
 		.cherry5-insert-shortcode-icon {
 			margin-right: 5px;
 			display: inline-block;
 			line-height: 1.1;
+		}
+		@media screen and (max-width: 782px) {
+			height: auto;
+			line-height: normal;
+			padding: 6px 14px;
+			vertical-align: middle;
 		}
 	}
 	&__icon{
