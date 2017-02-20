@@ -14,10 +14,10 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
-$class = trim( implode( ' ', array( 'ui-button', 'ui-button-' . $__data['style'] . '-style ', $__data['master'], $__data['class'] ) ) );
+$class = trim( implode( ' ', array( 'cherry5-ui-button', 'cherry5-ui-button-' . $__data['style'] . '-style ', $__data['master'], $__data['class'], 'ui-button' ) ) );
 $attrs = Cherry_Toolkit::join(
 	array(
-		'type'       => esc_attr( $__data['type'] ),
+		'type'       => esc_attr( $__data['button_type'] ),
 		'id'         => esc_attr( $__data['id'] ),
 		'name'       => esc_attr( $__data['name'] ),
 		'class'      => esc_attr( $class ),

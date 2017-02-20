@@ -29,17 +29,17 @@ if ( ! class_exists( 'UI_Button' ) ) {
 		 * @var array
 		 */
 		private $defaults_settings = array(
-			'id'         => 'cherry-ui-button-id',
-			'name'       => 'cherry-ui-button-name',
-			'value'      => 'button',
-			'disabled'   => false,
-			'form'       => '',
-			'formaction' => '',
-			'type'       => 'button',
-			'style'      => 'normal',
-			'content'    => 'Button',
-			'class'      => '',
-			'master'     => '',
+			'id'          => 'cherry-ui-button-id',
+			'name'        => 'cherry-ui-button-name',
+			'value'       => 'button',
+			'disabled'    => false,
+			'form'        => '',
+			'formaction'  => '',
+			'button_type' => 'button',
+			'style'       => 'normal',
+			'content'     => 'Button',
+			'class'       => '',
+			'master'      => '',
 		);
 
 		/**

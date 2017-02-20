@@ -114,15 +114,51 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * @return array
 		 */
 		public function get_thumbnail_size_array( $size ) {
-			global $_wp_additional_image_sizes;
+			$sizes = $this->get_image_sizes();
 
-			if ( array_key_exists( $size, $_wp_additional_image_sizes ) ) {
-				$size_array = $_wp_additional_image_sizes[ $size ];
+			if ( isset( $sizes[ $size ] ) ) {
+				$size_array = $sizes[ $size ];
+
+			} else if ( isset( $sizes['post-thumbnail'] ) ) {
+				$size_array = $sizes['post-thumbnail'];
+
 			} else {
-				$size_array = $_wp_additional_image_sizes['post-thumbnail'];
+				$size_array = $sizes['thumbnail'];
 			}
 
 			return $size_array;
+		}
+
+		/**
+		 * Get size information for all currently-registered image sizes.
+		 *
+		 * @global $_wp_additional_image_sizes
+		 * @uses   get_intermediate_image_sizes()
+		 * @link   https://codex.wordpress.org/Function_Reference/get_intermediate_image_sizes
+		 * @since  1.1.6
+		 * @return array $sizes Data for all currently-registered image sizes.
+		 */
+		function get_image_sizes() {
+			global $_wp_additional_image_sizes;
+
+			$sizes = array();
+
+			foreach ( get_intermediate_image_sizes() as $_size ) {
+				if ( in_array( $_size, array( 'thumbnail', 'medium', 'medium_large', 'large' ) ) ) {
+					$sizes[ $_size ]['width']  = get_option( "{$_size}_size_w" );
+					$sizes[ $_size ]['height'] = get_option( "{$_size}_size_h" );
+					$sizes[ $_size ]['crop']   = (bool) get_option( "{$_size}_crop" );
+
+				} elseif ( isset( $_wp_additional_image_sizes[ $_size ] ) ) {
+					$sizes[ $_size ] = array(
+						'width'  => $_wp_additional_image_sizes[ $_size ]['width'],
+						'height' => $_wp_additional_image_sizes[ $_size ]['height'],
+						'crop'   => $_wp_additional_image_sizes[ $_size ]['crop'],
+					);
+				}
+			}
+
+			return $sizes;
 		}
 
 		/**
@@ -147,12 +183,23 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 * @param [type] $key - slug, term_id.
 		 * @return array
 		 */
-		public function get_terms_array( $tax = 'category', $key = 'slug' ) {
+		public function get_terms_array( $tax = array( 'category' ), $key = 'slug' ) {
 			$terms = array();
+			$tax = is_array( $tax ) ? $tax : array( $tax ) ;
+
+			foreach ( $tax as $key => $value ) {
+				if ( ! taxonomy_exists( $value ) ) {
+					unset( $tax[ $key ] );
+				}
+			}
+
 			$all_terms = (array) get_terms( $tax, array( 'hide_empty' => 0, 'hierarchical' => 0 ) );
+			if ( empty( $all_terms ) || is_wp_error( $all_terms ) ) {
+				return '';
+			}
 
 			foreach ( $all_terms as $term ) {
-				$terms[ $term->$key ] = $term->name;
+				$terms[ $term->slug ] = $term->name;
 			}
 
 			return $terms;

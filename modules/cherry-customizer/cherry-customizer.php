@@ -2,7 +2,7 @@
 /**
  * Module Name: Customizer
  * Description: Customizer functionality.
- * Version: 1.1.5
+ * Version: 1.1.6
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.5
+ * @version    1.1.6
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -797,6 +797,8 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			// Get step.
 			$step = ( isset( $atts['step'] ) ? $atts['step'] : 1 );
 
+			$number = ( ! isset( $atts['min'] ) && 0 > $number ) ? $setting->default : $number ;
+
 			if ( is_float( $step ) ) {
 
 				// Ensure input is a float value.
@@ -805,7 +807,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			} else {
 
 				// Ensure input is an absolute integer.
-				$number  = absint( $number );
+				$number  = ( isset( $atts['min'] ) && 0 > $atts['min'] && 0 > $number ) ? intval( $number ) : absint( $number );
 				$checker = is_int( $number / $step );
 			}
 

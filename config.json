@@ -1,6 +1,6 @@
 {
 	"name" : "Cherry Framework",
-	"version" : "1.4.0",
+	"version" : "1.4.1",
 	"description" : "",
 	"doc_link" : "https://github.com/CherryFramework/cherry-framework-docs",
 	"git_link" : "https://github.com/CherryFramework/cherry-framework",
@@ -8,7 +8,7 @@
 		"cherry-breadcrumbs" : {
 			"name" : "Breadcrumb Trail",
 			"description" : "A breadcrumb menu script for WordPress.",
-			"version" : "1.1.2",
+			"version" : "1.1.3",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-breadcrumbs",
 			"compatible" : ["theme", "plugin"],
@@ -19,7 +19,7 @@
 		"cherry-customizer" : {
 			"name" : "Customizer API",
 			"description" : "Customizer functionality.",
-			"version" : "1.1.5",
+			"version" : "1.1.6",
 			"doc_link" : "https://github.com/CherryFramework/cherry-framework-docs/blob/master/01.%20cherry-customizer.md",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-customizer",
 			"compatible" : ["theme", "plugin"],
@@ -41,7 +41,7 @@
 		"cherry-dynamic-css" : {
 			"name" : "Dynamic CSS",
 			"description" : "Generate CSS.",
-			"version" : "1.2.2",
+			"version" : "1.4.0",
 			"doc_link" : "https://github.com/CherryFramework/cherry-framework-docs/blob/master/03.%20cherry-dynamic-css.md",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-dynamic-css",
 			"compatible" : ["theme", "plugin"],
@@ -63,7 +63,7 @@
 		"cherry-handler" : {
 			"name" : "Cherry handler",
 			"description" : "Initialize handlers.",
-			"version" : "1.1.1",
+			"version" : "1.1.2",
 			"doc_link" : "https://github.com/CherryFramework/cherry-framework-docs/blob/master/02.%20cherry-handler.md",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-handler",
 			"compatible" : ["theme", "plugin"],
@@ -118,7 +118,7 @@
 		"cherry-template-manager" : {
 			"name" : "Template Manager",
 			"description" : "Module for load and parse *.tmpl files.",
-			"version" : "1.0.1",
+			"version" : "1.0.2",
 			"doc_link" : "https://github.com/CherryFramework/cherry-framework-docs/blob/master/05.%20cherry-template-manager.md",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-template-manager",
 			"compatible" : ["theme", "plugin"],
@@ -151,7 +151,7 @@
 		"cherry-ui-elements" : {
 			"name" : "UI Elements",
 			"description" : "UI Elements",
-			"version" : "1.3.4",
+			"version" : "1.4.0",
 			"doc_link" : "https://github.com/CherryFramework/cherry-framework-docs/blob/master/09.%20cherry-ui-elements.md",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-ui-elements",
 			"compatible" : ["theme", "plugin"],
@@ -162,7 +162,7 @@
 		"cherry-utility" : {
 			"name" : "Utility",
 			"description" : "Multiple utility functions.",
-			"version" : "1.1.5",
+			"version" : "1.1.6",
 			"doc_link" : "https://github.com/CherryFramework/cherry-framework-docs/blob/master/08.%20cherry-utility.md",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-utility",
 			"compatible" : ["theme", "plugin"],
@@ -184,7 +184,7 @@
 		"cherry5-insert-shortcode" : {
 			"name" : "Insert Shortcode",
 			"description" : "The module allows you to add shortcodes from editor tinyMCE.",
-			"version" : "1.0.0",
+			"version" : "1.0.1",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry5-insert-shortcode",
 			"compatible" : [ "plugin" ],

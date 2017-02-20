@@ -2,7 +2,7 @@
 /**
  * Module Name: Breadcrumb Trail
  * Description: A breadcrumb menu script for WordPress
- * Version: 1.1.2
+ * Version: 1.1.3
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -916,10 +916,10 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			/* Get the post type object. */
 			$post_type_object = get_post_type_object( get_query_var( 'post_type' ) );
 
-			if ( false !== $post_type_object->rewrite ) {
+			if ( ! empty( $post_type_object ) && false !== $post_type_object->rewrite ) {
 
 				/* If 'with_front' is true, add $wp_rewrite->front to the trail. */
-				if ( $post_type_object->rewrite['with_front'] ) {
+				if ( ! empty( $post_type_object->rewrite ) && $post_type_object->rewrite['with_front'] ) {
 					$this->add_rewrite_front_items();
 				}
 			}

@@ -14,20 +14,28 @@ $shadow: 0px 5px 21px rgba(0, 0, 0, 0.1); //Shadow.
 $border: 1px solid rgba(0, 0, 0, 0.1) ;
 
 .cherry5-is{
-	&__open-button.button{
-		color: $color-3;
-		font-weight: 400;
+	&__open-button{
+		padding: 0 7px;
+		margin-right: 5px;
+		margin-bottom: 4px;
+		vertical-align: top;
 		text-transform: capitalize;
-		letter-spacing: 1.1px;
-		box-shadow: none;
-		border: 1px solid #495159;
-		&:hover{
-			color: $color-3;
-		};
+		box-sizing: border-box;
+		white-space: nowrap;
+		//height: 28px;
+		text-decoration: none;
+		font-weight: normal;
+		line-height: 26px;
 		.cherry5-insert-shortcode-icon {
 			margin-right: 5px;
 			display: inline-block;
 			line-height: 1.1;
+		}
+		@media screen and (max-width: 782px) {
+			height: auto;
+			line-height: normal;
+			padding: 6px 14px;
+			vertical-align: middle;
 		}
 	}
 	&__icon{

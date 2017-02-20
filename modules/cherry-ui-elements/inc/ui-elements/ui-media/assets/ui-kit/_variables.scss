@@ -1,18 +1,47 @@
-$dark_color_1: #23282d;
-$dark_color_2: #495159;
-$dark_color_2_h: #393f45;
-$grey_color_1: #96989a;
-$grey_color_2: #e5e5e5;
-$grey_color_3: #f1f1f1;
-$grey_color_4: #b4b7ba;
+$bg_color: #f1f1f1;
+$border_color: #dcdcdc;
+
 $blue_color: #298ffc;
-$blue_color_h: #206ff4;
-$green_color: #48c569;
-$green_color_h: #3ba956;
-$red_color: #e54343;
-$red_color_h: #c73434;
-$orange_color: #faa730;
-$orange_color_h: #ee8425;
+$remove_color: #e54343;
+
+$light_color: #ffffff;
+$dark_color: #23282d;
+
+$normal_bg_color: #e1e1e1;
+$normal_gradint_1: #ffffff;
+$normal_gradint_2: #f0f0f0;
+$normal_outset_1: #d7d7d7;
+$normal_outset_2: #b7b7b7;
+
+$primary_bg_color: #206ff4;
+$primary_gradint_1: #5fadff;
+$primary_gradint_2: #2a90fc;
+$primary_outset_1: #5b9add;
+$primary_outset_2: #3e6a99;
+
+$secondary_bg_color: #495159;
+$secondary_gradint_1: #4c5054;
+$secondary_gradint_2: #495159;
+$secondary_outset_1: #777879;
+$secondary_outset_2: #2f343a;
+
+$success_bg_color: #3ba956;
+$success_gradint_1: #71e18f;
+$success_gradint_2: #49c66a;
+$success_outset_1: #49c56a;
+$success_outset_2: #3a9e54;
+
+$danger_bg_color: #c73434;
+$danger_gradint_1: #f98888;
+$danger_gradint_2: #e64545;
+$danger_outset_1: #e54444;
+$danger_outset_2: #b83636;
+
+$warning_bg_color: #ee8425;
+$warning_gradint_1: #ffcb81;
+$warning_gradint_2: #faa832;
+$warning_outset_1: #faa832;
+$warning_outset_2: #c98627;
 
 $border_radius_extra_small: 2px;
 $border_radius_small: 4px;
