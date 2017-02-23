@@ -2,7 +2,7 @@
 /**
  * Module Name: Customizer
  * Description: Customizer functionality.
- * Version: 1.1.6
+ * Version: 1.1.7
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.6
+ * @version    1.1.7
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -413,7 +413,14 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 				case 'iconpicker':
 						$control_class = 'Cherry_WP_Customize_Iconpicker';
 						$icon_data     = ( isset( $args['icon_data'] ) ) ? $args['icon_data'] : array();
-						$control_args  = wp_parse_args( array( 'icon_data' => $icon_data ), $control_args );
+						$auto_parse    = ( isset( $args['auto_parse'] ) ) ? $args['auto_parse'] : array();
+						$control_args  = wp_parse_args(
+							array(
+								'icon_data'  => $icon_data,
+								'auto_parse' => $auto_parse,
+							),
+							$control_args
+						);
 					break;
 
 				default:
