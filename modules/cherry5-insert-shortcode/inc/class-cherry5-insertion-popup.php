@@ -228,6 +228,10 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 						if ( ! array_key_exists( 'id', $settings ) ) {
 							$shortcode_attr['options'][ $key ]['id'] = $shortcode_slug . '_' . $key;
 						}
+
+						if ( isset( $settings['options'] ) ) {
+							$shortcode_attr['options'][ $key ]['options'] = $this->apply_options_cb( $settings );
+						}
 					}
 
 					$shortcode_options_html = $this->parent_self->cherry_interface_builder->render( false, $shortcode_attr['options'] );
@@ -247,6 +251,25 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 					'html'           => $output_html,
 				);
 			}
+		}
+
+		/**
+		 * Apply shortcode options callback if required
+		 *
+		 * @param  array $atts Shortcode field parameters.
+		 * @return array
+		 */
+		private function apply_options_cb( $atts ) {
+
+			if ( ! empty( $atts['options'] ) ) {
+				return $atts['options'];
+			}
+
+			if ( empty( $atts['options_cb'] ) || ! is_callable( $atts['options_cb'] ) ) {
+				return array();
+			}
+
+			return call_user_func( $atts['options_cb'] );
 		}
 
 		/**
