@@ -18,11 +18,19 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 	class Cherry_WP_Customize_Iconpicker extends WP_Customize_Control {
 
 		/**
-		 * Cherry Core instance
+		 * Icons data array
 		 *
+		 * @see cherry-ui-elements/inc/ui-elements/ui-iconpicker/ui-iconpicker.php for data array format.
 		 * @var array
 		 */
 		public $icon_data = array();
+
+		/**
+		 * Trigger to try automatically pase icons from CSS file or not.
+		 *
+		 * @var boolean
+		 */
+		public $auto_parse = false;
 
 		/**
 		 * UI instance
@@ -66,11 +74,12 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 			);
 
 			$args = array(
-				'type'      => 'iconpicker',
-				'id'        => $this->id,
-				'name'      => $this->id,
-				'value'     => $this->value(),
-				'icon_data' => $this->icon_data,
+				'type'       => 'iconpicker',
+				'id'         => $this->id,
+				'name'       => $this->id,
+				'value'      => $this->value(),
+				'icon_data'  => $this->icon_data,
+				'auto_parse' => $this->auto_parse,
 			);
 
 			add_action( 'customize_controls_print_styles', array( $this, 'print_sets' ) );

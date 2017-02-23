@@ -124,8 +124,6 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 					$this->default_icon_data
 				);
 
-				$this->maybe_parse_set_from_css();
-
 				$html .= '<div class="cherry-ui-iconpicker-group">';
 
 				if ( $this->validate_icon_data( $this->settings['icon_data'] ) ) {
@@ -169,6 +167,10 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 		 */
 		public function prepare_icon_set() {
 
+			if ( empty( $this->settings['icon_data']['icons'] ) ) {
+				$this->maybe_parse_set_from_css();
+			}
+
 			if ( ! array_key_exists( $this->settings['icon_data']['icon_set'], self::$sets ) ) {
 				self::$sets[ $this->settings['icon_data']['icon_set'] ] = array(
 					'iconCSS'    => $this->settings['icon_data']['icon_css'],
@@ -199,7 +201,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 
 			$result = ob_get_clean();
 
-			preg_match_all( '/\.([-a-zA-Z0-9]+):before[, {]/', $result, $matches );
+			preg_match_all( '/\.([-_a-zA-Z0-9]+):before[, {]/', $result, $matches );
 
 			if ( ! is_array( $matches ) || empty( $matches[1] ) ) {
 				return;
