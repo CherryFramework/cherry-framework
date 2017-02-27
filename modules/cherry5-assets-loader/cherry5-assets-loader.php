@@ -106,7 +106,7 @@ if ( ! class_exists( 'Cherry5_Assets_Loader' ) ) {
 			}
 
 			if ( ! empty( $this->args['js'] ) && is_array( $this->args['js'] ) ) {
-				self::$css = array_merge( self::$css, $this->args['css'] );
+				self::$js = array_merge( self::$css, $this->args['css'] );
 			}
 
 			add_action( 'wp_enqueue_scripts', array( $this, 'init' ), 0 );
@@ -123,68 +123,19 @@ if ( ! class_exists( 'Cherry5_Assets_Loader' ) ) {
 				return null;
 			}
 
+			require 'inc/cherry5-assets-loader-handle.php';
+			require 'inc/cherry5-assets-loader-handle-css.php';
+			require 'inc/cherry5-assets-loader-handle-js.php';
+
 			if ( ! empty( self::$css ) ) {
-				$this->init_css();
+				new Cherry5_Assets_Loader_Handle_CSS( self::$css );
 			}
 
 			if ( ! empty( self::$js ) ) {
-				$this->init_js();
+				new Cherry5_Assets_Loader_Handle_CSS( self::$js );
 			}
 
 		}
 
-		/**
-		 * Init CSS loading
-		 *
-		 * @return void
-		 */
-		public function init_css() {
-			self::$css = array_unique( self::$css );
-			add_filter( 'style_loader_tag', array( $this, 'defer_styles' ), 10, 2 );
-		}
-
-		/**
-		 * Init JS loading
-		 *
-		 * @return void
-		 */
-		public function init_css() {
-			self::$js = array_unique( self::$js );
-			add_filter( 'script_loader_tag', array( $this, 'defer_script' ), 10, 2 );
-		}
-
-		/**
-		 * Defer styles loading
-		 *
-		 * @param  string $html   link tag for current handle.
-		 * @param  string $handle CSS handle.
-		 * @return string
-		 */
-		public function defer_styles( $html, $handle ) {
-
-			if ( in_array( $handle, self::$css ) ) {
-				slef::$css_tags[] = $html;
-				$html = '';
-			}
-
-			return $html;
-		}
-
-		/**
-		 * Defer scripts loading
-		 *
-		 * @param  string $tag    script tag for current handle.
-		 * @param  string $handle JS handle.
-		 * @return string
-		 */
-		public function defer_script( $tag, $handle ) {
-
-			if ( in_array( $handle, self::$js ) ) {
-				slef::$js_tags[] = $tag;
-				$tag = '';
-			}
-
-			return $tag;
-		}
 	}
 }
