@@ -184,7 +184,7 @@
 		"cherry5-insert-shortcode" : {
 			"name" : "Insert Shortcode",
 			"description" : "The module allows you to add shortcodes from editor tinyMCE.",
-			"version" : "1.0.1",
+			"version" : "1.0.2",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry5-insert-shortcode",
 			"compatible" : [ "plugin" ],

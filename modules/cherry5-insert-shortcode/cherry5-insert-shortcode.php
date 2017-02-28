@@ -2,7 +2,7 @@
 /**
  * Module Name: Insert Shortcode
  * Description: The module allows you to add shortcodes from editor tinyMCE.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.0.1
+ * @version    1.0.2
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -36,7 +36,7 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		 * @since 1.0.0
 		 * @var string
 		 */
-		private $module_version = '1.0.1';
+		private $module_version = '1.0.2';
 
 		/**
 		 * A reference to an instance of this class.
@@ -48,7 +48,7 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		private static $instance = null;
 
 		/**
-		 * Module arguments
+		 * Module arguments.
 		 *
 		 * @since 1.0.0
 		 * @var array
@@ -57,7 +57,7 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		private $args = array();
 
 		/**
-		 * Core instance
+		 * Core instance.
 		 *
 		 * @since 1.0.0
 		 * @var object
@@ -68,8 +68,8 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		/**
 		 * UI element instance.
 		 *
-		 * @since  1.0.0
-		 * @var    object
+		 * @since 1.0.0
+		 * @var object
 		 * @access public
 		 */
 		public $ui_elements = null;
@@ -77,8 +77,8 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		/**
 		 * Cherry Interface Builder instance.
 		 *
-		 * @since  1.0.0
-		 * @var    object
+		 * @since 1.0.0
+		 * @var object
 		 * @access public
 		 */
 		public $cherry_interface_builder = null;
@@ -104,8 +104,8 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		/**
 		 * Shortcode list.
 		 *
-		 * @since  1.0.0
-		 * @var    object
+		 * @since 1.0.0
+		 * @var object
 		 * @access private
 		 */
 		private $added_shortcodes = array();
@@ -187,7 +187,7 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 				wp_enqueue_style( 'cherry5-insert-shortcode' );
 				wp_enqueue_script( 'cherry5-insert-shortcode-js' );
 
-				$dev_mode = ( constant( 'WP_DEBUG' ) ) ? 'true' : 'false' ;
+				$dev_mode = ( constant( 'WP_DEBUG' ) ) ? 'true' : 'false';
 				wp_localize_script( 'cherry-js-core', 'cherry5InsertShortcode', array( 'devMode' => $dev_mode ) );
 			}
 		}
