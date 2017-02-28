@@ -30,8 +30,8 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 		/**
 		 * Module arguments
 		 *
-		 * @since  1.0.0
-		 * @var    array
+		 * @since 1.0.0
+		 * @var array
 		 * @access private
 		 */
 		private $args = array();
@@ -39,8 +39,8 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 		/**
 		 * Core instance
 		 *
-		 * @since  1.0.0
-		 * @var    object
+		 * @since 1.0.0
+		 * @var object
 		 * @access private
 		 */
 		private $core = null;
@@ -48,8 +48,8 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 		/**
 		 * Shortcode list.
 		 *
-		 * @since  1.0.0
-		 * @var    array
+		 * @since 1.0.0
+		 * @var array
 		 * @access private
 		 */
 		private $shortcode_list = array(
@@ -254,8 +254,9 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 		}
 
 		/**
-		 * Apply shortcode options callback if required
+		 * Apply shortcode options callback if required.
 		 *
+		 * @since  1.0.2
 		 * @param  array $atts Shortcode field parameters.
 		 * @return array
 		 */
