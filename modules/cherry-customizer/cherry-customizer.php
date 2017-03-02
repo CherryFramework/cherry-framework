@@ -2,7 +2,7 @@
 /**
  * Module Name: Customizer
  * Description: Customizer functionality.
- * Version: 1.1.7
+ * Version: 1.1.8
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.7
+ * @version    1.1.8
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -324,6 +324,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * Add a customize control.
 		 *
 		 * @since 1.0.0
+		 * @since 1.1.8 Added a `dropdown-pages` support.
 		 * @param numder $id Settings ID.
 		 * @param array  $args Control arguments.
 		 */
