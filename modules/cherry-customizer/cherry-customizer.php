@@ -215,7 +215,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		private function include_custom_controls() {
 
 			if ( ! class_exists( 'Cherry_WP_Customize_Iconpicker' ) ) {
-				require_once( trailingslashit( dirname( __FILE__ ) ) . '/inc/class-cherry-wp-customize-iconpicker.php' );
+				require_once( trailingslashit( dirname( __FILE__ ) ) . 'inc/class-cherry-wp-customize-iconpicker.php' );
 			}
 
 		}
