@@ -374,6 +374,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 				case 'url':
 				case 'password':
 				case 'checkbox':
+				case 'dropdown-pages':
 						$control_args = wp_parse_args( array( 'type' => $field_type ), $control_args );
 					break;
 
