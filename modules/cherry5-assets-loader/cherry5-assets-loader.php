@@ -2,7 +2,7 @@
 /**
  * Module Name: Assets Loader
  * Description: The module allows you deferred loading scripts and styles.
- * Version: 1.0.1
+ * Version: 1.0.0
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3

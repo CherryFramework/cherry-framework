@@ -36,9 +36,7 @@ if ( ! class_exists( 'Cherry5_Assets_Loader_Handle_CSS' ) ) {
 		public $prepared_handles = array();
 
 		/**
-		 * Definr required properies
-		 *
-		 * @param array $handles Handles list.
+		 * Define required properies
 		 */
 		public function __construct() {
 

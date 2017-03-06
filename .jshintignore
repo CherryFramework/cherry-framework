@@ -6,3 +6,4 @@ modules/cherry-ui-elements/inc/ui-elements/ui-iconpicker/assets/jquery-iconpicke
 #Cherry Framework
 modules/cherry-ui-elements/inc/ui-elements/ui-media/assets/ui-media.js
 modules/cherry-js-core/assets/js/cherry-js-core.js
+modules/cherry5-assets-loader/assets/var.js
