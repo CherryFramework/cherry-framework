@@ -2,7 +2,7 @@
 /**
  * Module Name: Assets Loader
  * Description: The module allows you deferred loading scripts and styles.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -56,39 +56,25 @@ if ( ! class_exists( 'Cherry5_Assets_Loader' ) ) {
 		private $core = null;
 
 		/**
-		 * CSS hanles list for deferred loading.
+		 * CSS handle object for deferred loading.
 		 *
 		 * @var array
 		 */
-		public static $css = array();
+		public static $css_handle = array();
 
 		/**
-		 * Prepared CSS tags list
+		 * JS handle object for deferred loading.
 		 *
 		 * @var array
 		 */
-		public static $css_tags = array();
-
-		/**
-		 * JS hanles list for deferred loading.
-		 *
-		 * @var array
-		 */
-		public static $js = array();
-
-		/**
-		 * Prepared JS tags list
-		 *
-		 * @var array
-		 */
-		public static $js_tags = array();
+		public static $js_handle = array();
 
 		/**
 		 * Is module hooks initalized or not.
 		 *
 		 * @var boolean
 		 */
-		public static $initlized = false;
+		public static $initalized = false;
 
 		/**
 		 * Class constructor.
@@ -100,16 +86,15 @@ if ( ! class_exists( 'Cherry5_Assets_Loader' ) ) {
 		public function __construct( $core = null, $args = array() ) {
 
 			$this->args = $args;
+			$this->init();
 
 			if ( ! empty( $this->args['css'] ) && is_array( $this->args['css'] ) ) {
-				self::$css = array_merge( self::$css, $this->args['css'] );
+				self::$css_handle->add_handles( $this->args['css'] );
 			}
 
 			if ( ! empty( $this->args['js'] ) && is_array( $this->args['js'] ) ) {
-				self::$js = array_merge( self::$css, $this->args['css'] );
+				self::$js_handle->add_handles( $this->args['js'] );
 			}
-
-			add_action( 'wp_enqueue_scripts', array( $this, 'init' ), 0 );
 		}
 
 		/**
@@ -119,22 +104,34 @@ if ( ! class_exists( 'Cherry5_Assets_Loader' ) ) {
 		 */
 		public function init() {
 
-			if ( ! self::$initlized ) {
+			if ( true === self::$initalized ) {
 				return null;
 			}
 
-			require 'inc/cherry5-assets-loader-handle.php';
-			require 'inc/cherry5-assets-loader-handle-css.php';
-			require 'inc/cherry5-assets-loader-handle-js.php';
+			require_once 'inc/cherry5-assets-loader-handle.php';
+			require_once 'inc/cherry5-assets-loader-handle-css.php';
+			require_once 'inc/cherry5-assets-loader-handle-js.php';
 
-			if ( ! empty( self::$css ) ) {
-				new Cherry5_Assets_Loader_Handle_CSS( self::$css );
-			}
+			self::$css_handle = new Cherry5_Assets_Loader_Handle_CSS();
+			self::$js_handle  = new Cherry5_Assets_Loader_Handle_JS();
 
-			if ( ! empty( self::$js ) ) {
-				new Cherry5_Assets_Loader_Handle_CSS( self::$js );
-			}
+			self::$initalized = true;
 
+			ob_start();
+			include 'assets/min/append.min.js';
+			$append_handler = ob_get_clean();
+			wp_add_inline_script( 'cherry-js-core', $append_handler );
+
+		}
+
+		/**
+		 * Returns new module instance.
+		 *
+		 * @since  1.0.0
+		 * @return object
+		 */
+		public static function get_instance( $core, $args ) {
+			return new self( $core, $args );
 		}
 
 	}

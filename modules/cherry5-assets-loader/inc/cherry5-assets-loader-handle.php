@@ -26,14 +26,14 @@ if ( ! class_exists( 'Cherry5_Assets_Loader_Handle' ) ) {
 		 *
 		 * @var array
 		 */
-		public static $handles = array();
+		public $handles = array();
 
 		/**
 		 * Handles list
 		 *
 		 * @var array
 		 */
-		public static $prepared_handles = array();
+		public $prepared_handles = array();
 
 		/**
 		 * Handlex context (defined in child classes)
@@ -50,7 +50,6 @@ if ( ! class_exists( 'Cherry5_Assets_Loader_Handle' ) ) {
 		public function init() {
 
 			if ( null !== $this->context ) {
-				self::$handles = array_unique( self::$handles );
 				add_filter( $this->context . '_loader_tag', array( $this, 'defer' ), 10, 2 );
 				add_action( 'wp_footer', array( $this, 'print_tags_var' ), 99 );
 			}
@@ -64,12 +63,20 @@ if ( ! class_exists( 'Cherry5_Assets_Loader_Handle' ) ) {
 		 */
 		public function defer( $tag, $handle ) {
 
-			if ( in_array( $handle, self::$handles ) ) {
-				self::$prepared_handles[] = $tag;
+			if ( in_array( $handle, $this->handles ) ) {
+				$this->prepared_handles[] = $tag;
 				$tag = '';
 			}
 
 			return $tag;
+		}
+
+		/**
+		 * Add new handles into list before processing
+		 */
+		public function add_handles( $handles = array() ) {
+			$this->handles = array_merge( $this->handles, $handles );
+			$this->handles = array_unique( $this->handles );
 		}
 
 		/**
@@ -79,15 +86,26 @@ if ( ! class_exists( 'Cherry5_Assets_Loader_Handle' ) ) {
 		 */
 		public function print_tags_var() {
 
-			if ( empty( self::$prepared_handles ) || null === $this->context ) {
+			if ( empty( $this->prepared_handles ) || null === $this->context ) {
 				return;
 			}
 
+			$path = preg_replace( '/[\\\\\/]inc$/', '/assets/var.js', dirname( __FILE__ ) );
+
 			ob_start();
-			include 'assets/js/var.js';
+			include $path;
 			$var_template = ob_get_clean();
 
-			printf( $var_template, ucfirst( $this->context ), json_encode( self::$prepared_handles ) );
+			$js_context = ( 'style' === $this->context ) ? 'head' : 'body';
+
+			$var = sprintf(
+				$var_template,
+				ucfirst( $this->context ),
+				json_encode( $this->prepared_handles ),
+				$js_context
+			);
+
+			echo '<script type="text/javascript">' . $var . '</script>';
 		}
 
 	}

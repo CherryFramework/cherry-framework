@@ -22,13 +22,26 @@ if ( ! class_exists( 'Cherry5_Assets_Loader_Handle_JS' ) ) {
 	class Cherry5_Assets_Loader_Handle_JS extends Cherry5_Assets_Loader_Handle {
 
 		/**
+		 * Handles list
+		 *
+		 * @var array
+		 */
+		public $handles = array();
+
+		/**
+		 * Handles list
+		 *
+		 * @var array
+		 */
+		public $prepared_handles = array();
+
+		/**
 		 * Definr required properies
 		 *
 		 * @param array $handles Handles list.
 		 */
-		public function __construct( $handles = array() ) {
+		public function __construct() {
 
-			self::$handles = array_merge( self::$handles, $handles );
 			$this->context = 'script';
 			$this->init();
 
