@@ -116,7 +116,7 @@ if ( ! class_exists( 'UI_Radio' ) ) {
 				'ui-radio-min',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-radio.min.css', __FILE__ ) ),
 				array(),
-				'1.3.2',
+				self::$version,
 				'all'
 			);
 
@@ -124,7 +124,7 @@ if ( ! class_exists( 'UI_Radio' ) ) {
 				'ui-radio-min',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-radio.min.js', __FILE__ ) ),
 				array( 'jquery' ),
-				'1.3.2',
+				self::$version,
 				true
 			);
 		}

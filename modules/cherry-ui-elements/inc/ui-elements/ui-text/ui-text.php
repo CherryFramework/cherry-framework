@@ -96,7 +96,7 @@ if ( ! class_exists( 'UI_Text' ) ) {
 				'ui-text',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-text.min.css', __FILE__ ) ),
 				array(),
-				'1.3.2',
+				self::$version,
 				'all'
 			);
 		}

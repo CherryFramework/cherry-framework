@@ -118,7 +118,7 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 				'ui-checkbox-min',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-checkbox.min.js', __FILE__ ) ),
 				array( 'jquery' ),
-				'1.3.2',
+				self::$version,
 				true
 			);
 
@@ -126,7 +126,7 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 				'ui-checkbox-min',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-checkbox.min.css', __FILE__ ) ),
 				array(),
-				'1.3.2',
+				self::$version,
 				'all'
 			);
 		}

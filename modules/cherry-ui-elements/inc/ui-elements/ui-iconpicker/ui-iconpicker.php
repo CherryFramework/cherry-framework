@@ -296,7 +296,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 				'ui-iconpicker',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-iconpicker.min.css', __FILE__ ) ),
 				array(),
-				'1.3.2',
+				self::$version,
 				'all'
 			);
 
@@ -304,7 +304,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 				'jquery-iconpicker',
 				esc_url( Cherry_Core::base_url( 'assets/min/jquery-iconpicker.min.js', __FILE__ ) ),
 				array( 'jquery' ),
-				'1.3.2',
+				self::$version,
 				true
 			);
 
@@ -312,7 +312,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 				'ui-iconpicker',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-iconpicker.min.js', __FILE__ ) ),
 				array( 'jquery' ),
-				'1.3.2',
+				self::$version,
 				true
 			);
 		}

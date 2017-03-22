@@ -35,7 +35,7 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 		 *
 		 * @var string
 		 */
-		public $module_version = '1.1.0';
+		public $module_version = '1.1.2';
 
 		/**
 		 * Module slug

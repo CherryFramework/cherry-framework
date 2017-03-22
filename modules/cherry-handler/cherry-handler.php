@@ -2,7 +2,7 @@
 /**
  * Module Name: Cherry handler
  * Description: Initializes handlers
- * Version: 1.1.2
+ * Version: 1.1.3
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.2
+ * @version    1.1.3
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2017, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -32,6 +32,13 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 	class Cherry_Handler {
 
 		/**
+		 * Module version.
+		 *
+		 * @var string
+		 */
+		public $module_version = '1.1.3';
+
+		/**
 		 * Default settings.
 		 *
 		 * @since 1.0.0
@@ -46,11 +53,11 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 			'type'       => 'POST',
 			'data_type'  => 'json',
 			'sys_messages' => array(
-				'invalid_base_data' => 'Unable to process the request without nonce or server error',
-				'no_right'          => 'No right for this action',
-				'invalid_nonce'     => 'Stop CHEATING!!!',
-				'access_is_allowed' => 'Access is allowed',
-				'wait_processing'   => 'Please wait, processing the previous request',
+				'invalid_base_data' => esc_html__( 'Unable to process the request without nonce or server error', 'cherry-framework' ),
+				'no_right'          => esc_html__( 'No right for this action', 'cherry-framework' ),
+				'invalid_nonce'     => esc_html__( 'Stop CHEATING!!!', 'cherry-framework' ),
+				'access_is_allowed' => esc_html__( 'Access is allowed', 'cherry-framework' ),
+				'wait_processing'   => esc_html__( 'Please wait, processing the previous request', 'cherry-framework' ),
 			),
 		);
 
@@ -157,7 +164,7 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 				'cherry-handler-js',
 				esc_url( Cherry_Core::base_url( 'assets/js/min/cherry-handler.min.js', __FILE__ ) ),
 				array( 'jquery' ),
-				'1.0.0',
+				$this->module_version,
 				true
 			);
 
@@ -165,7 +172,7 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 				'cherry-handler-css',
 				esc_url( Cherry_Core::base_url( 'assets/css/cherry-handler-styles.min.css', __FILE__ ) ),
 				array(),
-				'1.0.0',
+				$this->module_version,
 				'all'
 			);
 		}

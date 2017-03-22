@@ -168,7 +168,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 				'ui-select-min',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-select.min.js', __FILE__ ) ),
 				array( 'jquery' ),
-				'1.3.2',
+				self::$version,
 				true
 			);
 
@@ -184,7 +184,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 				'ui-select-min',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-select.min.css', __FILE__ ) ),
 				array(),
-				'1.3.2',
+				self::$version,
 				'all'
 			);
 		}
