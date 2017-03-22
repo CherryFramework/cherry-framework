@@ -26,7 +26,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 		public $icon_data = array();
 
 		/**
-		 * Trigger to try automatically pase icons from CSS file or not.
+		 * Trigger to try automatically parse icons from CSS file or not.
 		 *
 		 * @var boolean
 		 */
