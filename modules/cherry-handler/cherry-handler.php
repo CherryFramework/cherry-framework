@@ -2,7 +2,7 @@
 /**
  * Module Name: Cherry handler
  * Description: Initializes handlers
- * Version: 1.1.2
+ * Version: 1.1.3
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +10,7 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.2
+ * @version    1.1.3
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -157,7 +157,7 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 				'cherry-handler-js',
 				esc_url( Cherry_Core::base_url( 'assets/js/min/cherry-handler.min.js', __FILE__ ) ),
 				array( 'jquery' ),
-				'1.0.0',
+				'1.1.3',
 				true
 			);
 
@@ -165,7 +165,7 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 				'cherry-handler-css',
 				esc_url( Cherry_Core::base_url( 'assets/css/cherry-handler-styles.min.css', __FILE__ ) ),
 				array(),
-				'1.0.0',
+				'1.1.3',
 				'all'
 			);
 		}
