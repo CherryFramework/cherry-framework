@@ -74,11 +74,13 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 				return false;
 			}
 
-			add_action( 'wp_ajax_' . $this->settings['action'], array( $this, 'handler_init' ) );
+			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+				add_action( 'wp_ajax_' . $this->settings['action'], array( $this, 'handler_init' ) );
 
-			// Public action check
-			if ( filter_var( $this->settings['is_public'], FILTER_VALIDATE_BOOLEAN ) ) {
-				add_action( 'wp_ajax_nopriv_' . $this->settings['action'], array( $this, 'handler_init' ) );
+				// Public action check.
+				if ( filter_var( $this->settings['is_public'], FILTER_VALIDATE_BOOLEAN ) ) {
+					add_action( 'wp_ajax_nopriv_' . $this->settings['action'], array( $this, 'handler_init' ) );
+				}
 			}
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
