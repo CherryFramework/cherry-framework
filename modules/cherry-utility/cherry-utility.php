@@ -101,6 +101,7 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 					$class_name = 'Cherry_' . $class_name . '_Utilit';
 
 					$instance = new $class_name( $this );
+
 					$this->utility->{$utilit} = $instance;
 				}
 			}
