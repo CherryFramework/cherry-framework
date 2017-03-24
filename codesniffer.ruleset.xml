@@ -17,11 +17,11 @@
 		<exclude name="Squiz.Commenting.FunctionComment.MissingParamTag" />
 		<exclude name="Squiz.Commenting.InlineComment.InvalidEndChar" />
 		<exclude name="Squiz.Commenting.InlineComment.NotCapital" />
-		<exclude name="Squiz.Commenting.LongConditionClosingComment.Missing" />
-
-		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
 	</rule>
 	<rule ref="WordPress-Docs">
 
+	</rule>
+	<rule ref="Squiz.Commenting.FunctionComment.ScalarTypeHintMissing">
+		<severity>0</severity>
 	</rule>
 </ruleset>
