@@ -137,7 +137,9 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 						continue;
 					}
 
-					self::$all_modules[ $module ] = array( $priority => $path );
+					self::$all_modules[ $module ] = array(
+						$priority => $path
+					);
 				}
 			}
 
@@ -304,7 +306,9 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 				return false;
 			}
 
-			return $this->modules[ $module ] = call_user_func( array( $class_name, 'get_instance' ), $this, $args );
+			$this->modules[ $module ] = call_user_func( array( $class_name, 'get_instance' ), $this, $args );
+
+			return $this->modules[ $module ];
 		}
 
 		/**
