@@ -70,7 +70,9 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 			$core       = apply_filters( 'cherry_customizer_get_core', false );
 			$ui_builder = $core->init_module(
 				'cherry-ui-elements',
-				array( 'ui_elements' => array( 'iconpicker' ) )
+				array(
+					'ui_elements' => array( 'iconpicker' ),
+				)
 			);
 
 			$args = array(

@@ -188,7 +188,9 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 				wp_enqueue_script( 'cherry5-insert-shortcode-js' );
 
 				$dev_mode = ( constant( 'WP_DEBUG' ) ) ? 'true' : 'false';
-				wp_localize_script( 'cherry-js-core', 'cherry5InsertShortcode', array( 'devMode' => $dev_mode ) );
+				wp_localize_script( 'cherry-js-core', 'cherry5InsertShortcode', array(
+					'devMode' => $dev_mode,
+				) );
 			}
 		}
 

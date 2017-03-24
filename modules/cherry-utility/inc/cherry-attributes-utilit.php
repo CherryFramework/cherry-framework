@@ -52,10 +52,13 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 			$html = '' ;
 
 			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) && 0 !== $args['length'] ) {
-				$title = $title_cut = ( 'post' === $type ) ? $object->post_title : $object->name ;
-				$title = ( $args['title'] ) ? 'title="' . $args['title'] . '"' : 'title="' . $title . '"' ;
+				$title     = ( 'post' === $type ) ? $object->post_title : $object->name;
+				$title_cut = $title;
+
+				$title     = ( $args['title'] ) ? 'title="' . $args['title'] . '"' : 'title="' . $title . '"';
 				$title_cut = $this->cut_text( $title_cut, $args['length'], $args['trimmed_type'], $args['ending'] );
-				$link = ( 'post' === $type ) ? $this->get_post_permalink() : $this->get_term_permalink( $object->term_id );
+
+				$link       = ( 'post' === $type ) ? $this->get_post_permalink() : $this->get_term_permalink( $object->term_id );
 				$html_class = ( $args['class'] ) ? 'class="' . $args['class'] . '"' : '' ;
 
 				$html = sprintf( $args['html'], $html_class, $link, $title, $title_cut );

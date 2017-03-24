@@ -141,14 +141,15 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 		 * @return string|bool
 		 */
 		public function get_template_by_name( $name ) {
-			$file         = '';
-			$template_dir = sprintf( $this->args['template_dir'], $this->args['slug'], $name );
-			$in_uploads   = $this->args['upload_dir'] . $template_dir ;
-			$in_project   = trailingslashit( $this->get_project_root() . $this->args['slug'] ) . $template_dir;
+			$file           = '';
+			$template_dir   = sprintf( $this->args['template_dir'], $this->args['slug'], $name );
+			$in_uploads     = $this->args['upload_dir'] . $template_dir ;
+			$in_project     = trailingslashit( $this->get_project_root() . $this->args['slug'] ) . $template_dir;
+			$theme_template = locate_template( $template_dir );
 
 			if ( file_exists( $in_uploads ) ) {
 				$file = $in_uploads;
-			} elseif ( $theme_template = locate_template( $template_dir ) ) {
+			} elseif ( $theme_template ) {
 				$file = $theme_template;
 			} else {
 				$file = $in_project;

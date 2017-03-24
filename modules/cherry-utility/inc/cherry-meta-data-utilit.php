@@ -127,7 +127,8 @@ if ( ! class_exists( 'Cherry_Meta_Data_Utilit' ) ) {
 
 			$args['suffix'] = ( isset( $args['sufix'] ) ) ? $args['sufix'] : $args['suffix'];
 
-			$html = $count = '' ;
+			$html  = '';
+			$count = '';
 
 			if ( filter_var( $args['visible'], FILTER_VALIDATE_BOOLEAN ) ) {
 				$post_type = get_post_type( $object->ID );

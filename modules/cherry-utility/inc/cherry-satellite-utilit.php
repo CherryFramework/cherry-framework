@@ -193,7 +193,11 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 				}
 			}
 
-			$all_terms = (array) get_terms( $tax, array( 'hide_empty' => 0, 'hierarchical' => 0 ) );
+			$all_terms = (array) get_terms( $tax, array(
+				'hide_empty'   => 0,
+				'hierarchical' => 0,
+			) );
+
 			if ( empty( $all_terms ) || is_wp_error( $all_terms ) ) {
 				return '';
 			}

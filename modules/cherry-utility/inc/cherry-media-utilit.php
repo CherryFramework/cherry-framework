@@ -196,7 +196,9 @@ if ( ! class_exists( 'Cherry_Media_Utilit' ) ) {
 				return '';
 			}
 
-			$html = wp_oembed_get( $url_array[0], array( 'width' => $size_array['width'] ) );
+			$html = wp_oembed_get( $url_array[0], array(
+				'width' => $size_array['width'],
+			) );
 
 			if ( ! $html ) {
 				$url_array = $this->sorted_array( $url_array );
