@@ -38,6 +38,7 @@ if ( ! class_exists( 'UI_Text' ) ) {
 			'class'       => '',
 			'master'      => '',
 			'required'    => false,
+			'lock'        => false,
 		);
 
 		/**
@@ -74,14 +75,22 @@ if ( ! class_exists( 'UI_Text' ) ) {
 		 */
 		public function render() {
 			$html = '';
-			$class = $this->settings['class'];
-			$class .= ' ' . $this->settings['master'];
+			$input_lock = ( ! empty( $this->settings['lock'] ) ) ? 'disabled' : '' ;
+			$lock_lable = ! empty( $this->settings['lock']['label'] )? sprintf('<div class="cherry-lock-label">%1$s</div>', $this->settings['lock']['label'] ) : '' ;
+			$class = implode( ' ',
+				array(
+					$this->settings['class'],
+					$this->settings['master'],
+					( $input_lock ) ? 'cherry-ui-elements-lock' : '' ,
+				)
+			);
 
 			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
 				if ( '' !== $this->settings['label'] ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
 				}
-				$html .= '<input type="' . esc_attr( $this->settings['type'] ) . '" id="' . esc_attr( $this->settings['id'] ) . '" class="widefat cherry-ui-text" name="' . esc_attr( $this->settings['name'] ) . '" value="' . esc_html( $this->settings['value'] ) . '" placeholder="' . esc_attr( $this->settings['placeholder'] ) . '" ' . $this->get_required() . '>';
+				$html .= '<input type="' . esc_attr( $this->settings['type'] ) . '" id="' . esc_attr( $this->settings['id'] ) . '" class="widefat cherry-ui-text" name="' . esc_attr( $this->settings['name'] ) . '" value="' . esc_html( $this->settings['value'] ) . '" placeholder="' . esc_attr( $this->settings['placeholder'] ) . '" ' . $this->get_required() . ' ' . $input_lock . '>';
+				$html .= $lock_lable;
 			$html .= '</div>';
 			return $html;
 		}

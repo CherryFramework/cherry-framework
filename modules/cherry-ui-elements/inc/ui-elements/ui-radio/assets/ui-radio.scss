@@ -13,6 +13,12 @@ label.cherry-label{
 }
 input.cherry-radio-input{
 	display: none;
+	&[disabled], &[disabled] + label{
+		opacity: 0.5;
+		cursor: no-drop;
+		pointer-events: none;
+		filter: grayscale( 100% );
+	}
 }
 .cherry-radio-item{
 	margin-bottom: 10px;

@@ -35,6 +35,7 @@ if ( ! class_exists( 'UI_Colorpicker' ) ) {
 			'label'  => '',
 			'class'  => '',
 			'master' => '',
+			'lock'   => false,
 		);
 
 		/**
@@ -56,16 +57,24 @@ if ( ! class_exists( 'UI_Colorpicker' ) ) {
 		 */
 		public function render() {
 			$html = '';
-			$class = $this->settings['class'];
-			$class .= ' ' . $this->settings['master'];
+			$input_lock = ( ! empty( $this->settings['lock'] ) ) ? 'disabled' : '' ;
+			$lock_lable = ! empty( $this->settings['lock']['label'] )? sprintf('<div class="cherry-lock-label">%1$s</div>', $this->settings['lock']['label'] ) : '' ;
+			$class = implode( ' ',
+				array(
+					$this->settings['class'],
+					$this->settings['master'],
+					( $input_lock ) ? 'cherry-ui-elements-lock' : '' ,
+				)
+			);
 
 			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
 				if ( '' !== $this->settings['label'] ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
 				}
 				$html .= '<div class="cherry-ui-colorpicker-wrapper">';
-					$html .= '<input type="text" id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-colorpicker" name="' . esc_attr( $this->settings['name'] ) . '" value="' . esc_html( $this->settings['value'] ) . '"/>';
+					$html .= '<input type="text" id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-colorpicker" name="' . esc_attr( $this->settings['name'] ) . '" value="' . esc_html( $this->settings['value'] ) . '" ' . $input_lock . '/>';
 				$html .= '</div>';
+			$html .= $lock_lable;
 			$html .= '</div>';
 
 			return $html;
