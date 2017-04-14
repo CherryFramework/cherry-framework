@@ -37,6 +37,9 @@ if ( ! class_exists( 'UI_Radio' ) ) {
 					'label'   => 'Radio 1',
 					'img_src' => '',
 					'slave'   => '',
+					'lock'    => array(
+						'label' => ''
+					),
 				),
 				'radio-2' => array(
 					'label'   => 'Radio 2',
@@ -75,27 +78,36 @@ if ( ! class_exists( 'UI_Radio' ) ) {
 		 * @since 1.0.0
 		 */
 		public function render() {
-			$html = '';
-			$class = $this->settings['class'];
-			$class .= ' ' . $this->settings['master'];
+			$html  = '';
+			$class = implode( ' ',
+				array(
+					$this->settings['class'],
+					$this->settings['master'],
+				)
+			);
 
-			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
+			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '" >';
 				if ( $this->settings['options'] && ! empty( $this->settings['options'] ) && is_array( $this->settings['options'] ) ) {
 					if ( '' !== $this->settings['label'] ) {
 						$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . $this->settings['label'] . '</label> ';
 					}
 					$html .= '<div class="cherry-radio-group">';
 						foreach ( $this->settings['options'] as $option => $option_value ) {
-							$checked = $option == $this->settings['value'] ? ' checked' : '';
-							$radio_id = $this->settings['id'] . '-' . $option;
-							$img = isset( $option_value['img_src'] ) && ! empty( $option_value['img_src'] ) ? '<img src="' . esc_url( $option_value['img_src'] ) . '" alt="' . esc_html( $option_value['label'] ) . '">' : '<span class="cherry-radio-item"><i></i></span>';
+							$input_lock = ( ! empty( $option_value['lock'] ) ) ? 'disabled' : '' ;
+							$lock_lable = ! empty( $option_value['lock']['label'] )? sprintf('<div class="cherry-lock-label">%1$s</div>', $option_value['lock']['label'] ) : '' ;
+
+							$checked    = $option == $this->settings['value'] ? ' checked' : '';
+							$radio_id   = $this->settings['id'] . '-' . $option;
+							$img        = isset( $option_value['img_src'] ) && ! empty( $option_value['img_src'] ) ? '<img src="' . esc_url( $option_value['img_src'] ) . '" alt="' . esc_html( $option_value['label'] ) . '">' : '<span class="cherry-radio-item"><i></i></span>';
 							$data_slave = isset( $option_value['slave'] ) && ! empty( $option_value['slave'] ) ? ' data-slave="' . $option_value['slave'] . '"' : '';
-							$class_box = isset( $option_value['img_src'] ) && ! empty( $option_value['img_src'] ) ? ' cherry-radio-img' : ' cherry-radio-item' ;
+							$class_box  = isset( $option_value['img_src'] ) && ! empty( $option_value['img_src'] ) ? ' cherry-radio-img' : ' cherry-radio-item' ;
+							$class_box  .= ( ! empty( $input_lock ) ) ? ' cherry-lock' : '' ;
 
 							$html .= '<div class="' . $class_box . '">';
-							$html .= '<input type="radio" id="' . esc_attr( $radio_id ) . '" class="cherry-radio-input" name="' . esc_attr( $this->settings['name'] ) . '" ' . checked( $option, $this->settings['value'], false ) . ' value="' . esc_attr( $option ) . '"' . $data_slave . '>';
+							$html .= '<input type="radio" id="' . esc_attr( $radio_id ) . '" class="cherry-radio-input" name="' . esc_attr( $this->settings['name'] ) . '" ' . checked( $option, $this->settings['value'], false ) . ' value="' . esc_attr( $option ) . '"' . $data_slave . ' ' . $input_lock . '/>';
 								$label_content = $img . $option_value['label'];
 							$html .= '<label for="' . esc_attr( $radio_id ) . '">' . $label_content . '</label> ';
+							$html .= $lock_lable;
 							$html .= '</div>';
 						}
 						$html .= '<div class="clear"></div>';

@@ -39,6 +39,7 @@ if ( ! class_exists( 'UI_Stepper' ) ) {
 			'class'       => '',
 			'master'      => '',
 			'placeholder' => '',
+			'lock'        => false,
 		);
 
 		/**
@@ -61,8 +62,15 @@ if ( ! class_exists( 'UI_Stepper' ) ) {
 		 */
 		public function render() {
 			$html = '';
-			$class = $this->settings['class'];
-			$class .= ' ' . $this->settings['master'];
+			$input_lock = ( ! empty( $this->settings['lock'] ) ) ? 'disabled' : '' ;
+			$lock_lable = ! empty( $this->settings['lock']['label'] )? sprintf('<div class="cherry-lock-label">%1$s</div>', $this->settings['lock']['label'] ) : '' ;
+			$class = implode( ' ',
+				array(
+					$this->settings['class'],
+					$this->settings['master'],
+					( $input_lock ) ? 'cherry-ui-elements-lock' : '' ,
+				)
+			);
 
 			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
 
@@ -70,8 +78,9 @@ if ( ! class_exists( 'UI_Stepper' ) ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
 				}
 				$html .= '<div class="cherry-ui-stepper">';
-					$html .= '<input type="number" id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-stepper-input" pattern="[0-5]+([\.,][0-5]+)?" name="' . esc_attr( $this->settings['name'] ) . '" value="' . esc_html( $this->settings['value'] ) . '" min="' . esc_html( $this->settings['min_value'] ) . '" max="' . esc_html( $this->settings['max_value'] ) . '" step="' . esc_html( $this->settings['step_value'] ) . '" placeholder="' . esc_attr( $this->settings['placeholder'] ) . '">';
+					$html .= '<input type="number" id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-stepper-input" pattern="[0-5]+([\.,][0-5]+)?" name="' . esc_attr( $this->settings['name'] ) . '" value="' . esc_html( $this->settings['value'] ) . '" min="' . esc_html( $this->settings['min_value'] ) . '" max="' . esc_html( $this->settings['max_value'] ) . '" step="' . esc_html( $this->settings['step_value'] ) . '" placeholder="' . esc_attr( $this->settings['placeholder'] ) . ' ' . $input_lock . '">';
 				$html .= '</div>';
+				$html .= $lock_lable;
 			$html .= '</div>';
 
 			return $html;

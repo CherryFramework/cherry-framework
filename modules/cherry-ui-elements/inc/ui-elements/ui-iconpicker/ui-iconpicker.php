@@ -41,6 +41,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 			'master'      => '',
 			'width'       => 'fixed', // full, fixed
 			'required'    => false,
+			'lock'        => false,
 		);
 
 		/**
@@ -110,9 +111,16 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 		 * @since 1.0.0
 		 */
 		public function render() {
-			$html = '';
-			$class = $this->settings['class'] . $this->settings['width'] ;
-			$class .= ' ' . $this->settings['master'];
+			$html       = '';
+			$lock_lable = ! empty( $this->settings['lock']['label'] )? sprintf('<div class="cherry-lock-label">%1$s</div>', $this->settings['lock']['label'] ) : '' ;
+			$class      = implode( ' ',
+				array(
+					$this->settings['class'],
+					$this->settings['master'],
+					$this->settings['width'],
+					( $this->settings['lock'] ) ? 'cherry-ui-elements-lock' : '' ,
+				)
+			);
 
 			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
 				if ( '' !== $this->settings['label'] ) {
@@ -135,6 +143,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 				}
 
 				$html .= '</div>';
+				$html .= $lock_lable;
 			$html .= '</div>';
 
 			return $html;

@@ -38,6 +38,7 @@ if ( ! class_exists( 'UI_Media' ) ) {
 			'label'              => '',
 			'class'              => '',
 			'master'             => '',
+			'lock'               => false,
 		);
 
 		/**
@@ -63,7 +64,15 @@ if ( ! class_exists( 'UI_Media' ) ) {
 
 			if ( current_user_can( 'upload_files' ) ) {
 
-				$class = $this->settings['class'] . ' ' . $this->settings['master'];
+				$input_lock = ( ! empty( $this->settings['lock'] ) ) ? 'disabled' : '' ;
+				$lock_lable = ! empty( $this->settings['lock']['label'] )? sprintf('<div class="cherry-lock-label">%1$s</div>', $this->settings['lock']['label'] ) : '' ;
+				$class = implode( ' ',
+					array(
+						$this->settings['class'],
+						$this->settings['master'],
+						( $input_lock ) ? 'cherry-ui-elements-lock' : '' ,
+					)
+				);
 
 				$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
 					if ( '' != $this->settings['value'] ) {
@@ -136,11 +145,12 @@ if ( ! class_exists( 'UI_Media' ) ) {
 							$html .= '</div>';
 						$html .= '</div>';
 						$html .= '<div class="cherry-element-wrap">';
-							$html .= '<input type="hidden" id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-upload-input" name="' . esc_attr( $this->settings['name'] ) . '" value="' . esc_html( $this->settings['value'] ) . '" >';
-							$html .= '<button type="button" class="upload-button cherry-upload-button button-default_" value="' . esc_attr( $this->settings['upload_button_text'] ) . '" data-title="' . esc_attr( $this->settings['upload_button_text'] ) . '" data-multi-upload="' . esc_attr( $this->settings['multi_upload'] ) . '" data-library-type="' . esc_attr( $this->settings['library_type'] ) . '">' . esc_attr( $this->settings['upload_button_text'] ) . '</button>';
+							$html .= '<input type="hidden" id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-upload-input" name="' . esc_attr( $this->settings['name'] ) . '" value="' . esc_html( $this->settings['value'] ) . '" ' . $input_lock . '>';
+							$html .= '<button type="button" class="upload-button cherry-upload-button button-default_" value="' . esc_attr( $this->settings['upload_button_text'] ) . '" data-title="' . esc_attr( $this->settings['upload_button_text'] ) . '" data-multi-upload="' . esc_attr( $this->settings['multi_upload'] ) . '" data-library-type="' . esc_attr( $this->settings['library_type'] ) . '" ' . $input_lock . '>' . esc_attr( $this->settings['upload_button_text'] ) . '</button>';
 							$html .= '<div class="clear"></div>';
 						$html .= '</div>';
 					$html .= '</div>';
+					$html .= $lock_lable;
 				$html .= '</div>';
 			}
 

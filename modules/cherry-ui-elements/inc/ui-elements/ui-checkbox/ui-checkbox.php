@@ -64,9 +64,13 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 		 * @since 1.0.0
 		 */
 		public function render() {
-			$html = '';
-			$class = $this->settings['class'];
-			$class .= ' ' . $this->settings['master'];
+			$html  = '';
+			$class = implode( ' ',
+				array(
+					$this->settings['class'],
+					$this->settings['master'],
+				)
+			);
 
 			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
 
@@ -91,13 +95,17 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 
 						$checked = ( ! empty( $option_checked ) && 'true' === $item_value ) ? 'checked' : '';
 
+						$input_lock = ( ! empty( $option_value['lock'] ) ) ? 'disabled' : '' ;
+						$lock_lable = ! empty( $option_value['lock']['label'] )? sprintf('<div class="cherry-lock-label">%1$s</div>', $option_value['lock']['label'] ) : '' ;
+
 						$option_label = isset( $option_value ) && is_array( $option_value ) ? $option_value['label'] : $option_value;
 						$data_slave = isset( $option_value['slave'] ) && ! empty( $option_value['slave'] ) ? ' data-slave="' . $option_value['slave'] . '"' : '';
 
 						$html .= '<div class="cherry-checkbox-item-wrap">';
-							$html .= '<input type="hidden" id="' . esc_attr( $this->settings['id'] ) . '-' . $counter . '" class="cherry-checkbox-input" name="' . esc_attr( $this->settings['name'] ) . '[' . $option . ']" ' . $checked . ' value="' . esc_html( $item_value ) . '"' . $data_slave . '>';
+							$html .= '<input type="hidden" id="' . esc_attr( $this->settings['id'] ) . '-' . $counter . '" class="cherry-checkbox-input" name="' . esc_attr( $this->settings['name'] ) . '[' . $option . ']" ' . $checked . ' value="' . esc_html( $item_value ) . '"' . $data_slave . ' ' . $input_lock . '>';
 							$html .= '<div class="cherry-checkbox-item"><span class="marker dashicons dashicons-yes"></span></div>';
 							$html .= '<label class="cherry-checkbox-label" for="' . esc_attr( $this->settings['id'] ) . '-' . $counter . '">' . esc_html( $option_label ) . '</label> ';
+						$html .= $lock_lable;
 						$html .= '</div>';
 
 						$counter++;

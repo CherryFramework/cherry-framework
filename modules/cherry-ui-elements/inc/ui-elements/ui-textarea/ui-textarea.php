@@ -38,6 +38,7 @@ if ( ! class_exists( 'UI_Textarea' ) ) {
 			'label'       => '',
 			'class'       => '',
 			'master'      => '',
+			'lock'        => false,
 		);
 
 		/**
@@ -59,14 +60,22 @@ if ( ! class_exists( 'UI_Textarea' ) ) {
 		 */
 		public function render() {
 			$html = '';
-			$class = $this->settings['class'];
-			$class .= ' ' . $this->settings['master'];
+			$input_lock = ( ! empty( $this->settings['lock'] ) ) ? 'disabled' : '' ;
+			$lock_lable = ! empty( $this->settings['lock']['label'] )? sprintf('<div class="cherry-lock-label">%1$s</div>', $this->settings['lock']['label'] ) : '' ;
+			$class = implode( ' ',
+				array(
+					$this->settings['class'],
+					$this->settings['master'],
+					( $input_lock ) ? 'cherry-ui-elements-lock' : '' ,
+				)
+			);
 
 			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
 				if ( '' !== $this->settings['label'] ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . $this->settings['label'] . '</label> ';
 				}
-				$html .= '<textarea id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-textarea" name="' . esc_attr( $this->settings['name'] ) . '" rows="' . esc_attr( $this->settings['rows'] ) . '" cols="' . esc_attr( $this->settings['cols'] ) . '" placeholder="' . esc_attr( $this->settings['placeholder'] ) . '">' . esc_html( $this->settings['value'] ) . '</textarea>';
+				$html .= '<textarea id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-textarea" name="' . esc_attr( $this->settings['name'] ) . '" rows="' . esc_attr( $this->settings['rows'] ) . '" cols="' . esc_attr( $this->settings['cols'] ) . '" placeholder="' . esc_attr( $this->settings['placeholder'] ) . '" ' . $input_lock . '>' . esc_html( $this->settings['value'] ) . '</textarea>';
+				$html .= $lock_lable;
 			$html .= '</div>';
 
 			return $html;

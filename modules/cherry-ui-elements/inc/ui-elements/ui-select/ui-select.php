@@ -36,6 +36,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 			'size'         => 1,
 			'inline_style' => 'width: 100%',
 			'value'        => 'select-8',
+			'lock'         => false,
 			'options'      => array(
 				'select-1' => 'select 1',
 				'select-2' => 'select 2',
@@ -87,8 +88,15 @@ if ( ! class_exists( 'UI_Select' ) ) {
 		 */
 		public function render() {
 			$html = '';
-			$class = $this->settings['class'];
-			$class .= ' ' . $this->settings['master'];
+			$input_lock = ( ! empty( $this->settings['lock'] ) ) ? 'disabled' : '' ;
+			$lock_lable = ! empty( $this->settings['lock']['label'] )? sprintf('<div class="cherry-lock-label">%1$s</div>', $this->settings['lock']['label'] ) : '' ;
+			$class = implode( ' ',
+				array(
+					$this->settings['class'],
+					$this->settings['master'],
+					( $input_lock ) ? 'cherry-ui-elements-lock' : '' ,
+				)
+			);
 
 			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
 
@@ -103,7 +111,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 
 				$inline_style = $this->settings['inline_style'] ? 'style="' . esc_attr( $this->settings['inline_style'] ) . '"' : '' ;
 
-				$html .= '<select id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-select" name="' . esc_attr( $name ) . '" size="' . esc_attr( $this->settings['size'] ) . '" ' . $multi_state . ' ' . $filter_state . ' placeholder="' . $this->settings['placeholder'] . '" ' . $inline_style . ' >';
+				$html .= '<select id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-select" name="' . esc_attr( $name ) . '" size="' . esc_attr( $this->settings['size'] ) . '" ' . $multi_state . ' ' . $filter_state . ' placeholder="' . $this->settings['placeholder'] . '" ' . $inline_style . ' ' . $input_lock . '>';
 				if ( $this->settings['options'] && ! empty( $this->settings['options'] ) && is_array( $this->settings['options'] ) ) {
 					foreach ( $this->settings['options'] as $option => $option_value ) {
 						if ( ! is_array( $this->settings['value'] ) ) {
@@ -122,13 +130,16 @@ if ( ! class_exists( 'UI_Select' ) ) {
 
 							if ( is_array( $option_value ) ) {
 								$lable = $option_value['label'];
-								$data  = 'data-slave="' . $option_value['slave'] . '"';
+								$data  = !empty( $option_value['slave'] ) ? 'data-slave="' . $option_value['slave'] . '"' : '' ;
 							} else {
 								$lable = $option_value;
 								$data  = '';
 							}
 
-							$html .= '<option value="' . esc_attr( $option ) . '" ' . $selected_state . ' ' . $data . '>' . esc_html( $lable ) . '</option>';
+							$option_lock = ( ! empty( $option_value['lock'] ) ) ? 'disabled' : '' ;
+							$option_lable = ! empty( $option_value['lock']['label'] )? $option_value['lock']['label'] : '' ;
+
+							$html .= '<option value="' . esc_attr( $option ) . '" ' . $selected_state . ' ' . $data . ' ' . $option_lock . '>' . esc_html( $lable ) . $option_lable . '</option>';
 						} else {
 							$html .= '<optgroup label="' . esc_attr( $option_value['label'] ) . '">';
 								$selected_state = '';
@@ -146,6 +157,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 					}
 				}
 				$html .= '</select>';
+				$html .= $lock_lable;
 			$html .= '</div>';
 
 			return $html;
