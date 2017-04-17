@@ -2,7 +2,12 @@
 @import "ui-kit/mixins";
 
 $font_size: 14px;
-
+.cherry-ui-elements-lock{
+	opacity: 0.5;
+	cursor: no-drop;
+	pointer-events: none;
+	filter: grayscale( 100% );
+}
 .cherry-ui-container{
 	margin: 10px 0 20px 0;
 }

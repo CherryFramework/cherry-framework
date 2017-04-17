@@ -180,10 +180,10 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 		 *
 		 * @since  1.0.0
 		 * @param [type] $tax - category, post_tag, post_format.
-		 * @param [type] $key - slug, term_id.
+		 * @param [type] $return_key - slug, term_id.
 		 * @return array
 		 */
-		public function get_terms_array( $tax = array( 'category' ), $key = 'slug' ) {
+		public function get_terms_array( $tax = array( 'category' ), $return_key = 'slug' ) {
 			$terms = array();
 			$tax = is_array( $tax ) ? $tax : array( $tax ) ;
 
@@ -199,7 +199,7 @@ if ( ! class_exists( 'Cherry_Satellite_Utilit' ) ) {
 			}
 
 			foreach ( $all_terms as $term ) {
-				$terms[ $term->slug ] = $term->name;
+				$terms[ $term->$return_key ] = $term->name;
 			}
 
 			return $terms;

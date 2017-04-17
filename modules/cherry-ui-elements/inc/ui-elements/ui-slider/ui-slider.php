@@ -38,6 +38,7 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 			'label'      => '',
 			'class'      => '',
 			'master'     => '',
+			'lock'       => false,
 		);
 
 		/**
@@ -59,8 +60,15 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 		 */
 		public function render() {
 			$html = '';
-			$class = $this->settings['class'];
-			$class .= ' ' . $this->settings['master'];
+			$input_lock = ( ! empty( $this->settings['lock'] ) ) ? 'disabled' : '' ;
+			$lock_lable = ! empty( $this->settings['lock']['label'] )? sprintf('<div class="cherry-lock-label">%1$s</div>', $this->settings['lock']['label'] ) : '' ;
+			$class = implode( ' ',
+				array(
+					$this->settings['class'],
+					$this->settings['master'],
+					( $input_lock ) ? 'cherry-ui-elements-lock' : '' ,
+				)
+			);
 
 			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
 
@@ -81,12 +89,13 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 				}
 				$html .= '<div class="cherry-slider-wrap">';
 					$html .= '<div class="cherry-slider-holder">';
-						$html .= '<input type="range" class="cherry-slider-unit" step="' . esc_attr( $this->settings['step_value'] ) . '" min="' . esc_attr( $this->settings['min_value'] ) . '" max="' . esc_attr( $this->settings['max_value'] ) . '" value="' . esc_attr( $this->settings['value'] ) . '">';
+						$html .= '<input type="range" class="cherry-slider-unit" step="' . esc_attr( $this->settings['step_value'] ) . '" min="' . esc_attr( $this->settings['min_value'] ) . '" max="' . esc_attr( $this->settings['max_value'] ) . '" value="' . esc_attr( $this->settings['value'] ) . '" ' . $input_lock . '>';
 					$html .= '</div>';
 					$html .= '<div class="cherry-slider-input">';
 						$html .= $ui_stepper_html;
 					$html .= '</div>';
 				$html .= '</div>';
+				$html .= $lock_lable;
 			$html .= '</div>';
 
 			return $html;

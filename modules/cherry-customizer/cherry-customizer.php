@@ -2,7 +2,7 @@
 /**
  * Module Name: Customizer
  * Description: Customizer functionality.
- * Version: 1.1.7
+ * Version: 1.1.8
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,9 +10,9 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.7
+ * @version    1.1.8
  * @author     Cherry Team <cherryframework@gmail.com>
- * @copyright  Copyright (c) 2012 - 2016, Cherry Team
+ * @copyright  Copyright (c) 2012 - 2017, Cherry Team
  * @link       http://www.cherryframework.com/
  * @license    http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -215,7 +215,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		private function include_custom_controls() {
 
 			if ( ! class_exists( 'Cherry_WP_Customize_Iconpicker' ) ) {
-				require_once( trailingslashit( dirname( __FILE__ ) ) . '/inc/class-cherry-wp-customize-iconpicker.php' );
+				require_once( trailingslashit( dirname( __FILE__ ) ) . 'inc/class-cherry-wp-customize-iconpicker.php' );
 			}
 
 		}
@@ -324,6 +324,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * Add a customize control.
 		 *
 		 * @since 1.0.0
+		 * @since 1.1.8 Added a `dropdown-pages` support.
 		 * @param numder $id Settings ID.
 		 * @param array  $args Control arguments.
 		 */
@@ -374,6 +375,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 				case 'url':
 				case 'password':
 				case 'checkbox':
+				case 'dropdown-pages':
 						$control_args = wp_parse_args( array( 'type' => $field_type ), $control_args );
 					break;
 

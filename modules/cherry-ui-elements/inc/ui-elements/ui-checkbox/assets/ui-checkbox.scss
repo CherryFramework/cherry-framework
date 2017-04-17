@@ -40,12 +40,20 @@ label.cherry-label{
 				}
 		}
 }
-.cherry-checkbox-input[checked]{
-	&+.cherry-checkbox-item{
-		background-color: $green_color;
-		.marker{
-			transform: scale(1);
+.cherry-checkbox-input{
+	&[checked]{
+		&+.cherry-checkbox-item{
+			background-color: $green_color;
+			.marker{
+				transform: scale(1);
+			}
 		}
+	}
+	&[disabled] ~ .cherry-checkbox-item, &[disabled] ~ label{
+		opacity: 0.5;
+		cursor: no-drop;
+		pointer-events: none;
+		filter: grayscale( 100% );
 	}
 }
 .cherry-checkbox-label{
