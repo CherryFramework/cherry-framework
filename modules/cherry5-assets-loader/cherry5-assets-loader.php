@@ -70,11 +70,11 @@ if ( ! class_exists( 'Cherry5_Assets_Loader' ) ) {
 		public static $js_handle = array();
 
 		/**
-		 * Is module hooks initalized or not.
+		 * Is module hooks initialized or not.
 		 *
 		 * @var boolean
 		 */
-		public static $initalized = false;
+		public static $initialized = false;
 
 		/**
 		 * Class constructor.
@@ -98,13 +98,13 @@ if ( ! class_exists( 'Cherry5_Assets_Loader' ) ) {
 		}
 
 		/**
-		 * Initalize module hooks
+		 * Initialize module hooks
 		 *
 		 * @return bool|void
 		 */
 		public function init() {
 
-			if ( true === self::$initalized ) {
+			if ( true === self::$initialized ) {
 				return null;
 			}
 
@@ -115,7 +115,7 @@ if ( ! class_exists( 'Cherry5_Assets_Loader' ) ) {
 			self::$css_handle = new Cherry5_Assets_Loader_Handle_CSS();
 			self::$js_handle  = new Cherry5_Assets_Loader_Handle_JS();
 
-			self::$initalized = true;
+			self::$initialized = true;
 
 			ob_start();
 			include 'assets/min/append.min.js';

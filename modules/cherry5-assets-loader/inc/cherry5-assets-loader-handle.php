@@ -50,7 +50,7 @@ if ( ! class_exists( 'Cherry5_Assets_Loader_Handle' ) ) {
 		public function init() {
 
 			if ( null !== $this->context ) {
-				add_filter( $this->context . '_loader_tag', array( $this, 'defer' ), 10, 2 );
+				add_filter( $this->context . '_loader_tag', array( $this, 'defer' ), 10, 3 );
 				add_action( 'wp_footer', array( $this, 'print_tags_var' ), 99 );
 			}
 
@@ -61,7 +61,7 @@ if ( ! class_exists( 'Cherry5_Assets_Loader_Handle' ) ) {
 		 *
 		 * @return string
 		 */
-		public function defer( $tag, $handle ) {
+		public function defer( $tag, $handle, $src ) {
 
 			if ( in_array( $handle, $this->handles ) ) {
 				$this->prepared_handles[] = $tag;
