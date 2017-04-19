@@ -181,6 +181,17 @@
 			"required" : false,
 			"dependencies" : [ "cherry-ui-elements" ]
 		},
+		"cherry5-assets-loader" : {
+			"name" : "Assets Loader",
+			"description" : "The module allows you deferred loading scripts and styles.",
+			"version" : "1.0.0",
+			"doc_link" : "",
+			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry5-assets-loader",
+			"compatible" : [ "theme", "plugin" ],
+			"wordpress_org" : true,
+			"required" : false,
+			"dependencies" : [ "cherry-js-core" ]
+		},
 		"cherry5-insert-shortcode" : {
 			"name" : "Insert Shortcode",
 			"description" : "The module allows you to add shortcodes from editor tinyMCE.",
