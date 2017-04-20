@@ -100,7 +100,9 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 					$utilit     = str_replace( ' ', '_', $utilit );
 					$class_name = 'Cherry_' . $class_name . '_Utilit';
 
-					$this->utility->$utilit = new $class_name( $this );
+					$instance = new $class_name( $this );
+
+					$this->utility->{$utilit} = $instance;
 				}
 			}
 		}

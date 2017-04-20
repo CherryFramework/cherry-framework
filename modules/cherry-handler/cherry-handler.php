@@ -194,8 +194,9 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 			);
 
 			if ( $this->settings['is_public'] ) {
-				$ajax_url = esc_url( admin_url( 'admin-ajax.php' ) );
-				wp_localize_script( 'cherry-handler-js', 'cherryHandlerAjaxUrl', array( 'ajax_url' => $ajax_url ) );
+				wp_localize_script( 'cherry-handler-js', 'cherryHandlerAjaxUrl', array(
+					'ajax_url' => esc_url( admin_url( 'admin-ajax.php' ) ),
+				) );
 			}
 		}
 

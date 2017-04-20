@@ -220,7 +220,9 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 				return false;
 			}
 
-			$this->ui_builder = $core->init_module( 'cherry-ui-elements', array( 'ui_elements' => $this->field_types ) );
+			$this->ui_builder = $core->init_module( 'cherry-ui-elements', array(
+				'ui_elements' => $this->field_types,
+			) );
 
 			return true;
 		}
@@ -283,7 +285,9 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 		 * @return string the content that was cached
 		 */
 		public function cache_widget( $args, $content ) {
-			wp_cache_set( $this->get_cache_id(), array( $args['widget_id'] => $content ), 'widget' );
+			wp_cache_set( $this->get_cache_id(), array(
+				$args['widget_id'] => $content,
+			), 'widget' );
 
 			return $content;
 		}

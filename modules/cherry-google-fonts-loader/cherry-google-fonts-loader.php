@@ -84,7 +84,9 @@ if ( ! class_exists( 'Cherry_Google_Fonts_Loader' ) ) {
 		function __construct( $core, $args ) {
 
 			$this->core = $core;
-			$this->args = wp_parse_args( $args, array( 'options' => array() ) );
+			$this->args = wp_parse_args( $args, array(
+				'options' => array(),
+			) );
 
 			$this->fonts_host = apply_filters( 'cherry_google_fonts_cdn', $this->fonts_host );
 

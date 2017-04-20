@@ -12,7 +12,7 @@
  * @subpackage Modules
  * @version    1.1.8
  * @author     Cherry Team <cherryframework@gmail.com>
- * @copyright  Copyright (c) 2012 - 2017, Cherry Team
+ * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
  * @license    http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -376,28 +376,42 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 				case 'password':
 				case 'checkbox':
 				case 'dropdown-pages':
-						$control_args = wp_parse_args( array( 'type' => $field_type ), $control_args );
+						$control_args = wp_parse_args( array(
+							'type' => $field_type,
+						), $control_args );
 					break;
 
 				case 'range':
 				case 'number':
 						$input_attrs  = ( isset( $args['input_attrs'] ) ) ? $args['input_attrs'] : array();
-						$control_args = wp_parse_args( array( 'type' => $field_type, 'input_attrs' => $input_attrs ), $control_args );
+						$control_args = wp_parse_args( array(
+							'type'        => $field_type,
+							'input_attrs' => $input_attrs,
+						), $control_args );
 					break;
 
 				case 'select':
 						$choices      = ( isset( $args['choices'] ) ) ? $args['choices'] : array();
-						$control_args = wp_parse_args( array( 'type' => 'select', 'choices' => $choices ), $control_args );
+						$control_args = wp_parse_args( array(
+							'type'    => 'select',
+							'choices' => $choices,
+						), $control_args );
 					break;
 
 				case 'fonts':
 						$choices      = ( isset( $args['choices'] ) ) ? $args['choices'] : $this->get_fonts();
-						$control_args = wp_parse_args( array( 'type' => 'select', 'choices' => $choices ), $control_args );
+						$control_args = wp_parse_args( array(
+							'type'    => 'select',
+							'choices' => $choices,
+						), $control_args );
 					break;
 
 				case 'radio':
 						$choices      = ( isset( $args['choices'] ) ) ? $args['choices'] : array();
-						$control_args = wp_parse_args( array( 'type' => 'radio', 'choices' => $choices ), $control_args );
+						$control_args = wp_parse_args( array(
+							'type'    => 'radio',
+							'choices' => $choices,
+						), $control_args );
 					break;
 
 				case 'hex_color':

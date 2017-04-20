@@ -503,7 +503,9 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 			 * @since 1.0.0
 			 * @param array existing attributes.
 			 */
-			$img_atts = apply_filters( 'cherry_post_image_attributes', array( 'class' => $css_model['image'] ) );
+			$img_atts = apply_filters( 'cherry_post_image_attributes', array(
+				'class' => $css_model['image'],
+			) );
 
 			if ( has_post_thumbnail( $post_id ) ) {
 
@@ -552,7 +554,9 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 				$url = get_permalink( $post_id );
 			}
 
-			$data_atts = array( 'data-cherrypopup' => true );
+			$data_atts = array(
+				'data-cherrypopup' => true,
+			);
 
 			if ( false !== $args['popup_init'] ) {
 				$init                   = json_encode( $args['popup_init'] );
@@ -855,8 +859,13 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 				wp_enqueue_script( $args['popup_handle'] );
 			}
 
-			$slider_data = array( 'data-cherryslider' => true );
-			$popup_data  = array( 'data-cherrypopup' => true );
+			$slider_data = array(
+				'data-cherryslider' => true,
+			);
+
+			$popup_data = array(
+				'data-cherrypopup' => true,
+			);
 
 			if ( false !== $args['slider'] ) {
 				$slider_data['data-slider'] = $args['slider'];
@@ -897,7 +906,9 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 				 */
 				$img_atts = apply_filters(
 					'cherry_post_gallery_image_attributes',
-					array( 'class' => $css_model['image'] ),
+					array(
+						'class' => $css_model['image'],
+					),
 					$img
 				);
 
@@ -926,7 +937,9 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 						$width = $_wp_additional_image_sizes[ $args['size'] ]['width'];
 					}
 
-					$default_atts = array( 'width' => $width );
+					$default_atts = array(
+						'width' => $width,
+					);
 					$img_atts     = array_merge( $default_atts, $img_atts );
 					$thumb        = sprintf( '<img src="%s" %s>', esc_url( $img ), $this->prepare_atts( $img_atts ) );
 					$url          = $img;
@@ -940,7 +953,9 @@ if ( ! class_exists( 'Cherry_Post_Formats_Api' ) ) {
 				}
 
 				$slide_atts = $this->prepare_atts(
-					array_merge( array( 'class' => $css_model['link'] . $nth_class ), $popup_data )
+					array_merge( array(
+						'class' => $css_model['link'] . $nth_class,
+					), $popup_data )
 				);
 
 				$slide_content = sprintf( $format, $image, $caption, $url, $slide_atts );

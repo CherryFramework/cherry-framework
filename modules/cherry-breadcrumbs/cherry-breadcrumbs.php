@@ -739,8 +739,10 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			/* Display terms for specific post type taxonomy if requested. */
 			$this->add_post_terms( $post_id );
 
+			$post_title = single_post_title( '', false );
+
 			/* End with the post title. */
-			if ( $post_title = single_post_title( '', false ) ) {
+			if ( $post_title ) {
 
 				if ( 1 < get_query_var( 'page' ) ) {
 
@@ -1132,7 +1134,10 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 					'link_format',
 					$week,
 					add_query_arg(
-						array( 'm' => get_the_time( 'Y' ), 'w' => get_the_time( 'W' ) ),
+						array(
+							'm' => get_the_time( 'Y' ),
+							'w' => get_the_time( 'W' ),
+						),
 						esc_url( home_url( '/' ) )
 					)
 				);

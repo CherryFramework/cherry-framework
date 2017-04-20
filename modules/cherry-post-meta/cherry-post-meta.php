@@ -165,7 +165,9 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 					$columns = array_merge(
 						$columns_before,
-						array( $column_key => $column_data['label'] ),
+						array(
+							$column_key => $column_data['label'],
+						),
 						$columns_after
 					);
 				} else {

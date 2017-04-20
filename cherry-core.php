@@ -6,7 +6,7 @@
  * @package    Cherry_Framework
  * @subpackage Class
  * @author     Cherry Team <cherryframework@gmail.com>
- * @copyright  Copyright (c) 2012 - 2017, Cherry Team
+ * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
  * @license    http://www.gnu.org/licenses/gpl-3.0.en.html
  */
@@ -122,9 +122,11 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 				$path     = $this->get_module_path( $module );
 
 				if ( ! array_key_exists( $module, self::$all_modules ) ) {
-					self::$all_modules[ $module ] = array( $priority => $path );
-				} else {
+					self::$all_modules[ $module ] = array(
+						$priority => $path,
+					);
 
+				} else {
 					$old_priority = array_keys( self::$all_modules[ $module ] );
 
 					if ( ! is_array( $old_priority ) || ! isset( $old_priority[0] ) ) {
@@ -137,7 +139,9 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 						continue;
 					}
 
-					self::$all_modules[ $module ] = array( $priority => $path );
+					self::$all_modules[ $module ] = array(
+						$priority => $path,
+					);
 				}
 			}
 
@@ -304,7 +308,9 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 				return false;
 			}
 
-			return $this->modules[ $module ] = call_user_func( array( $class_name, 'get_instance' ), $this, $args );
+			$this->modules[ $module ] = call_user_func( array( $class_name, 'get_instance' ), $this, $args );
+
+			return $this->modules[ $module ];
 		}
 
 		/**
