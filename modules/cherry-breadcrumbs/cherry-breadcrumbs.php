@@ -2,7 +2,7 @@
 /**
  * Module Name: Breadcrumb Trail
  * Description: A breadcrumb menu script for WordPress
- * Version: 1.1.3
+ * Version: 1.1.4
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -334,23 +334,10 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		 * @since 1.0.0
 		 */
 		public function default_labels() {
-			$page_on_front_id = get_option( 'page_on_front' );
-			$use_custom_front_title = 'true';
-			$use_custom_front_title = ( 'true' == $use_custom_front_title ) ? true : false;
-
-			if ( $page_on_front_id ) {
-				$page_on_front_title = get_the_title( $page_on_front_id );
-			}
-
-			if ( $use_custom_front_title ) {
-				$default = esc_html__( 'Home', 'cherry-framework' );
-				$page_on_front_title = $default;
-				$page_on_front_title = $this->prepare_label( $page_on_front_title, $default );
-			}
 
 			$labels = array(
 				'browse'              => esc_html__( 'Browse:', 'cherry-framework' ),
-				'home'                => $page_on_front_title,
+				'home'                => $this->home_title(),
 				'error_404'           => esc_html__( '404 Not Found', 'cherry-framework' ),
 				'archives'            => esc_html__( 'Archives', 'cherry-framework' ),
 				'search'              => esc_html__( 'Search results for &#8220;%s&#8221;', 'cherry-framework' ),
@@ -367,6 +354,33 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			);
 
 			return $labels;
+		}
+
+		/**
+		 * Returns home title
+		 *
+		 * @return string
+		 */
+		public function home_title() {
+
+			$title            = esc_html__( 'Home', 'cherry-framework' );
+			$use_custom_title = apply_filters( 'cherry_breadcrumbs_custom_home_title', true );
+
+			if ( $use_custom_title ) {
+
+				$page_on_front_id = get_option( 'page_on_front' );
+				$page_title       = false;
+
+				if ( $page_on_front_id ) {
+					$page_title = get_the_title( $page_on_front_id );
+				}
+
+				if ( ! empty( $page_title ) ) {
+					$title = $page_title;
+				}
+			}
+
+			return $this->prepare_label( $title );
 		}
 
 		/**
