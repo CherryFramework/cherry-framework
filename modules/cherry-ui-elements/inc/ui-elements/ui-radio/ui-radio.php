@@ -38,7 +38,9 @@ if ( ! class_exists( 'UI_Radio' ) ) {
 					'img_src' => '',
 					'slave'   => '',
 					'lock'    => array(
-						'label' => ''
+						'label' => '',
+						'url'   => '',
+						'icon'  => '',
 					),
 				),
 				'radio-2' => array(
@@ -93,8 +95,19 @@ if ( ! class_exists( 'UI_Radio' ) ) {
 					}
 					$html .= '<div class="cherry-radio-group">';
 						foreach ( $this->settings['options'] as $option => $option_value ) {
-							$input_lock = ( ! empty( $option_value['lock'] ) ) ? 'disabled' : '' ;
-							$lock_lable = ! empty( $option_value['lock']['label'] )? sprintf('<div class="cherry-lock-label">%1$s</div>', $option_value['lock']['label'] ) : '' ;
+							$lock_html = '';
+							$input_lock = '' ;
+							if ( ! empty( $option_value['lock'] ) ){
+								$input_lock = 'disabled';
+								$default_attr = array(
+									'label' => esc_html__( 'Unlocked in PRO', 'cherry-framework' ),
+									'url'   => esc_url('#'),
+									'icon'  => '<i class="fa fa-unlock-alt" aria-hidden="true"></i>',
+								);
+								$lock_attr = is_array( $option_value['lock'] ) ? wp_parse_args( $option_value['lock'], $default_attr ) : $default_attr ;
+
+								$lock_html = sprintf( '<a class="cherry-lock__area" target="_blanl" href="%1$s" alt="%3$s"><span class="cherry-lock__label">%2$s %3$s</span></a>', esc_url( $lock_attr['url'] ), $lock_attr['icon'], esc_attr( $lock_attr['label'] ) );
+							}
 
 							$checked    = $option == $this->settings['value'] ? ' checked' : '';
 							$radio_id   = $this->settings['id'] . '-' . $option;
@@ -105,9 +118,8 @@ if ( ! class_exists( 'UI_Radio' ) ) {
 
 							$html .= '<div class="' . $class_box . '">';
 							$html .= '<input type="radio" id="' . esc_attr( $radio_id ) . '" class="cherry-radio-input" name="' . esc_attr( $this->settings['name'] ) . '" ' . checked( $option, $this->settings['value'], false ) . ' value="' . esc_attr( $option ) . '"' . $data_slave . ' ' . $input_lock . '/>';
-								$label_content = $img . $option_value['label'];
-							$html .= '<label for="' . esc_attr( $radio_id ) . '">' . $label_content . '</label> ';
-							$html .= $lock_lable;
+							$label_content = $img . $option_value['label'];
+							$html .= '<label for="' . esc_attr( $radio_id ) . '"><span class="cherry-lable-content">' . $label_content . '</span>' . $lock_html . '</label> ';
 							$html .= '</div>';
 						}
 						$html .= '<div class="clear"></div>';

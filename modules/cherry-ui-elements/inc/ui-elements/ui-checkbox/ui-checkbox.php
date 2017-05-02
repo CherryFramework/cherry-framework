@@ -95,8 +95,19 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 
 						$checked = ( ! empty( $option_checked ) && 'true' === $item_value ) ? 'checked' : '';
 
-						$input_lock = ( ! empty( $option_value['lock'] ) ) ? 'disabled' : '' ;
-						$lock_lable = ! empty( $option_value['lock']['label'] )? sprintf('<div class="cherry-lock-label">%1$s</div>', $option_value['lock']['label'] ) : '' ;
+						$lock_html = '';
+						$input_lock = '' ;
+						if ( ! empty( $option_value['lock'] ) ){
+							$input_lock = 'disabled';
+							$default_attr = array(
+								'label' => esc_html__( 'Unlocked in PRO', 'cherry-framework' ),
+								'url'   => esc_url('#'),
+								'icon'  => '<i class="fa fa-unlock-alt" aria-hidden="true"></i>',
+							);
+							$lock_attr = is_array( $option_value['lock'] ) ? wp_parse_args( $option_value['lock'], $default_attr ) : $default_attr ;
+
+							$lock_html = sprintf( '<a class="cherry-lock__area" target="_blanl" href="%1$s" alt="%3$s"><span class="cherry-lock__label">%2$s %3$s</span></a>', esc_url( $lock_attr['url'] ), $lock_attr['icon'], esc_attr( $lock_attr['label'] ) );
+						}
 
 						$option_label = isset( $option_value ) && is_array( $option_value ) ? $option_value['label'] : $option_value;
 						$data_slave = isset( $option_value['slave'] ) && ! empty( $option_value['slave'] ) ? ' data-slave="' . $option_value['slave'] . '"' : '';
@@ -104,8 +115,7 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 						$html .= '<div class="cherry-checkbox-item-wrap">';
 							$html .= '<input type="hidden" id="' . esc_attr( $this->settings['id'] ) . '-' . $counter . '" class="cherry-checkbox-input" name="' . esc_attr( $this->settings['name'] ) . '[' . $option . ']" ' . $checked . ' value="' . esc_html( $item_value ) . '"' . $data_slave . ' ' . $input_lock . '>';
 							$html .= '<div class="cherry-checkbox-item"><span class="marker dashicons dashicons-yes"></span></div>';
-							$html .= '<label class="cherry-checkbox-label" for="' . esc_attr( $this->settings['id'] ) . '-' . $counter . '">' . esc_html( $option_label ) . '</label> ';
-						$html .= $lock_lable;
+							$html .= '<label class="cherry-checkbox-label" for="' . esc_attr( $this->settings['id'] ) . '-' . $counter . '"><span class="cherry-lable-content">' . esc_html( $option_label ) . '</span>' . $lock_html . '</label> ';
 						$html .= '</div>';
 
 						$counter++;

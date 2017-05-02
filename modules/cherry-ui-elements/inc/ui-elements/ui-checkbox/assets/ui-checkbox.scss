@@ -1,5 +1,6 @@
 @import "ui-kit/variables";
 @import "ui-kit/mixins";
+@import "../../../../assets/sass/lock";
 
 .cherry-ui-container{
 	margin: 10px 0 20px 0;
@@ -49,12 +50,7 @@ label.cherry-label{
 			}
 		}
 	}
-	&[disabled] ~ .cherry-checkbox-item, &[disabled] ~ label{
-		opacity: 0.5;
-		cursor: no-drop;
-		pointer-events: none;
-		filter: grayscale( 100% );
-	}
+	@extend .cherry-lock__disabled;
 }
 .cherry-checkbox-label{
 	display: inline-block;
