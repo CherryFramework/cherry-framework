@@ -36,6 +36,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 			'size'         => 1,
 			'inline_style' => 'width: 100%',
 			'value'        => 'select-8',
+			'placeholder'  => null,
 			'lock'         => false,
 			'options'      => array(
 				'select-1' => 'select 1',
