@@ -415,10 +415,14 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 				$value = isset( $instance[ $key ] ) ? $instance[ $key ] : Cherry_Toolkit::get_arg( $setting, 'value', '' );
 
 				$element          = Cherry_Toolkit::get_arg( $setting, 'element', 'control' );
-				$setting['id']    = Cherry_Toolkit::get_arg( $setting, 'id', $key );
-				$setting['name']  = Cherry_Toolkit::get_arg( $setting, 'name', $key );
+				$setting['id']    = $this->get_field_id( $key );
+				$setting['name']  = $this->get_field_name( $key );
 				$setting['type']  = Cherry_Toolkit::get_arg( $setting, 'type', '' );
 				$setting['value'] = $value;
+
+				if ( 'select' === $setting['type'] && ! isset( $setting['placeholder'] ) ) {
+					$setting['placeholder'] = '';
+				}
 
 				$register_callback = 'register_' . $element;
 
