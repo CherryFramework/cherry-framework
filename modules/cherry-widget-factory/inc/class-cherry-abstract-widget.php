@@ -420,6 +420,10 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 				$setting['type']  = Cherry_Toolkit::get_arg( $setting, 'type', '' );
 				$setting['value'] = $value;
 
+				if ( 'select' === $setting['type'] && ! isset( $setting['placeholder'] ) ) {
+					$setting['placeholder'] = '';
+				}
+
 				$register_callback = 'register_' . $element;
 
 				if ( method_exists( $this->builder, $register_callback ) ) {
