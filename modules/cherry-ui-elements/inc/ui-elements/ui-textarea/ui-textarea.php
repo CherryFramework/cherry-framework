@@ -59,9 +59,21 @@ if ( ! class_exists( 'UI_Textarea' ) ) {
 		 * @since 1.0.0
 		 */
 		public function render() {
+			$lock_html = '';
+			$input_lock = '' ;
+			if ( ! empty( $option_value['lock'] ) ){
+				$input_lock = 'disabled';
+				$default_attr = array(
+					'label' => esc_html__( 'Unlocked in PRO', 'cherry-framework' ),
+					'url'   => esc_url('#'),
+					'icon'  => '<i class="fa fa-unlock-alt" aria-hidden="true"></i>',
+				);
+				$lock_attr = is_array( $option_value['lock'] ) ? wp_parse_args( $option_value['lock'], $default_attr ) : $default_attr ;
+
+				$lock_html = sprintf( '<a class="cherry-lock__area" target="_blanl" href="%1$s" alt="%3$s"><span class="cherry-lock__label">%2$s %3$s</span></a>', esc_url( $lock_attr['url'] ), $lock_attr['icon'], esc_attr( $lock_attr['label'] ) );
+			}
+
 			$html = '';
-			$input_lock = ( ! empty( $this->settings['lock'] ) ) ? 'disabled' : '' ;
-			$lock_lable = ! empty( $this->settings['lock']['label'] )? sprintf('<div class="cherry-lock-label">%1$s</div>', $this->settings['lock']['label'] ) : '' ;
 			$class = implode( ' ',
 				array(
 					$this->settings['class'],
@@ -75,7 +87,7 @@ if ( ! class_exists( 'UI_Textarea' ) ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . $this->settings['label'] . '</label> ';
 				}
 				$html .= '<textarea id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-textarea" name="' . esc_attr( $this->settings['name'] ) . '" rows="' . esc_attr( $this->settings['rows'] ) . '" cols="' . esc_attr( $this->settings['cols'] ) . '" placeholder="' . esc_attr( $this->settings['placeholder'] ) . '" ' . $input_lock . '>' . esc_html( $this->settings['value'] ) . '</textarea>';
-				$html .= $lock_lable;
+				$html .= $lock_html;
 			$html .= '</div>';
 
 			return $html;
