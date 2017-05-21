@@ -14,7 +14,6 @@ label.cherry-label{
 }
 input.cherry-radio-input{
 	display: none;
-	@extend .cherry-lock__disabled;
 }
 .cherry-radio-item{
 	margin-bottom: 10px;

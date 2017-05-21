@@ -1,6 +1,6 @@
 <?php
 /**
- * Class lock the ui-elements
+ * Class lock the elements
  *
  * @package    Cherry_Framework
  * @subpackage Class
@@ -10,13 +10,13 @@
  * @license    http://www.gnu.org/licenses/gpl-3.0.en.html
  */
 
-// If class `Lock_Ul_Element` doesn't exists yet.
-if ( ! class_exists( 'Lock_Ul_Element' ) ) {
+// If class `Lock_Element` doesn't exists yet.
+if ( ! class_exists( 'Lock_Element' ) ) {
 
 	/**
-	 * Lock_Ul_Element class.
+	 * Lock_Element class.
 	 */
-	class Lock_Ul_Element {
+	class Lock_Element {
 
 		/**
 		 * Default settings.
@@ -30,7 +30,7 @@ if ( ! class_exists( 'Lock_Ul_Element' ) ) {
 			'url'   => '',
 			'html'  => '',
 			'icon'  => '',
-			'class' => 'cherry-ui-elements-lock',
+			'class' => 'cherry-lock-element',
 		);
 
 		/**
@@ -60,15 +60,15 @@ if ( ! class_exists( 'Lock_Ul_Element' ) ) {
 		 */
 		public function __construct( $args = array() ) {
 
-			if ( ! empty( $args ) ) {
+			if ( empty( $args ) || empty( $args['lock'] ) ) {
 				return false;
 			}
 
 			$this->element_lock           = true;
 			$this->defaults_args['label'] = esc_html__( 'Unlocked in PRO', 'cherry-framework' );
-			$this->defaults_args['html']  = apply_filters( 'cherry_lock_ui_element_html', '<a class="cherry-lock__area" target="_blanl" href="%1$s" alt="%3$s"><span class="cherry-lock__label">%2$s %3$s</span></a>' );
+			$this->defaults_args['html']  = apply_filters( 'cherry_lock_ui_element_html', '<a class="cherry-lock-element__area" target="_blanl" href="%1$s" alt="%3$s"><span class="cherry-lock-element__label">%2$s %3$s</span></a>' );
 			$this->defaults_args['icon']  = apply_filters( 'cherry_lock_ui_element_icon', '<i class="fa fa-unlock-alt" aria-hidden="true"></i>' );
-			$this->args                   = wp_parse_args( $args, $this->defaults_args );
+			$this->args                   = wp_parse_args( $args['lock'], $this->defaults_args );
 		}
 
 		/**
@@ -78,8 +78,8 @@ if ( ! class_exists( 'Lock_Ul_Element' ) ) {
 		 * @access public
 		 * @return string
 		 */
-		public function get_class() {
-			return ( $this->element_lock ) ? $this->args['class'] : '' ;
+		public function get_class( $sub_class = '' ) {
+			return ( $this->element_lock ) ? ' ' . $this->args['class'] . ' ' . $sub_class : '' ;
 		}
 
 		/**
@@ -90,7 +90,7 @@ if ( ! class_exists( 'Lock_Ul_Element' ) ) {
 		 * @return string
 		 */
 		public function get_disabled_attr() {
-			return ( $this->element_lock ) ? 'disabled' : '' ;
+			return ( $this->element_lock ) ? ' disabled' : '' ;
 		}
 
 		/**
@@ -101,7 +101,7 @@ if ( ! class_exists( 'Lock_Ul_Element' ) ) {
 		 * @return string
 		 */
 		public function get_html() {
-			return ( $this->element_lock ) ? sprintf( $this->args['html'], esc_url( $this->args['url'] ), $this->args['icon'], esc_attr( $this->args['label'] ) ); : '' ;
+			return ( $this->element_lock ) ? sprintf( $this->args['html'], esc_url( $this->args['url'] ), $this->args['icon'], esc_attr( $this->args['label'] ) ) : '' ;
 		}
 	}
 }

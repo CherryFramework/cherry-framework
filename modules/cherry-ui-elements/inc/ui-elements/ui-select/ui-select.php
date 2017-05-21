@@ -69,13 +69,23 @@ if ( ! class_exists( 'UI_Select' ) ) {
 		);
 
 		/**
+		 * Instance of this Lock_Ul_Element class.
+		 *
+		 * @since 1.0.0
+		 * @var object
+		 * @access private
+		 */
+		private $lock_element = null;
+
+		/**
 		 * Constructor method for the UI_Select class.
 		 *
 		 * @since 1.0.0
 		 */
 		function __construct( $args = array() ) {
 			$this->defaults_settings['id'] = 'cherry-ui-select-' . uniqid();
-			$this->settings = wp_parse_args( $args, $this->defaults_settings );
+			$this->settings                = wp_parse_args( $args, $this->defaults_settings );
+			$this->lock_element            = new Lock_Element( $this->settings );
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
 		}
@@ -87,77 +97,75 @@ if ( ! class_exists( 'UI_Select' ) ) {
 		 */
 		public function render() {
 			$html = '';
-			$input_lock = ( ! empty( $this->settings['lock'] ) ) ? 'disabled' : '' ;
-			$lock_lable = ! empty( $this->settings['lock']['label'] )? sprintf('<div class="cherry-lock-label">%1$s</div>', $this->settings['lock']['label'] ) : '' ;
 			$class = implode( ' ',
 				array(
 					$this->settings['class'],
 					$this->settings['master'],
-					( $input_lock ) ? 'cherry-ui-elements-lock' : '' ,
 				)
 			);
 
 			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
+				$html .= '<div class="cherry-ui-select-wrapper' . $this->lock_element->get_class() .'">';
+					( $this->settings['filter'] ) ? $filter_state = 'data-filter="true"' : $filter_state = 'data-filter="false"' ;
 
-				( $this->settings['filter'] ) ? $filter_state = 'data-filter="true"' : $filter_state = 'data-filter="false"' ;
+					( $this->settings['multiple'] ) ? $multi_state = 'multiple="multiple"' : $multi_state = '' ;
+					( $this->settings['multiple'] ) ? $name = $this->settings['name'] . '[]' : $name = $this->settings['name'] ;
 
-				( $this->settings['multiple'] ) ? $multi_state = 'multiple="multiple"' : $multi_state = '' ;
-				( $this->settings['multiple'] ) ? $name = $this->settings['name'] . '[]' : $name = $this->settings['name'] ;
+					if ( '' !== $this->settings['label'] ) {
+						$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . $this->settings['label'] . '</label> ';
+					}
 
-				if ( '' !== $this->settings['label'] ) {
-					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . $this->settings['label'] . '</label> ';
-				}
+					$inline_style = $this->settings['inline_style'] ? 'style="' . esc_attr( $this->settings['inline_style'] ) . '"' : '' ;
 
-				$inline_style = $this->settings['inline_style'] ? 'style="' . esc_attr( $this->settings['inline_style'] ) . '"' : '' ;
+					$html .= '<select id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-select" name="' . esc_attr( $name ) . '" size="' . esc_attr( $this->settings['size'] ) . '" ' . $multi_state . ' ' . $filter_state . ' placeholder="' . $this->settings['placeholder'] . '" ' . $inline_style . $this->lock_element->get_disabled_attr(). '>';
 
-				$html .= '<select id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-select" name="' . esc_attr( $name ) . '" size="' . esc_attr( $this->settings['size'] ) . '" ' . $multi_state . ' ' . $filter_state . ' placeholder="' . $this->settings['placeholder'] . '" ' . $inline_style . ' ' . $input_lock . '>';
-
-				if ( $this->settings['options'] && ! empty( $this->settings['options'] ) && is_array( $this->settings['options'] ) ) {
-					foreach ( $this->settings['options'] as $option => $option_value ) {
-						if ( ! is_array( $this->settings['value'] ) ) {
-							$this->settings['value'] = array( $this->settings['value'] );
-						}
-						if ( false === strpos( $option, 'optgroup' ) ) {
-							$selected_state = '';
-							if ( $this->settings['value'] && ! empty( $this->settings['value'] ) ) {
-								foreach ( $this->settings['value'] as $key => $value ) {
-									$selected_state = selected( $value, $option, false );
-									if ( " selected='selected'" == $selected_state ) {
-										break;
-									}
-								}
+					if ( $this->settings['options'] && ! empty( $this->settings['options'] ) && is_array( $this->settings['options'] ) ) {
+						foreach ( $this->settings['options'] as $option => $option_value ) {
+							if ( ! is_array( $this->settings['value'] ) ) {
+								$this->settings['value'] = array( $this->settings['value'] );
 							}
-
-							if ( is_array( $option_value ) ) {
-								$lable = $option_value['label'];
-								$data  = !empty( $option_value['slave'] ) ? 'data-slave="' . $option_value['slave'] . '"' : '' ;
-							} else {
-								$lable = $option_value;
-								$data  = '';
-							}
-
-							$option_lock = ( ! empty( $option_value['lock'] ) ) ? 'disabled' : '' ;
-							$option_lable = ! empty( $option_value['lock']['label'] )? $option_value['lock']['label'] : '' ;
-
-							$html .= '<option value="' . esc_attr( $option ) . '" ' . $selected_state . ' ' . $data . ' ' . $option_lock . '>' . esc_html( $lable ) . $option_lable . '</option>';
-						} else {
-							$html .= '<optgroup label="' . esc_attr( $option_value['label'] ) . '">';
+							if ( false === strpos( $option, 'optgroup' ) ) {
 								$selected_state = '';
-								foreach ( $option_value['group_options'] as $group_item => $group_value ) {
+								if ( $this->settings['value'] && ! empty( $this->settings['value'] ) ) {
 									foreach ( $this->settings['value'] as $key => $value ) {
-										$selected_state = selected( $value, $group_item, false );
+										$selected_state = selected( $value, $option, false );
 										if ( " selected='selected'" == $selected_state ) {
 											break;
 										}
 									}
-									$html .= '<option value="' . esc_attr( $group_item ) . '" ' . $selected_state . '>' . esc_html( $group_value ) . '</option>';
 								}
-							$html .= '</optgroup>';
+
+								if ( is_array( $option_value ) ) {
+									$lable = $option_value['label'];
+									$data  = !empty( $option_value['slave'] ) ? 'data-slave="' . $option_value['slave'] . '"' : '' ;
+								} else {
+									$lable = $option_value;
+									$data  = '';
+								}
+
+								$option_lock = ( ! empty( $option_value['lock'] ) ) ? 'disabled' : '' ;
+								$option_lable = ! empty( $option_value['lock']['label'] )? $option_value['lock']['label'] : '' ;
+
+								$html .= '<option value="' . esc_attr( $option ) . '" ' . $selected_state . ' ' . $data . ' ' . $option_lock . '>' . esc_html( $lable ) . $option_lable . '</option>';
+							} else {
+								$html .= '<optgroup label="' . esc_attr( $option_value['label'] ) . '">';
+									$selected_state = '';
+									foreach ( $option_value['group_options'] as $group_item => $group_value ) {
+										foreach ( $this->settings['value'] as $key => $value ) {
+											$selected_state = selected( $value, $group_item, false );
+											if ( " selected='selected'" == $selected_state ) {
+												break;
+											}
+										}
+										$html .= '<option value="' . esc_attr( $group_item ) . '" ' . $selected_state . '>' . esc_html( $group_value ) . '</option>';
+									}
+								$html .= '</optgroup>';
+							}
 						}
 					}
-				}
-				$html .= '</select>';
-				$html .= $lock_lable;
+					$html .= '</select>';
+					$html .= $this->lock_element->get_html();
+				$html .= '</div>';
 			$html .= '</div>';
 
 			return $html;

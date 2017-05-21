@@ -43,6 +43,15 @@ if ( ! class_exists( 'UI_Stepper' ) ) {
 		);
 
 		/**
+		 * Instance of this Lock_Ul_Element class.
+		 *
+		 * @since 1.0.0
+		 * @var object
+		 * @access private
+		 */
+		private $lock_element = null;
+
+		/**
 		 * Constructor method for the UI_Stepper class.
 		 *
 		 * @since 1.0.0
@@ -50,6 +59,7 @@ if ( ! class_exists( 'UI_Stepper' ) ) {
 		function __construct( $args = array() ) {
 			$this->defaults_settings['id'] = 'cherry-ui-stepper-' . uniqid();
 			$this->settings = wp_parse_args( $args, $this->defaults_settings );
+			$this->lock_element = new Lock_Element( $this->settings );
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
 		}
@@ -68,7 +78,7 @@ if ( ! class_exists( 'UI_Stepper' ) ) {
 				array(
 					$this->settings['class'],
 					$this->settings['master'],
-					( $input_lock ) ? 'cherry-ui-elements-lock' : '' ,
+					$this->lock_element->get_class( 'inline-block' ),
 				)
 			);
 
@@ -78,9 +88,9 @@ if ( ! class_exists( 'UI_Stepper' ) ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
 				}
 				$html .= '<div class="cherry-ui-stepper">';
-					$html .= '<input type="number" id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-stepper-input" pattern="[0-5]+([\.,][0-5]+)?" name="' . esc_attr( $this->settings['name'] ) . '" value="' . esc_html( $this->settings['value'] ) . '" min="' . esc_html( $this->settings['min_value'] ) . '" max="' . esc_html( $this->settings['max_value'] ) . '" step="' . esc_html( $this->settings['step_value'] ) . '" placeholder="' . esc_attr( $this->settings['placeholder'] ) . ' ' . $input_lock . '">';
+					$html .= '<input type="number" id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-stepper-input" pattern="[0-5]+([\.,][0-5]+)?" name="' . esc_attr( $this->settings['name'] ) . '" value="' . esc_html( $this->settings['value'] ) . '" min="' . esc_html( $this->settings['min_value'] ) . '" max="' . esc_html( $this->settings['max_value'] ) . '" step="' . esc_html( $this->settings['step_value'] ) . '" placeholder="' . esc_attr( $this->settings['placeholder'] ) . $this->lock_element->get_disabled_attr() . '">';
 				$html .= '</div>';
-				$html .= $lock_lable;
+				$html .= $this->lock_element->get_html();
 			$html .= '</div>';
 
 			return $html;

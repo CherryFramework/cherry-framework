@@ -79,7 +79,6 @@ label.cherry-label{
 	}
 	.cherry-input-switcher{
 		display: none;
-		@extend .cherry-lock__disabled;
 	}
 	.cherry-input-switcher-true:checked{
 		~ .sw-enable{
