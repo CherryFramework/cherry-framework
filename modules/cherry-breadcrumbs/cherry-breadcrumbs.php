@@ -486,13 +486,14 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 		 * Add trail item int array.
 		 *
 		 * @since 1.0.0
+		 * @since 1.1.5 $prepend parameter.
 		 *
 		 * @param string $format Item format to add.
 		 * @param string $label  Item label.
 		 * @param string $url    Item URL.
 		 * @param string $class  Item CSS class.
 		 */
-		public function _add_item( $format = 'link_format', $label, $url = '', $class = '' ) {
+		public function _add_item( $format = 'link_format', $label, $url = '', $class = '', $prepend = false ) {
 
 			$title = esc_attr( wp_strip_all_tags( $label ) );
 			$css   = ( 'target_format' == $format ) ? 'target' : 'link';
@@ -503,9 +504,14 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 				$class = $this->css[ $css ];
 			}
 
-			$item = sprintf( $this->args[ $format ], $label, $class, $title, $url );
+			$item   = sprintf( $this->args[ $format ], $label, $class, $title, $url );
+			$result = sprintf( $this->args['item_format'], $item, esc_attr( $this->css['item'] ) );
 
-			$this->items[] = sprintf( $this->args['item_format'], $item, esc_attr( $this->css['item'] ) );
+			if ( true === $prepend ) {
+				array_unshift( $this->items, $result );
+			} else {
+				$this->items[] = $result;
+			}
 
 			if ( 'target_format' == $format ) {
 				$this->page_title = $label;
