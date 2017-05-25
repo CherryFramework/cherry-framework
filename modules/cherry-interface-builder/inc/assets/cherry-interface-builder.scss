@@ -1,4 +1,5 @@
 $color-1: #fff; // Background color.
+$widget-bg: #495159; // Background color in widgets.
 $color-2: #efefef; // Background color.
 $color-3: #96989a; // Description color and tabs button text color.
 $color-4: #b4b7ba; //
@@ -202,6 +203,10 @@ html{
 			background: none;
 			cursor: pointer;
 			position: relative;
+			.widget &{
+				background-color: $widget-bg;
+				color: $color-1;
+			}
 			.cherry-toggle__title {
 				font-weight: 700;
 				font-size: 14px;
@@ -221,6 +226,9 @@ html{
 				height: 9px;
 				text-align: left;
 				overflow: hidden;
+				.widget &{
+					color: $color-1;
+				}
 				&.hide-icon{
 					&:before{
 						position: relative;
@@ -264,6 +272,12 @@ html{
 				box-shadow:$shadow;
 				border-radius: $br-radius;
 				border: $border;
+				.widget &{
+					box-shadow:none;
+					border-radius: 0;
+					border-left: 0;
+					border-right: 0;
+				}
 			}
 		}
 	}
@@ -382,6 +396,15 @@ html{
 			}
 		}
 	}
+	.widget &{
+		padding: 0;
+		&__content{
+			margin: 0 $margin * -1.5 $margin * 2;
+			.cherry-control{
+				padding: $padding * 1.5 $padding * 2;
+			}
+		}
+	}
 }
 .cherry-settings{
 	& + & {
@@ -427,6 +450,19 @@ html{
 	}
 	@media ( min-width: 961px ) {
 		padding: $padding * 3;
+	}
+	.widget & {
+		padding: $padding * 1.5 0;
+		flex-direction: column;
+		&__content{
+			-webkit-box-flex: 0;
+			flex: 0 1 100%;
+		}
+		&__info{
+			-webkit-box-flex: 0;
+			flex: 0 1 100%;
+			padding-right: 0;
+		}
 	}
 }
 
