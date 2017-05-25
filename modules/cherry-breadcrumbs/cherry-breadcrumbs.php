@@ -2,7 +2,7 @@
 /**
  * Module Name: Breadcrumb Trail
  * Description: A breadcrumb menu script for WordPress
- * Version: 1.1.4
+ * Version: 1.1.5
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -469,12 +469,16 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			$this->add_paged_items();
 
 			/**
-			 * Filter final item array
+			 * Filter final items array
 			 *
 			 * @since 1.0.0
-			 * @var   array
+			 * @since 1.1.5 Added 3rd parameter $this.
+			 *
+			 * @param array $this->items Current items array.
+			 * @param array $this->args  Current instance arguments array.
+			 * @param array $this        Current instance.
 			 */
-			$this->items = apply_filters( 'cherry_breadcrumbs_items', $this->items, $this->args );
+			$this->items = apply_filters( 'cherry_breadcrumbs_items', $this->items, $this->args, $this );
 
 		}
 
