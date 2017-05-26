@@ -61,7 +61,7 @@ if ( ! class_exists( 'UI_Radio' ) ) {
 		);
 
 		/**
-		 * Instance of this Lock_Ul_Element class.
+		 * Instance of this Cherry5_Lock_Element class.
 		 *
 		 * @since 1.0.0
 		 * @var object
@@ -77,7 +77,7 @@ if ( ! class_exists( 'UI_Radio' ) ) {
 		function __construct( $args = array() ) {
 			$this->defaults_settings['id'] = 'cherry-ui-radio-' . uniqid();
 			$this->settings = wp_parse_args( $args, $this->defaults_settings );
-			$this->lock_element = new Cherry_Lock_Element( $this->settings );
+			$this->lock_element = new Cherry5_Lock_Element( $this->settings );
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
 
@@ -106,7 +106,7 @@ if ( ! class_exists( 'UI_Radio' ) ) {
 					}
 					$html .= '<div class="cherry-radio-group">';
 						foreach ( $this->settings['options'] as $option => $option_value ) {
-							$lock_option = new Cherry_Lock_Element( $option_value );
+							$lock_option = new Cherry5_Lock_Element( $option_value );
 
 							$checked    = $option == $this->settings['value'] ? ' checked' : '';
 							$radio_id   = $this->settings['id'] . '-' . $option;

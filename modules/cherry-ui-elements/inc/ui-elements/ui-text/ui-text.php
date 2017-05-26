@@ -42,7 +42,7 @@ if ( ! class_exists( 'UI_Text' ) ) {
 		);
 
 		/**
-		 * Instance of this Lock_Ul_Element class.
+		 * Instance of this Cherry5_Lock_Element class.
 		 *
 		 * @since 1.0.0
 		 * @var object
@@ -58,7 +58,7 @@ if ( ! class_exists( 'UI_Text' ) ) {
 		function __construct( $args = array() ) {
 			$this->defaults_settings['id'] = 'cherry-ui-input-text-' . uniqid();
 			$this->settings = wp_parse_args( $args, $this->defaults_settings );
-			$this->lock_element = new Cherry_Lock_Element( $this->settings );
+			$this->lock_element = new Cherry5_Lock_Element( $this->settings );
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
 		}

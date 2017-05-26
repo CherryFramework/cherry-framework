@@ -10,33 +10,27 @@
  * @license    http://www.gnu.org/licenses/gpl-3.0.en.html
  */
 
-// If class `Cherry_Lock_Element` doesn't exists yet.
-if ( ! class_exists( 'Cherry_Lock_Element' ) ) {
+// If class `Cherry5_Lock_Element` doesn't exists yet.
+if ( ! class_exists( 'Cherry5_Lock_Element' ) ) {
 
 	/**
-	 * Cherry_Lock_Element class.
+	 * Cherry5_Lock_Element class.
 	 */
-	class Cherry_Lock_Element {
+	class Cherry5_Lock_Element {
 
 		/**
 		 * Default settings.
 		 *
-		 * @since 1.0.0
+		 * @since 1.4.3
 		 * @access private
 		 * @var array
 		 */
-		private $defaults_args = array(
-			'label' => '',
-			'url'   => '',
-			'html'  => '',
-			'icon'  => '',
-			'class' => 'cherry-lock-element',
-		);
+		private $defaults_args;
 
 		/**
 		 * The attributes of the class.
 		 *
-		 * @since 1.0.0
+		 * @since 1.4.3
 		 * @access private
 		 * @var array
 		 */
@@ -45,7 +39,7 @@ if ( ! class_exists( 'Cherry_Lock_Element' ) ) {
 		/**
 		 * The status of locked element.
 		 *
-		 * @since 1.0.0
+		 * @since 1.4.3
 		 * @access private
 		 * @var   boolean
 		 */
@@ -65,9 +59,14 @@ if ( ! class_exists( 'Cherry_Lock_Element' ) ) {
 			}
 
 			$this->element_lock           = true;
-			$this->defaults_args['label'] = esc_html__( 'Unlocked in PRO', 'cherry-framework' );
-			$this->defaults_args['html']  = apply_filters( 'cherry_lock_ui_element_html', '<a class="cherry-lock-element__area" target="_blanl" href="%1$s" alt="%3$s"><span class="cherry-lock-element__label">%2$s %3$s</span></a>' );
-			$this->defaults_args['icon']  = apply_filters( 'cherry_lock_ui_element_icon', '<i class="fa fa-unlock-alt" aria-hidden="true"></i>' );
+
+			$this->defaults_args = apply_filters( 'cherry5_lock_element-defaults', array(
+				'label' => esc_html__( 'Unlocked in PRO', 'cherry-framework' ),
+				'url'   => '#',
+				'html'  => '<a class="cherry-lock-element__area" target="_blanl" href="%1$s" alt="%3$s"><span class="cherry-lock-element__label">%2$s %3$s</span></a>',
+				'icon'  => '<i class="fa fa-unlock-alt" aria-hidden="true"></i>',
+				'class' => 'cherry-lock-element',
+			) );
 			$this->args                   = wp_parse_args( $args['lock'], $this->defaults_args );
 		}
 
