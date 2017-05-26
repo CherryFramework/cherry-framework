@@ -109,10 +109,15 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 						$option_label = isset( $option_value ) && is_array( $option_value ) ? $option_value['label'] : $option_value;
 						$data_slave   = isset( $option_value['slave'] ) && ! empty( $option_value['slave'] ) ? ' data-slave="' . $option_value['slave'] . '"' : '';
 
-						$html .= '<div class="cherry-checkbox-item-wrap' . $lock_option->get_class() . '">';
-							$html .= '<input type="hidden" id="' . esc_attr( $this->settings['id'] ) . '-' . $counter . '" class="cherry-checkbox-input" name="' . esc_attr( $this->settings['name'] ) . '[' . $option . ']" ' . $checked . ' value="' . esc_html( $item_value ) . '"' . $data_slave . $lock_option->get_disabled_attr() . '>';
-							$html .= '<div class="cherry-checkbox-item"><span class="marker dashicons dashicons-yes"></span></div>';
-							$html .= '<label class="cherry-checkbox-label" for="' . esc_attr( $this->settings['id'] ) . '-' . $counter . '"><span class="cherry-lable-content">' . esc_html( $option_label ) . '</span>' . $lock_option->get_html() . '</label> ';
+						$html .= '<div class="cherry-checkbox-item-wrap">';
+							$html .= '<span class="' . $lock_option->get_class( 'inline-block' ) . '"">';
+									$html .= '<span class="cherry-lable-content">';
+									$html .= '<input type="hidden" id="' . esc_attr( $this->settings['id'] ) . '-' . $counter . '" class="cherry-checkbox-input" name="' . esc_attr( $this->settings['name'] ) . '[' . $option . ']" ' . $checked . ' value="' . esc_html( $item_value ) . '"' . $data_slave . $lock_option->get_disabled_attr() . '>';
+									$html .= '<div class="cherry-checkbox-item"><span class="marker dashicons dashicons-yes"></span></div>';
+									$html .= '<label class="cherry-checkbox-label" for="' . esc_attr( $this->settings['id'] ) . '-' . $counter . '"><span class="cherry-lable-content">' . esc_html( $option_label ) . '</span></label> ';
+									$html .= '</span>';
+								$html .= $lock_option->get_html();
+							$html .= '</span>';
 						$html .= '</div>';
 
 						$counter++;

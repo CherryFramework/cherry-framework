@@ -60,7 +60,7 @@ if ( ! class_exists( 'Cherry_Lock_Element' ) ) {
 		 */
 		public function __construct( $args = array() ) {
 
-			if ( empty( $args ) || empty( $args['lock'] ) ) {
+			if ( ! is_array( $args ) || empty( $args ) || empty( $args['lock'] ) ) {
 				return false;
 			}
 

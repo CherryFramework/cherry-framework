@@ -95,11 +95,11 @@ if ( ! class_exists( 'UI_Switcher' ) ) {
 				$html .= '<div class="cherry-switcher-wrap size-' . esc_attr( $this->settings['style'] ) . '" ' . $master_true . '>';
 					$html .= '<input type="radio" id="' . esc_attr( $this->settings['id'] ) . '-true" class="cherry-input-switcher cherry-input-switcher-true" name="' . esc_attr( $this->settings['name'] ) . '" ' . checked( true, $value, false ) . ' value="true" ' . $data_slave_true . ' ' . $this->lock_element->get_disabled_attr() . '>';
 					$html .= '<input type="radio" id="' . esc_attr( $this->settings['id'] ) . '-false" class="cherry-input-switcher cherry-input-switcher-false" name="' . esc_attr( $this->settings['name'] ) . '" ' . checked( false, $value, false ) . ' value="false" ' . $data_slave_false . ' ' . $this->lock_element->get_disabled_attr() . '>';
-					$html .= '<span class="cherry-lable-content">';
+					//$html .= '<span class="cherry-lable-content">';
 					$html .= '<label class="sw-enable"><span>' . esc_html( $this->settings['toggle']['true_toggle'] ) . '</span></label>';
 					$html .= '<label class="sw-disable"><span>' . esc_html( $this->settings['toggle']['false_toggle'] ) . '</span></label>';
 					$html .= '<span class="state-marker"></span>';
-					$html .= '</span>';
+				//	$html .= '</span>';
 				$html .= '</div>';
 				$html .= $this->lock_element->get_html();
 			$html .= '</div>';

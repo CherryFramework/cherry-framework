@@ -121,14 +121,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 
 					if ( $this->settings['options'] && ! empty( $this->settings['options'] ) && is_array( $this->settings['options'] ) ) {
 						foreach ( $this->settings['options'] as $option => $option_value ) {
-
-							if ( is_array( $option_value ) && ! empty( $option_value['lock'] ) ) {
-								$option_lock = 'disabled';
-								$option_lable = ( ! empty( $option_value['lock']['label'] ) ) ? ' - ' . $option_value['lock']['label'] : '' ;
-							}else{
-								$option_lock = '';
-								$option_lable = '';
-							}
+							$lock_element = new Cherry_Lock_Element( $option_value );
 
 							if ( ! is_array( $this->settings['value'] ) ) {
 								$this->settings['value'] = array( $this->settings['value'] );
@@ -153,7 +146,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 									$data  = '';
 								}
 
-								$html .= '<option value="' . esc_attr( $option ) . '" ' . $selected_state . ' ' . $data . ' ' . $option_lock . '>' . esc_html( $lable . $option_lable )  . '</option>';
+								$html .= '<option value="' . esc_attr( $option ) . '" ' . $selected_state . ' ' . $data . ' ' . $lock_element->get_disabled_attr() . '>' . esc_html( $lable ) . '</option>';
 							} else {
 								$html .= '<optgroup label="' . esc_attr( $option_value['label'] ) . '">';
 									$selected_state = '';
@@ -164,7 +157,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 												break;
 											}
 										}
-										$html .= '<option value="' . esc_attr( $group_item ) . '" ' . $selected_state . ' ' . $option_lock . '>' . esc_html( $group_value . $option_lable ) . '</option>';
+										$html .= '<option value="' . esc_attr( $group_item ) . '" ' . $selected_state . ' ' . $lock_element->get_disabled_attr() . '>' . esc_html( $group_value ) . '</option>';
 									}
 								$html .= '</optgroup>';
 							}
