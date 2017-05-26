@@ -85,7 +85,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 		function __construct( $args = array() ) {
 			$this->defaults_settings['id'] = 'cherry-ui-select-' . uniqid();
 			$this->settings                = wp_parse_args( $args, $this->defaults_settings );
-			$this->lock_element            = new Lock_Element( $this->settings );
+			$this->lock_element            = new Cherry_Lock_Element( $this->settings );
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
 		}
@@ -121,9 +121,19 @@ if ( ! class_exists( 'UI_Select' ) ) {
 
 					if ( $this->settings['options'] && ! empty( $this->settings['options'] ) && is_array( $this->settings['options'] ) ) {
 						foreach ( $this->settings['options'] as $option => $option_value ) {
+
+							if ( is_array( $option_value ) && ! empty( $option_value['lock'] ) ) {
+								$option_lock = 'disabled';
+								$option_lable = ( ! empty( $option_value['lock']['label'] ) ) ? ' - ' . $option_value['lock']['label'] : '' ;
+							}else{
+								$option_lock = '';
+								$option_lable = '';
+							}
+
 							if ( ! is_array( $this->settings['value'] ) ) {
 								$this->settings['value'] = array( $this->settings['value'] );
 							}
+
 							if ( false === strpos( $option, 'optgroup' ) ) {
 								$selected_state = '';
 								if ( $this->settings['value'] && ! empty( $this->settings['value'] ) ) {
@@ -143,10 +153,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 									$data  = '';
 								}
 
-								$option_lock = ( ! empty( $option_value['lock'] ) ) ? 'disabled' : '' ;
-								$option_lable = ! empty( $option_value['lock']['label'] )? $option_value['lock']['label'] : '' ;
-
-								$html .= '<option value="' . esc_attr( $option ) . '" ' . $selected_state . ' ' . $data . ' ' . $option_lock . '>' . esc_html( $lable ) . $option_lable . '</option>';
+								$html .= '<option value="' . esc_attr( $option ) . '" ' . $selected_state . ' ' . $data . ' ' . $option_lock . '>' . esc_html( $lable . $option_lable )  . '</option>';
 							} else {
 								$html .= '<optgroup label="' . esc_attr( $option_value['label'] ) . '">';
 									$selected_state = '';
@@ -157,7 +164,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 												break;
 											}
 										}
-										$html .= '<option value="' . esc_attr( $group_item ) . '" ' . $selected_state . '>' . esc_html( $group_value ) . '</option>';
+										$html .= '<option value="' . esc_attr( $group_item ) . '" ' . $selected_state . ' ' . $option_lock . '>' . esc_html( $group_value . $option_lable ) . '</option>';
 									}
 								$html .= '</optgroup>';
 							}
