@@ -111,7 +111,7 @@ if ( ! class_exists( 'UI_Select' ) ) {
 
 				$inline_style = $this->settings['inline_style'] ? 'style="' . esc_attr( $this->settings['inline_style'] ) . '"' : '' ;
 
-				$html .= '<select id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-select" name="' . esc_attr( $name ) . '" size="' . esc_attr( $this->settings['size'] ) . '" ' . $multi_state . ' ' . $filter_state . ' placeholder="' . $this->settings['placeholder'] . '" ' . $inline_style . ' ' . $input_lock . '>';
+				$html .= '<select id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-select" name="' . esc_attr( $name ) . '" size="' . esc_attr( $this->settings['size'] ) . '" ' . $multi_state . ' ' . $filter_state . ' data-placeholder="' . esc_attr( $this->settings['placeholder'] ) . '" ' . $inline_style . ' ' . $input_lock . '>';
 
 				if ( $this->settings['options'] && ! empty( $this->settings['options'] ) && is_array( $this->settings['options'] ) ) {
 					foreach ( $this->settings['options'] as $option => $option_value ) {
