@@ -25,7 +25,7 @@ if ( ! class_exists( 'Cherry5_Lock_Element' ) ) {
 		 * @access private
 		 * @var array
 		 */
-		private $defaults_args;
+		private $defaults_args = array();
 
 		/**
 		 * The attributes of the class.
@@ -41,14 +41,14 @@ if ( ! class_exists( 'Cherry5_Lock_Element' ) ) {
 		 *
 		 * @since 1.4.3
 		 * @access private
-		 * @var   boolean
+		 * @var bool
 		 */
 		private $element_lock = false;
 
 		/**
 		 * Constructor method for the class.
 		 *
-		 * @since  1.0.0
+		 * @since 1.4.3
 		 * @access public
 		 * @return void
 		 */
@@ -58,49 +58,71 @@ if ( ! class_exists( 'Cherry5_Lock_Element' ) ) {
 				return false;
 			}
 
-			$this->element_lock           = true;
-
-			$this->defaults_args = apply_filters( 'cherry5_lock_element-defaults', array(
+			$this->element_lock  = true;
+			$this->defaults_args = apply_filters( 'cherry5_lock_element_defaults', array(
 				'label' => esc_html__( 'Unlocked in PRO', 'cherry-framework' ),
 				'url'   => '#',
 				'html'  => '<a class="cherry-lock-element__area" target="_blank" href="%1$s" title="%3$s"><span class="cherry-lock-element__label">%2$s %3$s</span></a>',
 				'icon'  => '<i class="fa fa-unlock-alt" aria-hidden="true"></i>',
 				'class' => 'cherry-lock-element',
-			) );
-			$this->args                   = wp_parse_args( $args['lock'], $this->defaults_args );
+			), $args );
+
+			$this->args = wp_parse_args( $args['lock'], $this->defaults_args );
 		}
 
 		/**
-		 * Return lock html class.
+		 * Return lock element HTML-class.
 		 *
-		 * @since  1.0.0
+		 * @since 1.4.3
 		 * @access public
 		 * @return string
 		 */
 		public function get_class( $sub_class = '' ) {
-			return ( $this->element_lock ) ? ' ' . $this->args['class'] . ' ' . $sub_class : '' ;
+
+			if ( ! $this->element_lock ) {
+				return '';
+			}
+
+			$classes = array(
+				$this->args['class'],
+				$sub_class,
+			);
+
+			$classes = array_filter( $classes );
+			$classes = array_map( 'esc_attr', $classes );
+
+			return ' ' . join( ' ', $classes );
 		}
 
 		/**
 		 * Return disabled attribute.
 		 *
-		 * @since  1.0.0
+		 * @since 1.4.3
 		 * @access public
 		 * @return string
 		 */
 		public function get_disabled_attr() {
-			return ( $this->element_lock ) ? ' disabled' : '' ;
+			return $this->element_lock ? ' disabled' : '';
 		}
 
 		/**
-		 * Return lock element html.
+		 * Return lock element HTML-markup.
 		 *
-		 * @since  1.0.0
+		 * @since 1.4.3
 		 * @access public
 		 * @return string
 		 */
 		public function get_html() {
-			return ( $this->element_lock ) ? sprintf( $this->args['html'], esc_url( $this->args['url'] ), $this->args['icon'], esc_attr( $this->args['label'] ) ) : '' ;
+
+			if ( ! $this->element_lock ) {
+				return '';
+			}
+
+			return sprintf( $this->args['html'],
+				esc_url( $this->args['url'] ),
+				$this->args['icon'],
+				esc_attr( $this->args['label'] )
+			);
 		}
 	}
 }
