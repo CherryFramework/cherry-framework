@@ -63,7 +63,7 @@ if ( ! class_exists( 'Cherry5_Lock_Element' ) ) {
 			$this->defaults_args = apply_filters( 'cherry5_lock_element-defaults', array(
 				'label' => esc_html__( 'Unlocked in PRO', 'cherry-framework' ),
 				'url'   => '#',
-				'html'  => '<a class="cherry-lock-element__area" target="_blanl" href="%1$s" alt="%3$s"><span class="cherry-lock-element__label">%2$s %3$s</span></a>',
+				'html'  => '<a class="cherry-lock-element__area" target="_blank" href="%1$s" title="%3$s"><span class="cherry-lock-element__label">%2$s %3$s</span></a>',
 				'icon'  => '<i class="fa fa-unlock-alt" aria-hidden="true"></i>',
 				'class' => 'cherry-lock-element',
 			) );
