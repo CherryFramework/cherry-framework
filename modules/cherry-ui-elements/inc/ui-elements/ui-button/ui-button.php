@@ -78,7 +78,7 @@ if ( ! class_exists( 'UI_Button' ) ) {
 				'ui-button',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-button.min.css', __FILE__ ) ),
 				array(),
-				'1.3.2',
+				self::$version,
 				'all'
 			);
 		}

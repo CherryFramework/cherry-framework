@@ -515,7 +515,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css' ) ) {
 		/**
 		 * Filter user function arguments
 		 *
-		 * @since 4.0.0
+		 * @since 1.0.0
 		 */
 		function prepare_args( $item ) {
 

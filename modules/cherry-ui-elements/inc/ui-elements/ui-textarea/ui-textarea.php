@@ -99,7 +99,7 @@ if ( ! class_exists( 'UI_Textarea' ) ) {
 				'ui-textarea',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-textarea.min.css', __FILE__ ) ),
 				array(),
-				'1.3.2',
+				self::$version,
 				'all'
 			);
 		}

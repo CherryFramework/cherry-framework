@@ -106,7 +106,7 @@ if ( ! class_exists( 'UI_Stepper' ) ) {
 				'ui-stepper-min',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-stepper.min.css', __FILE__ ) ),
 				array(),
-				'1.3.2',
+				self::$version,
 				'all'
 			);
 		}

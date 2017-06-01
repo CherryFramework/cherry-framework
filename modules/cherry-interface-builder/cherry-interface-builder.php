@@ -30,6 +30,14 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 	 * @since 1.0.0
 	 */
 	class Cherry_Interface_Builder {
+
+		/**
+		 * Module version.
+		 *
+		 * @var string
+		 */
+		public $module_version = '1.1.3';
+
 		/**
 		 * Module settings.
 		 *
@@ -444,14 +452,14 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 				'cherry-interface-builder',
 				esc_url( Cherry_Core::base_url( 'inc/assets/min/cherry-interface-builder.min.js', __FILE__ ) ),
 				array( 'jquery' ),
-				'1.0.0',
+				$this->module_version,
 				true
 			);
 			wp_enqueue_style(
 				'cherry-interface-builder',
 				esc_url( Cherry_Core::base_url( 'inc/assets/min/cherry-interface-builder.min.css', __FILE__ ) ),
 				array(),
-				'1.0.0',
+				$this->module_version,
 				'all'
 			);
 		}

@@ -98,7 +98,7 @@ if ( ! class_exists( 'UI_Colorpicker' ) ) {
 				'ui-colorpicker-min',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-colorpicker.min.js', __FILE__ ) ),
 				array( 'jquery', 'wp-color-picker' ),
-				'1.3.2',
+				self::$version,
 				true
 			);
 
@@ -106,7 +106,7 @@ if ( ! class_exists( 'UI_Colorpicker' ) ) {
 				'ui-colorpicker-min',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-colorpicker.min.css', __FILE__ ) ),
 				array( 'wp-color-picker' ),
-				'1.3.2',
+				self::$version,
 				'all'
 			);
 		}

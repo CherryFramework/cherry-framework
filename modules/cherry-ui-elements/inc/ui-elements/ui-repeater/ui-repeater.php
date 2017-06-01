@@ -248,7 +248,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 				'ui-repeater',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-repeater.min.css', __FILE__ ) ),
 				array(),
-				'1.3.2',
+				self::$version,
 				'all'
 			);
 
@@ -256,7 +256,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 				'ui-repeater',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-repeater.min.js', __FILE__ ) ),
 				array( 'wp-util', 'jquery-ui-sortable' ),
-				'1.3.2',
+				self::$version,
 				true
 			);
 

@@ -23,6 +23,16 @@ if ( ! class_exists( 'UI_Element' ) ) {
 	abstract class UI_Element {
 
 		/**
+		 * Version.
+		 *
+		 * This is a `UI Elements` module version.
+		 *
+		 * @since 1.0.1
+		 * @var string
+		 */
+		protected static $version = '1.4.3';
+
+		/**
 		 * Settings list
 		 *
 		 * @since 1.0.0

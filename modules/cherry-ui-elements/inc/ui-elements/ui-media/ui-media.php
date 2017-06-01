@@ -178,7 +178,7 @@ if ( ! class_exists( 'UI_Media' ) ) {
 					'ui-media-min',
 					esc_url( Cherry_Core::base_url( 'assets/min/ui-media.min.js', __FILE__ ) ),
 					array( 'jquery', 'jquery-ui-sortable' ),
-					'1.3.2',
+					self::$version,
 					true
 				);
 
@@ -186,7 +186,7 @@ if ( ! class_exists( 'UI_Media' ) ) {
 					'ui-media-min',
 					esc_url( Cherry_Core::base_url( 'assets/min/ui-media.min.css', __FILE__ ) ),
 					array(),
-					'1.3.2',
+					self::$version,
 					'all'
 				);
 			}

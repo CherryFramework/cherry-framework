@@ -499,7 +499,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		/**
 		 * Prepare font family for passing into typography function.
 		 *
-		 * @since  4.0.5
+		 * @since  1.0.0
 		 * @param  [string] $item Array item.
 		 * @param  [int]    $index Array item index.
 		 * @return void
