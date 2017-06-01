@@ -45,6 +45,15 @@ if ( ! class_exists( 'UI_Switcher' ) ) {
 		);
 
 		/**
+		 * Instance of this Cherry5_Lock_Element class.
+		 *
+		 * @since 1.0.0
+		 * @var object
+		 * @access private
+		 */
+		private $lock_element = null;
+
+		/**
 		 * Constructor method for the UI_Switcher class.
 		 *
 		 * @since 1.0.0
@@ -52,6 +61,7 @@ if ( ! class_exists( 'UI_Switcher' ) ) {
 		function __construct( $args = array() ) {
 			$this->defaults_settings['id'] = 'cherry-ui-swither-' . uniqid();
 			$this->settings = wp_parse_args( $args, $this->defaults_settings );
+			$this->lock_element = new Cherry5_Lock_Element( $this->settings );
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
 		}
@@ -67,13 +77,11 @@ if ( ! class_exists( 'UI_Switcher' ) ) {
 			$master_true = $data_slave_true || $data_slave_false ? 'data-master="true"' : '' ;
 
 			$html = '';
-			$input_lock = ( ! empty( $this->settings['lock'] ) ) ? 'disabled' : '' ;
-			$lock_lable = ! empty( $this->settings['lock']['label'] )? sprintf('<div class="cherry-lock-label">%1$s</div>', $this->settings['lock']['label'] ) : '' ;
 			$class = implode( ' ',
 				array(
 					$this->settings['class'],
 					$this->settings['master'],
-					( $input_lock ) ? 'cherry-ui-elements-lock' : '' ,
+					$this->lock_element->get_class( 'inline-block' ),
 				)
 			);
 
@@ -85,13 +93,15 @@ if ( ! class_exists( 'UI_Switcher' ) ) {
 				$value = filter_var( $this->settings['value'], FILTER_VALIDATE_BOOLEAN );
 
 				$html .= '<div class="cherry-switcher-wrap size-' . esc_attr( $this->settings['style'] ) . '" ' . $master_true . '>';
-					$html .= '<input type="radio" id="' . esc_attr( $this->settings['id'] ) . '-true" class="cherry-input-switcher cherry-input-switcher-true" name="' . esc_attr( $this->settings['name'] ) . '" ' . checked( true, $value, false ) . ' value="true" ' . $data_slave_true . ' ' . $input_lock . '>';
-					$html .= '<input type="radio" id="' . esc_attr( $this->settings['id'] ) . '-false" class="cherry-input-switcher cherry-input-switcher-false" name="' . esc_attr( $this->settings['name'] ) . '" ' . checked( false, $value, false ) . ' value="false" ' . $data_slave_false . ' ' . $input_lock . '>';
+					$html .= '<input type="radio" id="' . esc_attr( $this->settings['id'] ) . '-true" class="cherry-input-switcher cherry-input-switcher-true" name="' . esc_attr( $this->settings['name'] ) . '" ' . checked( true, $value, false ) . ' value="true" ' . $data_slave_true . ' ' . $this->lock_element->get_disabled_attr() . '>';
+					$html .= '<input type="radio" id="' . esc_attr( $this->settings['id'] ) . '-false" class="cherry-input-switcher cherry-input-switcher-false" name="' . esc_attr( $this->settings['name'] ) . '" ' . checked( false, $value, false ) . ' value="false" ' . $data_slave_false . ' ' . $this->lock_element->get_disabled_attr() . '>';
+					//$html .= '<span class="cherry-lable-content">';
 					$html .= '<label class="sw-enable"><span>' . esc_html( $this->settings['toggle']['true_toggle'] ) . '</span></label>';
 					$html .= '<label class="sw-disable"><span>' . esc_html( $this->settings['toggle']['false_toggle'] ) . '</span></label>';
 					$html .= '<span class="state-marker"></span>';
+				//	$html .= '</span>';
 				$html .= '</div>';
-				$html .= $lock_lable;
+				$html .= $this->lock_element->get_html();
 			$html .= '</div>';
 
 			return $html;

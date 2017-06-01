@@ -115,9 +115,8 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 				require_once( dirname( __FILE__ ) . '/i-ui.php' );
 			}
 
-			if ( ! class_exists( 'UI_Element' ) ) {
-				require_once( dirname( __FILE__ ) . '/ui-element.php' );
-			}
+			require_once( dirname( __FILE__ ) . '/ui-element.php' );
+			require_once( dirname( __FILE__ ) . '/inc/class-cherry-lock-element.php' );
 
 			if ( ! empty( $this->args['ui_elements'] ) ) {
 				foreach ( $this->args['ui_elements'] as $ui_element ) {

@@ -1,5 +1,6 @@
 @import "ui-kit/variables";
 @import "ui-kit/mixins";
+@import "../../../../assets/sass/lock";
 
 .cherry-ui-container{
 	margin: 10px 0 20px 0;
@@ -13,12 +14,6 @@ label.cherry-label{
 }
 input.cherry-radio-input{
 	display: none;
-	&[disabled], &[disabled] + label{
-		opacity: 0.5;
-		cursor: no-drop;
-		pointer-events: none;
-		filter: grayscale( 100% );
-	}
 }
 .cherry-radio-item{
 	margin-bottom: 10px;
@@ -31,7 +26,7 @@ input.cherry-radio-input{
 		line-height: 22px;
 		color: $dark_color_1;
 	}
-	span{
+	span.cherry-radio-item{
 		width: 25px;
 		height: 25px;
 		border-radius: 25px;

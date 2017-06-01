@@ -1,0 +1,110 @@
+$lock-bg-color: rgba(0,0,0,0.9);
+.cherry-lock-element{
+	user-select: none;
+	cursor: no-drop;
+	position: relative;
+	filter: grayscale( 100% );
+
+	&.inline-block{
+		display: inline-block;
+	}
+
+	& label{
+		position: relative;
+	}
+	.cherry-lable-content,
+	.cherry-checkbox-item,
+	.select2-container,
+	> *:first-child{
+		opacity: 0.5;
+		pointer-events: none;
+	}
+
+	a.cherry-lock-element__area{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 2000;
+		cursor: no-drop;
+		&:focus{
+			outline: none;
+			box-shadow: none;
+		}
+		&:hover{
+			.cherry-lock-element__label{
+				animation-name: lock_show;
+				animation-duration: 450ms;
+				animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+			}
+		}
+	}
+
+	&__label {
+		opacity: 0;
+		display: inline-block;
+		background-color: $lock-bg-color;
+		border-radius: 5px;
+		color: #fff;
+		padding: 8px 10px;
+		position: absolute;
+		white-space: nowrap;
+		top: -10px;
+		left: 50%;
+		box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.5);
+		will-change: auto;
+		pointer-events: none;
+		font-size: 14px;
+		line-height: 16px;
+
+		animation-name: lock_hide;
+		animation-duration: 200ms;
+		animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+		animation-fill-mode: both;
+
+		transform-origin: 0% 0%;
+		* + *{
+			margin-right: 5px;
+		}
+		&:after {
+			border: solid;
+			border-color: $lock-bg-color transparent;
+			border-width: 6px 6px 0 6px;
+			bottom: -5px;
+			margin-left: -6px;
+			content: "";
+			left: 50%;
+			position: absolute;
+		}
+	}
+}
+@keyframes lock_show {
+	0% {
+		opacity: 0;
+		filter: blur(5px);
+		transform: scale( 0 ) translate(-50%, 200% );
+	}
+	60% {
+		opacity: 0.8;
+		transform: scale( 1.1 ) translate(-50%, -130% );
+	}
+	100% {
+		opacity: 1;
+		filter: blur(0px);
+		transform: scale( 1 ) translate(-50%, -100% );
+	}
+}
+
+@keyframes lock_hide {
+	0% {
+		opacity: 1;
+		filter: blur(0px);
+		transform: scale( 1 ) translate(-50%, -100%);
+	}
+	100% {
+		opacity: 0;
+		filter: blur(3px);
+		transform: scale( 0 ) translate(-50%, 200%);
+	}
+}

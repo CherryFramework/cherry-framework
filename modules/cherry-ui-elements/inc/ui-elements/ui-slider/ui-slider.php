@@ -42,6 +42,15 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 		);
 
 		/**
+		 * Instance of this Cherry5_Lock_Element class.
+		 *
+		 * @since 1.0.0
+		 * @var object
+		 * @access private
+		 */
+		private $lock_element = null;
+
+		/**
 		 * Constructor method for the UI_Slider class.
 		 *
 		 * @since 1.0.0
@@ -49,6 +58,7 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 		function __construct( $args = array() ) {
 			$this->defaults_settings['id'] = 'cherry-ui-slider-' . uniqid();
 			$this->settings = wp_parse_args( $args, $this->defaults_settings );
+			$this->lock_element = new Cherry5_Lock_Element( $this->settings );
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
 		}
@@ -60,13 +70,11 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 		 */
 		public function render() {
 			$html = '';
-			$input_lock = ( ! empty( $this->settings['lock'] ) ) ? 'disabled' : '' ;
-			$lock_lable = ! empty( $this->settings['lock']['label'] )? sprintf('<div class="cherry-lock-label">%1$s</div>', $this->settings['lock']['label'] ) : '' ;
 			$class = implode( ' ',
 				array(
 					$this->settings['class'],
 					$this->settings['master'],
-					( $input_lock ) ? 'cherry-ui-elements-lock' : '' ,
+					$this->lock_element->get_class(),
 				)
 			);
 
@@ -89,13 +97,13 @@ if ( ! class_exists( 'UI_Slider' ) ) {
 				}
 				$html .= '<div class="cherry-slider-wrap">';
 					$html .= '<div class="cherry-slider-holder">';
-						$html .= '<input type="range" class="cherry-slider-unit" step="' . esc_attr( $this->settings['step_value'] ) . '" min="' . esc_attr( $this->settings['min_value'] ) . '" max="' . esc_attr( $this->settings['max_value'] ) . '" value="' . esc_attr( $this->settings['value'] ) . '" ' . $input_lock . '>';
+						$html .= '<input type="range" class="cherry-slider-unit" step="' . esc_attr( $this->settings['step_value'] ) . '" min="' . esc_attr( $this->settings['min_value'] ) . '" max="' . esc_attr( $this->settings['max_value'] ) . '" value="' . esc_attr( $this->settings['value'] ) . '"' . $this->lock_element->get_disabled_attr() . '>';
 					$html .= '</div>';
 					$html .= '<div class="cherry-slider-input">';
 						$html .= $ui_stepper_html;
 					$html .= '</div>';
 				$html .= '</div>';
-				$html .= $lock_lable;
+				$html .= $this->lock_element->get_html();
 			$html .= '</div>';
 
 			return $html;

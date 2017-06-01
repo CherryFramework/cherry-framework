@@ -1,11 +1,6 @@
 @import "ui-kit/variables";
+@import "../../../../assets/sass/lock";
 
-.cherry-ui-elements-lock{
-	opacity: 0.5;
-	cursor: no-drop;
-	pointer-events: none;
-	filter: grayscale( 100% );
-}
 .cherry-ui-container{
 	margin: 10px 0 20px 0;
 }
