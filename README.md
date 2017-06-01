@@ -15,3 +15,6 @@ Module system.
 
 ## Help
 Found a bug? Feature requests? [Create an issue - Thanks!](https://github.com/CherryFramework/cherry-framework/issues/new)
+
+[Quick Start Guide](http://www.cherryframework.com/quick-start/) and real example (https://github.com/CherryFramework/cherry-framework-example)
+[Documentation](http://www.cherryframework.com/docs/)
