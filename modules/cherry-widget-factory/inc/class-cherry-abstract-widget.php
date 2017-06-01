@@ -58,18 +58,11 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 		public $settings;
 
 		/**
-		 * Existing field types
-		 *
-		 * @var array
-		 */
-		public $field_types = array();
-
-		/**
-		 * UI builder instance
+		 * Interface builder instance.
 		 *
 		 * @var object
 		 */
-		public $ui_builder;
+		public $builder = null;
 
 		/**
 		 * Temporary arguments holder
@@ -208,21 +201,13 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 				return false;
 			}
 
-			array_walk( $this->settings, array( $this, 'set_field_types' ) );
-
-			if ( in_array( 'slider', $this->field_types ) ) {
-				$this->field_types[] = 'stepper';
-			}
-
 			$core = $this->get_core();
 
 			if ( ! $core ) {
 				return false;
 			}
 
-			$this->ui_builder = $core->init_module( 'cherry-ui-elements', array(
-				'ui_elements' => $this->field_types,
-			) );
+			$this->builder = $core->init_module( 'cherry-interface-builder', array() );
 
 			return true;
 		}
@@ -403,96 +388,6 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 		}
 
 		/**
-		 * Store field types used in this widget into class property
-		 *
-		 * @since  1.0.0
-		 * @param  array  $field field data.
-		 * @param  [type] $id    field key.
-		 * @return bool
-		 */
-		public function set_field_types( $field, $id ) {
-
-			if ( ! is_array( $field ) || ! isset( $field['type'] ) ) {
-				return false;
-			}
-
-			if ( ! in_array( $field['type'], $this->field_types ) ) {
-				$this->field_types[] = $field['type'];
-			}
-
-			$this->maybe_add_repeater_fields( $field );
-
-			return true;
-
-		}
-
-		/**
-		 * Maybe add reapeater sub-fields to required elements list
-		 *
-		 * @since  1.0.1
-		 * @param  array $field field data.
-		 * @return bool
-		 */
-		public function maybe_add_repeater_fields( $field ) {
-
-			if ( 'repeater' !== $field['type'] || empty( $field['fields'] ) ) {
-				return false;
-			}
-
-			foreach ( $field['fields'] as $repeater_field ) {
-				$this->set_field_types( $repeater_field, null );
-			}
-
-			return true;
-
-		}
-
-		/**
-		 * Render single from control.
-		 *
-		 * @param  array $args control arguments.
-		 * @return void|null
-		 */
-		public function render_control( $args ) {
-
-			$allowed_controls = array(
-				'text',
-				'textarea',
-				'checkbox',
-				'colorpicker',
-				'media',
-				'radio',
-				'select',
-				'slider',
-				'stepper',
-				'switcher',
-				'slider',
-				'collection',
-				'chooseicons',
-				'repeater',
-				'iconpicker',
-			);
-
-			if ( ! in_array( $args['type'], $allowed_controls ) ) {
-				do_action( 'cherry_widget_factory_control', $args );
-				return;
-			}
-
-			if ( ! is_object( $this->ui_builder ) ) {
-				return;
-			}
-
-			$current_element = $this->ui_builder->get_ui_element_instance( $args['type'], $args );
-
-			?>
-			<div>
-				<?php echo $current_element->render(); ?>
-			</div>
-			<?php
-
-		}
-
-		/**
 		 * Show widget form
 		 *
 		 * @since  1.0.0
@@ -508,52 +403,36 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 
 			foreach ( $this->settings as $key => $setting ) {
 
-				$value = isset( $instance[ $key ] ) ? $instance[ $key ] : Cherry_Toolkit::get_arg( $setting, 'value', '' );
-
 				if ( isset( $setting['options_callback'] ) ) {
 
-					$callback = $this->get_callback_data( $setting['options_callback'] );
-					$options  = call_user_func_array( $callback['callback'], $callback['args'] );
+					$callback           = $this->get_callback_data( $setting['options_callback'] );
+					$setting['options'] = call_user_func_array( $callback['callback'], $callback['args'] );
 
-				} else {
-					$options = Cherry_Toolkit::get_arg( $setting, 'options', array() );
+					unset( $setting['options_callback'] );
+
 				}
 
-				$args = array(
-					'type'               => Cherry_Toolkit::get_arg( $setting, 'type', 'text' ),
-					'id'                 => $this->get_field_id( $key ),
-					'name'               => $this->get_field_name( $key ),
-					'value'              => $value,
-					'label'              => Cherry_Toolkit::get_arg( $setting, 'label', '' ),
-					'options'            => $options,
-					'multiple'           => Cherry_Toolkit::get_arg( $setting, 'multiple', false ),
-					'filter'             => Cherry_Toolkit::get_arg( $setting, 'filter', false ),
-					'size'               => Cherry_Toolkit::get_arg( $setting, 'size', 1 ),
-					'null_option'        => Cherry_Toolkit::get_arg( $setting, 'null_option', 'None' ),
-					'multi_upload'       => Cherry_Toolkit::get_arg( $setting, 'multi_upload', true ),
-					'library_type'       => Cherry_Toolkit::get_arg( $setting, 'library_type', 'image' ),
-					'upload_button_text' => Cherry_Toolkit::get_arg( $setting, 'upload_button_text', 'Choose' ),
-					'max_value'          => Cherry_Toolkit::get_arg( $setting, 'max_value', '100' ),
-					'min_value'          => Cherry_Toolkit::get_arg( $setting, 'min_value', '0' ),
-					'step_value'         => Cherry_Toolkit::get_arg( $setting, 'step_value', '1' ),
-					'style'              => Cherry_Toolkit::get_arg( $setting, 'style', 'normal' ),
-					'placeholder'        => Cherry_Toolkit::get_arg( $setting, 'placeholder', '' ),
-					'toggle'             => Cherry_Toolkit::get_arg( $setting, 'toggle', array(
-						'true_toggle'  => 'On',
-						'false_toggle' => 'Off',
-						'true_slave'   => '',
-						'false_slave'  => '',
-					) ),
-					'master'             => Cherry_Toolkit::get_arg( $setting, 'master', '' ),
-					'icon_data'          => Cherry_Toolkit::get_arg( $setting, 'icon_data', array() ),
-					'title_field'        => Cherry_Toolkit::get_arg( $setting, 'title_field' ),
-					'add_label'          => Cherry_Toolkit::get_arg( $setting, 'add_label', '' ),
-					'fields'             => Cherry_Toolkit::get_arg( $setting, 'fields', array() ),
-					'ui_kit'             => Cherry_Toolkit::get_arg( $setting, 'ui_kit', true ),
-				);
+				$value = isset( $instance[ $key ] ) ? $instance[ $key ] : Cherry_Toolkit::get_arg( $setting, 'value', '' );
 
-				$this->render_control( $args );
+				$element          = Cherry_Toolkit::get_arg( $setting, 'element', 'control' );
+				$setting['id']    = $this->get_field_id( $key );
+				$setting['name']  = $this->get_field_name( $key );
+				$setting['type']  = Cherry_Toolkit::get_arg( $setting, 'type', '' );
+				$setting['value'] = $value;
+
+				if ( 'select' === $setting['type'] && ! isset( $setting['placeholder'] ) ) {
+					$setting['placeholder'] = '';
+				}
+
+				$register_callback = 'register_' . $element;
+
+				if ( method_exists( $this->builder, $register_callback ) ) {
+					call_user_func( array( $this->builder, $register_callback ), array( $key => $setting ) );
+				}
+
 			}
+
+			$this->builder->render();
 		}
 
 		/**
