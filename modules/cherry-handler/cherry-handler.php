@@ -52,13 +52,7 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 			'callback'   => '',
 			'type'       => 'POST',
 			'data_type'  => 'json',
-			'sys_messages' => array(
-				'invalid_base_data' => esc_html__( 'Unable to process the request without nonce or server error', 'cherry-framework' ),
-				'no_right'          => esc_html__( 'No right for this action', 'cherry-framework' ),
-				'invalid_nonce'     => esc_html__( 'Stop CHEATING!!!', 'cherry-framework' ),
-				'access_is_allowed' => esc_html__( 'Access is allowed', 'cherry-framework' ),
-				'wait_processing'   => esc_html__( 'Please wait, processing the previous request', 'cherry-framework' ),
-			),
+			'sys_messages' => array(),
 		);
 
 		/**
@@ -69,6 +63,13 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 		 * @param array  $args Class args.
 		 */
 		public function __construct( $core, $args = array() ) {
+			$this->settings['sys_messages'] = array(
+				'invalid_base_data' => esc_html__( 'Unable to process the request without nonce or server error', 'cherry-framework' ),
+				'no_right'          => esc_html__( 'No right for this action', 'cherry-framework' ),
+				'invalid_nonce'     => esc_html__( 'Stop CHEATING!!!', 'cherry-framework' ),
+				'access_is_allowed' => esc_html__( 'Access is allowed', 'cherry-framework' ),
+				'wait_processing'   => esc_html__( 'Please wait, processing the previous request', 'cherry-framework' ),
+			);
 			$this->settings = array_merge( $this->settings, $args );
 
 			if ( empty( $this->settings['id'] ) ) {
