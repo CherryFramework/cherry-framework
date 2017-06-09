@@ -19,11 +19,11 @@ Module system.
 
 * ADD: new module - `cherry5-assets-loader`
 * ADD: lock-option feature
-* ADD: 3rd parameter $this for 'cherry_breadcrumbs_items' filter
+* ADD: 3rd parameter `$this` for `cherry_breadcrumbs_items` filter
 * ADD: new property - module version (using in register/enqueue css and js files)
 * ADD: `dropdown-pages` control in `cherry-customizer` module
 * UPD: style for widgets
-* UPD: use Interface Builder in widget form
+* UPD: use `cherry-interface-builder` in widget form
 * UPD: remove deprecated methods in `cherry-widget-factory` module
 * UPD: added check for AJAX-handlers in `cherry-handler` module
 * UPD: copyright years
@@ -40,22 +40,22 @@ Module system.
 ### v1.4.1
 
 * ADD: allow to filter CSS reserved words while parsing functions
-* ADD: async query in modile cherry handler
-* UPD: ui-kit styles (ui-button, ui-text, ui-textarea, ui-stepper, ui-colorpicker, ui-switcher, ui-select, ui-media)
+* ADD: async query in `cherry-handler` module
+* UPD: UI-kit styles (UI-button, UI-text, UI-textarea, UI-stepper, UI-colorpicker, UI-switcher, UI-select, UI-media)
 * UPD: use `wp_add_inline_style` instead of `wp_head` for printing inline CSS
 * UPD: UI-button class prefix
 * UPD: `cherry5-insert-shortcode` module styles
 * UPD: allow to use description argument in iconpicker
 * FIX: UI-repeater, UI-radio master and slave bug
 * FIX: `cherry-template-manager` module
-* FIX: change meta_key in cherry-utilit - #149
+* FIX: change `meta_key` in `cherry-utility` module - #149
 
 ### v1.4.0
 
 * ADD: new modules - `cherry5-insert-shortcode`, `cherry-db-udpates`
 * ADD: text-domain
 * FIX: compatibility with WordPress 4.7
-* FIX: sanitization method in cherry-utility - #141
+* FIX: sanitization method in `cherry-utility` - #141
 * FIX: duplicate argument in UI-button - #126
 * UPD: license link in php-file headers
 
@@ -64,7 +64,7 @@ Module system.
 * ADD: macros filter into `cherry-template-manager` module
 * ADD: function `bg-image()` into `cherry-dynamic-css` module
 * UPD: `cherry-interface-builder` module styles
-* UPD: Google fonts
+* UPD: Google fonts json-file
 * FIX: Issues [#124](https://github.com/CherryFramework/cherry-framework/issues/124)
 * FIX: Issues [#123](https://github.com/CherryFramework/cherry-framework/issues/123)
 * FIX: Issues [#120](https://github.com/CherryFramework/cherry-framework/issues/120)
@@ -79,7 +79,7 @@ Module system.
 * ADD: UI-button
 * ADD: new modules - `cherry-handler`, `cherry-template-manager`
 * ADD: dynamic CSS collector
-* UPD: re-factoring methods calling in Post Meta module
+* UPD: re-factoring methods calling in `cherry-post-meta` module
 * FIX: replace `file_get_contents` to prevent validation errors
 * FIX: post meta saving
 * FIX: [#81](https://github.com/CherryFramework/cherry-framework/issues/81)
@@ -93,12 +93,12 @@ Module system.
 
 * ADD: new module: `cherry-interface-builder`
 * UPD: `cherry-utility` module:
-    1) fix for the cut_text function
-    2) added get_placeholder_url function
+    1) fix for the `cut_text` method
+    2) added `get_placeholder_url` method
 * UPD: UI-elements:
     1) added an option to disable ui_kit for the repeater element
-    2) updated master/salve js logic in ui-elements
-    3) updated HTML markup for ui-switcher, input type="hiden" replaced with double input type="radio"
+    2) updated master/salve js logic in UI-elements
+    3) updated HTML markup for UI-switcher, `input type="hiden"` replaced with double `input type="radio"`
 * UPD: `cherry-customizer` module: file system method replaced with native WordPress method
 * UPD: `cherry-post-meta` module:
     1) added data processing procedure before saving to the database
