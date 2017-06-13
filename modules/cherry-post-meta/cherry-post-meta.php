@@ -12,7 +12,7 @@
  * @subpackage Modules
  * @version    1.2.1
  * @author     Cherry Team <cherryframework@gmail.com>
- * @copyright  Copyright (c) 2012 - 2016, Cherry Team
+ * @copyright  Copyright (c) 2012 - 2017, Cherry Team
  * @link       http://www.cherryframework.com/
  * @license    http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -165,7 +165,9 @@ if ( ! class_exists( 'Cherry_Post_Meta' ) ) {
 
 					$columns = array_merge(
 						$columns_before,
-						array( $column_key => $column_data['label'] ),
+						array(
+							$column_key => $column_data['label'],
+						),
 						$columns_after
 					);
 				} else {

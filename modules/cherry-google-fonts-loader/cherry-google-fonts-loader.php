@@ -12,7 +12,7 @@
  * @subpackage Modules
  * @version    1.1.0
  * @author     Cherry Team <cherryframework@gmail.com>
- * @copyright  Copyright (c) 2012 - 2016, Cherry Team
+ * @copyright  Copyright (c) 2012 - 2017, Cherry Team
  * @link       http://www.cherryframework.com/
  * @license    http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -84,7 +84,9 @@ if ( ! class_exists( 'Cherry_Google_Fonts_Loader' ) ) {
 		function __construct( $core, $args ) {
 
 			$this->core = $core;
-			$this->args = wp_parse_args( $args, array( 'options' => array() ) );
+			$this->args = wp_parse_args( $args, array(
+				'options' => array(),
+			) );
 
 			$this->fonts_host = apply_filters( 'cherry_google_fonts_cdn', $this->fonts_host );
 

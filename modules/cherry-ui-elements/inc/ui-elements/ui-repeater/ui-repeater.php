@@ -218,9 +218,11 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 				return '"type" and "name" are required fields for UI_Repeater items';
 			}
 
-			$field          = wp_parse_args( $field, array( 'value' => '' ) );
-			$parent_name    = str_replace( '__i__', $widget_index, $this->settings['name'] );
+			$field = wp_parse_args( $field, array(
+				'value' => '',
+			) );
 
+			$parent_name    = str_replace( '__i__', $widget_index, $this->settings['name'] );
 			$field['id']    = sprintf( '%s-%s', $field['id'], $index );
 			$field['value'] = isset( $this->data[ $field['name'] ] ) ? $this->data[ $field['name'] ] : $field['value'];
 			$field['name']  = sprintf( '%1$s[item-%2$s][%3$s]', $parent_name, $index, $field['name'] );
@@ -246,7 +248,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 				'ui-repeater',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-repeater.min.css', __FILE__ ) ),
 				array(),
-				'1.3.2',
+				self::$version,
 				'all'
 			);
 
@@ -254,7 +256,7 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 				'ui-repeater',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-repeater.min.js', __FILE__ ) ),
 				array( 'wp-util', 'jquery-ui-sortable' ),
-				'1.3.2',
+				self::$version,
 				true
 			);
 

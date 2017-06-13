@@ -47,6 +47,15 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 		);
 
 		/**
+		 * Instance of this Cherry5_Lock_Element class.
+		 *
+		 * @since 1.0.0
+		 * @var object
+		 * @access private
+		 */
+		private $lock_element = null;
+
+		/**
 		 * Constructor method for the UI_Checkbox class.
 		 *
 		 * @since 1.0.0
@@ -54,6 +63,7 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 		function __construct( $args = array() ) {
 			$this->defaults_settings['id'] = 'cherry-ui-checkbox-' . uniqid();
 			$this->settings = wp_parse_args( $args, $this->defaults_settings );
+			$this->lock_element = new Cherry5_Lock_Element( $this->settings );
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
 		}
@@ -64,9 +74,14 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 		 * @since 1.0.0
 		 */
 		public function render() {
-			$html = '';
-			$class = $this->settings['class'];
-			$class .= ' ' . $this->settings['master'];
+			$html  = '';
+			$class = implode( ' ',
+				array(
+					$this->settings['class'],
+					$this->settings['master'],
+					$this->lock_element->get_class( 'inline-block' ),
+				)
+			);
 
 			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
 
@@ -80,6 +95,7 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 					}
 
 					foreach ( $this->settings['options'] as $option => $option_value ) {
+						$lock_option = new Cherry5_Lock_Element( $option_value );
 
 						if ( ! empty( $this->settings['value'] ) ) {
 							$option_checked = array_key_exists( $option, $this->settings['value'] ) ? $option : '';
@@ -89,21 +105,25 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 							$item_value     = 'false';
 						}
 
-						$checked = ( ! empty( $option_checked ) && 'true' === $item_value ) ? 'checked' : '';
-
+						$checked      = ( ! empty( $option_checked ) && 'true' === $item_value ) ? 'checked' : '';
 						$option_label = isset( $option_value ) && is_array( $option_value ) ? $option_value['label'] : $option_value;
-						$data_slave = isset( $option_value['slave'] ) && ! empty( $option_value['slave'] ) ? ' data-slave="' . $option_value['slave'] . '"' : '';
+						$data_slave   = isset( $option_value['slave'] ) && ! empty( $option_value['slave'] ) ? ' data-slave="' . $option_value['slave'] . '"' : '';
 
 						$html .= '<div class="cherry-checkbox-item-wrap">';
-							$html .= '<input type="hidden" id="' . esc_attr( $this->settings['id'] ) . '-' . $counter . '" class="cherry-checkbox-input" name="' . esc_attr( $this->settings['name'] ) . '[' . $option . ']" ' . $checked . ' value="' . esc_html( $item_value ) . '"' . $data_slave . '>';
-							$html .= '<div class="cherry-checkbox-item"><span class="marker dashicons dashicons-yes"></span></div>';
-							$html .= '<label class="cherry-checkbox-label" for="' . esc_attr( $this->settings['id'] ) . '-' . $counter . '">' . esc_html( $option_label ) . '</label> ';
+							$html .= '<span class="' . $lock_option->get_class( 'inline-block' ) . '"">';
+									$html .= '<span class="cherry-lable-content">';
+									$html .= '<input type="hidden" id="' . esc_attr( $this->settings['id'] ) . '-' . $counter . '" class="cherry-checkbox-input" name="' . esc_attr( $this->settings['name'] ) . '[' . $option . ']" ' . $checked . ' value="' . esc_html( $item_value ) . '"' . $data_slave . $lock_option->get_disabled_attr() . '>';
+									$html .= '<div class="cherry-checkbox-item"><span class="marker dashicons dashicons-yes"></span></div>';
+									$html .= '<label class="cherry-checkbox-label" for="' . esc_attr( $this->settings['id'] ) . '-' . $counter . '"><span class="cherry-lable-content">' . esc_html( $option_label ) . '</span></label> ';
+									$html .= '</span>';
+								$html .= $lock_option->get_html();
+							$html .= '</span>';
 						$html .= '</div>';
 
 						$counter++;
 					}
 				}
-			$html .= '</div>';
+			$html .= $this->lock_element->get_html() . '</div>';
 
 			return $html;
 		}
@@ -118,7 +138,7 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 				'ui-checkbox-min',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-checkbox.min.js', __FILE__ ) ),
 				array( 'jquery' ),
-				'1.3.2',
+				self::$version,
 				true
 			);
 
@@ -126,7 +146,7 @@ if ( ! class_exists( 'UI_Checkbox' ) ) {
 				'ui-checkbox-min',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-checkbox.min.css', __FILE__ ) ),
 				array(),
-				'1.3.2',
+				self::$version,
 				'all'
 			);
 		}

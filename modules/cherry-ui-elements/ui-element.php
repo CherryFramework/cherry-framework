@@ -5,7 +5,7 @@
  * @package    Cherry_Framework
  * @subpackage Abstract Class
  * @author     Cherry Team <cherryframework@gmail.com>
- * @copyright  Copyright (c) 2012 - 2016, Cherry Team
+ * @copyright  Copyright (c) 2012 - 2017, Cherry Team
  * @link       http://www.cherryframework.com/
  * @license    http://www.gnu.org/licenses/gpl-3.0.en.html
  */
@@ -21,6 +21,16 @@ if ( ! class_exists( 'UI_Element' ) ) {
 	 * @since 1.0.0
 	 */
 	abstract class UI_Element {
+
+		/**
+		 * Version.
+		 *
+		 * This is a `UI Elements` module version.
+		 *
+		 * @since 1.0.1
+		 * @var string
+		 */
+		protected static $version = '1.4.3';
 
 		/**
 		 * Settings list

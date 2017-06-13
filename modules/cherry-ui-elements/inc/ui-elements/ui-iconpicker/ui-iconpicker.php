@@ -41,7 +41,18 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 			'master'      => '',
 			'width'       => 'fixed', // full, fixed
 			'required'    => false,
+			'lock'        => false,
 		);
+
+		/**
+		 * Instance of this Cherry5_Lock_Element class.
+		 *
+		 * @since 1.0.0
+		 * @var object
+		 * @access private
+		 */
+		private $lock_element = null;
+
 
 		/**
 		 * Default icon data settings.
@@ -85,6 +96,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 		function __construct( $args = array() ) {
 			$this->defaults_settings['id'] = 'cherry-ui-input-icon-' . uniqid();
 			$this->settings = wp_parse_args( $args, $this->defaults_settings );
+			$this->lock_element = new Cherry5_Lock_Element( $this->settings );
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
 			add_action( 'admin_footer', array( $this, 'print_icon_set' ), 1 );
@@ -110,9 +122,16 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 		 * @since 1.0.0
 		 */
 		public function render() {
-			$html = '';
-			$class = $this->settings['class'] . $this->settings['width'] ;
-			$class .= ' ' . $this->settings['master'];
+			$html       = '';
+			$lock_lable = ! empty( $this->settings['lock']['label'] )? sprintf('<div class="cherry-lock-label">%1$s</div>', $this->settings['lock']['label'] ) : '' ;
+			$class      = implode( ' ',
+				array(
+					$this->settings['class'],
+					$this->settings['master'],
+					$this->settings['width'],
+					$this->lock_element->get_class( 'inline-block' ),
+				)
+			);
 
 			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
 				if ( '' !== $this->settings['label'] ) {
@@ -133,6 +152,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 				}
 
 				$html .= '</div>';
+				$html .= $this->lock_element->get_html();
 			$html .= '</div>';
 
 			return $html;
@@ -296,7 +316,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 				'ui-iconpicker',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-iconpicker.min.css', __FILE__ ) ),
 				array(),
-				'1.3.2',
+				self::$version,
 				'all'
 			);
 
@@ -304,7 +324,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 				'jquery-iconpicker',
 				esc_url( Cherry_Core::base_url( 'assets/min/jquery-iconpicker.min.js', __FILE__ ) ),
 				array( 'jquery' ),
-				'1.3.2',
+				self::$version,
 				true
 			);
 
@@ -312,7 +332,7 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 				'ui-iconpicker',
 				esc_url( Cherry_Core::base_url( 'assets/min/ui-iconpicker.min.js', __FILE__ ) ),
 				array( 'jquery' ),
-				'1.3.2',
+				self::$version,
 				true
 			);
 		}

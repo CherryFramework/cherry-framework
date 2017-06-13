@@ -23,7 +23,7 @@
 		select2Init: function ( index, element ) {
 			var $this   = $( element ),
 				options = {
-					placeholder: $this.attr('placeholder')
+					placeholder: $this.data('placeholder')
 				};
 
 			$this

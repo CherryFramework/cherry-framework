@@ -12,7 +12,7 @@
  * @subpackage Modules
  * @version    1.1.3
  * @author     Cherry Team <cherryframework@gmail.com>
- * @copyright  Copyright (c) 2012 - 2016, Cherry Team
+ * @copyright  Copyright (c) 2012 - 2017, Cherry Team
  * @link       http://www.cherryframework.com/
  * @license    http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -32,6 +32,13 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 	class Cherry_Handler {
 
 		/**
+		 * Module version.
+		 *
+		 * @var string
+		 */
+		public $module_version = '1.1.3';
+
+		/**
 		 * Default settings.
 		 *
 		 * @since 1.0.0
@@ -45,13 +52,7 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 			'callback'   => '',
 			'type'       => 'POST',
 			'data_type'  => 'json',
-			'sys_messages' => array(
-				'invalid_base_data' => 'Unable to process the request without nonce or server error',
-				'no_right'          => 'No right for this action',
-				'invalid_nonce'     => 'Stop CHEATING!!!',
-				'access_is_allowed' => 'Access is allowed',
-				'wait_processing'   => 'Please wait, processing the previous request',
-			),
+			'sys_messages' => array(),
 		);
 
 		/**
@@ -62,6 +63,13 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 		 * @param array  $args Class args.
 		 */
 		public function __construct( $core, $args = array() ) {
+			$this->settings['sys_messages'] = array(
+				'invalid_base_data' => esc_html__( 'Unable to process the request without nonce or server error', 'cherry-framework' ),
+				'no_right'          => esc_html__( 'No right for this action', 'cherry-framework' ),
+				'invalid_nonce'     => esc_html__( 'Stop CHEATING!!!', 'cherry-framework' ),
+				'access_is_allowed' => esc_html__( 'Access is allowed', 'cherry-framework' ),
+				'wait_processing'   => esc_html__( 'Please wait, processing the previous request', 'cherry-framework' ),
+			);
 			$this->settings = array_merge( $this->settings, $args );
 
 			if ( empty( $this->settings['id'] ) ) {
@@ -74,11 +82,13 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 				return false;
 			}
 
-			add_action( 'wp_ajax_' . $this->settings['action'], array( $this, 'handler_init' ) );
+			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+				add_action( 'wp_ajax_' . $this->settings['action'], array( $this, 'handler_init' ) );
 
-			// Public action check
-			if ( filter_var( $this->settings['is_public'], FILTER_VALIDATE_BOOLEAN ) ) {
-				add_action( 'wp_ajax_nopriv_' . $this->settings['action'], array( $this, 'handler_init' ) );
+				// Public action check.
+				if ( filter_var( $this->settings['is_public'], FILTER_VALIDATE_BOOLEAN ) ) {
+					add_action( 'wp_ajax_nopriv_' . $this->settings['action'], array( $this, 'handler_init' ) );
+				}
 			}
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -157,7 +167,7 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 				'cherry-handler-js',
 				esc_url( Cherry_Core::base_url( 'assets/js/min/cherry-handler.min.js', __FILE__ ) ),
 				array( 'jquery' ),
-				'1.1.3',
+				$this->module_version,
 				true
 			);
 
@@ -165,7 +175,7 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 				'cherry-handler-css',
 				esc_url( Cherry_Core::base_url( 'assets/css/cherry-handler-styles.min.css', __FILE__ ) ),
 				array(),
-				'1.1.3',
+				$this->module_version,
 				'all'
 			);
 		}
@@ -192,8 +202,9 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 			);
 
 			if ( $this->settings['is_public'] ) {
-				$ajax_url = esc_url( admin_url( 'admin-ajax.php' ) );
-				wp_localize_script( 'cherry-handler-js', 'cherryHandlerAjaxUrl', array( 'ajax_url' => $ajax_url ) );
+				wp_localize_script( 'cherry-handler-js', 'cherryHandlerAjaxUrl', array(
+					'ajax_url' => esc_url( admin_url( 'admin-ajax.php' ) ),
+				) );
 			}
 		}
 

@@ -193,7 +193,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 			$is_rgb  = ( false !== strpos( $color, 'rgb' ) && false === $is_rgba ) ? true : false;
 			$is_hex  = ( false === $is_rgba && false === $is_rgb ) ? true : false;
 
-			$percent = round( ( double ) $percent / 100, 4 );
+			$percent = round( (double) $percent / 100, 4 );
 
 			if ( $is_hex && '#' == $color[0] ) {
 				$color = substr( $color, 1 );
@@ -499,7 +499,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 		/**
 		 * Prepare font family for passing into typography function.
 		 *
-		 * @since  4.0.5
+		 * @since  1.0.0
 		 * @param  [string] $item Array item.
 		 * @param  [int]    $index Array item index.
 		 * @return void
@@ -723,10 +723,10 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Utilities' ) ) {
 
 			switch ( $operation ) {
 				case 'multiple' :
-					$size = ( double ) $size * ( double ) $percent;
+					$size = (double) $size * (double) $percent;
 					break;
 				case 'addition' :
-					$size = ( double ) $size + ( double ) $percent;
+					$size = (double) $size + (double) $percent;
 					break;
 			}
 

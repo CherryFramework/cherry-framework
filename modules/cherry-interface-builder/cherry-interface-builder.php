@@ -2,7 +2,7 @@
 /**
  * Module Name: Interface Builder
  * Description: The module for the creation of interfaces in the WordPress admin panel
- * Version: 1.1.2
+ * Version: 1.1.3
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,9 +10,9 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.2
+ * @version    1.1.3
  * @author     Cherry Team <cherryframework@gmail.com>
- * @copyright  Copyright (c) 2012 - 2016, Cherry Team
+ * @copyright  Copyright (c) 2012 - 2017, Cherry Team
  * @link       http://www.cherryframework.com/
  * @license    http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -30,6 +30,14 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 	 * @since 1.0.0
 	 */
 	class Cherry_Interface_Builder {
+
+		/**
+		 * Module version.
+		 *
+		 * @var string
+		 */
+		public $module_version = '1.1.3';
+
 		/**
 		 * Module settings.
 		 *
@@ -444,14 +452,14 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 				'cherry-interface-builder',
 				esc_url( Cherry_Core::base_url( 'inc/assets/min/cherry-interface-builder.min.js', __FILE__ ) ),
 				array( 'jquery' ),
-				'1.0.0',
+				$this->module_version,
 				true
 			);
 			wp_enqueue_style(
 				'cherry-interface-builder',
 				esc_url( Cherry_Core::base_url( 'inc/assets/min/cherry-interface-builder.min.css', __FILE__ ) ),
 				array(),
-				'1.0.0',
+				$this->module_version,
 				'all'
 			);
 		}

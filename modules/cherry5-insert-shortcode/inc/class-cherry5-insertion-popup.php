@@ -5,7 +5,7 @@
  * @package    Cherry_Framework
  * @subpackage Modules
  * @author     Cherry Team <cherryframework@gmail.com>
- * @copyright  Copyright (c) 2012 - 2016, Cherry Team
+ * @copyright  Copyright (c) 2012 - 2017, Cherry Team
  * @link       http://www.cherryframework.com/
  * @license    http://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -30,8 +30,8 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 		/**
 		 * Module arguments
 		 *
-		 * @since  1.0.0
-		 * @var    array
+		 * @since 1.0.0
+		 * @var array
 		 * @access private
 		 */
 		private $args = array();
@@ -39,8 +39,8 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 		/**
 		 * Core instance
 		 *
-		 * @since  1.0.0
-		 * @var    object
+		 * @since 1.0.0
+		 * @var object
 		 * @access private
 		 */
 		private $core = null;
@@ -48,8 +48,8 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 		/**
 		 * Shortcode list.
 		 *
-		 * @since  1.0.0
-		 * @var    array
+		 * @since 1.0.0
+		 * @var array
 		 * @access private
 		 */
 		private $shortcode_list = array(
@@ -228,6 +228,10 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 						if ( ! array_key_exists( 'id', $settings ) ) {
 							$shortcode_attr['options'][ $key ]['id'] = $shortcode_slug . '_' . $key;
 						}
+
+						if ( isset( $settings['options'] ) ) {
+							$shortcode_attr['options'][ $key ]['options'] = $this->apply_options_cb( $settings );
+						}
 					}
 
 					$shortcode_options_html = $this->parent_self->cherry_interface_builder->render( false, $shortcode_attr['options'] );
@@ -247,6 +251,26 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 					'html'           => $output_html,
 				);
 			}
+		}
+
+		/**
+		 * Apply shortcode options callback if required.
+		 *
+		 * @since  1.0.2
+		 * @param  array $atts Shortcode field parameters.
+		 * @return array
+		 */
+		private function apply_options_cb( $atts ) {
+
+			if ( ! empty( $atts['options'] ) ) {
+				return $atts['options'];
+			}
+
+			if ( empty( $atts['options_cb'] ) || ! is_callable( $atts['options_cb'] ) ) {
+				return array();
+			}
+
+			return call_user_func( $atts['options_cb'] );
 		}
 
 		/**

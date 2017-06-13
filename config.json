@@ -151,7 +151,7 @@
 		"cherry-ui-elements" : {
 			"name" : "UI Elements",
 			"description" : "UI Elements",
-			"version" : "1.4.1",
+			"version" : "1.4.3",
 			"doc_link" : "https://github.com/CherryFramework/cherry-framework-docs/blob/master/09.%20cherry-ui-elements.md",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-ui-elements",
 			"compatible" : ["theme", "plugin"],
@@ -162,7 +162,7 @@
 		"cherry-utility" : {
 			"name" : "Utility",
 			"description" : "Multiple utility functions.",
-			"version" : "1.1.6",
+			"version" : "1.1.7",
 			"doc_link" : "https://github.com/CherryFramework/cherry-framework-docs/blob/master/08.%20cherry-utility.md",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-utility",
 			"compatible" : ["theme", "plugin"],
@@ -181,10 +181,21 @@
 			"required" : false,
 			"dependencies" : [ "cherry-ui-elements" ]
 		},
+		"cherry5-assets-loader" : {
+			"name" : "Assets Loader",
+			"description" : "The module allows you deferred loading scripts and styles.",
+			"version" : "1.0.0",
+			"doc_link" : "",
+			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry5-assets-loader",
+			"compatible" : [ "theme", "plugin" ],
+			"wordpress_org" : true,
+			"required" : false,
+			"dependencies" : [ "cherry-js-core" ]
+		},
 		"cherry5-insert-shortcode" : {
 			"name" : "Insert Shortcode",
 			"description" : "The module allows you to add shortcodes from editor tinyMCE.",
-			"version" : "1.0.1",
+			"version" : "1.0.2",
 			"doc_link" : "",
 			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry5-insert-shortcode",
 			"compatible" : [ "plugin" ],
