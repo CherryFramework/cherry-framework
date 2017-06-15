@@ -2,7 +2,6 @@
 /**
  * Module Name: Template Manager
  * Description: Module load and parse tmpl files.
- * Version: 1.0.2
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +9,6 @@
  *
  * @package    Template_Manager
  * @subpackage Modules
- * @version    1.0.2
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2017, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -30,6 +28,15 @@ if ( ! class_exists( 'Cherry_Template_Manager' ) ) {
 	 * @since 1.0.0
 	 */
 	class Cherry_Template_Manager {
+
+		/**
+		 * Module directory path.
+		 *
+		 * @since 1.5.0
+		 * @access protected
+		 * @var srting.
+		 */
+		protected $module_path;
 
 		/**
 		 * Module arguments.
@@ -82,6 +89,8 @@ if ( ! class_exists( 'Cherry_Template_Manager' ) ) {
 				$this->args
 			);
 
+			$this->module_path  = $args['module_path'];
+
 			$this->set_class();
 		}
 
@@ -93,8 +102,8 @@ if ( ! class_exists( 'Cherry_Template_Manager' ) ) {
 		 * @return void
 		 */
 		public function include_class() {
-			require_once( dirname( __FILE__ ) . '/inc/cherry-template-loader.php' );
-			require_once( dirname( __FILE__ ) . '/inc/cherry-template-parser.php' );
+			require_once( $this->module_path . 'inc/cherry-template-loader.php' );
+			require_once( $this->module_path . 'inc/cherry-template-parser.php' );
 		}
 
 		/**

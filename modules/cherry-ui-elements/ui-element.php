@@ -23,16 +23,6 @@ if ( ! class_exists( 'UI_Element' ) ) {
 	abstract class UI_Element {
 
 		/**
-		 * Version.
-		 *
-		 * This is a `UI Elements` module version.
-		 *
-		 * @since 1.0.1
-		 * @var string
-		 */
-		protected static $version = '1.4.3';
-
-		/**
 		 * Settings list
 		 *
 		 * @since 1.0.0
@@ -48,7 +38,7 @@ if ( ! class_exists( 'UI_Element' ) ) {
 		 */
 		public static function get_current_file_url( $file ) {
 			$assets_url = dirname( $file );
-			$site_url = site_url();
+			$site_url   = site_url();
 			$assets_url = str_replace( untrailingslashit( ABSPATH ), $site_url, $assets_url );
 			$assets_url = str_replace( '\\', '/', $assets_url );
 

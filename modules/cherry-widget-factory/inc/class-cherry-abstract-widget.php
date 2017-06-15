@@ -254,7 +254,7 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 		public function get_core() {
 
 			if ( null == $this->core ) {
-				$this->core = apply_filters( 'cherry_widget_factory_core', false, dirname( __FILE__ ) );
+				$this->core = apply_filters( 'cherry_widget_factory_core', false, Cherry_Widget_Factory::$module_path );
 			}
 
 			return $this->core;

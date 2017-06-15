@@ -2,7 +2,6 @@
 /**
  * Module Name: Interface Builder
  * Description: The module for the creation of interfaces in the WordPress admin panel
- * Version: 1.1.3
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +9,6 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.3
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2017, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -32,11 +30,22 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 	class Cherry_Interface_Builder {
 
 		/**
-		 * Module version.
+		 * Core version.
 		 *
+		 * @since 1.5.0
+		 * @access public
 		 * @var string
 		 */
-		public $module_version = '1.1.3';
+		public $core_version = '';
+
+		/**
+		 * Module directory path.
+		 *
+		 * @since 1.5.0
+		 * @access protected
+		 * @var srting.
+		 */
+		protected $module_path;
 
 		/**
 		 * Module settings.
@@ -114,7 +123,9 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 				$this->args
 			);
 
-			$this->ui_elements = $core->init_module( 'cherry-ui-elements' );
+			$this->core_version = $core->get_core_version();
+			$this->module_path  = $args['module_path'];
+			$this->ui_elements  = $core->init_module( 'cherry-ui-elements' );
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 		}
@@ -285,7 +296,7 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 				$path = ( array_key_exists( $type, $this->args['views'] ) ) ? $this->args['views'][ $type ] : $this->args['views']['control'];
 
 				$path = is_array( $path ) ? $path[0] : $path;
-				$path = file_exists( $path ) ? $path : trailingslashit( dirname( __FILE__ ) ) . $path;
+				$path = file_exists( $path ) ? $path : $this->module_path . $path;
 
 			} else {
 				$path = $args['view'];
@@ -450,16 +461,16 @@ if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
 		public function enqueue_assets() {
 			wp_enqueue_script(
 				'cherry-interface-builder',
-				esc_url( Cherry_Core::base_url( 'inc/assets/min/cherry-interface-builder.min.js', __FILE__ ) ),
+				esc_url( Cherry_Core::base_url( 'inc/assets/min/cherry-interface-builder.min.js', $this->module_path ) ),
 				array( 'jquery' ),
-				$this->module_version,
+				$this->core_version,
 				true
 			);
 			wp_enqueue_style(
 				'cherry-interface-builder',
-				esc_url( Cherry_Core::base_url( 'inc/assets/min/cherry-interface-builder.min.css', __FILE__ ) ),
+				esc_url( Cherry_Core::base_url( 'inc/assets/min/cherry-interface-builder.min.css', $this->module_path ) ),
 				array(),
-				$this->module_version,
+				$this->core_version,
 				'all'
 			);
 		}

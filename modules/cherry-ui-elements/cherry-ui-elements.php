@@ -2,7 +2,6 @@
 /**
  * Module Name: UI Elements
  * Description: Class for the building ui elements
- * Version: 1.4.3
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +9,6 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.4.3
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2017, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -57,6 +55,24 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		);
 
 		/**
+		 * Core version.
+		 *
+		 * @since 1.5.0
+		 * @access public
+		 * @var string
+		 */
+		public static $core_version = '';
+
+		/**
+		 * Module directory path.
+		 *
+		 * @since 1.5.0
+		 * @access protected
+		 * @var srting.
+		 */
+		public static $module_path;
+
+		/**
 		 * Constructor.
 		 *
 		 * @since 1.0.0
@@ -64,7 +80,10 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		 * @param array  $args Arguments.
 		 */
 		public function __construct( $core, $args ) {
-			$this->args = array_merge( $this->args, $args );
+			$this->args        = array_merge( $this->args, $args );
+			self::$core_version = $core->get_core_version();
+			self::$module_path  = $args['module_path'];
+
 			$this->ui_elements_require();
 
 			// Load admin assets.
@@ -105,22 +124,21 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		 * Require UI-elements.
 		 *
 		 * @since  1.0.0
-		 * @since  1.1.4 Using dirname( __FILE__ ) instead of __DIR__.
 		 * @return void
 		 */
 		public function ui_elements_require() {
 
 			// Add I_UI interface.
 			if ( ! interface_exists( 'I_UI' ) ) {
-				require_once( dirname( __FILE__ ) . '/i-ui.php' );
+				require_once( self::$module_path . 'i-ui.php' );
 			}
 
-			require_once( dirname( __FILE__ ) . '/ui-element.php' );
-			require_once( dirname( __FILE__ ) . '/inc/class-cherry-lock-element.php' );
+			require_once( self::$module_path. 'ui-element.php' );
+			require_once( self::$module_path . 'inc/class-cherry-lock-element.php' );
 
 			if ( ! empty( $this->args['ui_elements'] ) ) {
 				foreach ( $this->args['ui_elements'] as $ui_element ) {
-					require_once( dirname( __FILE__ ) . '/inc/ui-elements/ui-' . $ui_element . '/ui-' . $ui_element . '.php' );
+					require_once( self::$module_path . 'inc/ui-elements/ui-' . $ui_element . '/ui-' . $ui_element . '.php' );
 				}
 			}
 		}

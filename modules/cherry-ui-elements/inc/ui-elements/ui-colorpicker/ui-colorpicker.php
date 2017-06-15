@@ -95,18 +95,18 @@ if ( ! class_exists( 'UI_Colorpicker' ) ) {
 		public static function enqueue_assets() {
 
 			wp_enqueue_script(
-				'ui-colorpicker-min',
-				esc_url( Cherry_Core::base_url( 'assets/min/ui-colorpicker.min.js', __FILE__ ) ),
+				'ui-colorpicker',
+				esc_url( Cherry_Core::base_url( 'inc/ui-elements/ui-colorpicker/assets/min/ui-colorpicker.min.js', Cherry_UI_Elements::$module_path ) ),
 				array( 'jquery', 'wp-color-picker' ),
-				self::$version,
+				Cherry_UI_Elements::$core_version,
 				true
 			);
 
 			wp_enqueue_style(
-				'ui-colorpicker-min',
-				esc_url( Cherry_Core::base_url( 'assets/min/ui-colorpicker.min.css', __FILE__ ) ),
+				'ui-colorpicker',
+				esc_url( Cherry_Core::base_url( 'inc/ui-elements/ui-colorpicker/assets/min/ui-colorpicker.min.css', Cherry_UI_Elements::$module_path ) ),
 				array( 'wp-color-picker' ),
-				self::$version,
+				Cherry_UI_Elements::$core_version,
 				'all'
 			);
 		}

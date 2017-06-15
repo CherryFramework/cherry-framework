@@ -2,7 +2,6 @@
 /**
  * Module Name: Widget Factory
  * Description: Base widget class that simplifies creating of your own widgets.
- * Version: 1.3.0
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +9,6 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.3.0
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2017, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -51,6 +49,15 @@ if ( ! class_exists( 'Cherry_Widget_Factory' ) ) {
 		public $core = null;
 
 		/**
+		 * Module directory path.
+		 *
+		 * @since 1.5.0
+		 * @access protected
+		 * @var srting.
+		 */
+		public static $module_path;
+
+		/**
 		 * A reference to an instance of this class.
 		 *
 		 * @since 1.0.0
@@ -62,9 +69,10 @@ if ( ! class_exists( 'Cherry_Widget_Factory' ) ) {
 		 * Constructor for the module
 		 */
 		function __construct( $core, $args ) {
+			$this->core        = $core;
+			$this->args        = $args;
+			self::$module_path = $args['module_path'];
 
-			$this->core = $core;
-			$this->args = $args;
 			$this->include_abstract_widget();
 			add_filter( 'cherry_widget_factory_core', array( $this, 'pass_core_to_widgets' ), 10, 2 );
 		}
@@ -79,7 +87,7 @@ if ( ! class_exists( 'Cherry_Widget_Factory' ) ) {
 		public function pass_core_to_widgets( $core, $path ) {
 
 			$path         = str_replace( '\\', '/', $path );
-			$current_core = str_replace( '\\', '/', $this->core->settings['extra_base_dir'] );
+			$current_core = str_replace( '\\', '/', $this->core->settings['base_dir'] );
 
 			if ( false !== strpos( $path, $current_core ) ) {
 				return $this->core;
@@ -92,11 +100,10 @@ if ( ! class_exists( 'Cherry_Widget_Factory' ) ) {
 		 * Include abstract widget class
 		 *
 		 * @since  1.0.0
-		 * @since  1.1.2 Using dirname( __FILE__ ) instead of __DIR__.
 		 * @return void
 		 */
 		public function include_abstract_widget() {
-			require_once( dirname( __FILE__ ) . '/inc/class-cherry-abstract-widget.php' );
+			require_once( self::$module_path . '/inc/class-cherry-abstract-widget.php' );
 		}
 
 		/**

@@ -2,7 +2,6 @@
 /**
  * Module Name: Utility
  * Description: Multiple utility functions
- * Version: 1.1.7
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +9,6 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.7
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2017, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -58,6 +56,15 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 		);
 
 		/**
+		 * Module directory path.
+		 *
+		 * @since 1.5.0
+		 * @access protected
+		 * @var srting.
+		 */
+		protected $module_path;
+
+		/**
 		 * Utilit class.
 		 *
 		 * @since 1.0.0
@@ -71,7 +78,9 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 		 * @since 1.0.0
 		 */
 		public function __construct( $core, $args = array() ) {
-			$this->args = array_merge( $this->args, $args );
+			$this->args        = array_merge( $this->args, $args );
+			$this->module_path = $args['module_path'];
+
 			$this->utility_require( $core );
 		}
 
@@ -79,7 +88,6 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 		 * Require utility.
 		 *
 		 * @since 1.0.0
-		 * @since 1.1.1 Using dirname( __FILE__ ) instead of __DIR__.
 		 * @return void
 		 */
 		public function utility_require() {
@@ -92,7 +100,7 @@ if ( ! class_exists( 'Cherry_Utility' ) ) {
 
 				foreach ( $utility as $utilit ) {
 
-					require_once( dirname( __FILE__ ) . '/inc/cherry-' . $utilit . '-utilit.php' );
+					require_once( $this->module_path . '/inc/cherry-' . $utilit . '-utilit.php' );
 
 					$utilit     = str_replace( '-', ' ', $utilit );
 					$class_name = ucwords( $utilit );
