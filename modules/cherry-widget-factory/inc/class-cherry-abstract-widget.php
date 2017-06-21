@@ -401,6 +401,8 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 				return;
 			}
 
+			$this->builder->reset_structure();
+
 			foreach ( $this->settings as $key => $setting ) {
 
 				if ( isset( $setting['options_callback'] ) ) {
