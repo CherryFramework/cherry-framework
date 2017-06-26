@@ -88,6 +88,8 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 		 */
 		public static $printed_sets = array();
 
+		public $temp_icons = null;
+
 		/**
 		 * Constructor method for the UI_Iconpicker class.
 		 *
@@ -155,7 +157,42 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 				$html .= $this->lock_element->get_html();
 			$html .= '</div>';
 
+			/**
+			 * Maybe add js repeater template to response
+			 *
+			 * @var bool
+			 */
+			$add_js_to_response = apply_filters( 'cherry_ui_add_data_to_element', false );
+
+			if ( $add_js_to_response ) {
+
+				ob_start();
+				$this->print_icon_set();
+				$icons = ob_get_clean();
+
+				$in_repeater = apply_filters( 'cherry_ui_is_repeater', false );
+
+				if ( $in_repeater ) {
+					$this->temp_icons = $icons;
+					add_filter( 'cherry_ui_add_repater_data', array( $this, 'store_icons' ) );
+				} else {
+					$html .= $icons;
+				}
+
+			}
+
 			return $html;
+		}
+
+		public function store_icons( $data = array() ) {
+
+			if ( ! is_array( $data ) ) {
+				$data = array();
+			}
+
+			$data[] = $this->temp_icons;
+
+			return $data;
 		}
 
 		/**
