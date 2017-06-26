@@ -473,7 +473,7 @@ if ( ! class_exists( 'Cherry_Abstract_Widget' ) ) {
 		 */
 		public function setup_widget_data( $args, $instance ) {
 			$this->args     = $args;
-			$this->instance = $instance;
+			$this->instance = $this->prepare_instance( $instance, $this );
 		}
 
 		/**
