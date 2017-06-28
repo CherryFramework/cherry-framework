@@ -108,6 +108,7 @@ if ( ! class_exists( 'Cherry_Template_Loader' ) ) {
 		 */
 		private function get_slug() {
 			$file_dir    = wp_normalize_path( dirname( $this->cherry_template_manager_class->core->settings['extra_base_dir'] ) );
+			var_dump($file_dir);
 			$product_dir = $this->get_project_root();
 
 			$slug = str_replace( $product_dir, '', $file_dir );

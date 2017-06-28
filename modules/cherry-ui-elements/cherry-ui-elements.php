@@ -80,7 +80,7 @@ if ( ! class_exists( 'Cherry_UI_Elements' ) ) {
 		 * @param array  $args Arguments.
 		 */
 		public function __construct( $core, $args ) {
-			$this->args        = array_merge( $this->args, $args );
+			$this->args         = array_merge( $this->args, $args );
 			self::$core_version = $core->get_core_version();
 			self::$module_path  = $args['module_path'];
 

@@ -68,7 +68,8 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 				'base_url'       => '',
 			);
 
-			$this->settings             = array_merge( $defaults, $settings );
+			$this->settings = array_merge( $defaults, $settings );
+
 			$this->settings['base_dir'] = trailingslashit( dirname( __FILE__ ) );
 			$this->settings['base_url'] = trailingslashit( $this->base_url( '', $this->settings['base_dir'] ) );
 
@@ -111,10 +112,10 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			}
 
 			foreach ( $this->settings['modules'] as $module => $settings ) {
-				$path = $this->get_module_path( $module );
+				$file_path = $this->get_module_file( $module );
 
 				if ( ! array_key_exists( $module, self::$all_modules ) ) {
-					self::$all_modules[ $module ] = $path;
+					self::$all_modules[ $module ] = $file_path;
 				}
 			}
 
@@ -216,7 +217,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 
 			if ( empty( $args[ 'module_path' ] ) ) {
 				$get_module_path     = $this->get_module_path( $module );
-				$args['module_path'] = ( $get_module_path ) ? trailingslashit( dirname ( $get_module_path ) ) : '' ;
+				$args['module_path'] = ( $get_module_path ) ? $get_module_path : '';
 			}
 
 			$this->modules[ $module ] = $this->get_module_instance( $module, $args );
@@ -313,6 +314,24 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 */
 		public function get_module_path( $module ) {
 			$abs_path = false;
+			$rel_path = 'modules/' . $module . '/';
+
+			if ( file_exists( $this->settings['base_dir'] . $rel_path ) ) {
+				$abs_path = $this->settings['base_dir'] . $rel_path;
+			}
+
+			return $abs_path;
+		}
+
+		/**
+		 * Get path to main file for passed module.
+		 *
+		 * @since  1.0.1
+		 * @param  string $module Module slug.
+		 * @return string
+		 */
+		public function get_module_file( $module ) {
+			$abs_path = false;
 			$rel_path = 'modules/' . $module . '/' . $module . '.php';
 
 			if ( file_exists( $this->settings['base_dir'] . $rel_path ) ) {
@@ -335,7 +354,8 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		public static function base_url( $file_path = '', $module_path ) {
 			$module_path = wp_normalize_path( $module_path );
 			preg_match( '/\..*$/', $module_path, $ext );
-			$module_dir  = ( ! empty( $ext ) ) ? dirname( $module_path ) : $module_path ;
+			$module_dir  = ( ! empty( $ext ) ) ? dirname( $module_path ) : $module_path;
+
 
 			$plugin_dir  = wp_normalize_path( WP_PLUGIN_DIR );
 			$stylesheet  = get_stylesheet();

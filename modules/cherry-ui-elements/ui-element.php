@@ -31,21 +31,6 @@ if ( ! class_exists( 'UI_Element' ) ) {
 		protected $settings = array();
 
 		/**
-		 * Get current file URL
-		 *
-		 * @since 1.0.0
-		 * @deprecated 1.0.3 Use `Cherry_Core::base_url()` method
-		 */
-		public static function get_current_file_url( $file ) {
-			$assets_url = dirname( $file );
-			$site_url   = site_url();
-			$assets_url = str_replace( untrailingslashit( ABSPATH ), $site_url, $assets_url );
-			$assets_url = str_replace( '\\', '/', $assets_url );
-
-			return $assets_url;
-		}
-
-		/**
 		 * Get control value
 		 *
 		 * @since 1.0.0
