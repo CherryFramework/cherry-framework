@@ -61,6 +61,8 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @since 1.0.0
 		 */
 		public function __construct( $settings = array() ) {
+			global $chery_core_version;
+
 			$defaults = array(
 				'framework_path' => 'cherry-framework',
 				'modules'        => array(),
@@ -70,7 +72,15 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 
 			$this->settings = array_merge( $defaults, $settings );
 
-			$this->settings['base_dir'] = trailingslashit( dirname( __FILE__ ) );
+			if ( isset( $chery_core_version ) && 0 < sizeof( $chery_core_version ) ) {
+				$core_paths = array_values( $chery_core_version );
+				$path_parts = pathinfo( $core_paths[0] );
+				$this->settings['base_dir'] = trailingslashit( $path_parts['dirname'] );
+			} else {
+				// This condition and the using of the function dirname is due to core backwards compatibility with old framework versions
+				$this->settings['base_dir'] = trailingslashit( dirname( __FILE__ ) );
+			}
+
 			$this->settings['base_url'] = trailingslashit( $this->base_url( '', $this->settings['base_dir'] ) );
 
 			$this->run_collector();
@@ -354,8 +364,13 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		public static function base_url( $file_path = '', $module_path ) {
 			$module_path = wp_normalize_path( $module_path );
 			preg_match( '/\..*$/', $module_path, $ext );
-			$module_dir  = ( ! empty( $ext ) ) ? dirname( $module_path ) : $module_path;
 
+			if ( empty( $ext ) ) {
+				$module_dir = $module_path;
+			} else {
+				// This condition and the using of the function dirname is due to core backwards compatibility with old framework versions
+				$module_dir = dirname( $module_path );
+			}
 
 			$plugin_dir  = wp_normalize_path( WP_PLUGIN_DIR );
 			$stylesheet  = get_stylesheet();
