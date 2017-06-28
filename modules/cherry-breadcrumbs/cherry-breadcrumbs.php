@@ -2,7 +2,6 @@
 /**
  * Module Name: Breadcrumb Trail
  * Description: A breadcrumb menu script for WordPress
- * Version: 1.1.5
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3

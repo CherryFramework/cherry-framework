@@ -277,17 +277,17 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		public static function enqueue_assets() {
 			wp_enqueue_style(
 				'ui-repeater',
-				esc_url( Cherry_Core::base_url( 'assets/min/ui-repeater.min.css', __FILE__ ) ),
+				esc_url( Cherry_Core::base_url( 'inc/ui-elements/ui-repeater/assets/min/ui-repeater.min.css', Cherry_UI_Elements::$module_path ) ),
 				array(),
-				self::$version,
+				Cherry_UI_Elements::$core_version,
 				'all'
 			);
 
 			wp_enqueue_script(
 				'ui-repeater',
-				esc_url( Cherry_Core::base_url( 'assets/min/ui-repeater.min.js', __FILE__ ) ),
+				esc_url( Cherry_Core::base_url( 'inc/ui-elements/ui-repeater/assets/min/ui-repeater.min.js', Cherry_UI_Elements::$module_path ) ),
 				array( 'wp-util', 'jquery-ui-sortable' ),
-				self::$version,
+				Cherry_UI_Elements::$core_version,
 				true
 			);
 

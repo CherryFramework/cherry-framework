@@ -180,33 +180,33 @@ if ( ! class_exists( 'UI_Select' ) ) {
 		public static function enqueue_assets() {
 			wp_enqueue_script(
 				'ui-select-select2',
-				esc_url( Cherry_Core::base_url( 'assets/min/select2.min.js', __FILE__ ) ),
+				esc_url( Cherry_Core::base_url( 'inc/ui-elements/ui-select/assets/min/select2.min.js', Cherry_UI_Elements::$module_path ) ),
 				array( 'jquery' ),
 				'4.0.3',
 				true
 			);
 
 			wp_enqueue_script(
-				'ui-select-min',
-				esc_url( Cherry_Core::base_url( 'assets/min/ui-select.min.js', __FILE__ ) ),
+				'ui-select',
+				esc_url( Cherry_Core::base_url( 'inc/ui-elements/ui-select/assets/min/ui-select.min.js', Cherry_UI_Elements::$module_path ) ),
 				array( 'jquery' ),
-				self::$version,
+				Cherry_UI_Elements::$core_version,
 				true
 			);
 
 			wp_enqueue_style(
 				'ui-select-select2',
-				esc_url( Cherry_Core::base_url( 'assets/min/select2.min.css', __FILE__ ) ),
+				esc_url( Cherry_Core::base_url( 'inc/ui-elements/ui-select/assets/min/select2.min.css', Cherry_UI_Elements::$module_path ) ),
 				array(),
 				'4.0.3',
 				'all'
 			);
 
 			wp_enqueue_style(
-				'ui-select-min',
-				esc_url( Cherry_Core::base_url( 'assets/min/ui-select.min.css', __FILE__ ) ),
+				'ui-select',
+				esc_url( Cherry_Core::base_url( 'inc/ui-elements/ui-select/assets/min/ui-select.min.css', Cherry_UI_Elements::$module_path ) ),
 				array(),
-				self::$version,
+				Cherry_UI_Elements::$core_version,
 				'all'
 			);
 		}

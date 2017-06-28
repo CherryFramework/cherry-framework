@@ -90,7 +90,7 @@ if ( ! class_exists( 'Cherry5_Assets_Loader_Handle' ) ) {
 				return;
 			}
 
-			$path = preg_replace( '/[\\\\\/]inc$/', '/assets/var.js', dirname( __FILE__ ) );
+			$path = preg_replace( '/[\\\\\/]inc$/', '/assets/var.js', $this->module_path );
 
 			ob_start();
 			include $path;
