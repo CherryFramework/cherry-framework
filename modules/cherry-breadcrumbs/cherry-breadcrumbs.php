@@ -1255,10 +1255,9 @@ if ( ! class_exists( 'Cherry_Breadcrumbs' ) ) {
 			if ( is_paged() ) {
 				$url   = get_search_link();
 				$this->_add_item( 'link_format', $label, $url );
-
+			} else {
+				$this->_add_item( 'target_format', $label );
 			}
-
-			$this->_add_item( 'target_format', $label );
 		}
 
 		/**
