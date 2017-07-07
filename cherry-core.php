@@ -377,8 +377,10 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			$theme_root  = get_raw_theme_root( $stylesheet );
 			$theme_dir   = "$theme_root/$stylesheet";
 
-			if ( 0 === strpos( $module_path, $plugin_dir ) ) {
-				$url = plugin_dir_url( $module_path );
+			if ( 0 === strpos( $module_dir, $plugin_dir ) ) {
+				$home_url = home_url();
+				$abs_path = wp_normalize_path( ABSPATH );
+				$url      = str_replace( untrailingslashit( $abs_path ), $home_url, $module_dir );
 			} else if ( false !== strpos( $module_path, $theme_dir ) ) {
 				$explode = explode( $theme_dir, $module_dir );
 				$url     = get_stylesheet_directory_uri() . end( $explode );
