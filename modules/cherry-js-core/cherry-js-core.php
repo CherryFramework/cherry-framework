@@ -2,7 +2,6 @@
 /**
  * Module Name: JS Core
  * Description: Initializes global JS object which provides additional plugin functionality
- * Version: 1.1.2
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +9,6 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.2
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2017, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -41,12 +39,22 @@ if ( ! class_exists( 'Cherry_Js_Core' ) ) {
 		private static $instance = null;
 
 		/**
-		 * Module version.
+		 * Core version.
 		 *
-		 * @since 1.0.0
+		 * @since 1.5.0
+		 * @access public
 		 * @var string
 		 */
-		private $module_version = '1.1.2';
+		public $core_version = '';
+
+		/**
+		 * Module directory path.
+		 *
+		 * @since 1.5.0
+		 * @access protected
+		 * @var srting.
+		 */
+		protected $module_path;
 
 		/**
 		 * Default options.
@@ -68,7 +76,9 @@ if ( ! class_exists( 'Cherry_Js_Core' ) ) {
 		 * @param array  $args Class args.
 		 */
 		public function __construct( $core, $args = array() ) {
-			$this->options = array_merge( $this->options, $args );
+			$this->options      = array_merge( $this->options, $args );
+			$this->core_version = $core->get_core_version();
+			$this->module_path  = $args['module_path'];
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_cherry_scripts' ), 0 );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_cherry_scripts' ), 0 );
@@ -83,14 +93,20 @@ if ( ! class_exists( 'Cherry_Js_Core' ) ) {
 		public function enqueue_cherry_scripts() {
 
 			if ( 'framework' === $this->options['product_type'] ) {
-				$src     = esc_url( Cherry_Core::base_url( 'assets/js/min/cherry-js-core.min.js', __FILE__ ) );
-				$version = $this->module_version;
+				$src     = esc_url( Cherry_Core::base_url( 'assets/js/min/cherry-js-core.min.js', $this->module_path ) );
+				$version = $this->core_version;
 			} else {
 				$src     = ( ! empty( $this->options['src'] ) ? esc_url( $this->options['src'] ) : false );
 				$version = ( ! empty( $this->options['version'] ) ? absint( $this->options['src'] ) : false );
 			}
 
-			wp_enqueue_script( 'cherry-js-core', $src, array( 'jquery' ), $version, true );
+			wp_enqueue_script(
+				'cherry-js-core',
+				$src,
+				array( 'jquery' ),
+				$this->core_version,
+				true
+			);
 		}
 
 		/**

@@ -1,7 +1,7 @@
 <?php
 /**
  * Class Cherry Core
- * Version: 1.4.3.1
+ * Version: 1.5.0
  *
  * @package    Cherry_Framework
  * @subpackage Class
@@ -59,25 +59,29 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * Constructor.
 		 *
 		 * @since 1.0.0
-		 * @since 1.1.1 Using dirname( __FILE__ ) instead of __DIR__.
 		 */
 		public function __construct( $settings = array() ) {
-			$base_dir = trailingslashit( dirname( __FILE__ ) );
-			$base_url = trailingslashit( $this->base_url( '', __FILE__ ) );
+			global $chery_core_version;
 
 			$defaults = array(
 				'framework_path' => 'cherry-framework',
 				'modules'        => array(),
-				'base_dir'       => $base_dir,
-				'base_url'       => $base_url,
-				'extra_base_dir' => '',
+				'base_dir'       => '',
+				'base_url'       => '',
 			);
 
 			$this->settings = array_merge( $defaults, $settings );
 
-			$this->settings['extra_base_dir'] = trailingslashit( $this->settings['base_dir'] );
-			$this->settings['base_dir']       = $base_dir;
-			$this->settings['base_url']       = $base_url;
+			if ( isset( $chery_core_version ) && 0 < sizeof( $chery_core_version ) ) {
+				$core_paths = array_values( $chery_core_version );
+				$path_parts = pathinfo( $core_paths[0] );
+				$this->settings['base_dir'] = trailingslashit( $path_parts['dirname'] );
+			} else {
+				// This condition and the using of the function dirname is due to core backwards compatibility with old framework versions
+				$this->settings['base_dir'] = trailingslashit( dirname( __FILE__ ) );
+			}
+
+			$this->settings['base_url'] = trailingslashit( $this->base_url( '', $this->settings['base_dir'] ) );
 
 			$this->run_collector();
 
@@ -118,30 +122,10 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 			}
 
 			foreach ( $this->settings['modules'] as $module => $settings ) {
-				$priority = $this->get_module_priority( $module );
-				$path     = $this->get_module_path( $module );
+				$file_path = $this->get_module_file( $module );
 
 				if ( ! array_key_exists( $module, self::$all_modules ) ) {
-					self::$all_modules[ $module ] = array(
-						$priority => $path,
-					);
-
-				} else {
-					$old_priority = array_keys( self::$all_modules[ $module ] );
-
-					if ( ! is_array( $old_priority ) || ! isset( $old_priority[0] ) ) {
-						continue;
-					}
-
-					$compare = version_compare( $old_priority[0], $priority, '<' );
-
-					if ( $compare ) {
-						continue;
-					}
-
-					self::$all_modules[ $module ] = array(
-						$priority => $path,
-					);
+					self::$all_modules[ $module ] = $file_path;
 				}
 			}
 
@@ -160,10 +144,8 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @since 1.1.0
 		 */
 		public static function load_all_modules() {
+			foreach ( self::$all_modules as $module => $path ) {
 
-			foreach ( self::$all_modules as $module => $data ) {
-
-				$path   = current( $data );
 				$loaded = self::load_module( $module, $path );
 
 				if ( ! $loaded ) {
@@ -178,7 +160,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @since 1.4.0
 		 */
 		public function load_textdomain() {
-			$mo_file_path = dirname( __FILE__ ) . '/languages/' . get_locale() . '.mo';
+			$mo_file_path = $this->settings['base_dir'] . 'languages/' . get_locale() . '.mo';
 
 			load_textdomain( 'cherry-framework', $mo_file_path );
 		}
@@ -213,7 +195,6 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @since 1.1.0
 		 */
 		public function init_autoload_modules() {
-
 			if ( empty( $this->modules ) ) {
 				return;
 			}
@@ -229,6 +210,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 				}
 
 				$args = ! empty( $settings['args'] ) ? $settings['args'] : array();
+
 				$this->init_module( $module, $args );
 			}
 		}
@@ -242,6 +224,12 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 * @return mixed
 		 */
 		public function init_module( $module, $args = array() ) {
+
+			if ( empty( $args[ 'module_path' ] ) ) {
+				$get_module_path     = $this->get_module_path( $module );
+				$args['module_path'] = ( $get_module_path ) ? $get_module_path : '';
+			}
+
 			$this->modules[ $module ] = $this->get_module_instance( $module, $args );
 
 			/**
@@ -279,12 +267,12 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		public static function load_module( $module, $path ) {
 			$class_name = self::get_class_name( $module );
 
-			if ( class_exists( $class_name ) ) {
-				return true;
-			}
-
 			if ( ! $path ) {
 				return false;
+			}
+
+			if ( class_exists( $class_name ) ) {
+				return true;
 			}
 
 			require_once( $path );
@@ -336,11 +324,9 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 */
 		public function get_module_path( $module ) {
 			$abs_path = false;
-			$rel_path = 'modules/' . $module . '/' . $module . '.php';
+			$rel_path = 'modules/' . $module . '/';
 
-			if ( file_exists( $this->settings['extra_base_dir'] . $rel_path ) ) {
-				$abs_path = $this->settings['extra_base_dir'] . $rel_path;
-			} else if ( file_exists( $this->settings['base_dir'] . $rel_path ) ) {
+			if ( file_exists( $this->settings['base_dir'] . $rel_path ) ) {
 				$abs_path = $this->settings['base_dir'] . $rel_path;
 			}
 
@@ -348,60 +334,21 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		}
 
 		/**
-		 * Get module priority from it's version.
-		 * Version information should be provided as a value stored in the header notation.
+		 * Get path to main file for passed module.
 		 *
-		 * @link   https://developer.wordpress.org/reference/functions/get_file_data/
-		 * @since  1.0.0
-		 * @param  string $module   Module slug or path.
-		 * @param  bool   $is_path  Set this as true, if `$module` contains a path.
-		 * @return int
+		 * @since  1.0.1
+		 * @param  string $module Module slug.
+		 * @return string
 		 */
-		public function get_module_priority( $module, $is_path = false ) {
+		public function get_module_file( $module ) {
+			$abs_path = false;
+			$rel_path = 'modules/' . $module . '/' . $module . '.php';
 
-			// Default phpDoc headers.
-			$default_headers = array(
-				'version' => 'Version',
-			);
-
-			// Maximum version number (major, minor, patch).
-			$max_version = array(
-				99,
-				99,
-				999,
-			);
-
-			// If `$module` is a slug, get module path.
-			if ( ! $is_path ) {
-				$module = $this->get_module_path( $module );
+			if ( file_exists( $this->settings['base_dir'] . $rel_path ) ) {
+				$abs_path = $this->settings['base_dir'] . $rel_path;
 			}
 
-			$version = '1.0.0';
-
-			/* @TODO: Add smart check */
-			if ( ! $module ) {
-				return $version;
-			}
-
-			$data = get_file_data( $module , $default_headers );
-
-			// Check if version string has a valid value.
-			if ( isset( $data['version'] ) && false !== strpos( $data['version'], '.' ) ) {
-
-				// Clean the version string.
-				preg_match( '/[\d\.]+/', $data['version'], $version );
-				$version = $version[0];
-			}
-
-			// Convert version into integer.
-			$parts = explode( '.', $version );
-
-			// Calculate priority.
-			foreach ( $parts as $index => $part ) {
-				$parts[ $index ] = $max_version[ $index ] - (int) $part;
-			}
-
-			return (int) join( '', $parts );
+			return $abs_path;
 		}
 
 		/**
@@ -416,15 +363,24 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 */
 		public static function base_url( $file_path = '', $module_path ) {
 			$module_path = wp_normalize_path( $module_path );
-			$module_dir  = dirname( $module_path );
+			preg_match( '/\..*$/', $module_path, $ext );
+
+			if ( empty( $ext ) ) {
+				$module_dir = $module_path;
+			} else {
+				// This condition and the using of the function dirname is due to core backwards compatibility with old framework versions
+				$module_dir = dirname( $module_path );
+			}
 
 			$plugin_dir  = wp_normalize_path( WP_PLUGIN_DIR );
 			$stylesheet  = get_stylesheet();
 			$theme_root  = get_raw_theme_root( $stylesheet );
 			$theme_dir   = "$theme_root/$stylesheet";
 
-			if ( 0 === strpos( $module_path, $plugin_dir ) ) {
-				$url = plugin_dir_url( $module_path );
+			if ( 0 === strpos( $module_dir, $plugin_dir ) ) {
+				$home_url = home_url();
+				$abs_path = wp_normalize_path( ABSPATH );
+				$url      = str_replace( untrailingslashit( $abs_path ), $home_url, $module_dir );
 			} else if ( false !== strpos( $module_path, $theme_dir ) ) {
 				$explode = explode( $theme_dir, $module_dir );
 				$url     = get_stylesheet_directory_uri() . end( $explode );
@@ -452,7 +408,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 */
 		public function pass_core_to_widgets( $core, $path ) {
 			$path         = str_replace( '\\', '/', $path );
-			$current_core = str_replace( '\\', '/', $this->settings['extra_base_dir'] );
+			$current_core = str_replace( '\\', '/', $this->settings['base_dir'] );
 
 			if ( false !== strpos( $path, $current_core ) ) {
 				return self::get_instance();
@@ -462,10 +418,21 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		}
 
 		/**
+		 * Get core version.
+		 *
+		 * @since 1.5.0
+		 * @return string
+		 */
+		public function get_core_version() {
+			global $chery_core_version;
+
+			return key( $chery_core_version );
+		}
+
+		/**
 		 * Get path to the core directory.
 		 *
 		 * @since 1.0.0
-		 * @deprecated 1.1.0 Use constant `dirname( __FILE__ )`
 		 * @return string
 		 */
 		public function get_core_dir() {

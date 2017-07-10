@@ -2,7 +2,6 @@
 /**
  * Module Name: Cherry handler
  * Description: Initializes handlers
- * Version: 1.1.3
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +9,6 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.3
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2017, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -32,11 +30,22 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 	class Cherry_Handler {
 
 		/**
-		 * Module version.
+		 * Core version.
 		 *
+		 * @since 1.5.0
+		 * @access public
 		 * @var string
 		 */
-		public $module_version = '1.1.3';
+		public $core_version = '';
+
+		/**
+		 * Module directory path.
+		 *
+		 * @since 1.5.0
+		 * @access protected
+		 * @var srting.
+		 */
+		protected $module_path;
 
 		/**
 		 * Default settings.
@@ -45,13 +54,13 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 		 * @var array
 		 */
 		private $settings = array(
-			'id'         => '',
-			'action'     => '',
-			'capability' => '',
-			'is_public'  => false,
-			'callback'   => '',
-			'type'       => 'POST',
-			'data_type'  => 'json',
+			'id'           => '',
+			'action'       => '',
+			'capability'   => '',
+			'is_public'    => false,
+			'callback'     => '',
+			'type'         => 'POST',
+			'data_type'    => 'json',
 			'sys_messages' => array(),
 		);
 
@@ -70,7 +79,9 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 				'access_is_allowed' => esc_html__( 'Access is allowed', 'cherry-framework' ),
 				'wait_processing'   => esc_html__( 'Please wait, processing the previous request', 'cherry-framework' ),
 			);
-			$this->settings = array_merge( $this->settings, $args );
+			$this->settings     = array_merge( $this->settings, $args );
+			$this->core_version = $core->get_core_version();
+			$this->module_path  = $args['module_path'];
 
 			if ( empty( $this->settings['id'] ) ) {
 				echo '<h3>ID is required attr</h3>';
@@ -165,17 +176,17 @@ if ( ! class_exists( 'Cherry_Handler' ) ) {
 		public function enqueue_scripts() {
 			wp_enqueue_script(
 				'cherry-handler-js',
-				esc_url( Cherry_Core::base_url( 'assets/js/min/cherry-handler.min.js', __FILE__ ) ),
+				esc_url( Cherry_Core::base_url( 'assets/js/min/cherry-handler.min.js', $this->module_path ) ),
 				array( 'jquery' ),
-				$this->module_version,
+				$this->core_version,
 				true
 			);
 
 			wp_enqueue_style(
 				'cherry-handler-css',
-				esc_url( Cherry_Core::base_url( 'assets/css/cherry-handler-styles.min.css', __FILE__ ) ),
+				esc_url( Cherry_Core::base_url( 'assets/css/cherry-handler-styles.min.css', $this->module_path ) ),
 				array(),
-				$this->module_version,
+				$this->core_version,
 				'all'
 			);
 		}

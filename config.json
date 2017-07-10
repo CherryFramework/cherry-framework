@@ -115,17 +115,6 @@
 			"required" : false,
 			"dependencies" : [ "cherry-interface-builder" ]
 		},
-		"cherry-template-manager" : {
-			"name" : "Template Manager",
-			"description" : "Module for load and parse *.tmpl files.",
-			"version" : "1.0.2",
-			"doc_link" : "https://github.com/CherryFramework/cherry-framework-docs/blob/master/05.%20cherry-template-manager.md",
-			"git_link" : "https://github.com/CherryFramework/cherry-framework/tree/master/modules/cherry-template-manager",
-			"compatible" : ["theme", "plugin"],
-			"wordpress_org" : true,
-			"required" : false,
-			"dependencies" : []
-		},
 		"cherry-term-meta" : {
 			"name" : "Term Meta",
 			"description" : "Manage term metadata.",

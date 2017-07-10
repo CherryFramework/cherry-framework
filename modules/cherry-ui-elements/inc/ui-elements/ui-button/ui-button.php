@@ -61,7 +61,7 @@ if ( ! class_exists( 'UI_Button' ) ) {
 		 */
 		public function render() {
 			$html = Cherry_Toolkit::render_view(
-				dirname( __FILE__ ) . '/view/button-view.php',
+				Cherry_UI_Elements::$module_path . 'inc/ui-elements/ui-button/view/button-view.php',
 				$this->settings
 			);
 
@@ -76,9 +76,9 @@ if ( ! class_exists( 'UI_Button' ) ) {
 		public static function enqueue_assets() {
 			wp_enqueue_style(
 				'ui-button',
-				esc_url( Cherry_Core::base_url( 'assets/min/ui-button.min.css', __FILE__ ) ),
+				esc_url( Cherry_Core::base_url( 'inc/ui-elements/ui-button/assets/min/ui-button.min.css', Cherry_UI_Elements::$module_path ) ),
 				array(),
-				self::$version,
+				Cherry_UI_Elements::$core_version,
 				'all'
 			);
 		}
