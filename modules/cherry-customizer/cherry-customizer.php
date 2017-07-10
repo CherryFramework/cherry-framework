@@ -2,7 +2,6 @@
 /**
  * Module Name: Customizer
  * Description: Customizer functionality.
- * Version: 1.1.8
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +9,6 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.1.8
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2016, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -31,15 +29,6 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 	 * @since 1.0.1 Removed `module_dir` and `module_uri` properties.
 	 */
 	class Cherry_Customizer {
-
-		/**
-		 * The version of this module.
-		 *
-		 * @since 1.0.0
-		 * @access protected
-		 * @var string
-		 */
-		protected $version;
 
 		/**
 		 * Unique prefix.
@@ -106,6 +95,15 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		protected $fonts;
 
 		/**
+		 * Module directory path.
+		 *
+		 * @since 1.5.0
+		 * @access protected
+		 * @var srting.
+		 */
+		protected $module_path;
+
+		/**
 		 * Module initialization.
 		 *
 		 * @since 1.0.0
@@ -157,7 +155,6 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * Cherry customizer class construct.
 		 */
 		public function __construct( $core, $args ) {
-
 			/**
 			 * Cherry Customizer only works in WordPress 4.0 or later.
 			 */
@@ -171,14 +168,13 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 				return;
 			}
 
-			$this->prefix     = $this->prepare_prefix( $args['prefix'] );
-			$this->capability = ! empty( $args['capability'] ) ? $args['capability'] : 'edit_theme_options';
-			$this->type       = ! empty( $args['type'] ) && $this->sanitize_type( $args['type'] )
-								? $args['type'] : 'theme_mod';
-			$this->options    = $args['options'];
-			$this->core       = $core;
-			$this->fonts      = array();
-			$this->version    = '1.1.5';
+			$this->prefix      = $this->prepare_prefix( $args['prefix'] );
+			$this->capability  = ! empty( $args['capability'] ) ? $args['capability'] : 'edit_theme_options';
+			$this->type        = ! empty( $args['type'] ) && $this->sanitize_type( $args['type'] ) ? $args['type'] : 'theme_mod';
+			$this->options     = $args['options'];
+			$this->core        = $core;
+			$this->fonts       = array();
+			$this->module_path = $args['module_path'];
 
 			add_action( 'customize_register', array( $this, 'register' ) );
 
@@ -210,12 +206,11 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * Include advanced customizer controls classes
 		 *
 		 * @since 1.1.0
-		 * @since 1.1.4 Using dirname( __FILE__ ) instead of __DIR__.
 		 */
 		private function include_custom_controls() {
 
 			if ( ! class_exists( 'Cherry_WP_Customize_Iconpicker' ) ) {
-				require_once( trailingslashit( dirname( __FILE__ ) ) . 'inc/class-cherry-wp-customize-iconpicker.php' );
+				require_once( $this->module_path . 'inc/class-cherry-wp-customize-iconpicker.php' );
 			}
 
 		}
@@ -530,16 +525,6 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 */
 		public function set_customize( $customize ) {
 			$this->customize = $customize;
-		}
-
-		/**
-		 * Retrieve the version number.
-		 *
-		 * @since  1.0.0
-		 * @return string The version number of the module.
-		 */
-		public function get_version() {
-			return $this->version;
 		}
 
 		/**
@@ -940,8 +925,8 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			 * @param object $this Cherry_Customiser instance.
 			 */
 			return apply_filters( 'cherry_customizer_get_fonts_data', array(
-				'standard' => dirname( __FILE__ ) . '/assets/fonts/standard.json',
-				'google'   => dirname( __FILE__ ) . '/assets/fonts/google.json',
+				'standard' => $this->module_path . 'assets/fonts/standard.json',
+				'google'   => $this->module_path . 'assets/fonts/google.json',
 			), $this );
 		}
 

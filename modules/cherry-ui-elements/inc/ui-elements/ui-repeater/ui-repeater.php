@@ -120,6 +120,8 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 			$value       = ! empty( $this->settings['value'] ) ? count( $this->settings['value'] ) : 0 ;
 			$title_field = ! empty( $this->settings['title_field'] ) ? 'data-title-field="' . $this->settings['title_field'] . '"' : '' ;
 
+			add_filter( 'cherry_ui_is_repeater', '__return_true' );
+
 			$html .= sprintf( '<div class="cherry-ui-repeater-container cherry-ui-container %1$s %2$s">',
 					$ui_kit,
 					esc_attr( $class )
@@ -149,7 +151,36 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 					esc_html( $this->settings['add_label'] )
 				);
 			$html .= '</div>';
+
+			/**
+			 * Maybe add js repeater template to response
+			 *
+			 * @var bool
+			 */
+			$add_js_to_response = apply_filters( 'cherry_ui_add_data_to_element', false );
+
+			if ( $add_js_to_response ) {
+				$html .= $this->get_js_template();
+			}
+
+			$html .= $this->get_additional_data();
+
+			remove_all_filters( 'cherry_ui_is_repeater' );
+
 			return $html;
+		}
+
+		/**
+		 * Get additional data to return
+		 * @return [type] [description]
+		 */
+		public function get_additional_data() {
+			$data = apply_filters( 'cherry_ui_add_repater_data', array() );
+
+			if ( ! empty( $data ) ) {
+				return implode( ' ', $data );
+			}
+
 		}
 
 		/**
@@ -246,17 +277,17 @@ if ( ! class_exists( 'UI_Repeater' ) ) {
 		public static function enqueue_assets() {
 			wp_enqueue_style(
 				'ui-repeater',
-				esc_url( Cherry_Core::base_url( 'assets/min/ui-repeater.min.css', __FILE__ ) ),
+				esc_url( Cherry_Core::base_url( 'inc/ui-elements/ui-repeater/assets/min/ui-repeater.min.css', Cherry_UI_Elements::$module_path ) ),
 				array(),
-				self::$version,
+				Cherry_UI_Elements::$core_version,
 				'all'
 			);
 
 			wp_enqueue_script(
 				'ui-repeater',
-				esc_url( Cherry_Core::base_url( 'assets/min/ui-repeater.min.js', __FILE__ ) ),
+				esc_url( Cherry_Core::base_url( 'inc/ui-elements/ui-repeater/assets/min/ui-repeater.min.js', Cherry_UI_Elements::$module_path ) ),
 				array( 'wp-util', 'jquery-ui-sortable' ),
-				self::$version,
+				Cherry_UI_Elements::$core_version,
 				true
 			);
 

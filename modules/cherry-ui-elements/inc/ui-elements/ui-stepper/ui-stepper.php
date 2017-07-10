@@ -103,10 +103,10 @@ if ( ! class_exists( 'UI_Stepper' ) ) {
 		 */
 		public static function enqueue_assets() {
 			wp_enqueue_style(
-				'ui-stepper-min',
-				esc_url( Cherry_Core::base_url( 'assets/min/ui-stepper.min.css', __FILE__ ) ),
+				'ui-stepper',
+				esc_url( Cherry_Core::base_url( 'inc/ui-elements/ui-stepper/assets/min/ui-stepper.min.css', Cherry_UI_Elements::$module_path ) ),
 				array(),
-				self::$version,
+				Cherry_UI_Elements::$core_version,
 				'all'
 			);
 		}

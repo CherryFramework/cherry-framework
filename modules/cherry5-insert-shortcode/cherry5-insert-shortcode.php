@@ -2,7 +2,6 @@
 /**
  * Module Name: Insert Shortcode
  * Description: The module allows you to add shortcodes from editor tinyMCE.
- * Version: 1.0.2
  * Author: Cherry Team
  * Author URI: http://www.cherryframework.com/
  * License: GPLv3
@@ -10,7 +9,6 @@
  *
  * @package    Cherry_Framework
  * @subpackage Modules
- * @version    1.0.2
  * @author     Cherry Team <cherryframework@gmail.com>
  * @copyright  Copyright (c) 2012 - 2017, Cherry Team
  * @link       http://www.cherryframework.com/
@@ -31,12 +29,22 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 	class Cherry5_Insert_Shortcode {
 
 		/**
-		 * Module version.
+		 * Core version.
 		 *
-		 * @since 1.0.0
+		 * @since 1.5.0
+		 * @access public
 		 * @var string
 		 */
-		private $module_version = '1.0.2';
+		public $core_version = '';
+
+		/**
+		 * Module directory path.
+		 *
+		 * @since 1.5.0
+		 * @access protected
+		 * @var srting.
+		 */
+		protected $module_path;
 
 		/**
 		 * A reference to an instance of this class.
@@ -120,10 +128,12 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		public function __construct( $core = null, $args = array(), $init = true ) {
 			if ( $init ) {
 				$this->core = $core;
+				$this->core_version = $core->get_core_version();
+				$this->module_path  = $args['module_path'];
+
 				$this->args = array_merge_recursive(
 					$args,
 					array(
-						'module_dir' => trailingslashit( dirname( __FILE__ ) ),
 						'in_screen'  => array( 'post' ),
 					)
 				);
@@ -154,8 +164,8 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		 * @return void
 		 */
 		private function includes() {
-			require_once( dirname( __FILE__ ) . '/inc/class-cherry5-insertion-button.php' );
-			require_once( dirname( __FILE__ ) . '/inc/class-cherry5-insertion-popup.php' );
+			require_once( $this->module_path  . 'inc/class-cherry5-insertion-button.php' );
+			require_once( $this->module_path  . 'inc/class-cherry5-insertion-popup.php' );
 		}
 
 		/**
@@ -167,10 +177,22 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		 */
 		public function register_assets() {
 			// Register stylesheets.
-			wp_register_style( 'cherry5-insert-shortcode', esc_url( Cherry_Core::base_url( 'assets/min/cherry-insert-shortcode.min.css', __FILE__ ) ), array(), $this->module_version, 'all' );
+			wp_register_style(
+				'cherry5-insert-shortcode',
+				esc_url( Cherry_Core::base_url( 'assets/min/cherry-insert-shortcode.min.css', $this->module_path ) ),
+				array(),
+				$this->core_version,
+				'all'
+			);
 
 			// Register JavaScripts.
-			wp_register_script( 'cherry5-insert-shortcode-js', esc_url( Cherry_Core::base_url( 'assets/min/cherry-insert-shortcode.min.js', __FILE__ ) ), array( 'cherry-js-core' ), $this->module_version, true );
+			wp_register_script(
+				'cherry5-insert-shortcode-js',
+				esc_url( Cherry_Core::base_url( 'assets/min/cherry-insert-shortcode.min.js', $this->module_path ) ),
+				array( 'cherry-js-core' ),
+				$this->core_version,
+				true
+			);
 		}
 
 		/**

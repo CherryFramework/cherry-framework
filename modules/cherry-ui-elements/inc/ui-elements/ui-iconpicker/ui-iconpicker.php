@@ -88,6 +88,8 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 		 */
 		public static $printed_sets = array();
 
+		public $temp_icons = null;
+
 		/**
 		 * Constructor method for the UI_Iconpicker class.
 		 *
@@ -155,7 +157,42 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 				$html .= $this->lock_element->get_html();
 			$html .= '</div>';
 
+			/**
+			 * Maybe add js repeater template to response
+			 *
+			 * @var bool
+			 */
+			$add_js_to_response = apply_filters( 'cherry_ui_add_data_to_element', false );
+
+			if ( $add_js_to_response ) {
+
+				ob_start();
+				$this->print_icon_set();
+				$icons = ob_get_clean();
+
+				$in_repeater = apply_filters( 'cherry_ui_is_repeater', false );
+
+				if ( $in_repeater ) {
+					$this->temp_icons = $icons;
+					add_filter( 'cherry_ui_add_repater_data', array( $this, 'store_icons' ) );
+				} else {
+					$html .= $icons;
+				}
+
+			}
+
 			return $html;
+		}
+
+		public function store_icons( $data = array() ) {
+
+			if ( ! is_array( $data ) ) {
+				$data = array();
+			}
+
+			$data[] = $this->temp_icons;
+
+			return $data;
 		}
 
 		/**
@@ -314,25 +351,25 @@ if ( ! class_exists( 'UI_Iconpicker' ) ) {
 
 			wp_enqueue_style(
 				'ui-iconpicker',
-				esc_url( Cherry_Core::base_url( 'assets/min/ui-iconpicker.min.css', __FILE__ ) ),
+				esc_url( Cherry_Core::base_url( 'inc/ui-elements/ui-iconpicker/assets/min/ui-iconpicker.min.css', Cherry_UI_Elements::$module_path ) ),
 				array(),
-				self::$version,
+				Cherry_UI_Elements::$core_version,
 				'all'
 			);
 
 			wp_enqueue_script(
 				'jquery-iconpicker',
-				esc_url( Cherry_Core::base_url( 'assets/min/jquery-iconpicker.min.js', __FILE__ ) ),
+				esc_url( Cherry_Core::base_url( 'inc/ui-elements/ui-iconpicker/assets/min/jquery-iconpicker.min.js', Cherry_UI_Elements::$module_path ) ),
 				array( 'jquery' ),
-				self::$version,
+				Cherry_UI_Elements::$core_version,
 				true
 			);
 
 			wp_enqueue_script(
 				'ui-iconpicker',
-				esc_url( Cherry_Core::base_url( 'assets/min/ui-iconpicker.min.js', __FILE__ ) ),
+				esc_url( Cherry_Core::base_url( 'inc/ui-elements/ui-iconpicker/assets/min/ui-iconpicker.min.js', Cherry_UI_Elements::$module_path ) ),
 				array( 'jquery' ),
-				self::$version,
+				Cherry_UI_Elements::$core_version,
 				true
 			);
 		}
