@@ -1,7 +1,7 @@
 <?php
 /**
  * Class Cherry Core
- * Version: 1.5.0
+ * Version: 1.5.1
  *
  * @package    Cherry_Framework
  * @subpackage Class
@@ -363,7 +363,7 @@ if ( ! class_exists( 'Cherry_Core' ) ) {
 		 */
 		public static function base_url( $file_path = '', $module_path ) {
 			$module_path = wp_normalize_path( $module_path );
-			preg_match( '/\..*$/', $module_path, $ext );
+			preg_match( '/\.[0-9a-z]+$/', $module_path, $ext );
 
 			if ( empty( $ext ) ) {
 				$module_dir = $module_path;
