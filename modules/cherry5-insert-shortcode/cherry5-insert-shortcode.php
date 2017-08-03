@@ -98,7 +98,7 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		 * @var object
 		 * @access private
 		 */
-		private $shortcodes_button = null;
+		public $shortcodes_button = null;
 
 		/**
 		 * A reference to an instance of this class Cherry5_Insertion_Popup.
@@ -107,7 +107,7 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 		 * @var object
 		 * @access private
 		 */
-		private $shortcodes_popup = null;
+		public $shortcodes_popup = null;
 
 		/**
 		 * Shortcode list.
@@ -145,8 +145,8 @@ if ( ! class_exists( 'Cherry5_Insert_Shortcode' ) ) {
 				$this->includes();
 
 				// Initializing child classes.
+				$this->shortcodes_popup  = new Cherry5_Insertion_Popup( $this->core, $this->args, $this );
 				$this->shortcodes_button = new Cherry5_Insertion_Button( $this->core, $this->args, $this );
-				$this->shortcodes_popup = new Cherry5_Insertion_Popup( $this->core, $this->args, $this );
 
 				// Register admin assets.
 				add_action( 'admin_enqueue_scripts', array( $this, 'register_assets' ), 0 );

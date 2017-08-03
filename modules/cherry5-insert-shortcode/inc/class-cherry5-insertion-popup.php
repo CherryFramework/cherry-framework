@@ -100,9 +100,6 @@ if ( ! class_exists( 'Cherry5_Insertion_Popup' ) ) {
 				)
 			);
 
-			if ( ! defined( 'DOING_AJAX' ) ) {
-				add_action( 'admin_print_footer_scripts', array( $this, 'render_popup' ), 99 );
-			}
 		}
 
 		/**
