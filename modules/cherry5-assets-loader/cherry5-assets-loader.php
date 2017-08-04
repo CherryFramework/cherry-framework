@@ -75,6 +75,14 @@ if ( ! class_exists( 'Cherry5_Assets_Loader' ) ) {
 		public static $initialized = false;
 
 		/**
+		 * Module directory path.
+		 *
+		 * @since 1.5.0
+		 * @var   srting.
+		 */
+		public static $module_path = null;
+
+		/**
 		 * Class constructor.
 		 *
 		 * @since 1.0.0
@@ -83,7 +91,8 @@ if ( ! class_exists( 'Cherry5_Assets_Loader' ) ) {
 		 */
 		public function __construct( $core = null, $args = array() ) {
 
-			$this->args = $args;
+			self::$module_path = $args['module_path'];
+			$this->args        = $args;
 			$this->init();
 
 			if ( ! empty( $this->args['css'] ) && is_array( $this->args['css'] ) ) {
