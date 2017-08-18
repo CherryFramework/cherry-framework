@@ -118,7 +118,16 @@
 						scrollSensitivity: 40,
 						forcePlaceholderSize: true,
 						forceHelperSize: false,
-						helper: 'clone',
+						distance: 2,
+						tolerance: 'pointer',
+						helper: function( event, element ) {
+							return element.clone()
+								.find( ':input' )
+								.attr( 'name', function( i, currentName ) {
+									return 'sort_' + parseInt( Math.random() * 100000, 10 ).toString() + '_' + currentName;
+								} )
+								.end();
+						},
 						opacity: 0.65,
 						placeholder: self.sortablePlaceholderClass,
 						create: function() {
