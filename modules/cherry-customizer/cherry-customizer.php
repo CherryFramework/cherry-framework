@@ -988,7 +988,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		public function file_exists( $file ) {
 
 			if ( ! function_exists( 'WP_Filesystem' ) ) {
-				include_once( ABSPATH . '/wp-admin/includes/file.php' );
+				return file_exists( $file );
 			}
 
 			WP_Filesystem();
@@ -1013,7 +1013,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		public function get_file( $file ) {
 
 			if ( ! function_exists( 'WP_Filesystem' ) ) {
-				include_once( ABSPATH . '/wp-admin/includes/file.php' );
+				return Cherry_Toolkit::get_file( $file );
 			}
 
 			WP_Filesystem();
