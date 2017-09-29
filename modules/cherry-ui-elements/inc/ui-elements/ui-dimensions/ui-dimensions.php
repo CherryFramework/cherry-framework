@@ -238,13 +238,13 @@ if ( ! class_exists( 'UI_Dimensions' ) ) {
 		 * @since 1.0.0
 		 */
 		public static function enqueue_assets() {
-			wp_enqueue_style(
+			/*wp_enqueue_style(
 				'ui-dimensions',
 				esc_url( Cherry_Core::base_url( 'inc/ui-elements/ui-dimensions/assets/min/ui-dimensions.min.css', Cherry_UI_Elements::$module_path ) ),
 				array(),
 				Cherry_UI_Elements::$core_version,
 				'all'
-			);
+			);*/
 
 			wp_enqueue_script(
 				'ui-dimensions',

@@ -1,12 +1,10 @@
 @mixin button_base() {
 	position: relative;
 	display: inline-block;
-	font-size: 12px;
+	font-size: 11px;
 	line-height: 18px;
-	font-weight: 900;
-	letter-spacing: 0.5px;
 	text-decoration: none;
-	padding: 15px 20px;
+	padding: 4px 22px;
 	color: $dark_color;
 	text-transform: uppercase;
 	border-radius: $border_radius_small;

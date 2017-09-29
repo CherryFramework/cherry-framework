@@ -13,34 +13,40 @@ label.cherry-label{
 	display: none !important;
 }
 .cherry-checkbox-item{
-	width: 26px;
-	height: 26px;
+	width: 20px;
+	height: 20px;
 	display: inline-block;
 	border-radius: $border_radius_extra_small;
 	margin-right: 10px;
-	margin-bottom: 6px;
+	margin-bottom: 10px;
 	cursor: pointer;
 	position: relative;
 	background-color: $grey_color_3;
 	user-select: none;
 	transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-		.marker{
-			position: absolute;
-			width: 26px;
-			height: 26px;
-			top: 0px;
-			left: 0px;
-			color: #fff;
-			font-size: 28px;
+
+	.marker{
+		position: absolute;
+		width: 20px;
+		height: 20px;
+		top: 0px;
+		left: 0px;
+		color: #fff;
+		font-size: 20px;
+		transition:inherit;
+		transform: scale(0);
+
+		&:before{
 			transition:inherit;
-			transform: scale(0);
-				&:before{
-					transition:inherit;
-					position: relative;
-					left: -2px;
-				}
+			position: relative;
+			left: -1px;
 		}
+	}
 }
+.cherry-lable-content {
+	display: flex;
+}
+
 .cherry-checkbox-input{
 	&[checked]{
 		&+.cherry-checkbox-item{
@@ -52,10 +58,8 @@ label.cherry-label{
 	}
 }
 .cherry-checkbox-label{
-	display: inline-block;
-	vertical-align: top;
-	font-size: 14px;
-	line-height: 26px;
+	font-size: 12px;
+	line-height: 20px;
 	color: $dark_color_1;
 	user-select: none;
 	&:focus{
