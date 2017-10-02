@@ -101,7 +101,16 @@ if ( ! class_exists( 'Cherry_Google_Fonts_Loader' ) ) {
 		public function prepare_fonts() {
 
 			$font_url = $this->get_fonts_url();
-			wp_enqueue_style( 'cherry-google-fonts', $font_url );
+			wp_enqueue_style( 'cherry-google-fonts-' . $this->args['prefix'], $font_url );
+		}
+
+		/**
+		 * Returns transient key.
+		 *
+		 * @return [type] [description]
+		 */
+		public function transient_key() {
+			return 'cherry_google_fonts_url_' . $this->args['prefix'];
 		}
 
 		/**
@@ -112,7 +121,7 @@ if ( ! class_exists( 'Cherry_Google_Fonts_Loader' ) ) {
 		 */
 		public function get_fonts_url() {
 
-			$font_url = get_transient( 'cherry_google_fonts_url' );
+			$font_url = get_transient( $this->transient_key() );
 
 			if ( ! $font_url ) {
 
@@ -132,7 +141,7 @@ if ( ! class_exists( 'Cherry_Google_Fonts_Loader' ) ) {
 
 				global $wp_customize;
 				if ( ! isset( $wp_customize ) ) {
-					set_transient( 'cherry_google_fonts_url', $font_url, WEEK_IN_SECONDS );
+					set_transient( $this->transient_key(), $font_url, WEEK_IN_SECONDS );
 				}
 			}
 
@@ -348,7 +357,7 @@ if ( ! class_exists( 'Cherry_Google_Fonts_Loader' ) ) {
 		 * @since 1.0.0
 		 */
 		public function reset_fonts_cache() {
-			delete_transient( 'cherry_google_fonts_url' );
+			delete_transient( $this->transient_key() );
 		}
 
 		/**
