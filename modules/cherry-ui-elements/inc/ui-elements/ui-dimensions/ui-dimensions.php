@@ -168,6 +168,8 @@ if ( ! class_exists( 'UI_Dimensions' ) ) {
 			$result .= $this->get_units();
 			$result .= '<div class="cherry-ui-dimensions__values">';
 
+			$value['is_linked'] = filter_var( $value['is_linked'], FILTER_VALIDATE_BOOLEAN );
+
 			foreach ( array( 'top', 'right', 'bottom', 'left' ) as $field ) {
 				$result .= sprintf(
 					$number,
