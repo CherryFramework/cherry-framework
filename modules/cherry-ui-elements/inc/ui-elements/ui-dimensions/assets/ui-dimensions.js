@@ -33,7 +33,7 @@
 			// Delegate events
 				.on( 'click', this.isLinked, { 'self': this }, this.switchLinked )
 				.on( 'click', this.units, { 'self': this }, this.switchUnits )
-				.on( 'change', this.valuesInput + '.is-linked', { 'self': this }, this.changeLinked );
+				.on( 'input', this.valuesInput + '.is-linked', { 'self': this }, this.changeLinked );
 
 			this.triggers();
 		},
@@ -84,9 +84,10 @@
 
 		changeLinked: function( event ) {
 			var self  = event.data.self,
-				$this = $( this );
+				$this = $( this ),
+				$container = $this.closest( '.cherry-ui-dimensions__values' );
 
-			$this.siblings( self.valuesInput ).val( $this.val() );
+			$( self.valuesInput, $container ).val( $this.val() )
 		}
 	};
 

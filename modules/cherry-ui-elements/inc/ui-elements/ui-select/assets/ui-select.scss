@@ -56,10 +56,11 @@ select.select2-hidden-accessible{
 				background-color: transparent;
 				border: none;
 				border-radius: $border_radius_extra_small;
+				min-height: 26px;
 
 				.select2-selection__rendered{
-					font-size: 14px;
-					line-height: 20px;
+					font-size: 12px;
+					line-height: 14px;
 					padding: 0;
 					display: block;
 
@@ -68,17 +69,18 @@ select.select2-hidden-accessible{
 					}
 
 					.select2-selection__choice{
-						line-height: 20px;
+						line-height: 14px;
 						margin: 2px;
 						border: none;
-						background-color: $dark_color;
+						background-color: #e4e4e4;
 						border-radius: $border_radius_extra_small;
 						color: darken( $dark_color, 50% );
 						padding: 4px;
 
 						.select2-selection__choice__remove{
 							color: $remove_color;
-							margin-right: 10px;
+							margin-right: 5px;
+							font-size: 14px;
 						}
 					}
 
@@ -126,14 +128,16 @@ select.select2-hidden-accessible{
 				.select2-results__option{
 
 					&[aria-selected=true]{
-						color: #fff;
-						background-color: $primary_color;
-					}
-					&--highlighted{
 						color: darken( $dark_color, 50% );
 						background-color: $dark_color;
 					}
+
+					&--highlighted{
+						color: #fff;
+						background-color: $primary_color;
+					}
 				}
+
 				.li[aria-disabled=true]{
 					display: none;
 				}
