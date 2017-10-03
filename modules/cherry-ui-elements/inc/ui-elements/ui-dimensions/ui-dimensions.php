@@ -56,12 +56,10 @@ if ( ! class_exists( 'UI_Dimensions' ) ) {
 		protected $default_value = array(
 			'units'     => 'px',
 			'is_linked' => true,
-			'size'      => array(
-				'top'       => '',
-				'right'     => '',
-				'bottom'    => '',
-				'left'      => '',
-			),
+			'top'       => '',
+			'right'     => '',
+			'bottom'    => '',
+			'left'      => '',
 		);
 
 		/**
@@ -146,13 +144,7 @@ if ( ! class_exists( 'UI_Dimensions' ) ) {
 			$number = '<div class="cherry-ui-dimensions__value-item"><input type="number" name="%1$s" id="%3$s" value="%2$s" min="%4$s" max="%5$s" step="%6$s" class="cherry-ui-dimensions__val%7$s"><span class="cherry-ui-dimensions__value-label">%8$s</span></div>';
 
 			$value = $this->settings['value'];
-
-			if ( ! isset( $value['size'] ) ) {
-				$value['size'] = $this->default_value['size'];
-			}
-
-			$value['size'] = array_merge( $this->default_value['size'], $value['size'] );
-			$value         = array_merge( $this->default_value, $value );
+			$value = array_merge( $this->default_value, $value );
 
 			$result = sprintf(
 				'<div class="cherry-ui-dimensions" data-range=\'%s\'>',
@@ -174,7 +166,7 @@ if ( ! class_exists( 'UI_Dimensions' ) ) {
 				$result .= sprintf(
 					$number,
 					$this->get_name_attr( $field ),
-					$value['size'][ $field ],
+					$value[ $field ],
 					$this->get_id_attr( $field ),
 					$this->settings['range'][ $value['units'] ]['min'],
 					$this->settings['range'][ $value['units'] ]['max'],
