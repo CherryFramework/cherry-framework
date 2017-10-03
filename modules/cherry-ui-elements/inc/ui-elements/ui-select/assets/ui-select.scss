@@ -15,10 +15,9 @@ label.cherry-label{
 select.cherry-ui-select{
 	width: 100%;
 	outline: 0 none;
-	color: $dark_color;
 	@include input();
+
 	&:focus{
-		border-color: none;
 		box-shadow: none;
 	}
 

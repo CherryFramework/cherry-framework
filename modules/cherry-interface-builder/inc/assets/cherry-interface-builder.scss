@@ -9,13 +9,13 @@ $color-7: #206ff4; // Scrollbar track background
 $link-color: #298ffc; // link color.
 $link-hover-color: #23282d; // link hover color.
 
-$shadow: 0px 5px 21px rgba(0, 0, 0, 0.1); //Shadow.
+$shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); //Shadow.
 $border: 1px solid rgba(0, 0, 0, 0.1) ;
 
-$br-radius: 5px; // Border radius.
+$br-radius: 3px; // Border radius.
 
-$padding: 10px;
-$margin: 10px;
+$padding: 5px;
+$margin: 5px;
 $max-heught: 700px;
 
 @import "use-in-js";
@@ -364,7 +364,7 @@ html{
 					>.cherry-tab__tabs{
 						flex-direction: row;
 						-webkit-box-flex: 0;
-						flex: 0 1 25%;
+						flex: 0 1 20%;
 						border-radius:$br-radius 0 0 $br-radius;
 						border-right: none;
 						.cherry-component__button{
@@ -379,7 +379,7 @@ html{
 					}
 					>.cherry-tab__content{
 						-webkit-box-flex: 0;
-						flex: 0 1 75%;
+						flex: 0 1 80%;
 						border-radius: 0 $br-radius $br-radius 0;
 					}
 				}
@@ -424,7 +424,9 @@ html{
 	}
 }
 .cherry-control{
-	padding: $padding * 1.5 $padding * 2;
+	padding: $padding * 3 0;
+	margin: 0 $margin;
+
 	&__title{
 		margin: 0 0 $margin 0 ;
 	}
@@ -434,8 +436,11 @@ html{
 	.cherry-ui-container {
 		margin: 0;
 	}
+
 	@media (min-width: 783px) {
-		padding: $padding * 1.5;
+		padding: $padding * 4;
+		margin: 0 $margin * 1.5;
+
 		display: flex;
 		flex-flow: row nowrap;
 		&__info{
@@ -448,9 +453,12 @@ html{
 			flex: 0 1 70%;
 		}
 	}
+
 	@media ( min-width: 961px ) {
-		padding: $padding * 3;
+		padding: $padding * 6 0;
+		margin: 0 $margin * 3;
 	}
+
 	.widget & {
 		padding: $padding * 1.5 0;
 		flex-direction: column;
