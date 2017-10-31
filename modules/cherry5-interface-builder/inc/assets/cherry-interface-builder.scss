@@ -1,0 +1,511 @@
+$color-1: #fff; // Background color.
+$widget-bg: #495159; // Background color in widgets.
+$color-2: #efefef; // Background color.
+$color-3: #96989a; // Description color and tabs button text color.
+$color-4: #b4b7ba; //
+$color-5: #f1f1f1; // Scrollbar background
+$color-6: #e5e5e5; // Hover scrollbar background
+$color-7: #206ff4; // Scrollbar track background
+$link-color: #298ffc; // link color.
+$link-hover-color: #23282d; // link hover color.
+
+$shadow: 2px 2px 5px rgba(0,0,0,0.05); //Shadow.
+$border: 1px solid rgba(0, 0, 0, 0.1) ;
+
+$br-radius: 3px; // Border radius.
+
+$padding: 5px;
+$margin: 5px;
+$max-heught: 700px;
+
+@import "use-in-js";
+
+html{
+	font-size: 13px;
+}
+.cherry-ui-kit{
+	h1{
+		font-weight: 700;
+		font-size: 2.308rem;
+		line-height: 2.308rem;
+		.dashicons{
+			font-size: 3rem;
+			line-height: inherit;
+			width: 20px;
+			margin: 0 $margin * 2 0 $margin * -0.5;
+		}
+	}
+	h2{
+		font-weight: 600;
+		font-size: 1.538rem;
+		line-height: 1.538rem;
+		.dashicons{
+			font-size: 2rem;
+			line-height: inherit;
+			width: 20px;
+			margin-right: $margin * 2;
+		}
+	}
+	h3{
+		font-weight: 600;
+		font-size: 1.231rem;
+		line-height: 1.231rem;
+		.dashicons{
+			font-size: 1.7rem;
+			line-height: inherit;
+			margin-right: $margin * 0.5;
+		}
+	}
+	h4{
+		font-weight: 500;
+		font-size: 1.077rem;
+		line-height: 1.077rem;
+
+	}
+	h5{
+		font-weight: 500;
+		font-size: 1.077rem;
+		line-height: 1.077rem;
+	}
+	h6{
+		font-weight: 400;
+		font-size: 1rem;
+		line-height: 1rem;
+	}
+	a{
+		color: $link-color;
+		text-decoration: none;
+		&:hover{
+			color: $link-hover-color;
+		}
+		&:focus{
+			outline: 1px solid rgba(41, 143, 252, .6);
+			box-shadow: 0px 0px 2px rgba(41,143,252,0.6);
+		}
+	}
+	&__description{
+		font-size: 0.9rem;
+		color: $color-3;
+		margin: $margin 0;
+	}
+	&__title{
+		margin: $margin*2 0;
+	}
+	&.hide{
+		display: none;
+	}
+}
+
+.cherry-control + .cherry-control, .cherry-settings + .cherry-control{
+	border-top: $border;
+}
+
+.cherry-section{
+	padding: $padding;
+	background-color: $color-1;
+	margin-left: -10px;
+	&__title, &__description{
+		margin: $margin 0 0 0;
+	}
+	& + .cherry-ui-kit {
+		border-top: $border;
+	}
+	@media ( min-width: 783px ) {
+		box-shadow:$shadow;
+		border-radius: $br-radius;
+		border: $border;
+		padding: $padding * 1.5;
+		margin: $margin * 1.5 $margin * 1.5 0 0;
+		&__holder{
+			background-color: $color-2;
+			border-radius: $br-radius;
+			padding: $padding * 1.5;
+		}
+		&__inner{
+
+		}
+		&__info{
+			background-color: $color-1;
+			border-radius: $br-radius;
+			padding: $padding * 1.5;
+			box-shadow: $shadow;
+			margin-bottom: $padding * 1.5;
+		}
+		.cherry-settings{
+			box-shadow: $shadow;
+			border-radius: $br-radius;
+			border: $border;
+			background-color: $color-1;
+			margin-top: $padding * 1.5;
+			&:first-child{
+				margin-top: 0;
+			}
+		}
+	}
+	@media ( min-width: 961px ) {
+		padding: $padding * 3;
+		margin: $margin * 2 $margin * 2 0 0;
+		&__info{
+			padding: $padding * 3;
+			margin-bottom: $padding * 3;
+		}
+		&__holder{
+			padding: $padding * 3;
+		}
+		.cherry-settings{
+			margin-top: $padding * 3;
+		}
+	}
+}
+
+.cherry-component{
+	padding: $padding * 2 0;
+	@media ( min-width: 783px ) {
+		padding: $padding * 1.5;
+	}
+	@media ( min-width: 961px ) {
+		padding: $padding * 3;
+	}
+	& + * {
+		border-top: $border;
+	}
+	&__title{
+		margin-top: 0;
+	}
+	& &__content{
+		.cherry-settings{
+			padding: 0;
+			border-top: none;
+		}
+	}
+	&__button{
+		display: block;
+		min-height: 45px;
+		.cherry-ui-kit__title {
+			color: inherit;
+		}
+		&.active, &:hover{
+			color: $link-color;
+			transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+		}
+		&:focus{
+			outline: none;
+			box-shadow: inset 0 0 1px 0 rgba(41,143,252,0.5);
+			transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+		}
+		transition: all 300ms cubic-bezier(0.55, 0.055, 0.675, 0.19);
+	}
+	&.cherry-accordion, &.cherry-toggle{
+		.cherry-component__button{
+			width: 100%;
+			padding: $padding * 1.5 $padding * 2;
+			border:0;
+			background: none;
+			cursor: pointer;
+			position: relative;
+			.widget &{
+				background-color: $widget-bg;
+				color: $color-1;
+			}
+			.cherry-toggle__title {
+				font-weight: 700;
+				font-size: 14px;
+				float: left;
+				margin: 0;
+			}
+			>span[class*="icon"]{
+				position: absolute;
+				top: 50%;
+				right: 5px;
+				margin-top: -10px;
+
+				font-size: 25px;
+				color: $color-4;
+				padding: 5px 5px;
+				width: 10px;
+				height: 9px;
+				text-align: left;
+				overflow: hidden;
+				.widget &{
+					color: $color-1;
+				}
+				&.hide-icon{
+					&:before{
+						position: relative;
+						top: -8px;
+						left: -9px;
+					}
+					transform:scaleX(1);
+					transition: all 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+				}
+				&.show-icon{
+					&:before{
+						position: relative;
+						top: -7px;
+						left: -9px;
+					}
+					transform:scaleX(0);
+					transition: all 300ms cubic-bezier(0.215, 0.61, 0.355, 1);
+				}
+			}
+			&.active{
+				>span[class*="icon"]{
+					&.show-icon{
+						transform:scaleX(1);
+						transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+					}
+					&.hide-icon{
+						transform:scaleX(0);
+						transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+					}
+				}
+			}
+		}
+		.cherry-component__button + .cherry-settings__content{
+			border-top: $border;
+		}
+		> .cherry-ui-kit__content{
+			& > .cherry-settings + .cherry-settings{
+				margin-top: $margin;
+			}
+			> .cherry-settings{
+				box-shadow:$shadow;
+				border-radius: $br-radius;
+				border: $border;
+				.widget &{
+					box-shadow:none;
+					border-radius: 0;
+					border-left: 0;
+					border-right: 0;
+				}
+			}
+		}
+	}
+	&.cherry-tab{
+		.cherry-tab__tabs{
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: flex-start;
+			align-items: flex-start;
+			align-content: flex-start;
+			border-bottom: $border;
+			.cherry-component__button{
+				order: 0;
+				flex: 0 1 100%;
+				align-self: auto;
+				padding: $padding * 1.5 $padding * 2;
+				border: 0;
+				background: none;
+				cursor: pointer;
+				&.active{
+					-ms-box-shadow: inset 0px -3px 0px 0px $link-color;
+					box-shadow: inset 0px -3px 0px 0px $link-color;
+				}
+				.cherry-tab__title {
+					font-weight: 700;
+					font-size: 14px;
+					float: left;
+					margin: 0;
+				}
+				& + button{
+					border-top: $border;
+				}
+			}
+		}
+		.cherry-tab__body{
+			box-shadow:$shadow;
+			border-radius: $br-radius;
+			border: $border;
+			background-color: $color-1;
+			.cherry-settings{
+				box-shadow: none;
+				border-radius: 0;
+				border: none;
+				background-color: inherit;
+				margin: 0;
+			}
+		}
+		@media ( min-width: 783px ) {
+			.cherry-tab__tabs{
+				border: solid 1px rgba(0,0,0,0.1);
+				.cherry-component__button{
+					& + button{
+						border-top: none;
+					}
+				}
+			}
+			.cherry-tab__body{
+				border: none;
+				.cherry-tab__content{
+					border: $border;
+				}
+			}
+			&--horizontal{
+				>.cherry-tab__body{
+					border-radius: none;
+					>.cherry-tab__tabs{
+						flex-wrap: nowrap;
+						flex-direction: row;
+						border-radius:$br-radius $br-radius 0 0;
+						border-bottom: none;
+						.cherry-component__button{
+							flex: 0 1 auto;
+						}
+					}
+					>.cherry-tab__content{
+						border-radius: 0 0 $br-radius $br-radius;
+					}
+				}
+			}
+			&--vertical{
+				>.cherry-tab__body{
+					display: flex;
+					border-radius: none;
+					>.cherry-tab__tabs{
+						flex-direction: row;
+						-webkit-box-flex: 0;
+						flex: 0 1 20%;
+						border-radius:$br-radius 0 0 $br-radius;
+						border-right: none;
+						.cherry-component__button{
+							text-align: right;
+							.cherry-tab__title {
+								width: 100%;
+							}
+							&.active{
+								box-shadow: inset -3px 0px 0px $link-color;
+							}
+						}
+					}
+					>.cherry-tab__content{
+						-webkit-box-flex: 0;
+						flex: 0 1 80%;
+						border-radius: 0 $br-radius $br-radius 0;
+					}
+				}
+			}
+		}
+		@media ( min-width: 1200px ) {
+			&--vertical{
+				.cherry-tab__tabs{
+					flex: 0 1 20%;
+				}
+				.cherry-tab__content{
+					flex: 0 1 80%;
+				}
+			}
+		}
+	}
+	.widget &{
+		padding: 0;
+		&__content{
+			margin: 0 $margin * -1.5 $margin * 2;
+			.cherry-control{
+				padding: $padding * 1.5 $padding * 2;
+			}
+		}
+	}
+}
+.cherry-settings{
+	& + & {
+		border-top: $border;
+	}
+	& &__title{
+		margin-bottom: $margin;
+	}
+	&__description, & &__title{
+		margin-left: $margin;
+		@media ( min-width: 783px ) {
+			margin-left: $margin * 1.5;
+		}
+		@media ( min-width: 961px ) {
+			margin-left: $margin * 3;
+		}
+	}
+}
+.cherry-control{
+	padding: $padding * 3 0;
+	margin: 0 $margin;
+
+	&__title{
+		margin: 0 0 $margin 0 ;
+	}
+	&__description{
+		margin-top: 0;
+	}
+	.cherry-ui-container {
+		margin: 0;
+	}
+
+	@media (min-width: 783px) {
+		padding: $padding * 4;
+		margin: 0 $margin * 1.5;
+
+		display: flex;
+		flex-flow: row nowrap;
+		&__info{
+			-webkit-box-flex: 0;
+			flex: 0 1 30%;
+			padding-right: $padding * 1.5;
+		}
+		&__content{
+			-webkit-box-flex: 0;
+			flex: 0 1 70%;
+		}
+	}
+
+	@media ( min-width: 961px ) {
+		padding: $padding * 6 0;
+		margin: 0 $margin * 3;
+	}
+
+	.widget & {
+		padding: $padding * 1.5 0;
+		flex-direction: column;
+		&__content{
+			-webkit-box-flex: 0;
+			flex: 0 1 100%;
+		}
+		&__info{
+			-webkit-box-flex: 0;
+			flex: 0 1 100%;
+			padding-right: 0;
+		}
+	}
+}
+
+.cherry-section.cherry-scroll > .cherry-section__holder > .cherry-section__inner,
+.cherry-tab__content > .cherry-scroll,
+.cherry-accordion__content > .cherry-scroll > .cherry-settings__content,
+.cherry-toggle__content > .cherry-scroll > .cherry-settings__content,
+{
+	@media ( min-width: 783px ) {
+		max-height: $max-heught;
+		overflow-y: auto;
+		position: relative;
+		&::-webkit-scrollbar {
+			width: 10px;
+			height: 10px;
+			&-button {
+				width: 0px;
+				height: 0px;
+			}
+			&-thumb {
+				background-color: $link-color;
+				border: none;
+				border-radius: $br-radius;
+				&:hover, &:active {
+					background: $color-7;
+				}
+			}
+			&-track {
+				background-color: $color-1;
+				border: none;
+				border-radius: $br-radius;
+			}
+			&-corner {
+				background: transparent;
+			}
+		}
+	}
+}
