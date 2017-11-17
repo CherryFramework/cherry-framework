@@ -26,9 +26,14 @@ label.cherry-label {
 		padding: 3px;
 		border-radius: 3px;
 
+		.wp-color-result-text {
+			line-height: 18px;
+			text-align: right;
+		}
+
 		.wp-color-result {
-			width: 48px;
-			height: 25px;
+			width: 105px;
+			height: 26px;
 			padding: 0;
 			border: none;
 			margin: 0;
@@ -53,6 +58,11 @@ label.cherry-label {
 			.wp-color-result {
 				margin-right: 6px;
 			}
+		}
+
+		.iris-picker {
+			position: absolute;
+			z-index: 999;
 		}
 	}
 }
