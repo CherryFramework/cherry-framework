@@ -113,9 +113,10 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 
 		/*
 		 * $args = array(
+		 *      'just_fonts' => false, // set to TRUE if you want use customizer only as fonts manager.
 		 *      'prefix'     => 'unique_prefix', // theme or plugin slug (*).
 		 *      'capability' => 'edit_theme_options', // (default: `edit_theme_options`).
-		 *      'type'       => 'theme_mod', // `theme_mod` - for themes; `option` - for plugins (default: `theme_mod`).
+		 *      'type'       => 'theme_mod', // `theme_mod` - for themes; `option` - for plugins (default: `theme_mod`)
 		 *      'options'    => array(
 		 *          'unique_panel_ID' => array(
 		 *              'title'           => esc_html__( 'Panel Title', 'text-domain' ),
@@ -155,10 +156,30 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * Cherry customizer class construct.
 		 */
 		public function __construct( $core, $args ) {
+
 			/**
 			 * Cherry Customizer only works in WordPress 4.0 or later.
 			 */
 			if ( version_compare( $GLOBALS['wp_version'], '4.0', '<' ) ) {
+				return;
+			}
+
+			$this->core        = $core;
+			$this->fonts       = array();
+			$this->module_path = $args['module_path'];
+
+			// Prepare fonts data.
+			add_action( 'after_switch_theme', array( $this, 'init_fonts' ),  10 );
+			add_action( 'after_switch_theme', array( $this, 'add_options' ), 11 );
+
+			// Clear fonts data.
+			add_action( 'switch_theme', array( $this, 'clear_fonts' ) );
+			add_action( 'upgrader_process_complete', array( $this, 'fire_clear_fonts' ), 10, 2 );
+
+			/**
+			 * Fonts are loaded, abort if $args['just_fonts'] set to TRUE
+			 */
+			if ( isset( $args['just_fonts'] ) && true === $args['just_fonts'] ) {
 				return;
 			}
 
@@ -168,23 +189,13 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 				return;
 			}
 
-			$this->prefix      = $this->prepare_prefix( $args['prefix'] );
-			$this->capability  = ! empty( $args['capability'] ) ? $args['capability'] : 'edit_theme_options';
-			$this->type        = ! empty( $args['type'] ) && $this->sanitize_type( $args['type'] ) ? $args['type'] : 'theme_mod';
-			$this->options     = $args['options'];
-			$this->core        = $core;
-			$this->fonts       = array();
-			$this->module_path = $args['module_path'];
+			$this->prefix     = $this->prepare_prefix( $args['prefix'] );
+			$this->capability = ! empty( $args['capability'] ) ? $args['capability'] : 'edit_theme_options';
+			$this->type       = ! empty( $args['type'] ) && $this->sanitize_type( $args['type'] ) ? $args['type'] : 'theme_mod';
+			$this->options    = $args['options'];
+
 
 			add_action( 'customize_register', array( $this, 'register' ) );
-
-			// Prepare fonts data.
-			add_action( 'after_switch_theme', array( $this, 'init_fonts' ),  10 );
-			add_action( 'after_switch_theme', array( $this, 'add_options' ), 11 );
-
-			// Clear fonts data.
-			add_action( 'switch_theme', array( $this, 'clear_fonts' ) );
-			add_action( 'upgrader_process_complete', array( $this, 'fire_clear_fonts' ), 10, 2 );
 
 			add_filter( 'cherry_customizer_get_core', array( $this, 'pass_core_into_control' ) );
 
@@ -877,6 +888,13 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * @since 1.0.0
 		 */
 		public function init_fonts() {
+
+			$inited = get_option( 'cherry_customiser_fonts_inited' );
+
+			if ( $inited ) {
+				return;
+			}
+
 			$fonts_data = $this->get_fonts_data();
 			$fonts_data = (array) $fonts_data;
 
@@ -884,6 +902,8 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 				$data = $this->read_font_file( $file );
 				add_option( 'cherry_customiser_fonts_' . $type, $data );
 			}
+
+			add_option( 'cherry_customiser_fonts_inited', true );
 		}
 
 		/**
@@ -986,20 +1006,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * @return bool
 		 */
 		public function file_exists( $file ) {
-
-			if ( ! function_exists( 'WP_Filesystem' ) ) {
-				return file_exists( $file );
-			}
-
-			WP_Filesystem();
-			global $wp_filesystem;
-
-			if ( $wp_filesystem->abspath() ) {
-				return $wp_filesystem->exists( $file );
-
-			} else {
-				return file_exists( $file );
-			}
+			return file_exists( $file );
 		}
 
 		/**
@@ -1011,23 +1018,7 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 		 * @return bool
 		 */
 		public function get_file( $file ) {
-
-			if ( ! function_exists( 'WP_Filesystem' ) ) {
-				return Cherry_Toolkit::get_file( $file );
-			}
-
-			WP_Filesystem();
-			global $wp_filesystem;
-
-			$result = '';
-
-			if ( $wp_filesystem->abspath() ) {
-				$result = $wp_filesystem->get_contents( $file );
-
-			} else {
-				$result = Cherry_Toolkit::get_file( $file );
-			}
-
+			$result = Cherry_Toolkit::get_file( $file );
 			return $result;
 		}
 
@@ -1129,6 +1120,8 @@ if ( ! class_exists( 'Cherry_Customizer' ) ) {
 			foreach ( $fonts_data as $type => $file ) {
 				delete_option( 'cherry_customiser_fonts_' . $type );
 			}
+
+			delete_option( 'cherry_customiser_fonts_inited' );
 
 			$this->fonts = array();
 		}

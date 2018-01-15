@@ -17,38 +17,44 @@ input.cherry-radio-input{
 }
 .cherry-radio-item{
 	margin-bottom: 10px;
+
 	&:last-child{
 		margin-bottom: 0;
 	}
-	label{
+
+	label {
 		display: inline-block;
-		font-size: 14px;
-		line-height: 22px;
+		font-size: 12px;
+		line-height: 14px;
 		color: $dark_color_1;
 	}
-	span.cherry-radio-item{
-		width: 25px;
-		height: 25px;
+
+	span.cherry-radio-item {
+		width: 16px;
+		height: 16px;
 		border-radius: 25px;
 		margin-right: 10px;
 		cursor: pointer;
 		position: relative;
-		background-color: $grey_color_3;
+		background-color: white;
 		display: inline-block;
 		float: left;
-			i{
-				width: 13px;
-				height: 13px;
-				background-color: $blue_color;
-				margin: 6px;
-				border-radius: 20px;
-				display: inline-block;
-				transform: scale(0);
-				transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-			}
+		box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.2);
+
+		i {
+			width: 8px;
+			height: 8px;
+			background-color: #495159;
+			margin: 4px;
+			border-radius: 20px;
+			display: inline-block;
+			transform: scale(0);
+			transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+		}
 	}
 }
-.cherry-radio-item{
+
+.cherry-radio-item {
 	.cherry-radio-input:checked{
 		& + label{
 			span{
@@ -59,15 +65,24 @@ input.cherry-radio-input{
 		}
 	}
 }
+
 .cherry-radio-img {
 	float: left;
 	margin: 10px 5px 0 5px;
 	text-align: center;
-	max-width: 80px;
+	max-width: 60px;
+	font-size: 12px;
 	position: relative;
+
+	.cherry-lable-content {
+		display: flex;
+		flex-flow: column;
+	}
+
 	label{
 		display: inline-block;
 	}
+
 	img {
 		width: 100%;
 		height: auto;
@@ -83,7 +98,7 @@ input.cherry-radio-input{
 				display: block;
 			}
 			img{
-				box-shadow: 0 0 0 2px rgba(255, 254, 255, 1), 0 0 0 5px $blue_color;
+				box-shadow: 0 0 0 2px rgba(255, 254, 255, 1), 0 0 0 5px #49c66a;
 			}
 		}
 	}

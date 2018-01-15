@@ -35,6 +35,7 @@ if ( ! class_exists( 'UI_Colorpicker' ) ) {
 			'label'  => '',
 			'class'  => '',
 			'master' => '',
+			'alpha'  => false,
 			'lock'   => false,
 		);
 
@@ -74,12 +75,18 @@ if ( ! class_exists( 'UI_Colorpicker' ) ) {
 				)
 			);
 
+			$alpha = '';
+
+			if ( true === $this->settings['alpha'] ) {
+				$alpha = ' data-alpha=true ';
+			}
+
 			$html .= '<div class="cherry-ui-container ' . esc_attr( $class ) . '">';
 				if ( '' !== $this->settings['label'] ) {
 					$html .= '<label class="cherry-label" for="' . esc_attr( $this->settings['id'] ) . '">' . esc_html( $this->settings['label'] ) . '</label> ';
 				}
 				$html .= '<div class="cherry-ui-colorpicker-wrapper' . $this->lock_element->get_class() .'">';
-					$html .= '<input type="text" id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-colorpicker" name="' . esc_attr( $this->settings['name'] ) . '" value="' . esc_html( $this->settings['value'] ) . '"' . $this->lock_element->get_disabled_attr() . '/>';
+					$html .= '<input type="text" id="' . esc_attr( $this->settings['id'] ) . '" class="cherry-ui-colorpicker" name="' . esc_attr( $this->settings['name'] ) . '"' . $alpha . 'value="' . esc_html( $this->settings['value'] ) . '"' . $this->lock_element->get_disabled_attr() . '/>';
 				$html .= $this->lock_element->get_html();
 				$html .= '</div>';
 			$html .= '</div>';
@@ -95,9 +102,17 @@ if ( ! class_exists( 'UI_Colorpicker' ) ) {
 		public static function enqueue_assets() {
 
 			wp_enqueue_script(
+				'wp-color-picker-alpha',
+				esc_url( Cherry_Core::base_url( 'inc/ui-elements/ui-colorpicker/assets/min/wp-color-picker-alpha.min.js', Cherry_UI_Elements::$module_path ) ),
+				array( 'wp-color-picker' ),
+				'1.2.2',
+				true
+			);
+
+			wp_enqueue_script(
 				'ui-colorpicker',
 				esc_url( Cherry_Core::base_url( 'inc/ui-elements/ui-colorpicker/assets/min/ui-colorpicker.min.js', Cherry_UI_Elements::$module_path ) ),
-				array( 'jquery', 'wp-color-picker' ),
+				array( 'jquery' ),
 				Cherry_UI_Elements::$core_version,
 				true
 			);

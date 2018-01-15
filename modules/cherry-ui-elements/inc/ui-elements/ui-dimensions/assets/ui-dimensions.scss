@@ -1,0 +1,115 @@
+@import "ui-kit/variables";
+@import "ui-kit/mixins";
+@import "../../../../assets/sass/lock";
+
+.cherry-ui-elements-lock{
+	opacity: 0.5;
+	cursor: no-drop;
+	pointer-events: none;
+	filter: grayscale( 100% );
+}
+.cherry-ui-container{
+	margin: 10px 0 20px 0;
+}
+label.cherry-label{
+	margin: 0 0 5px 0;
+	display: block;
+}
+
+.cherry-ui-dimensions {
+	max-width: 300px;
+
+	&__units {
+		margin-right: 20%;
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	&__unit {
+		color: #c2cbd2;
+		cursor: pointer;
+		font-size: 9px;
+		text-transform: uppercase;
+		margin: 0 2px;
+
+		&.is-active {
+			color: #6d7882;
+			text-decoration: underline;
+		}
+
+	}
+
+	&__values {
+		display: flex;
+		border: 1px solid #a4afb7;
+		border-radius: 3px;
+	}
+
+	&__value-item {
+		position: relative;
+		width: 20%;
+
+		input {
+			width: 100%;
+			margin: 0;
+			border: none;
+			box-shadow: none;
+			border-right: 1px solid #a4afb7;
+			font-size: 12px;
+
+			&:first-child {
+				border-radius: 3px 0 0 3px;
+			}
+
+			&:focus {
+				border-color: none;
+			}
+		}
+	}
+
+	&__value-label {
+		width: 100%;
+		display: block;
+		position: absolute;
+		bottom: -18px;
+		font-size: 9px;
+		text-transform: uppercase;
+		text-align: center;
+		color: #d5dadf;
+	}
+
+	&__is-linked {
+		width: 20%;
+		height: 28px;
+		background-color: white;
+		text-align: center;
+		color: #a4afb7;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 0 3px 3px 0;
+
+		.link-icon {
+			display: none;
+		}
+
+		.unlink-icon {
+			display: block;
+		}
+
+		&.is-linked {
+			color: white;
+			background-color: #a4afb7;
+
+			.link-icon {
+				display: block;
+			}
+
+			.unlink-icon {
+				display: none;
+			}
+		}
+	}
+
+}
