@@ -1,4 +1,4 @@
-var CherryJsCore = {};
+ var CherryJsCore = {};
 
 ( function( $ ) {
 	'use strict';
@@ -11,7 +11,6 @@ var CherryJsCore = {};
 		variable: {
 			$document: $( document ),
 			$window: $( window ),
-			browser: $.browser,
 			browser_supported: true,
 			security: window.cherry_ajax,
 			loaded_assets: {
@@ -29,31 +28,9 @@ var CherryJsCore = {};
 
 		init: function(){
 
-			CherryJsCore.set_variable();
-
 			$( document ).on( 'ready', CherryJsCore.ready );
 
 			$( window ).on( 'load', CherryJsCore.load );
-		},
-
-		set_variable: function() {
-			//Set variable browser_supported
-			CherryJsCore.variable.browser_supported = ( function (){
-				var uset_browser = CherryJsCore.variable.browser,
-					not_supported = { 'msie': [8] };
-
-				for ( var browser in not_supported ) {
-					if( uset_browser.browser  !== 'undefined' ){
-						for ( var version in not_supported[ browser ] ) {
-							if( uset_browser.version <= not_supported [ browser ] [ version ] ){
-								return false;
-							}
-						}
-					}
-				}
-
-				return true;
-			}() );
 		},
 
 		ready: function() {
