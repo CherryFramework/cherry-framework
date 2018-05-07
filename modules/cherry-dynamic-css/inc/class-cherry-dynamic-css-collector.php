@@ -243,6 +243,7 @@ if ( ! class_exists( 'Cherry_Dynamic_Css_Collector' ) ) {
 			$has_media = false;
 			$min       = '';
 			$max       = '';
+			$sep       = '';
 
 			if ( ! empty( $media['min'] ) ) {
 				$has_media = true;
