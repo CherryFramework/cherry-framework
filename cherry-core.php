@@ -1,7 +1,7 @@
 <?php
 /**
  * Class Cherry Core
- * Version: 1.5.9
+ * Version: 1.5.10
  *
  * @package    Cherry_Framework
  * @subpackage Class

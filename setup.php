@@ -11,17 +11,17 @@
  * @license    http://www.gnu.org/licenses/gpl-3.0.en.html
  */
 
-return create_function( '', '
+return function () {
 	global $chery_core_version;
 
-	$path = trailingslashit( dirname( __FILE__ ) ) . \'cherry-core.php\';
+	$path = trailingslashit( dirname( __FILE__ ) ) . 'cherry-core.php';
 
 	$data = get_file_data( $path, array(
-		\'version\' => \'Version\'
+		'version' => 'Version'
 	) );
 
-	if ( isset( $data[\'version\'] ) ) {
-		$version = $data[\'version\'];
+	if ( isset( $data['version'] ) ) {
+		$version = $data['version'];
 	}
 
 	$old_versions = null;
@@ -31,7 +31,7 @@ return create_function( '', '
 	}
 
 	if ( is_array( $old_versions ) && isset( $old_versions[0] ) ) {
-		$compare = version_compare( $old_versions[0], $version, \'<\' );
+		$compare = version_compare( $old_versions[0], $version, '<' );
 
 		if ( $compare ) {
 			$chery_core_version = array();
@@ -41,4 +41,4 @@ return create_function( '', '
 		$chery_core_version = array();
 		$chery_core_version[ $version ] = $path;
 	}
-' );
+};
