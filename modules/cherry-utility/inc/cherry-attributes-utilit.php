@@ -115,7 +115,9 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 				}
 			}
 
-			$html = apply_filters( 'the_content', $html );
+			if ( 'post_content' === $content_type ) {
+				$html = apply_filters( 'the_content', $html );
+			}
 
 			return $this->output_method( $html, $args['echo'] );
 		}
