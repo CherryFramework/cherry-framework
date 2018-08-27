@@ -115,7 +115,7 @@ if ( ! class_exists( 'Cherry_Attributes_Utilit' ) ) {
 				}
 			}
 
-			if ( 'post_content' === $content_type ) {
+			if ( 'post_content' === $content_type && -1 === $args['length'] ) {
 				$html = apply_filters( 'the_content', $html );
 			}
 
